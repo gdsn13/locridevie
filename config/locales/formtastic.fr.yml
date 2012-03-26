@@ -5,6 +5,11 @@ fr:
       advanced_options: Options avancées
       meta: SEO Metadata
       seo: Paramètres SEO
+      blocks: Associations
+      jules: Jules
+      actus: Actus
+      boutons: Boutons
+      seasons_management: Gestion des Saisons
       robots_txt: Fichier Robots.txt
       code: Code
       raw_template: Gabarit

@@ -1,0 +1,8 @@
+%li
+  %em
+  %strong= link_to season.name, edit_admin_season_path(season)
+  .more
+    %span!= t('.updated_at')
+    = l season.updated_at, :format => :short
+
+    = link_to image_tag('admin/list/icons/trash.png'), admin_season_path(season), :class => 'remove', :confirm => t('admin.messages.confirm'), :method => :delete

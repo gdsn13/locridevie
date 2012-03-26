@@ -1,10 +1,10 @@
 module Admin
   class ContentTypesController < BaseController
 
-    sections 'contents'
+    sections 'objects'
 
     def destroy
-      destroy! { admin_pages_url }
+      destroy! { admin_object_contents_url }
     end
 
   end

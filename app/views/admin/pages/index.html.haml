@@ -4,16 +4,18 @@
   = include_javascripts :pages
 
 - content_for :submenu do
-  = render 'admin/shared/menu/contents'
-
-- content_for :actions do
-  = render 'admin/shared/actions/contents'
+  = render 'admin/shared/menu/pages'
 
 - if can? :create, Page
   - content_for :buttons do
-    = admin_button_tag :new, new_admin_page_url, :class => 'new', :id => 'newpage'
-
+    = admin_button_tag :new, new_admin_jule_url, :class => 'new', :id => 'newpage'
+      
 %p!= t('.help')
+
+-# - if can? :create, Page
+-#  - content_for :buttons do
+-#    = admin_button_tag :new, new_admin_page_url, :class => 'new', :id => 'newpage'
+
 
 - if @pages.empty?
   %p.no-items!= t('.no_items', :url => new_admin_page_url)

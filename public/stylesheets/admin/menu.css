@@ -155,19 +155,26 @@
       #submenu .popup a:hover {
         text-decoration: underline; }
     #submenu .popup .header {
-      border-bottom: 1px dotted #bbbbbd;
       padding-bottom: 6px;
-      margin: 0px 16px; }
+      margin: 0px 16px; 
+			float:left;
+			padding-top: 8px;
+		}
     #submenu .popup .inner {
-      padding: 8px 16px; }
-    #submenu .popup h2 {
-      font-size: 0.7em;
-      font-weight: bold;
-      color: #1e1f26;
-      margin-bottom: 0px; }
-    #submenu .popup p {
-      margin: 0px;
-      padding: 10px 0 0 0px; }
+      padding: 8px 16px; 
+			float:left;
+			min-width: 200px;
+		}
+#submenu .popup h2 {
+	font-size: 0.7em;
+  font-weight: bold;
+  color: #1e1f26;
+  margin-bottom: 0px; 
+	padding-top:5px;
+}
+#submenu .popup p {
+  margin: 0px;
+}
       #submenu .popup p a {
         font-size: 0.8em;
         background: transparent url(/images/admin/menu/popup/add.png) no-repeat left 4px;
@@ -367,6 +374,47 @@ body.assets #submenu > ul {
   background-position: 0 -32px;
   top: 11px;
   left: 0; }
+
+#menu li.objects a em {
+	background-position: 0 -48px;
+	height: 17px;
+	left: 0;
+	line-height: 18px;
+	position: relative;
+	top: 10px;
+	width: 20px;
+}
+
+body.objects #menu li.objects > span {
+	background-position: -160px -39px;
+}
+
+body.objects #menu li.objects a {
+	background-position: right -156px;
+}
+
+body.objects #menu li.objects em{
+	background-position: -21px -47px;
+	height: 17px;
+	left: 0;
+	line-height: 22px;
+	position: relative;
+	top: 11px;
+	width: 19px;
+}
+
+body.objects #menu li.objects a span {
+    color: #FFFFFF;
+    text-shadow: none;
+}
+
+body.objects #submenu > ul {
+    background-color: #ED8901;
+}
+
+body.objects #menu li.objects{
+	z-index:999;
+}
 
 body.settings #menu li.settings {
   z-index: 999; }

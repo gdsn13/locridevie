@@ -135,3 +135,30 @@ form.formtastic fieldset ol li.datetime fieldset ol li label { display:none; }
 form.formtastic fieldset ol li.date fieldset ol li label input,
 form.formtastic fieldset ol li.time fieldset ol li label input,
 form.formtastic fieldset ol li.datetime fieldset ol li label input { display:inline; margin:0; padding:0;  }
+
+
+/* JULES & EMBEDING
+--------------------------------------------------------------------------------------------------*/
+form.formtastic #jules_list li{
+	background:#000;
+	box-shadow:0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.block_list br{
+	clear:both;
+}
+
+#liste_embed{
+	height:400px;
+	width:;
+	overflow-y:scroll;
+}
+.embed_preview{
+	margin: 0 20px 10px;
+	background:#000;
+	
+}
+
+#jules_list{
+	margin:0 20px;
+}

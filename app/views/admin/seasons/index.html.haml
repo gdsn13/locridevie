@@ -1,0 +1,16 @@
+- title t('.title')
+
+- content_for :submenu do
+  = render_cell 'admin/settings_menu', :show
+
+- content_for :buttons do
+  = admin_button_tag :new, new_admin_season_url, :class => 'new', :id => 'newseason'
+
+%p!= t('.help')
+
+- if @seasons.empty?
+  %p.no-items!= t('.no_items', :url => new_admin_season_url)
+- else
+  
+  %ul.list.theme-assets
+    = render @seasons

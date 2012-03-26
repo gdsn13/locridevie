@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'mongo', '~> 1.3.1'
   s.add_dependency 'bson', '~> 1.3.1'
   s.add_dependency 'bson_ext', '~> 1.3.1'
-  s.add_dependency 'mongoid', '~> 2.0.2'
+  s.add_dependency 'mongoid', '~> 2.4.5'
 
   s.add_dependency 'locomotive_mongoid_acts_as_tree', '0.1.5.7'
   s.add_dependency 'kaminari'

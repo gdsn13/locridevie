@@ -21,6 +21,15 @@
   = f.input :meta_keywords
   = f.input :meta_description
 
+= f.foldable_inputs :name => :jules do
+  = render 'embededs', :f => f, :type => "jules"
+  
+= f.foldable_inputs :name => :actus do
+  = render 'embededs', :f => f, :type => "actus"
+  
+= f.foldable_inputs :name => :boutons do
+  = render 'embededs', :f => f, :type => "boutons"  
+
 - if can?(:manage, @page)
 
   = f.foldable_inputs :name => :advanced_options, :id => 'advanced-options' do
@@ -40,6 +49,8 @@
       = f.check_box :redirect
 
     = f.input :cache_strategy, :as => :select, :collection => options_for_page_cache_strategy, :include_blank => false, :wrapper_html => { :style => "#{'display: none' if @page.redirect?}" }
+    
+    = f.input :rendering, :as => :select, :collection => options_for_page_rendering, :include_blank => false
 
     = f.input :redirect_url, :required => true, :wrapper_html => { :style => "#{'display: none' unless @page.redirect?}" }
 

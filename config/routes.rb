@@ -28,12 +28,24 @@ Rails.application.routes.draw do
     resource :my_account, :controller => 'my_account'
 
     resources :memberships
+    
+    resources :embeded_items
 
     resources :theme_assets do
       get :all, :action => 'index', :on => :collection, :defaults => { :all => true }
     end
 
     resources :assets
+    
+    resources :seasons
+    
+    resources :object_contents
+    
+    resources :jules
+    
+    resources :actus
+    
+    resources :boutons
 
     resources :content_types
 

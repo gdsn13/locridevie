@@ -18,6 +18,9 @@ class Snippet
   ## validations ##
   validates_presence_of   :site, :name, :slug, :template
   validates_uniqueness_of :slug, :scope => :site_id
+  
+  ## named scopes ##
+  scope :latest_updated, :order_by => [[:updated_at, :desc]], :limit => Locomotive.config.latest_items_nb
 
   ## methods ##
 

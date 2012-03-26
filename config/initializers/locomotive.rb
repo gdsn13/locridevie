@@ -16,8 +16,15 @@ Locomotive.configure do |config|
   #   # Ex:
   #   multi_sites.reserved_subdomains = %w(www admin email blog webmail mail support help site sites)
   # end
+  
   config.multi_sites = false
-
+  
+  #config.multi_sites do |multi_sites|
+  #  multi_sites.domain = 'lawyerold.com'
+  #  multi_sites.domain = 'macoboko.com'
+    #multi_sites.reserved_subdomains = %w(www)
+  #end
+  
   # configure the hosting target for the production environment. Locomotive can be installed in:
   # - your own server
   # - Heroku (you need to create an account in this case)
@@ -43,13 +50,13 @@ Locomotive.configure do |config|
   # If you do not mind about importing theme without DelayedJob, disable it.
   #
   # Warning: this option is not used if you deploy on bushi.do and we set automatically the value to true.
-  config.delayed_job = false
+  config.delayed_job = true
 
   # configure how many items we display in sub menu in the "Contents" section.
   # config.latest_items_nb = 5
 
   # default locale (for now, only en, de, fr, pt-BR and it are supported)
-  config.default_locale = :en
+  config.default_locale = :fr
 
   # tell if logs are enabled. Useful for debug purpose.
   config.enable_logs = true

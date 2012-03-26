@@ -3,12 +3,10 @@
 - content_for :submenu do
   = render 'admin/shared/menu/contents'
 
-- content_for :actions do
-  = render 'admin/shared/actions/contents'
-
 - content_for :buttons do
   = admin_button_tag :show_items, admin_contents_url(@content_type.slug_was), :class => 'show'
   = admin_button_tag :new_item, new_admin_content_url(@content_type.slug_was), :class => 'new'
+  = admin_button_tag t('admin.content_types.index.new'), new_admin_content_type_url, :class => 'new', :id => 'new_model'
 
 %p!= t('.help')
 

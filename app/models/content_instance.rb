@@ -11,12 +11,14 @@ class ContentInstance
   field :_slug
   field :_position_in_list, :type => Integer, :default => 0
   field :_visible, :type => Boolean, :default => true
+  field :season_id
 
   ## validations ##
   validate :require_highlighted_field
   validates :_slug, :presence => true, :uniqueness => { :scope => :content_type_id }
 
   ## associations ##
+  #referenced_in :season
   embedded_in :content_type, :inverse_of => :contents
 
   ## callbacks ##

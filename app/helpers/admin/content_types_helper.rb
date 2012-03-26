@@ -1,18 +1,20 @@
 module Admin::ContentTypesHelper
 
-  MAX_DISPLAYED_CONTENTS = 4
+  MAX_DISPLAYED_CONTENTS = 8
 
-  def fetch_content_types
-    return @content_types if @content_types
+  def fetch_content_types(order = "ordered")
+    #return @content_types if @content_types
 
-    @content_types = current_site.content_types.ordered.
-      limit(:contents => Locomotive.config.latest_items_nb).
-      only(:site_id, :name, :slug, :highlighted_field_name, :content_custom_fields_version, :order_by, :serialized_item_template, :raw_item_template).to_a
-
-    if @content_type && @content_type.persisted? && @content_types.index(@content_type) >= MAX_DISPLAYED_CONTENTS
-      @content_types.delete(@content_type)
-      @content_types.insert(0, @content_type)
+    if order == "alpha"
+      @content_types = current_site.content_types.alpha
+    elsif order == "ordered"
+      @content_types = current_site.content_types.ordered
     end
+
+    #if @content_type && @content_type.persisted? && @content_types.index(@content_type) >= MAX_DISPLAYED_CONTENTS
+    #  @content_types.delete(@content_type)
+    #  @content_types.insert(0, @content_type)
+    #end
 
     # be sure, we've got the custom klass up-to-date, otherwise it will fail miserably
     @content_types.each do |content_type|
@@ -26,7 +28,7 @@ module Admin::ContentTypesHelper
   end
 
   def each_content_type_menu_item(which = :first, &block)
-    types = fetch_content_types
+    types = fetch_content_types("ordered")
     sliced = []
 
     if which == :first
@@ -54,7 +56,7 @@ module Admin::ContentTypesHelper
   end
 
   def other_content_types(&block)
-    types = fetch_content_types
+    types = fetch_content_types("ordered")
 
     if types.size > MAX_DISPLAYED_CONTENTS
       sliced = types[MAX_DISPLAYED_CONTENTS, types.size - MAX_DISPLAYED_CONTENTS]

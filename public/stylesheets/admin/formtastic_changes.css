@@ -87,7 +87,8 @@ form.formtastic fieldset.inputs ol li {
   padding-bottom: 1em;
 }
 
-form.formtastic fieldset.inputs ol li.last { background: none; margin-bottom: 0.8em; padding-bottom: 0px; }
+form.formtastic fieldset.inputs ol li.last  { background: none; margin-bottom: 0.8em; padding-bottom: 0px; }
+form.formtastic fieldset.inputs ol li.one_asso { background: none; margin-bottom: 0.8em; padding-bottom: 0px; }
 
 form.formtastic fieldset ol li label { text-align: left; padding: 0.4em 2em 0 20px; font-size: 0.8em; width: 15%; color: #585a69; text-shadow: #fff 0px 1px; }
 

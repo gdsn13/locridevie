@@ -1,0 +1,15 @@
+- title t('.title')
+
+- content_for :submenu do
+  = render_cell 'admin/settings_menu', :show
+
+- content_for :buttons do
+  = admin_button_tag :new, new_admin_season_url, :class => 'new', :id => 'newseason'
+
+%p!= t('.help')
+
+= semantic_form_for @season, :url => admin_season_url(@season), :html => { :class => 'save-with-shortcut' } do |form|
+
+  = render 'form', :f => form
+
+  = render 'admin/shared/form_actions', :back_url => admin_seasons_url, :button_label => :update

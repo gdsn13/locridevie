@@ -1,7 +1,7 @@
 module Admin
   class ContentsController < BaseController
 
-    sections 'contents'
+    sections 'objects'
 
     before_filter :set_content_type
 

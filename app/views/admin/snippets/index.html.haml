@@ -1,0 +1,18 @@
+- title t('.title')
+
+- content_for :head do
+  = include_javascripts :pages
+
+- content_for :submenu do
+  = render 'admin/shared/menu/pages'
+  
+- content_for :buttons do
+  = admin_button_tag t('admin.snippets.index.new'), new_admin_snippet_url, :class => 'new'
+
+- if can?(:manage, Snippet)
+  - if @snippets.empty?
+    %p.no-items!= t('admin.snippets.index.no_items', :url => new_admin_snippet_url)
+  - else
+    -# %ul.list.theme-assets
+    %ul#pages-list
+      = render @snippets

@@ -10,6 +10,8 @@ class Site
   ## fields ##
   field :name
   field :robots_txt
+  field :season_front
+  field :season_back
 
   ## associations ##
   references_many :pages, :validate => false
@@ -17,6 +19,11 @@ class Site
   references_many :theme_assets, :dependent => :destroy, :validate => false
   references_many :assets, :dependent => :destroy, :validate => false
   references_many :content_types, :dependent => :destroy, :validate => false
+  references_many :seasons, :dependent => :destroy, :validate => false
+  references_many :object_contents, :dependent => :destroy, :validate => false
+  references_many :jules, :dependent => :destroy, :validate => false
+  references_many :actus, :dependent => :destroy, :validate => false
+  references_many :boutons, :dependent => :destroy, :validate => false
   embeds_many :memberships
 
   ## validations ##

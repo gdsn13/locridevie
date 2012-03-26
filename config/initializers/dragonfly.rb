@@ -22,7 +22,7 @@ unless Locomotive.engine?
     c.allow_fetch_url  = true
     c.allow_fetch_file = true
 
-    c.url_format = '/images/dynamic/:job/:basename.:format'
+    c.url_format = '/images/dynamic/:basename.:format'
   end
 
 end

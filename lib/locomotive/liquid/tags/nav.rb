@@ -90,7 +90,7 @@ module Locomotive
 
           children = page.children_with_minimal_attributes.reject { |c| !include_page?(c) }
           if children.present?
-            output = %{<ul id="#{@options[:id]}-#{page.slug.dasherize}">}
+            output = %{<ul id="#{@options[:id]}-#{page.slug.dasherize}" class="sub_menu">}
             children.each do |c, page|
               css = []
               css << 'first' if children.first == c

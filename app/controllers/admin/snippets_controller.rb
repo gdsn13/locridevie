@@ -1,7 +1,9 @@
 module Admin
   class SnippetsController < BaseController
 
-    sections 'settings', 'theme_assets'
+    #sections 'settings', 'theme_assets'
+
+    sections 'contents', 'snippets'
 
     respond_to :json, :only => :update
 

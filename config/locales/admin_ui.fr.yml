@@ -29,14 +29,18 @@ fr:
         help: Aide
         logout: Se déconnecter
       menu:
-        contents: Contenu
+        contents: Pages
         assets: Média
         settings: Paramètres
-        pages: Pages
+        objects: Contenu
         snippets: Snippets
         account: Mon compte
+        seasons: Saisons
         site: Site
         theme_assets: Fichiers Thème
+        jules: Jules
+        actus: Actus
+        boutons: Boutons
       footer:
         who_is_behind: "Service développé par %{development} et désigné par <a href=\"http://www.sachagreif.com\">Sacha Greif</a>"
       form_actions:
@@ -94,7 +98,44 @@ fr:
         link: "&rarr; Retour page de connexion"
         password: "Votre email"
         password_confirmation: "Confirmation nouveau mot de passe"
-
+    
+    actus:
+      index:
+        title: Actus
+        new: Ajouter une actu
+        help: Les actus sont les blocs de la Home Page
+      edit:
+        help: "Editer l'actu"
+        new: Ajouter une actu
+      new:
+        title: "Ajouter une actus"
+        help: "Entrez le block HTML qui constituera l'actu"
+    
+    boutons:
+      index: 
+        title: Boutons
+        new: Ajouter un bouton
+        help: Les Boutons sont des liens personnalisé affiché à droite des pages
+      edit:
+        help: "Editer le bouton"
+        new: Ajouter un bouton
+      new:
+        title: Ajouter un bouton
+        help: Un bouton est un titre et une image et une url.
+        
+    jules:
+      index:
+        title: Jules et demi-jules
+        new: Ajouter un Jule
+        help: "Les jules sont des blocks qui peuvent être associés à n'importe quelle page"
+      edit:
+        help: "Editer le jule"
+        new: Ajouter un Jule
+      new:
+        title: "Création d'un Jules"
+        Help: Entrez le block HTML qui constituera le Jules
+        new: 
+        
     pages:
       index:
         title: Liste des pages
@@ -121,6 +162,24 @@ fr:
           day: 1 jour
           week: 1 semaine
           month: 1 mois
+      embeded_items:
+        empty: Vide
+
+    seasons:
+      index:
+        title: Liste des saisons
+        help: Aide sur les saisons
+        new: nouvelle saison
+        no_items: "Il n'y a pas encore de saison. Vous pouvez commencer par en créer une <a href='#{url}'>ici</a>."
+      new:
+        title: Nouvelle saison
+        help: Entrez le nom de la saison
+      edit:
+        title: Changer le nom de la saison
+        help: "Remplisez le formulaire ci-dessous pour modifier la saison"
+        new: nouvelle saison
+      season:
+        updated_at: Mis à jour le
 
     snippets:
       index:
@@ -220,9 +279,16 @@ fr:
         title: "Edition média"
         help: "Remplissez le formulaire ci-dessous pour mettre à jour votre média."
 
+    object_contents:
+      index:
+        title: Type de contenus
+        help: "Liste des types de contenu. Cliquez sur le titre pour afficher la liste des items"
+        updated_at: Mis à jour le
+
     content_types:
       index:
         new: nouveau modèle
+        
       new:
         title: Nouveau modèle
         help: "Créer votre propre modèle de données (Projets, Personnes, ...etc). Votre modèle doit au moins comporter un champ. Le premier champ sera obligatoire lorsque vous ajouterez un élément de ce type-là."
@@ -242,6 +308,7 @@ fr:
 
     contents:
       index:
+        actions: Actions
         title: 'Liste des "%{type}"'
         edit: éditer modèle
         destroy: supprimer modèle

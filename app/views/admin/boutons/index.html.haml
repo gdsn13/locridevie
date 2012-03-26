@@ -1,0 +1,19 @@
+- title t('.title')
+
+- content_for :head do
+  = include_javascripts :pages
+
+- content_for :submenu do
+  = render 'admin/shared/menu/pages'
+
+- if can? :create, Page
+  - content_for :boutons do
+    = admin_button_tag :new, new_admin_bouton_url, :class => 'new', :id => 'newpage'
+    
+%p!= t('.help')
+
+- if @boutons.empty?
+  %p.no-items!= t('.no_items', :url => new_admin_bouton_url)
+- else
+  %ul#pages-list
+    = render @boutons

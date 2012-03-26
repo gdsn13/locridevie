@@ -1,0 +1,9 @@
+%li
+  %em
+  %strong= link_to truncate(bouton.title, :length => 80), edit_admin_bouton_url(bouton)
+
+  .more
+    %span!= t('.updated_at')
+    = l bouton.updated_at, :format => :short
+
+    = link_to image_tag('admin/list/icons/trash.png'), admin_bouton_url(bouton), :class => 'remove', :confirm => t('admin.messages.confirm'), :method => :delete

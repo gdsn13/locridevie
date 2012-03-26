@@ -13,6 +13,7 @@ class ContentType
   field :order_direction, :default => 'asc'
   field :highlighted_field_name
   field :group_by_field_name
+  field :seasonable, :type => Boolean, :default => false
   field :api_enabled, :type => Boolean, :default => false
   field :api_accounts, :type => Array
 
@@ -26,9 +27,10 @@ class ContentType
 
   ## named scopes ##
   scope :ordered, :order_by => :updated_at.desc
+  scope :alpha, :order_by => [[:name, :asc]]
 
   ## indexes ##
-  index [[:site_id, Mongo::ASCENDING], [:slug, Mongo::ASCENDING]]
+  index [[:site_id, Mongo::ASCENDING], [:slug, Mongo::ASCENDING], [:site_id, Mongo::ASCENDING]]
 
   ## callbacks ##
   before_validation :normalize_slug

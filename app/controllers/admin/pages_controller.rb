@@ -14,7 +14,9 @@ module Admin
     end
 
     def update
+      
       update! do |success, failure|
+        @page.clean_embededs(params[:page][:embeded_items])
         success.json do
           render :json => {
             :notice => t('flash.admin.pages.update.notice'),

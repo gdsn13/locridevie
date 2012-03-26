@@ -6,6 +6,7 @@ class Admin::SettingsMenuCell < ::Admin::SubMenuCell #::Admin::MenuCell
     add :site, :url => edit_admin_current_site_url
     add :theme_assets, :url => admin_theme_assets_url
     add :account, :url => edit_admin_my_account_url
+    add :seasons, :url => admin_seasons_url
   end
 
   # def build_item(name, attributes)

@@ -1,0 +1,19 @@
+- title @jule.name
+
+- content_for :head do
+  = include_javascripts :pages
+
+- content_for :submenu do
+  = render 'admin/shared/menu/pages'
+
+- if can? :create, Page
+  - content_for :buttons do
+    = admin_button_tag :new, new_admin_jule_url, :class => 'new', :id => 'newpage'
+    
+%p!= t('.help')
+
+= semantic_form_for @jule, :url => admin_jule_url(@jule), :html => { :class => 'save-with-shortcut' } do |form|
+
+  = render 'form', :f => form
+
+  = render 'admin/shared/form_actions', :back_url => admin_jules_url, :button_label => :update

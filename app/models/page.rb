@@ -11,6 +11,7 @@ class Page
   include Extensions::Page::Redirect
   include Extensions::Page::Listed
   include Extensions::Shared::Seo
+  include Extensions::Page::EmbededItems
 
   ## fields ##
   field :title

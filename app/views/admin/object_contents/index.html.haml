@@ -1,0 +1,25 @@
+- title t('.title')
+
+- content_for :submenu do
+  = render 'admin/shared/menu/contents'
+  
+- if can? :manage, ContentType
+  - content_for :buttons do
+    = admin_button_tag t('admin.content_types.index.new'), new_admin_content_type_url, :class => 'new', :id => 'new_model'
+      
+%p!= t('.help')
+
+%ul#pages-list
+  - fetch_content_types("alpha").each do |content_type|
+    %li
+      %em
+      %strong= link_to truncate(content_type.name, :length => 80), admin_contents_url(content_type.slug)
+
+      .more
+        %span!= t('.updated_at')
+        = l content_type.updated_at, :format => :short
+                
+        - if can?(:manage, ContentType)
+          = link_to image_tag('admin/list/icons/trash.png'), admin_content_type_url(content_type), :confirm => t('admin.messages.confirm'), :method => :delete, :class => 'button small remove'
+        
+      

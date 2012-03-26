@@ -8,6 +8,10 @@
   = f.input :seo_title
   = f.input :meta_keywords
   = f.input :meta_description
+  
+= f.foldable_inputs :name => :seasons_management do
+  = f.input :season_front, :as => :select, :collection => get_seasons, :include_blank => false
+  = f.input :season_back, :as => :select, :collection => get_seasons, :include_blank => false
 
 - if can?(:point, Site)
   - if manage_subdomain_or_domains?

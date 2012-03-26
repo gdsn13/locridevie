@@ -1,0 +1,9 @@
+%li
+  %em
+  %strong= link_to truncate(actu.title, :length => 80), edit_admin_actu_url(actu)
+
+  .more
+    %span!= t('.updated_at')
+    = l actu.updated_at, :format => :short
+
+    = link_to image_tag('admin/list/icons/trash.png'), admin_actu_url(actu), :class => 'remove', :confirm => t('admin.messages.confirm'), :method => :delete

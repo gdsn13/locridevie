@@ -18,8 +18,19 @@ module Locomotive
           render_no_page_error and return if @page.nil?
 
           output = @page.render(locomotive_context)
+          
+          case @page.rendering
+            when "layout"
+              render :template => '/front/layouts/layout.html', :layout => false
+            when "liquid_body"
+              @output = output 
+              render :action => '/front/homes/index', :layout => "/front/layouts/layout"
+            when "liquid_page"
+              self.prepare_and_set_response(output)
+          end
+          
 
-          self.prepare_and_set_response(output)
+          
         end
       end
 

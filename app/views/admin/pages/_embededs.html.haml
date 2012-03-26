@@ -1,0 +1,37 @@
+%li{ :class => "has-many one_asso" }
+  %label #{type.capitalize}
+  .has-many-selector
+
+    %p{ :style => @page.embeded_items.empty? ? '' : 'display: none'  }
+      = t('.empty')
+
+    %ul
+
+    %script{ :type => 'text/x-mustache-template', :name => 'template', :'data-base-input-name' => "page[embeded_items]" }
+      %li{ :class => "item {{behaviour_flag}} ", :data => { :index => "{{index}}" } }
+        %span.handle
+          = image_tag 'admin/form/icons/drag.png'
+
+        %strong {{label}}
+        
+        {{^if_template}}
+        {{#id}}
+        %input{ :name => 'page[embeded_items][{{index}}][id]', :value => '{{id}}', :type => 'hidden', :'data-field' => 'id' }
+        {{/id}}
+        %input{ :name => 'page[embeded_items][{{index}}][position]', :value => '{{item_position}}', :type => 'hidden', :'data-field' => 'position'}
+        %input{ :name => 'page[embeded_items][{{index}}][item_id]', :value => '{{item_id}}', :type => 'hidden', :'data-field' => 'item_id' }
+        %input{ :name => 'page[embeded_items][{{index}}][type]', :value => type, :type => 'hidden', :'data-field' => 'type' }
+        -# = select_tag 'page[embeded_items][{{index}}][situation]', '<option value="top">Top</option><option "bottom">Bottom</option>'.html_safe
+        {{/if_template}}
+
+        {{#if_template}}
+        = select_tag 'label', ''
+        {{/if_template}}
+
+        %span.actions
+          = link_to image_tag('admin/form/icons/trash.png'), '#', :class => 'remove'
+          %button{ :class => 'button light mini add', :type => 'button' }
+            %span!= t('admin.buttons.new_item')
+
+    %script{ :type => 'text/javascript', :name => 'data' }
+      != embeded_items_data_to_js(type)
