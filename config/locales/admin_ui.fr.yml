@@ -42,7 +42,7 @@ fr:
         actus: Actus
         boutons: Boutons
       footer:
-        who_is_behind: "Service développé par %{development} et désigné par <a href=\"http://www.sachagreif.com\">Sacha Greif</a>"
+        who_is_behind: "Service développé par noCofee, adapté par Odevie, et désigné par Sacha Greif"
       form_actions:
         back: Retour sans sauvegarder
         create: Créer
@@ -164,7 +164,9 @@ fr:
           month: 1 mois
       embeded_items:
         empty: Vide
-
+      embededs:
+        empty: Vide
+        
     seasons:
       index:
         title: Liste des saisons

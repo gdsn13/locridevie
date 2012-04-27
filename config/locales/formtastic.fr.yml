@@ -67,6 +67,7 @@ fr:
         seo_title: "Définit un titre de page à mettre dans la balise TITLE de la page. Laissez le blanc pour utiliser la valeur par défaut (voir configuration du site)."
         meta_keywords: "Redéfinit les mots-clés du site. Utilisés à l'intérieur de la balise HEAD. Ils sont séparés par une virgule."
         meta_description: "Redéfinit la description du site. Utilisée à l'intérieur de la balise HEAD."
+        fat_menu: "Si la page a des sous page, elles seront affichées avec un sous menu plus important"
       snippet:
         slug: "Utilisé pour insérer le snippet dans une page."
       site:

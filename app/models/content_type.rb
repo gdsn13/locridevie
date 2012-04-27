@@ -19,6 +19,7 @@ class ContentType
 
   ## associations ##
   referenced_in :site
+  
   embeds_many :contents, :class_name => 'ContentInstance', :validate => false do
     def visible
       @target.find_all { |c| c.visible? }
@@ -77,6 +78,27 @@ class ContentType
 
   def latest_updated_contents
     self.contents.latest_updated.reject { |c| !c.persisted? }
+  end
+  
+  
+  def menu_content
+    if self.slug == "spectacles"
+      self.season_show
+    else
+      self.latest_updated_contents
+    end  
+  end
+  
+  def season_show
+    res = []
+    season_b = Site.find(site_id).season_back
+    self.contents.each do |s|
+      if (s.season_id == season_b)
+        res << s
+      end
+    end
+    
+    res
   end
 
   def ordered_contents(conditions = {})

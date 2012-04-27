@@ -195,10 +195,7 @@ $(document).ready(function() {
 
 			var offset = $('.added').size();
 			
-			console.log(context.data.taken_ids);
-			
       for (var i = 0; i < context.data.taken_ids.length; i++) {
-				console.log('position : ' + context.data.taken_ids[i][2]);
 				
         var data = { id: context.data.taken_ids[i][0], label: null, index: i + offset, item_id: context.data.taken_ids[i][1], item_position: context.data.taken_ids[i][2]};
 

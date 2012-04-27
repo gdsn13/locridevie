@@ -1,6 +1,6 @@
 # Locomotive::Application.routes.draw do |map|
-Rails.application.routes.draw do
 
+Rails.application.routes.draw do
   # admin authentication
   devise_for :admin, :class_name => 'Account', :controllers => { :sessions => 'admin/sessions', :passwords => 'admin/passwords' }
 
@@ -62,12 +62,19 @@ Rails.application.routes.draw do
     resource :import, :only => [:new, :show, :create], :controller => 'import'
 
     resource :export, :only => [:new], :controller => 'export'
+    
+    
 
     # installation guide
     match '/installation' => 'installation#show', :defaults => { :step => 1 }, :as => :installation
     match '/installation/:step' => 'installation#show', :as => :installation_step
 
   end
+  
+  match '/spectacles/:id' => "front/datas#spectacle_list"
+  match '/spectacle/:slug' => "front/datas#get_spectacle"
+  match '/pages/*fullpath' => "front/datas#get_page"
+  match '/intro' => "front/datas#get_intro"
 
   # sitemap
   match '/sitemap.xml' => 'admin/sitemaps#show', :format => 'xml'

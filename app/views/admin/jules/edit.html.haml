@@ -12,6 +12,12 @@
     
 %p!= t('.help')
 
+- if @jule
+  .preview
+    #bouton_preview
+      %h4 Image associée au jule
+      %img{ :src => @jule.picto.thumb.url }
+
 = semantic_form_for @jule, :url => admin_jule_url(@jule), :html => { :class => 'save-with-shortcut' } do |form|
 
   = render 'form', :f => form

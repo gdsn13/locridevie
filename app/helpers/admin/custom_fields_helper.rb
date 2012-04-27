@@ -1,7 +1,7 @@
 module Admin::CustomFieldsHelper
 
   def options_for_field_kind
-    %w(string text category boolean date file has_one has_many).map do |kind|
+    %w(string text category boolean date file has_one has_many picture).map do |kind|
       [t("custom_fields.kind.#{kind}"), kind]
     end
   end
@@ -85,6 +85,8 @@ module Admin::CustomFieldsHelper
 
   def options_for_has_one_or_has_many(field, content = nil, &block)
     content_type = field.target.constantize._parent.reload
+    
+    res=content_type.content_custom_fields.where(:kind => 'picture').first
 
     if content_type.groupable?
       grouped_contents = content_type.list_or_group_contents
@@ -100,7 +102,11 @@ module Admin::CustomFieldsHelper
           if g[:items].empty?
             nil
           else
-            { :name => g[:name], :items => g[:items].collect { |c| [c._label, c._id] } }
+            if res
+              { :name => g[:name], :items => g[:items].collect { |c| [c._label, c._id, c.send(res._alias.to_sym).thumb.url] } }
+            else
+              { :name => g[:name], :items => g[:items].collect { |c| [c._label, c._id] } }
+            end
           end
         end.compact
       end
@@ -111,7 +117,11 @@ module Admin::CustomFieldsHelper
         contents = filter_options_for_reverse_has_many(contents, field.reverse_lookup, content)
       end
 
-      contents.collect { |c| [c._label, c._id] }
+      if res
+        contents.collect { |c| [c._label, c._id, c.send(res._alias.to_sym).thumb.url] }
+      else
+        contents.collect { |c| [c._label, c._id] }
+      end
     end
   end
 

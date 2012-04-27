@@ -1,4 +1,4 @@
-%li{ :class => "has-many one_asso" }
+%li{ :class => "has-many string optional" }
   %label #{type.capitalize}
   .has-many-selector
 
@@ -13,7 +13,7 @@
           = image_tag 'admin/form/icons/drag.png'
 
         %strong {{label}}
-        
+      
         {{^if_template}}
         {{#id}}
         %input{ :name => 'page[embeded_items][{{index}}][id]', :value => '{{id}}', :type => 'hidden', :'data-field' => 'id' }

@@ -1,0 +1,163 @@
+// Add model to the application.
+window.application.addModel((function( $, application ){
+	
+	
+	// les pages sont stockées dans un tableau JSON  de pages.
+	// les identifiants des pages sont : noms de la page
+
+	// I am the contacts service class.
+	function Model(){
+		this.spectacles = [];
+		this.pages = [];
+		this.current_page = null;
+		this.message_to_growl = "";
+	};
+	
+	/* GROWL MESSAGE
+	----------------------------------------------------------------------------------------*/	
+	
+	Model.prototype.set_message_to_growl = function(p_message){
+		p_message == "" ? this.message_to_growl = "" : this.message_to_growl = "<p>" + p_message + "</p>";		
+		$(this).trigger('messaging');
+	};
+	
+	/* PAGES
+	----------------------------------------------------------------------------------------*/
+	
+	Model.prototype.set_current_page = function(p_page_path){
+		this.current_page = this.pages[p_page_path];
+		$(this).trigger('page_ready');
+	};
+	
+	Model.prototype.set_page = function(p_page){
+		this.pages[p_page.fullpath] = p_page;
+		this.set_current_page(p_page.fullpath);
+		this.set_message_to_growl("");
+	};
+	
+	Model.prototype.get_page = function(p_path){
+		if (this.pages[p_path] == null){
+			this.set_message_to_growl("Chargement...");
+			application.getModel( "LocoService" ).get_page(application.currentLocation);
+		}
+		else{
+			this.set_current_page(p_path);
+		}
+	};
+
+	/* INTRO
+	----------------------------------------------------------------------------------------*/
+
+	Model.prototype.set_intro = function(p_intro){
+		this.pages["intro"] = p_intro;
+		this.current_page = this.pages["intro"];
+		this.set_message_to_growl("");
+		$(this).trigger('intro_ready');
+	};
+
+	/* HOME
+	----------------------------------------------------------------------------------------*/
+	
+	Model.prototype.get_home = function(){
+		if (this.pages["pages/home_page"] == null){
+			this.set_message_to_growl("Chargement...");
+			application.getModel( "LocoService" ).get_page("pages/home_page");
+		}
+		else{
+			this.set_current_page("pages/home_page");
+		}
+	};
+	
+	/* SPECTACLE
+	----------------------------------------------------------------------------------------*/
+	Model.prototype.get_spectacle = function(p_title){
+		if (this.pages[p_title] == null){
+			this.set_message_to_growl("Chargement...");
+			application.getModel("LocoService").get_spectacle(p_title);
+		}
+		else{
+			this.set_current_page(p_title);
+			$(this).trigger('spectacle_ready');
+		}
+	};
+	
+	Model.prototype.set_spectacle = function(p_spectacle){
+		this.pages[p_spectacle.slug] = p_spectacle;
+		this.set_current_page(p_spectacle.slug);
+		this.set_message_to_growl("");
+		$(this).trigger('spectacle_ready');
+	};
+	
+	/* SPECTACLES
+	----------------------------------------------------------------------------------------*/
+	
+	Model.prototype.set_spectacles = function(p_spectacles){
+		this.spectacles = p_spectacles.spectacles;
+		this.pages[p_spectacles.page.fullpath] = p_spectacles.page;
+
+		this.set_current_page(p_spectacles.page.fullpath);
+		this.set_message_to_growl("");
+		$(this).trigger('spectacles_ready');
+	};
+	
+	Model.prototype.get_spectacles = function(p_path){
+		if (this.pages[p_path] == null){
+			this.set_message_to_growl("Chargement...");
+			application.getModel("LocoService").get_spectacles(p_path);
+		}
+		else{
+			this.set_current_page(p_path);
+			$(this).trigger('spectacles_ready');
+		}
+	};
+	
+	/* I order spectacles list by title (alphabetic order)
+	----------------------------------------------------------------------------------------*/
+	Model.prototype.spectacles_ordered_by_name = function(){
+		var spec = this.spectacles;
+		spec.sort(this.sort_by('titre', true, function(a){return a.toUpperCase()}));
+		return spec;
+	};
+	
+	/* I return only spectacles with en_tournee == true, ordered by title 	
+	----------------------------------------------------------------------------------------*/
+	Model.prototype.spectacles_en_tournee = function(){
+		var spec = [];
+		$.each(this.spectacles, function(index, value){
+			if (value.en_tournee == true || value.en_tournee == 'true'){
+				spec.push(value);
+			}
+		});
+		// order by alphabetic order
+		spec.sort(this.sort_by('titre', true, function(a){return a.toUpperCase()}));
+		return spec;
+	};
+	
+	/* I order spectacles list by date of representation 			
+	----------------------------------------------------------------------------------------*/
+	Model.prototype.spectacles_ordered_by_date = function(){
+		var spec = this.spectacles;
+		spec.sort(this.sort_by('date', true, function(a){return new Date(a)}));
+		return spec;
+	};
+	
+	Model.prototype.init = function(){
+		
+	};
+		
+	/* FUNCTIONS TOOL
+	----------------------------------------------------------------------------------------*/			
+	Model.prototype.sort_by = function(field, reverse, primer){
+
+	   var key = function (x) {return primer ? primer(x[field]) : x[field]};
+
+	   return function (a,b) {
+	       var A = key(a), B = key(b);
+	       return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
+	   }
+	}
+	
+	// Return a new model class singleton instance.
+	return( new Model() );
+	
+})( jQuery, window.application ));

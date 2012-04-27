@@ -87,5 +87,10 @@ module Admin::ContentTypesHelper
       preserve(content._parent.item_template.render(::Liquid::Context.new({}, assigns, registers)))
     end
   end
+  
+  def get_picture_content(field_name)
+    ct = ContentType.where("slug" => field_name).first
+    pc = ct.content_custom_fields.where("kind" => "picture").first if ct != nil
+  end
 
 end

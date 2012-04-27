@@ -64,6 +64,7 @@ fr:
         redirect_url: Url de redirection
         cache_strategy: Cache
         seo_title: Titre SEO
+        fat_menu: Fat sous-menu
       content_type:
         name: Nom
         description: Description

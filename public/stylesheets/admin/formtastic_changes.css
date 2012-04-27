@@ -88,7 +88,6 @@ form.formtastic fieldset.inputs ol li {
 }
 
 form.formtastic fieldset.inputs ol li.last  { background: none; margin-bottom: 0.8em; padding-bottom: 0px; }
-form.formtastic fieldset.inputs ol li.one_asso { background: none; margin-bottom: 0.8em; padding-bottom: 0px; }
 
 form.formtastic fieldset ol li label { text-align: left; padding: 0.4em 2em 0 20px; font-size: 0.8em; width: 15%; color: #585a69; text-shadow: #fff 0px 1px; }
 
@@ -440,9 +439,16 @@ form.formtastic fieldset ol li.has-many ul {
 }
 
 form.formtastic fieldset ol li.has-many ul li.item {
-  background: transparent url(/images/admin/form/item-popup.png) no-repeat 0 0;
+  background: #FFF;
   width: 413px;
   margin: 0 0 10px 0;
+	border-radius:20px;
+	height:auto;
+	padding: 6px 10px 0;
+	-moz-box-shadow: ¬† 2px 2px 0px #CCCCCC;
+	box-shadow: 2px 2px 0px #CCCCCC;
+	-webkit-box-shadow:2px 2px 0px #CCCCCC;
+	position:relative;
 }
 
 form.formtastic fieldset ol li.has-many ul li.item strong {
@@ -450,14 +456,14 @@ form.formtastic fieldset ol li.has-many ul li.item strong {
   font-weight: bold;
   color: #17171d;
   position: relative;
-  top: -1px;
-  left: 10px;
+  top: -4px;
+  left: 25px;
 }
 
 form.formtastic fieldset ol li.has-many ul li.item span.handle {
   cursor: move;
-  position: relative;
-  top: 1px;
+  position: absolute;
+  top: 4px;
 }
 
 form.formtastic fieldset ol li.has-many ul li.added span.actions a.remove {
@@ -653,3 +659,10 @@ div.formError {
 
 div.fieldWithErrors { display: inline; }
 
+.thumb_image{
+	padding-left:30px;
+}
+
+.has-many-selector p{
+	margin-left:185px !important;
+}

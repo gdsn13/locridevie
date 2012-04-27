@@ -1,6 +1,7 @@
 - content_for :head do
-  = include_javascripts :image_picker, :edit_page
+  = include_javascripts :image_picker, :theme_assets
 
 = f.inputs :name => :information do
   = f.input :title, :wrapper_html => { :class => 'highlighted' }
-  = f.input :block, :as => :text, :input_html => { :class => 'html' }
+  = f.input :le_bouton
+  = f.input :son

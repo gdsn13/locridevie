@@ -1,0 +1,11 @@
+fr:
+  formtastic:
+    titles:
+      seasons: Gestion des Saisons
+admin_uy
+      
+fr:
+  admin:
+    shared:
+      menu:
+        seasons: Saisons

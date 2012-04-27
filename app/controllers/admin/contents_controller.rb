@@ -5,7 +5,7 @@ module Admin
 
     before_filter :set_content_type
 
-    respond_to :json, :only => [:update, :sort]
+    respond_to :json, :only => [:create, :update, :sort]
 
     skip_load_and_authorize_resource
 
@@ -22,7 +22,19 @@ module Admin
     end
 
     def create
-      create! { after_create_or_update_url }
+      # Hack to provide the default field in case of an File collection upload through Flash uploader ...
+      if params[:auth_token]
+        @content = build_resource
+        (@content_type.content_custom_fields.delete_if{ |e| !e.required }.map{ |e| e.label }+['_slug']).each do |field|
+          @content.send((field+'=').to_sym, params[:Filename].downcase) unless !@content.send(field.to_sym).nil? || params[:Filename].nil?
+        end
+        sllug = 0
+        while !@content.valid? && sllug < 100 do
+          @content._slug = params[:Filename].downcase+'_'+sllug.to_s
+          sllug += 1
+        end
+      end
+      create! { after_create_or_update_url }      
     end
 
     def edit

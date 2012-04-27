@@ -31,14 +31,6 @@ module Admin::PagesHelper
     ]
   end
 
-  def options_for_page_rendering
-    [
-     ['layout', 'layout'],
-     ['liquid page', 'liquid_page'],
-     ['liquid body', 'liquid_body'],
-    ]
-  end
-
     
   def embeded_items_data_to_js (type )
     collection = []

@@ -68,7 +68,7 @@ var TinyMceDefaultSettings = {
   * These are call backs aide in the guider creation
   *
   */
-  onchange_callback: function(){
+  /*onchange_callback: function(){
     if($('#pageeditcontent:visible').length > 0){
       guiders.next();
     }
@@ -87,7 +87,7 @@ var TinyMceDefaultSettings = {
         width: 300
       });
     }
-  }
+  }*/
 };
 
 /* ___ global ___ */
@@ -126,7 +126,7 @@ $(document).ready(function() {
       var newValue = prompt(hint, $(this).html());
       if (newValue && newValue != '') {
         $(this).html(newValue);
-        try{guiders.next();}catch(ex){}
+        //try{guiders.next();}catch(ex){}
         target.val(newValue);
       }
       event.preventDefault();

@@ -1,0 +1,139 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+a, a:visited{
+	color:#fff;
+	text-decoration:none;
+}
+
+a:hover{
+	text-decoration:underlined;
+}
+
+html{
+	background:#000;
+	color:#FFF;
+	font-family: verdana;
+}
+
+#left{
+	width:200px;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:3000;
+	display:none;
+}
+#contents{
+	width:780px;
+}
+
+#menu li ul{
+	display:none;
+	padding-left:20px;
+}
+
+#menu li{
+	display:block !important;
+	position:static !important
+}
+
+#intro{
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+
+.intro_and_site_views{
+	position:absolute;
+	left:0;
+	top:0;
+	display:none;
+	padding-left:200px;
+	z-index:2000;
+	overflow:hidden;
+}
+
+#spectacles_list li{
+	display:block;
+	height:80px;
+	padding-bottom:10px;
+}
+#spectacles_list li img{
+	padding-right:20px;
+}
+#spectacles_list li a{
+	padding-top:5px;
+	display:block;
+}
+
+#growl_messages{
+	position:absolute;
+	top:0;
+	left:0;
+	padding:20px;
+	z-index:4000;
+	text-align:center;
+	background:#CCC;
+}
+
+#images_spectacle{
+	padding:10px;
+}
+#images_spectacle img{
+	padding-right:10px;
+	padding-top:;
+}
+#sliders_spectacle_containers{
+	position:absolute;
+	top:0px;
+	left:0px;
+}
+
+#sliders_spectacle_menu{
+	position:absolute;
+	top:50px;
+	right:0px;
+	list-style:none;
+}
+.cont{
+	position:absolute;
+	left:4000px;
+	top:0px;
+	display:block;
+	background:#999;
+	z-index:11000;
+	width:600px;
+	padding:50px;
+}
+
+#spectacles_container{
+	padding:0 300px 0 200px;
+}
+
+#buttons{
+	position:absolute;
+	right:0;
+	top:100px;
+}
+
+.close_button{
+	position:absolute;
+	right:10px;
+	top:10px;
+}
+
+.month_name_for_calendar{
+	background:#333;
+	color:#CCC;
+	font-weight:bold;
+	padding-left:10px;
+	height:15px !important;
+	width:100%;
+	padding-top:5px;
+}

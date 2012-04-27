@@ -260,4 +260,29 @@ p span.code {
   padding: 2px 3px;
 }
 
+#bouton_preview p{
+	margin-bottom:0px;
+}
+
+.preview{
+	overflow:hidden;
+	margin-bottom:20px;
+}
+
+#bouton_preview{
+	width:300px;
+	float:left;
+}
+
+#bouton_preview h4, #bouton_sound_preview h4{
+	font-size:14px;
+	font-weight:bold;
+	margin-bottom:10px;
+}
+
+#bouton_sound_preview{
+	width:300px;
+	float:left;
+	padding-left:40px;
+}
 

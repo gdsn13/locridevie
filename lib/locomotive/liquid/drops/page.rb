@@ -33,6 +33,27 @@ module Locomotive
           self._source.depth
         end
         
+        def jules
+          jules = []
+          self._source.embeded_items.jules.each { |jl| jules << Jule.find(jl.item_id) }
+                  
+          jules = jules.collect{ |j| j.attributes }
+        end
+        
+        def buttons
+          but = []
+          self._source.embeded_items.boutons.each { |btn| but << Bouton.find(btn.item_id) }
+          
+          but = but.collect{ |b| b.attributes }
+        end
+        
+        def actus
+          acts = []
+          self._source.embeded_items.actus.each { |act| acts << Actu.find(act.item_id) }
+          
+          acts = acts.collect{ |a| a  .attributes }
+        end
+        
         def listed?
           self._source.listed?
         end

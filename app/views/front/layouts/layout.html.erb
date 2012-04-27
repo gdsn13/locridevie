@@ -2,7 +2,9 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Layout PAGE</title>
+	<title>Théâtre National de Marseille</title>
+	
+	<link rel="stylesheet" href="/theme/stylesheets/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	
 	<!--
 	          __                                 
@@ -12,19 +14,102 @@
 	/\ \L\ \/\ \L\ \/\  __/\ \ \_/ |\ \ \/\  __/ 
 	\ \____/\ \___,_\ \____\\ \___/  \ \_\ \____\
 	 \/___/  \/__,_ /\/____/ \/__/    \/_/\/____/
-
 	odevie.org
-	Web agency
-		
+	Web agency		
 	-->
 	
 	<link rel="icon" type="type/png" href="images/favicon.ico" />
+	<script src="/javascripts/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<script src="/javascripts/corMVC.js" type="text/javascript"></script>
+	<script src="/javascripts/model.js" type="text/javascript"></script>
+	<script src="/javascripts/loco_service.js" type="text/javascript"></script>
+	<script src="/javascripts/menu_view.js" type="text/javascript"></script>
+	<script src="/javascripts/intro_view.js" type="text/javascript"></script>
+	<script src="/javascripts/home_view.js" type="text/javascript"></script>
+	<script src="/javascripts/spectacles_view.js" type="text/javascript"></script>
+	<script src="/javascripts/spectacle_view.js" type="text/javascript"></script>
+	<script src="/javascripts/page_view.js" type="text/javascript"></script>
+	<script src="/javascripts/growl_view.js" type="text/javascript"></script>
+	<script src="/javascripts/content.js" type="text/javascript"></script>
+	<script src="/javascripts/localize.js" type="text/javascript"></script>
+	<script src="/javascripts/fr.js" type="text/javascript"></script>
+	<script src="/javascripts/en.js" type="text/javascript"></script>
+	
+	<!-- Add mousewheel plugin (this is optional) -->
+	<script type="text/javascript" src="/javascripts/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
 
+	<!-- Add fancyBox -->
+	<link rel="stylesheet" href="/javascripts/fancybox/source/jquery.fancybox.css?v=2.0.6" type="text/css" media="screen" />
+	<script type="text/javascript" src="/javascripts/fancybox/source/jquery.fancybox.pack.js?v=2.0.6"></script>
+
+	<!-- Optionally add helpers - button, thumbnail and/or media -->
+	<link rel="stylesheet" href="/javascripts/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=2.0.6" type="text/css" media="screen" />
+	<script type="text/javascript" src="/javascripts/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=2.0.6"></script>
+	
+	
+	<script src="/javascripts/soundmanager2-nodebug-jsmin.js"></script>
+	<script>
+		soundManager.url = '/swf/';
+	</script>
 </head>
 
 <body>
-
-	bite bite bite
-	<%= yield %>
+	
+	<div id="growl_messages"></div>
+	
+	<div id="intro">
+		<div id="main_pic_intro">
+			
+			<div id="texte_intro">
+				
+				
+			</div>
+			
+		</div>
+		<ul id="nav_intro">
+			
+		</ul>
+	</div>
+	
+	<div id="left">
+		<div id="logo">
+			<img src="theme/images/logo.jpg">
+		</div>
+		<%= get_generated_menu.html_safe%>
+	</div>
+	
+	<div id="pages" class="intro_and_site_views">
+		<div id="jules_list">
+			
+		</div>
+		<div id="contents">
+			
+		</div>
+	</div>
+	
+	<div id="buttons_containers">
+		
+	</div>
+	
+	<div id="spectacles_container" class="intro_and_site_views">
+		<script id="spectacle_template" type="application/template">
+			<%= render "front/layouts/spectacle_view" %>
+		</script>
+		
+		
+	</div>
+	
+	<script id="image_galery_for_spectacle" type="application/template">
+		<a class="galery_thumb" rel="galery_thumb" href="${image}" title="">
+			<img src="${thumb}" alt="" />
+		</a>
+	</script>
+	
+	<script id="spectacle_list_template" type="application/template">
+		<li>
+			<img src="${logo}" align="left"/>
+			<a href="#/spectacle/${slug}">${titre}</a>
+		</li>
+	</script>
 </body>
 </html>

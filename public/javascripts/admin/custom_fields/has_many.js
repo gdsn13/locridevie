@@ -104,7 +104,8 @@ $(document).ready(function() {
       domElement.find('button').click(function(e) {
         var newElement = {
           id: context.select.val(),
-          label: context.select.find('option:selected').text()
+          label: context.select.find('option:selected').text(), 
+					thumb: "/contents/content_instance/" + context.select.find('option:selected').val() + "/thumb_" + context.select.find('option:selected').text()
         };
 
         if (newElement.id == '') return;
@@ -135,7 +136,9 @@ $(document).ready(function() {
       data = $.extend({
         behaviour_flag: function() { return options.is_template ? 'template' : 'added' },
         base_name: function() { return options.is_template ? '' : context.baseInputName },
-        if_template: function() { return options.is_template }
+        if_template: function() { return options.is_template },
+				inputName: function() { return context.inputName },
+				
       }, data);
 
       var html = Mustache.to_html(context.template, data);
@@ -168,6 +171,7 @@ $(document).ready(function() {
         empty: wrapper.find('p:first'),
         template: wrapper.find('script[name=template]').html(),
         baseInputName: wrapper.find('script[name=template]').attr('data-base-input-name'),
+				inputName: wrapper.find('script[name=template]').attr('data-name'),
         data: eval(wrapper.find('script[name=data]').html()),
         error: wrapper.parent().find('p.inline-errors')
       };
@@ -194,6 +198,8 @@ $(document).ready(function() {
           if (typeof(current.name) == 'undefined') {
             if (data.id == current[1]) {
               data.label = current[0];
+							data.thumb = current[2];
+							data.inputName = wrapper.find('script[name=template]').attr('data-name');
               break;
             }
           } else { // loop thru the groups
@@ -202,6 +208,8 @@ $(document).ready(function() {
 
               if (data.id == localCurrent[1]) {
                 data.label = localCurrent[0];
+								data.thumb = current[2];
+								data.inputName = wrapper.find('script[name=template]').attr('data-name');
                 break;
               }
             }

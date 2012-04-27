@@ -154,6 +154,7 @@ module Locomotive
 
             value = (case kind
             when 'file'     then self.open_sample_asset(value)
+            when 'picture'  then self.open_sample_asset(value)
             when 'boolean'  then Boolean.set(value)
             when 'date'     then value.is_a?(Date) ? value : Date.parse(value)
             when 'category'

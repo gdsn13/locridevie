@@ -13,22 +13,19 @@
 
     = f.input :slug, :required => false, :hint => @page.slug.blank? ? '&nbsp;' : page_url(@page), :input_html => { :'data-url' => get_path_admin_pages_url, :disabled => @page.index? || @page.not_found? }, :wrapper_html => { :style => "#{'display: none' if @page.templatized?};" }
 
-= render 'editable_elements', :page => @page
+= f.foldable_inputs :name => :raw_template do
+  = f.input :body, :label => "content", :as => :text, :input_html => { :class => 'html' }
+
+= f.foldable_inputs :name => :jules do
+  = render 'embededs', :f => f, :type => "jules", :class_last => ""
+  = render 'embededs', :f => f, :type => "actus", :class_last => ""
+  = render 'embededs', :f => f, :type => "boutons", :class_last => "last"  
 
 = f.foldable_inputs :name => :seo do
 
   = f.input :seo_title
   = f.input :meta_keywords
-  = f.input :meta_description
-
-= f.foldable_inputs :name => :jules do
-  = render 'embededs', :f => f, :type => "jules"
-  
-= f.foldable_inputs :name => :actus do
-  = render 'embededs', :f => f, :type => "actus"
-  
-= f.foldable_inputs :name => :boutons do
-  = render 'embededs', :f => f, :type => "boutons"  
+  = f.input :meta_description  
 
 - if can?(:manage, @page)
 
@@ -38,6 +35,9 @@
 
     = f.custom_input :templatized, :css => 'toggle', :style => "#{'display: none' if @page.redirect?}" do
       = f.check_box :templatized
+      
+    = f.custom_input :fat, :css => 'toggle' do
+      = f.check_box :fat
 
     = f.custom_input :published, :css => 'toggle' do
       = f.check_box :published
@@ -49,17 +49,5 @@
       = f.check_box :redirect
 
     = f.input :cache_strategy, :as => :select, :collection => options_for_page_cache_strategy, :include_blank => false, :wrapper_html => { :style => "#{'display: none' if @page.redirect?}" }
-    
-    = f.input :rendering, :as => :select, :collection => options_for_page_rendering, :include_blank => false
 
     = f.input :redirect_url, :required => true, :wrapper_html => { :style => "#{'display: none' unless @page.redirect?}" }
-
-
-  = f.foldable_inputs :name => :raw_template do
-    = f.custom_input :value, :css => 'code full', :with_label => false do
-      = f.label :raw_template
-      %code{ :class => 'html' }
-        = f.text_area :raw_template
-      = f.errors_on :template
-      .more
-        = link_to t('admin.image_picker.link'), admin_theme_assets_path, :id => 'image-picker-link', :class => 'picture'
