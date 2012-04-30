@@ -663,6 +663,14 @@ div.fieldWithErrors { display: inline; }
 	padding-left:30px;
 }
 
-.has-many-selector p{
-	margin-left:185px !important;
+li.has-many label{
+	float:left;
+}
+li.has-many .has-many-selector{
+	float:left;
+	width:80%;
+}
+
+li.has-many ul{
+	margin:0 !important;
 }

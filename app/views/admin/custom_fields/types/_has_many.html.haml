@@ -8,7 +8,7 @@
     %ul
     
     - if picture_content = get_picture_content(field._alias)
-      %p{ :style => "margin-left: 185px" }
+      %p
         = "Uploader une liste d'image. Gardez le bouton Ctrl ou Cmd enfonsé pour faire des choix multiples :"
         = file_field_tag :images, :id => 'uploadify', :class => 'multiple_upload', :rel => admin_contents_url(:slug => field._alias, :auth_token => current_admin.authentication_token, :format => :json), :field_name => picture_content._name
 

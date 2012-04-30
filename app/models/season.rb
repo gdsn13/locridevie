@@ -5,7 +5,8 @@ class Season
   
   validates_presence_of :site, :name
   
+  has_many :jules
+  has_many :boutons
+  has_many :actus
   referenced_in :site
-  #references_many :contents, :class_name => 'ContentInstance'
-  #embedded_in :site, :inverse_of => :memberships
 end

@@ -34,4 +34,4 @@
             %span!= t('admin.buttons.new_item')
 
     %script{ :type => 'text/javascript', :name => 'data' }
-      != embeded_items_data_to_js(type)
+      != embeded_items_data_to_js(type, @current_site.season_back)

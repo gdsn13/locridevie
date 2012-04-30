@@ -3,5 +3,9 @@ module Admin
 
     sections 'contents', 'buttons'
     
+    def index
+      @boutons = Bouton.for_season(@current_site.season_back)
+    end
+    
   end
 end
