@@ -1,9 +1,9 @@
-class JuleUploader < CarrierWave::Uploader::Base
+class ActuUploader < CarrierWave::Uploader::Base
 
   include CarrierWave::MiniMagick
 
   def store_dir
-    self.build_store_dir('contents', 'jules', model.id)
+    self.build_store_dir('contents', 'actus', model.id)
   end
 
 
@@ -14,5 +14,4 @@ class JuleUploader < CarrierWave::Uploader::Base
   version :medium do
     process :resize_to_fill => [800,800]
   end
-  
 end
