@@ -8,25 +8,13 @@
         %li
           = link_to truncate(page.title, :length => 25), edit_admin_page_url(page)
           %span= time_ago_in_words(page.updated_at)
-          
-      
-= admin_content_menu_item 'snippets', admin_snippets_url do
-  - if can? :manage, @snippets
-    .header
-      %p= link_to t('admin.snippets.index.new'), new_admin_snippet_url
-  .inner
-    %ul
-      - current_site.snippets.latest_updated.each do |snippet|
-        %li
-          = link_to truncate(snippet.name, :length => 25), edit_admin_snippet_path(snippet)
-          %span= time_ago_in_words(snippet.updated_at)
 
 = admin_content_menu_item 'actus', admin_actus_url do
   .header
     %p= link_to t('admin.actus.index.new'), new_admin_actu_url
   .inner
     %ul
-      - current_site.actus.latest_updated.each do |act|
+      - current_site.actus.for_menu(@current_site.season_back).each do |act|
         %li
           = link_to truncate(act.title, :length => 25), edit_admin_actu_path(act)
           %span= time_ago_in_words(act.updated_at)          
@@ -36,7 +24,7 @@
     %p= link_to t('admin.jules.index.new'), new_admin_jule_url
   .inner
     %ul
-      - current_site.jules.latest_updated.each do |jul|
+      - current_site.jules.for_menu(@current_site.season_back).each do |jul|
         %li
           = link_to truncate(jul.name, :length => 25), edit_admin_jule_path(jul)
           %span= time_ago_in_words(jul.updated_at)
@@ -46,7 +34,7 @@
     %p= link_to t('admin.boutons.index.new'), new_admin_bouton_url
   .inner
     %ul
-      - current_site.boutons.latest_updated.each do |btn|
+      - current_site.boutons.for_menu(@current_site.season_back).each do |btn|
         %li
           = link_to truncate(btn.title, :length => 25), edit_admin_bouton_path(btn)
           %span= time_ago_in_words(btn.updated_at)

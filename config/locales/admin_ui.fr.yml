@@ -133,8 +133,7 @@ fr:
         new: Ajouter un Jule
       new:
         title: "Création d'un Jules"
-        Help: Entrez le block HTML qui constituera le Jules
-        new: 
+        help: Entrez le block HTML qui constituera le Jules
         
     pages:
       index:

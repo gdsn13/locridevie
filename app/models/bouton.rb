@@ -16,4 +16,9 @@ class Bouton
   def self.for_season p_season_id    
     where(:season_id => p_season_id)
   end
+  
+  def self.for_menu p_season_id
+    where(:season_id => p_season_id).order_by([[:updated_at, :desc]]).limit(10)
+  end
+  
 end
