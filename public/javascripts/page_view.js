@@ -26,10 +26,6 @@ window.application.addView((function( $, application ){
 		$(this.model).on( 'page_ready', function(){
 			self.data_ready();
     });
-
-		$( window ).on( 'resize', function(){
-			self.resize( self.bck_img, self.bck_img.find('img')[0] );
-		});
   };
 
 	PageView.prototype.data_ready = function(){
@@ -49,8 +45,17 @@ window.application.addView((function( $, application ){
 			self.dispay_picto();
 		}
 		
+		console.log('data_ready_page');
+		
 		this.view.imagesLoaded(function( $images, $proper, $broken ){
-			self.view.show('fast');
+			//on ne resize que l'image du fond
+			console.log(self.model.current_page.picto);
+			if (self.model.current_page.picto != ""){
+				$( window ).on( 'resize', function(){	
+					self.resize( self.bck_img, self.bck_img.find('img')[0]);
+				});
+			}
+			self.view.animate({opacity:1}, 'fast');
 		});
 	};
 
@@ -118,6 +123,7 @@ window.application.addView((function( $, application ){
 	// I check if everything is ok for the correct display of the view.
 	PageView.prototype.check = function(){
 		var menu = $('#logo_menu');
+		$( window ).unbind();
 		$('body').css({'overflow-y': 'auto'});
 		//check que le slider soit bien affiché
 		var ss = $('#spectacle_slider');
@@ -129,13 +135,11 @@ window.application.addView((function( $, application ){
 		if(menu.css('display') == 'none'){
 			menu.show();
 		}
+		this.view.css({'display' : 'block', 'opacity' : '0'});
 	};
 	
 	PageView.prototype.resize = function(p_container,p_img) {
-		
-		console.log( p_img.width() );
-		console.log( p_img.height() );
-		
+				
 		//Define starting width and height values for the original image
 		var start_width = p_img.width();  
 		var start_height = p_img.height();

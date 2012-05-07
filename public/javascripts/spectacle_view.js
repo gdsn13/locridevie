@@ -28,15 +28,6 @@ window.application.addView((function( $, application ){
 		$(this.model).on('spectacle_ready', function(){
       self.display_view();
     });
-
-		$(window).resize(function(){
-			console.log('merde');
-			self.images_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-			self.spectacles_sliders.css('width', $(window).width()/2 -50 );	
-			if( self.slider_container.find('.cont') != null ){
-				self.slider_container.find('.cont').css({'left' : $(window).width(), 'width' : $(window).width()/2 - 150});
-			}
-		});
   };
 
 	SpectacleView.prototype.display_view = function(){
@@ -72,9 +63,12 @@ window.application.addView((function( $, application ){
 		
 		// RESIZE DES IMAGES UNE FOIS QU'ELLES SONT CHARGEES
 		this.images_container.find('img').load(function(){
+			var img = this;
+			console.log($(this));
 			self.resize(self.images_container, $(this));
 			$(window).on('resize', function(){
-				self.resize(self.images_container, $(this));
+				console.log(img);
+				self.resize(self.images_container, $(img));
 			});
 		});
 		
@@ -92,6 +86,15 @@ window.application.addView((function( $, application ){
 		self.init_sliders_positions();
 		
 		this.view.imagesLoaded(function(){
+			$(window).resize(function(){
+				self.images_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+				self.spectacles_sliders.css('width', $(window).width()/2 -50 );	
+				if( self.slider_container.find('.cont') != null ){
+					self.slider_container.find('.cont').css({'left' : $(window).width(), 'width' : $(window).width()/2 - 150});
+				}
+				
+			});
+			
 			self.images_container.find('.image').css('display', 'none');
 			self.images[0].css('display', 'block');
 			self.view.animate({opacity:1},'fast', function(){
@@ -101,6 +104,7 @@ window.application.addView((function( $, application ){
 				}, self.slider_duration);
 				
 			});
+			self.model.set_message_to_growl("");
 		});
 	};
 	
@@ -193,6 +197,10 @@ window.application.addView((function( $, application ){
 	
 	//je resize la photo
 	SpectacleView.prototype.resize = function(p_container, p_img) {
+		
+		console.log(p_img);
+		
+		
 		//Define starting width and height values for the original image
 		var start_width = p_img.width();  
 		var start_height = p_img.height();

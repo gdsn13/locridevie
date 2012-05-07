@@ -95,8 +95,7 @@ window.application.addModel((function( $, application ){
 	
 	Model.prototype.set_spectacle = function(p_spectacle){
 		this.pages[p_spectacle.slug] = p_spectacle;
-		this.set_current_page(p_spectacle.slug);
-		this.set_message_to_growl("");
+		this.current_page = this.pages[p_spectacle.slug];
 		$(this).trigger('spectacle_ready');
 	};
 	
