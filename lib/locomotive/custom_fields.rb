@@ -11,6 +11,19 @@ module CustomFields
     module File
       class FileUploader < ::CarrierWave::Uploader::Base
 
+        include CarrierWave::MiniMagick
+        include CarrierWave::MimeTypes
+        
+        process :set_content_type
+        
+        version :thumb, :if => :image? do
+          process :resize_to_fit => [50, 50]
+        end
+        
+        version :menu, :if => :image? do
+          process :resize_to_fit => [170, 170]
+        end
+
         def store_dir
           "contents/#{model.class.model_name.underscore}/#{model.id}"
         end
@@ -18,7 +31,12 @@ module CustomFields
         def cache_dir
           "#{Rails.root}/tmp/uploads"
         end
-
+        
+        protected
+          def image?(new_file)
+            new_file.content_type.include? 'image'
+          end
+        
       end
     end
     

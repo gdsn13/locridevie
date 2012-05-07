@@ -44,6 +44,7 @@ body{
 	top:0;
 	left:0;
 	overflow:hidden;
+	z-index:500;
 }
 #spectacles_sliders{
 	background:#000;
@@ -54,16 +55,51 @@ body{
 	top:0;
 	right:0;
 }
+#spectacles_sliders h2{ 
+	background:#fff;
+	color:#000;
+	font-size:40px;
+	display:block;
+	width:100px;
+	float:left;
+}
+
+#spectacles_sliders h1{
+	font-size:30px;
+}
+
+.top_spectacle{
+	position:relative;
+	overflow:hidden;
+	padding-top:30px;
+}
+
+.tld{
+	width:200px;
+}
+
+.numero{
+	position:absolute;
+	bottom:-6px;
+	left:300px;
+	font-size:60px;
+}
+
+.presentation{
+	padding-top:30px;
+}
+
 #sliders_spectacle_containers{
 	position:absolute;
 	top:0px;
 	left:0px;
+	z-index:200;
 }
 
 #sliders_spectacle_menu{
 	position:absolute;
 	top:50px;
-	right:0px;
+	right:0;
 	list-style:none;
 	z-index:400;
 }
@@ -205,7 +241,7 @@ body{
 	display: block;
 	left: 200px;
 	position: absolute;
-	top: 360px;
+	top: 160px;
 	width: 400px;
 	padding:10px;
 }

@@ -45,10 +45,7 @@ window.application.addView((function( $, application ){
 			$.each(self.model.current_page.boutons, function(index, btn){
 				nav_intro.append('<li><div class="intro_li_text">' + btn.block + '</div><img src="' + btn.img + '"width="80"/></li>')
 			});
-
-			//TODO: à enlever ou non en fonction de la customisation du bouton voulue ou pas
-			nav_intro.append("<li class='last'><div class='intro_li_text'><h2><a href='#/home_page'>VENEZ NOUS VOIR!</a></h2></div></li>");
-			
+						
 			self.view.show('fast');
 		}).attr('src', this.model.current_page.jules[0].picto);
 		

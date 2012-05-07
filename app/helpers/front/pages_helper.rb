@@ -12,7 +12,7 @@ module Front::PagesHelper
       css << 'first' if index == 0
       css << 'last' if index == children_of_root.size - 1
       
-      if p.slug == "spectacles" || p.slug == "spectacle" || p.slug == "newsletter"
+      if p.slug == "spectacles" || p.slug == "spectacle" || p.slug == "newsletter" || p.slug == "home_page"
         is_page = false
       else
         is_page = true  
@@ -35,14 +35,15 @@ module Front::PagesHelper
     css << 'fat' if page.fat
     
     output  = %{<li id="#{page.slug.dasherize}-link" class="link #{selected} #{css}">}
-        
-    #if page.children == [] && depth <= 2
+    
+    # si la page est une sous catégorie d'un fat, on affiche pas le titre.
+    if page.parent.fat == false
       if is_page 
         output << %{<a href="/#/pages/#{page.fullpath}">#{page.title}</a>}
       else
         output << %{<a href="/#/#{page.fullpath}">#{page.title}</a>}
       end
-    #end
+    end
     output << render_entry_children(page, is_page, depth.succ)
     output << %{</li>}
 

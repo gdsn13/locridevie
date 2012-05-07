@@ -21,7 +21,6 @@ window.application.addView((function( $, application ){
 		
 		this.model = application.getModel( "Model" );
 		this.view = $('#spectacle_container');
-		//this.content_area = $('#contents');
 		this.template = $('#spectacle_template');
 		
 		/* DATA REFRESH
@@ -31,9 +30,12 @@ window.application.addView((function( $, application ){
     });
 
 		$(window).resize(function(){
+			console.log('merde');
 			self.images_container.css({'width': $(window).width()/2, 'height':$(window).height()});
 			self.spectacles_sliders.css('width', $(window).width()/2 -50 );	
-			self.slider_container.find('.cont').css({'left' : $(window).width(), 'width' : $(window).width()/2 - 150});
+			if( self.slider_container.find('.cont') != null ){
+				self.slider_container.find('.cont').css({'left' : $(window).width(), 'width' : $(window).width()/2 - 150});
+			}
 		});
   };
 
@@ -58,7 +60,7 @@ window.application.addView((function( $, application ){
 		this.slider_menu = $('#sliders_spectacle_menu');
 		
 		this.images_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-		this.spectacles_sliders.css('width', $(window).width()/2 -50 );
+		this.spectacles_sliders.css('width', $(window).width()/2 -100 );
 		
 		// GENERATION DES IMAGES
 		$.each(this.model.pages[this.current_spectacle].images, function(index, img){
@@ -105,8 +107,6 @@ window.application.addView((function( $, application ){
 	SpectacleView.prototype.animate = function( p_way ){
 		var saved_index = this.current_index;
 		var self = this;
-		
-		console.log(this.images);
 		
 		switch( p_way ){
 			case "next":
@@ -158,6 +158,7 @@ window.application.addView((function( $, application ){
 	SpectacleView.prototype.hide_view = function(){
 		clearTimeout(this.slider_timeout);
 		this.slider_timeout = null;
+		$(window).unbind();
 		this.view.animate({opacity : 0}, 'fast');
 	};
 
@@ -177,6 +178,8 @@ window.application.addView((function( $, application ){
 		this.slider_menu = null;
 		this.slider_container = null;
 		this.images_container = null;
+		var ss = $('#spectacle_slider');
+		if( ss.css('display') == 'none') ss.fadeIn('fast');
 		
 		$('body').css({'overflow-y': 'auto'});
 		this.view.css({'display' : 'block', 'opacity' : '0'});

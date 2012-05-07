@@ -66,10 +66,10 @@ class Front::DatasController < ApplicationController
     end
     
     spectacle = { :title => sp.titre,
+                  :numero => sp.numero,
+                  :tld => sp.tld,
                   :slug => sp._slug,
-                  :auteur => sp.auteur,
                   :date => sp.date,
-                  :duree => sp.duree,
                   :presentation => sp.presentation,
                   :logo => sp.logo.url,
                   :images => images,

@@ -23,9 +23,13 @@ window.application.addView((function( $, application ){
 		
 		/* DATA REFRESH
 		----------------------------------------------------------------------------------------*/
-		$(this.model).on('page_ready', function(){
+		$(this.model).on( 'page_ready', function(){
 			self.data_ready();
     });
+
+		$( window ).on( 'resize', function(){
+			self.resize( self.bck_img, self.bck_img.find('img')[0] );
+		});
   };
 
 	PageView.prototype.data_ready = function(){
@@ -45,7 +49,7 @@ window.application.addView((function( $, application ){
 			self.dispay_picto();
 		}
 		
-		this.view.imagesLoaded(function($images, $proper, $broken){
+		this.view.imagesLoaded(function( $images, $proper, $broken ){
 			self.view.show('fast');
 		});
 	};
@@ -114,7 +118,11 @@ window.application.addView((function( $, application ){
 	// I check if everything is ok for the correct display of the view.
 	PageView.prototype.check = function(){
 		var menu = $('#logo_menu');
-		$('body').css({'overflow-y': 'scroll'});
+		$('body').css({'overflow-y': 'auto'});
+		//check que le slider soit bien affiché
+		var ss = $('#spectacle_slider');
+		if( ss.css('display') == 'none') ss.fadeIn('fast'); 
+		
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );
 		}
@@ -124,6 +132,9 @@ window.application.addView((function( $, application ){
 	};
 	
 	PageView.prototype.resize = function(p_container,p_img) {
+		
+		console.log( p_img.width() );
+		console.log( p_img.height() );
 		
 		//Define starting width and height values for the original image
 		var start_width = p_img.width();  

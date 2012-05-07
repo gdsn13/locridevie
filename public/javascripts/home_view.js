@@ -83,8 +83,11 @@ window.application.addView((function( $, application ){
 	HomeView.prototype.check = function(){
 		var self = this;
 		var left = $('#logo_menu');
+		var ss = $('#spectacle_slider');
+		if( ss.css('display') == 'none') ss.fadeIn('fast'); 
+
 		$('#menu').css('display', 'block');
-		$('body').css({'overflow-y': 'scroll'});
+		$('body').css({'overflow-y': 'auto'});
 		if(left.css('display') == 'none'){
 			left.show();
 		}

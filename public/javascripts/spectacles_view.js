@@ -157,6 +157,10 @@ window.application.addView((function( $, application ){
 		this.spectacles = [];
 		$('#logo_menu').show('fast');
 		$('body').css({'overflow-y': 'hidden'});
+		
+		var ss = $('#spectacle_slider');
+		if( ss.css('display') == 'none') ss.fadeIn('fast'); 
+		
 		//securisation des données.
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );
