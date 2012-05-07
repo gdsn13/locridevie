@@ -7,8 +7,8 @@ window.application.addView((function( $, application ){
   
   GrowlView.prototype.init = function(){  
 		var self = this;
-		this.model = application.getModel( "Model" );
 		this.view = $('#growl_messages');
+		this.model = application.getModel( "Model" );
 
 		/* DISPLAY INIT
 		----------------------------------------------------------------------------------------*/

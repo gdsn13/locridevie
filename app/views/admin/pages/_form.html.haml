@@ -15,11 +15,12 @@
 
 = f.foldable_inputs :name => :raw_template do
   = f.input :body, :label => "content", :as => :text, :input_html => { :class => 'html' }
+  = f.input :bck_img
 
 = f.foldable_inputs :name => :jules do
   = render 'embededs', :f => f, :type => "jules", :class_last => ""
   = render 'embededs', :f => f, :type => "actus", :class_last => ""
-  = render 'embededs', :f => f, :type => "boutons", :class_last => "last"  
+  = render 'embededs', :f => f, :type => "boutons", :class_last => "last" 
 
 = f.foldable_inputs :name => :seo do
 

@@ -15,12 +15,12 @@ window.application.addModel((function( $, application ){
 		this.model = application.getModel("Model");
 	};
 			
-	// ----------------------------------------------------------------------- //
-	// ----------------------------------------------------------------------- //
-	
-	LocoService.prototype.get_spectacles = function(p_ordering){
-		
+	/* SPECTACLESSSSSS
+	----------------------------------------------------------------------------------------*/
+	LocoService.prototype.get_spectacles = function(p_ordering, p_spectacles){
 		var self = this;
+		
+		//p_spectacles == false ? url = p_ordering + "?specacles=true" : url = p_ordering;	
 
 		application.ajax({
 			url: p_ordering,
@@ -31,11 +31,11 @@ window.application.addModel((function( $, application ){
 				self.model.set_message_to_growl(json.statusText);
 			}
 		});
-		
 	};
 	
+	/* SPECTACLE
+	----------------------------------------------------------------------------------------*/
 	LocoService.prototype.get_spectacle = function(p_slug){
-		
 		var self = this;
 
 		application.ajax({
@@ -47,11 +47,27 @@ window.application.addModel((function( $, application ){
 				self.model.set_message_to_growl(json.statusText);
 			}
 		});
-		
 	};
 	
+	/* HOME TODO => Remove
+	----------------------------------------------------------------------------------------*/
+	LocoService.prototype.get_home = function(){
+		var self = this;
+
+		application.ajax({
+			url: '/pages/home_page',
+			success: function(json){
+				self.model.set_home(json);
+			},
+			error: function(json){
+				self.model.set_message_to_growl(json.statusText);
+			}
+		});
+	};
+	
+	/* INTRO
+	----------------------------------------------------------------------------------------*/
 	LocoService.prototype.get_intro = function(){
-		
 		var self = this;
 
 		application.ajax({
@@ -63,9 +79,10 @@ window.application.addModel((function( $, application ){
 				self.model.set_message_to_growl(json.statusText);
 			}
 		});
-		
 	};
 	
+	/* PAGES
+	----------------------------------------------------------------------------------------*/
 	LocoService.prototype.get_page = function(p_page_slug){
 		var self = this;
 		
@@ -79,12 +96,7 @@ window.application.addModel((function( $, application ){
 			}
 		});
 	};
-	
-	// ----------------------------------------------------------------------- //
-	// ----------------------------------------------------------------------- //
-
-	
+		
 	// Return a new model class singleton instance.
 	return( new LocoService() );
-	
 })( jQuery, window.application ));

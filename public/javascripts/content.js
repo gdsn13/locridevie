@@ -22,6 +22,7 @@ window.application.addController((function( $, application ){
 		this.spectacles_view = null;
 		this.spectacle_view = null;
 		this.page_view = null;
+		this.current_parameter = null;
   };
   
   Controller.prototype = new application.Controller();
@@ -38,9 +39,14 @@ window.application.addController((function( $, application ){
 		this.page_view = application.getView( "PageView" );
 		this.spectacles_view = application.getView( "SpectaclesView" );
 		this.spectacle_view = application.getView( "SpectacleView" );		
+		this.model = application.getModel( "Model" );
 		
 		$(window).load(function(){
 			self.model = application.getModel( "Model" );
+		});
+		
+		$(this.model).on('hide_finished', function(){
+			self.show_current_view();
 		});
   };
 
@@ -76,15 +82,23 @@ window.application.addController((function( $, application ){
   
   // I show the given view; but first, I hide any existing view.
   Controller.prototype.changeView = function( p_view, p_event ){
+	
+		if (this.model == null) this.model = application.getModel( "Model" );
+		
+		if (p_view != this.intro_view){
+			this.model.check_for_spectacles();
+		}
+		
 		if (this.current_view != null){
 			this.current_view.hide_view();
 		}
 		
-		this.current_view = p_view;
-				
+		this.current_view = p_view;	
+		this.current_parameter = p_event.parameters;
+		
 		if (p_view && p_view.show_view){
-			this.current_view.show_view( p_event.parameters );
-		}	
+			this.current_view.show_view( this.current_parameter );
+		}
   };
   
   // ----------------------------------------------------------------------- //

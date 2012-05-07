@@ -22,6 +22,8 @@ class Page
   field :published, :type => Boolean, :default => false
   field :cache_strategy, :default => 'none'
   field :fat, :type => Boolean
+  
+  mount_uploader :bck_img, PageUploader
 
   ## associations ##
   referenced_in :site

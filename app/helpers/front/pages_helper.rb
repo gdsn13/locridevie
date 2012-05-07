@@ -2,12 +2,6 @@ module Front::PagesHelper
   
   def get_generated_menu()
     
-    p '44444'
-    p '44444'
-    p '44444'
-    p '44444'
-    p @page
-    
     children_output = "<ul id='menu'>"
     children_of_root = @current_site.pages.root.minimal_attributes.first.children_with_minimal_attributes.to_a
     
@@ -41,11 +35,14 @@ module Front::PagesHelper
     css << 'fat' if page.fat
     
     output  = %{<li id="#{page.slug.dasherize}-link" class="link #{selected} #{css}">}
-    if is_page
-      output << %{<a href="/#/pages/#{page.fullpath}">#{page.title}</a>}
-    else
-      output << %{<a href="/#/#{page.fullpath}">#{page.title}</a>}
-    end
+        
+    #if page.children == [] && depth <= 2
+      if is_page 
+        output << %{<a href="/#/pages/#{page.fullpath}">#{page.title}</a>}
+      else
+        output << %{<a href="/#/#{page.fullpath}">#{page.title}</a>}
+      end
+    #end
     output << render_entry_children(page, is_page, depth.succ)
     output << %{</li>}
 
@@ -58,7 +55,10 @@ module Front::PagesHelper
 
     children = page.children_with_minimal_attributes.reject { |c| !include_page?(c) }
     if children.present?
-      output = %{<ul id="#{page.slug.dasherize}" class="sub_menu #{'fat_menu' if page.fat != false}">}
+      
+      faty = page.fat != false ? 'fat_menu' : ''
+      
+      output = %{<ul id="#{page.slug.dasherize}" class="sub_menu #{faty}">}
       children.each do |c, page|
         css = []
         css << 'first' if children.first == c

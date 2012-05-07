@@ -11,13 +11,19 @@ window.application.addModel((function( $, application ){
 		this.pages = [];
 		this.current_page = null;
 		this.message_to_growl = "";
+		this.spectacles_loaded = false;
+		this.current_ordering = "calendrier";
 	};
+	
+	Model.prototype.hide_finished = function(){
+		$(this).trigger('hide_finished');
+	}
 	
 	/* GROWL MESSAGE
 	----------------------------------------------------------------------------------------*/	
 	
 	Model.prototype.set_message_to_growl = function(p_message){
-		p_message == "" ? this.message_to_growl = "" : this.message_to_growl = "<p>" + p_message + "</p>";		
+		p_message == "" ? this.message_to_growl = "" : this.message_to_growl = "<p>" + p_message + "</p>";
 		$(this).trigger('messaging');
 	};
 	
@@ -57,14 +63,20 @@ window.application.addModel((function( $, application ){
 
 	/* HOME
 	----------------------------------------------------------------------------------------*/
+	Model.prototype.set_home = function(p_home){
+		this.pages["pages/home_page"] = p_home;
+		this.current_page = this.pages["pages/home_page"];
+		$(this).trigger('home_datas_ready');
+	};
 	
 	Model.prototype.get_home = function(){
 		if (this.pages["pages/home_page"] == null){
 			this.set_message_to_growl("Chargement...");
-			application.getModel( "LocoService" ).get_page("pages/home_page");
+			application.getModel( "LocoService" ).get_home();
 		}
 		else{
-			this.set_current_page("pages/home_page");
+			this.current_page = this.pages["pages/home_page"];
+			$(this).trigger('home_datas_ready');
 		}
 	};
 	
@@ -92,29 +104,37 @@ window.application.addModel((function( $, application ){
 	----------------------------------------------------------------------------------------*/
 	
 	Model.prototype.set_spectacles = function(p_spectacles){
-		this.spectacles = p_spectacles.spectacles;
 		this.pages[p_spectacles.page.fullpath] = p_spectacles.page;
-
-		this.set_current_page(p_spectacles.page.fullpath);
-		this.set_message_to_growl("");
+		this.current_page = this.pages[p_spectacles.page.fullpath];
 		$(this).trigger('spectacles_ready');
 	};
 	
-	Model.prototype.get_spectacles = function(p_path){
+	Model.prototype.get_spectacles = function(p_path, p_ordering){
 		if (this.pages[p_path] == null){
 			this.set_message_to_growl("Chargement...");
-			application.getModel("LocoService").get_spectacles(p_path);
+			application.getModel("LocoService").get_spectacles(p_path, this.spectacles_loaded);
 		}
 		else{
-			this.set_current_page(p_path);
+			this.current_page = this.pages[p_path];
 			$(this).trigger('spectacles_ready');
 		}
+		if (p_ordering != this.current_ordering){
+			this.current_ordering = p_ordering;
+			$(this).trigger('spectacles_list_ready');
+		}
 	};
+	
+	Model.prototype.check_for_spectacles = function(){
+		if (this.spectacles.length == 0){
+			this.spectacles = spectacles_list;
+			$(this).trigger('spectacles_list_ready');
+		}
+	}
 	
 	/* I order spectacles list by title (alphabetic order)
 	----------------------------------------------------------------------------------------*/
 	Model.prototype.spectacles_ordered_by_name = function(){
-		var spec = this.spectacles;
+		var spec = this.spectacles;		
 		spec.sort(this.sort_by('titre', true, function(a){return a.toUpperCase()}));
 		return spec;
 	};
@@ -138,6 +158,7 @@ window.application.addModel((function( $, application ){
 	Model.prototype.spectacles_ordered_by_date = function(){
 		var spec = this.spectacles;
 		spec.sort(this.sort_by('date', true, function(a){return new Date(a)}));
+		//spec.sort(this.sort_by_date);
 		return spec;
 	};
 	
@@ -146,7 +167,16 @@ window.application.addModel((function( $, application ){
 	};
 		
 	/* FUNCTIONS TOOL
-	----------------------------------------------------------------------------------------*/			
+	----------------------------------------------------------------------------------------*/	
+	Model.prototype.sort_by_date = function(a, b){
+		var data = new Date(a.date);
+		var datb = new Date(b.date);
+		
+		console.log(data);
+		
+		return data.getTime() - datb.getTime();
+	}
+			
 	Model.prototype.sort_by = function(field, reverse, primer){
 
 	   var key = function (x) {return primer ? primer(x[field]) : x[field]};

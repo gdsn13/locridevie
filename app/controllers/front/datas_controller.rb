@@ -5,30 +5,9 @@ class Front::DatasController < ApplicationController
   #render a specatcle list and the associated page to be rendered
   def spectacle_list   
     page = Page.where(:slug => params[:id]).first
-    site = Site.first
-    spectacles = []
-            
-    ContentType.where(:slug => "spectacles").first.contents.each do |s|
-      if s.season_id == site.season_front
-        spectacles << s
-      end
-    end
-    
-    #ContentType.where(:slug => "spectacles").first.contents.where(:season_id => site.season_front.to_i)
-    
-    spectacles = spectacles.map do |spec| 
-        { :id => spec.id,
-  			  :slug => spec._slug,
-  			  :titre => spec.titre,
-  			  :date => spec.date,
-  			  :en_tournee => spec.en_tournee,
-  			  :saison => spec.season_id,
-  			  :logo => spec.logo.url
-  		  }
-    end
     
     list_to_json = {
-      :spectacles => spectacles,
+      #:spectacles => spectacles,
       :page => {
         :fullpath => page.fullpath, 
         :body => page.body,
@@ -50,7 +29,8 @@ class Front::DatasController < ApplicationController
                       :body => page.body, 
                       :jules => page.embeded_items.get_jules_for_json, 
                       :boutons => page.embeded_items.get_boutons_for_json, 
-                      :actus => page.embeded_items.get_actus_for_json
+                      :actus => page.embeded_items.get_actus_for_json,
+                      :picto => page.bck_img.url
                    }
     
     render :json => page_to_json.to_json

@@ -18,76 +18,41 @@ html{
 	font-family: verdana;
 }
 
-#left{
-	width:200px;
-	position:absolute;
-	top:0;
-	left:0;
-	z-index:3000;
-	display:none;
-}
-#contents{
-	width:780px;
-}
-
-#menu li ul{
-	display:none;
-	padding-left:20px;
-}
-
-#menu li{
-	display:block !important;
-	position:static !important
-}
-
-#intro{
-	position:absolute;
-	left:0;
-	top:0;
+body{
 	width:100%;
 	height:100%;
 	overflow:hidden;
 }
 
-.intro_and_site_views{
-	position:absolute;
-	left:0;
-	top:0;
-	display:none;
-	padding-left:200px;
-	z-index:2000;
-	overflow:hidden;
-}
-
-#spectacles_list li{
-	display:block;
-	height:80px;
-	padding-bottom:10px;
-}
-#spectacles_list li img{
-	padding-right:20px;
-}
-#spectacles_list li a{
-	padding-top:5px;
-	display:block;
-}
+/* MESSAGING
+--------------------------------------------------------*/
 
 #growl_messages{
 	position:absolute;
 	top:0;
 	left:0;
 	padding:20px;
-	z-index:4000;
+	z-index:8000;
 	text-align:center;
 	background:#CCC;
 }
 
+/* SPECTACLE
+--------------------------------------------------------*/
 #images_spectacle{
-	padding:10px;
+	position:absolute;
+	top:0;
+	left:0;
+	overflow:hidden;
 }
-#images_spectacle img{
-	padding-right:10px;
-	padding-top:;
+#spectacles_sliders{
+	background:#000;
+	letter-spacing:-0.8px;
+	font-size:12px;
+	padding-right:50px;
+	position:absolute;
+	top:0;
+	right:0;
 }
 #sliders_spectacle_containers{
 	position:absolute;
@@ -100,7 +65,20 @@ html{
 	top:50px;
 	right:0px;
 	list-style:none;
+	z-index:400;
 }
+
+#sliders_spectacle_menu li{
+	width:35px;
+	height:35px;
+	background:#FFF;
+	margin-bottom:5px;
+}
+#sliders_spectacle_menu li a{
+	display:block;
+	padding:5px 0 0 5px;
+}
+
 .cont{
 	position:absolute;
 	left:4000px;
@@ -108,12 +86,16 @@ html{
 	display:block;
 	background:#999;
 	z-index:11000;
-	width:600px;
 	padding:50px;
 }
 
-#spectacles_container{
-	padding:0 300px 0 200px;
+#spectacle_container{
+	position:absolute;
+	top:0;
+	bottom:0;
+	width:100%;
+	height:100%;
+	display:none;
 }
 
 #buttons{
@@ -128,12 +110,374 @@ html{
 	top:10px;
 }
 
-.month_name_for_calendar{
-	background:#333;
-	color:#CCC;
-	font-weight:bold;
-	padding-left:10px;
-	height:15px !important;
+#presentation{
+	padding:10px;
+	position:relative;
+	z-index:300;
+}
+
+.image{
+	position:absolute;
+	height:100%;
+	width:50%;
+	top:0;
+	left:0;
+}
+
+/* PAGES
+--------------------------------------------------------*/
+#pages{
+	position:absolute;
+	left:0;
+	top:0;
+	display:none;
+	z-index:2000;
 	width:100%;
-	padding-top:5px;
+	padding-bottom:50px;
+}
+
+#contents, #jules_list{
+	position:relative;
+	width:780px;
+	margin:0 auto;
+	z-index:400;
+}
+
+#jules_list{
+	overflow:hidden;
+}
+
+#bck_img{
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:200;
+}
+
+/* MENU
+--------------------------------------------------------*/
+#logo_menu{
+	width:200px;
+	position:absolute;
+	top:30px;
+	left:20px;
+	z-index:7000;
+	display:none;
+	opacity:0.3;
+}
+#logo, #menu_title{
+	background:#000;
+	text-align:center;
+}
+
+#menu{
+	display:block;
+	padding:160px 30px 10px;
+	background:rgba(0,0,0,0.8);
+	border-right:1px solid #CCC;
+	position:absolute;
+	top:0;
+	bottom: 0;
+	left:-300px;
+	z-index:6000;
+}
+
+#menu li ul{
+	display:none;
+	padding-left:20px;
+}
+
+#menu li{
+	display:block !important;
+	position:static !important
+}
+
+#close_menu{
+	position:absolute;
+	bottom:3px;
+	right:3px;
+	display:none;
+}
+
+.fat_menu{
+	background: none repeat scroll 0 0 #111111;
+	border:1px solid #CCC;
+	display: block;
+	left: 200px;
+	position: absolute;
+	top: 360px;
+	width: 400px;
+	padding:10px;
+}
+
+.fat_menu li{
+	float:left;
+	width:180px;
+}
+
+
+/*SPECTACLES_NAV
+--------------------------------------------------------*/
+
+#spectacle_slider{
+	position:fixed;
+	bottom:0;
+	z-index:6000;
+	height:180px;
+	width:100%;bottom:-140px;
+	background:rgba(0,0,0,0.5);	
+	box-shadow: 0px 0px 5px 0px #333;
+}
+
+#spectacle_slider ul{
+	list-style:none;
+	position:absolute;
+	top:0;
+	left:0;
+	border-top: 1px solid #CCCCCC;
+	opacity:0;
+}
+#spectacle_slider ul li{
+	float:left;
+	display:block;
+	position:relative;
+	margin:5px 0 5px 5px;
+}
+#spectacle_slider ul li div{
+	position:absolute;
+	top:-100px;
+	left:0;
+}
+
+#spectacles_titles div{
+	position:absolute;
+	top:300px;
+	background:rgba(0,0,0,1);
+	border:1px solid #666;
+	padding:5px;
+	left:0;
+	text-transform:uppercase;
+	font-weight:bold;
+	color:#EEE;
+	font-size:12px;
+	display:none;
+}
+
+#spectacles_titles div span{
+	background: url("../images/tooltip_arr.png") no-repeat scroll 0 0 transparent;
+	bottom: -10px;
+	display: block;
+	height: 10px;
+	left: 50%;
+	margin-left: -8px;
+	position: absolute;
+	width:17px;
+}
+
+#spectacles_titles{
+	position:absolute;
+	left:0;
+	top:0;
+}
+
+.month_name_for_calendar{
+	background: none repeat scroll 0 0 #333333;
+	color: #CCCCCC;
+	font-weight: bold;
+	height: 170px;
+	letter-spacing: -0.8px;
+	padding-top: 5px;
+	text-align: center;
+	width: 120px;
+}
+
+/*SPECTACLES
+--------------------------------------------------------*/
+#spectacles_container, #jules_sliders, .jule_slider{
+	position:absolute;
+	top:0;left:0;
+	width:100%;height:100%;
+	overflow: hidden;
+}
+
+#spectacles_container{
+	display:none;
+}
+
+#jules_sliders{
+	z-index:100;
+}
+
+.jule_slider_block{
+	position:absolute;
+	top:100px;
+	right:200px;
+	width:300px;
+	background:rgba(0,0,0,0.9);
+	padding:10px;
+	box-shadow: 0px 0px 50px 0px #000000;
+}
+
+#slide_left_btn, #slide_right_btn{
+	position:absolute;
+	height:50px;
+	width:50px;
+	z-index:500;
+}
+#slide_left_btn{
+	background:url(../images/scroll_btn_left.png) no-repeat center;
+	left:20px;
+}
+#slide_right_btn{
+	background:url(../images/scroll_btn_right.png) no-repeat center;
+	right:20px;
+}
+.slide_link{height:50px;width:50px;display:block;}
+
+#slider_nav{
+	position:absolute;
+	top:50px;
+	left:50%;
+	display:block;
+	z-index:500;
+}
+.slider_indicator{
+	float:left;
+	width:8px;height:8px;
+	margin:5px;
+	background:url(../images/gallery_indicator_inactive.png) no-repeat;
+}
+.active_indicator{
+	background:url(../images/gallery_indicator_active.png) no-repeat !important;
+}
+
+/*INTRO
+--------------------------------------------------------*/
+#texte_intro{
+	position:absolute;
+	width:350px;
+	left:100px;
+	top:200px;
+	z-index:500;
+	text-shadow:0px 4px 3px rgba(0,0,0,0.4),
+	            0px 8px 13px rgba(0,0,0,0.1),
+	            0px 18px 23px rgba(0,0,0,0.1);;
+}
+
+#texte_intro p{
+	background:rgba(0,0,0,0.7);
+	border:1px solid #888888;
+	padding:5px;
+}
+
+#image_intro{
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:300;
+}
+
+#dotted_intro{
+	position:absolute;top:0;left:0;
+	background:url(../images/bgd_intro.png) repeat;
+	width:100%;height:100%;
+	z-index:400;
+}
+
+#intro{
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	display:none;
+}
+
+#nav_intro{
+	list-style:none;
+	background:#000;
+	padding:4px;
+	overflow:hidden;
+	position:absolute;
+	bottom:0;
+	z-index:600;
+}
+
+#nav_intro li{
+	display:block;
+	float:left;
+	margin-right:4px;
+	background:#333;
+	font-size:10px;
+	min-height:54px;
+}
+
+#nav_intro li h2{
+	font-size:12px;
+	padding:2;
+}
+
+#nav_intro li img{
+	float:left;
+}
+
+.intro_li_text{
+	float:left;
+	display:block;
+	width:130px;
+	padding:2px;
+}
+
+
+#nav_intro li.last{
+	margin-right:0;
+}
+
+/*HOME
+--------------------------------------------------------*/
+#home{
+	width:880px;
+	background:#FFF;
+	margin:0 auto;
+	display:none;
+	padding-bottom:50px;
+}
+#home_container{
+	overflow:hidden;
+	padding-top: 6px;
+}
+#home_jules{
+	width:880px;
+}
+#home_jules a{
+	display:block;
+	overflow:hidden;
+}
+.home_actus{
+	background:#000;
+	margin:0 0 10px 10px;
+	width:300px;
+	overflow:hidden;
+}
+#home_news{
+	width:620px;
+	float:left;
+	margin-right:10px;
+}
+#home_boutons{
+	width:240px;
+	float:left;
+	margin:0 10px 10px 0;
+}
+.home_actus_body{
+	padding:10px;
+	color:#fff;
+}
+.home_boutons_body{
+	color:#000;
+}
+.home_boutons_image{
+	width:240px;
+	overflow:hidden;
 }

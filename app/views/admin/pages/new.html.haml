@@ -5,7 +5,7 @@
 
 %p!= t('.help')
 
-= semantic_form_for @page, :url => admin_pages_url do |form|
+= semantic_form_for @page, :url => admin_pages_url, :html => { :multipart => true } do |form|
 
   = render 'form', :f => form
 
