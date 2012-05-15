@@ -23,9 +23,9 @@ window.application.addView((function( $, application ){
 	IntroView.prototype.initialize = function(){
 		var self = this;
 		$(this.model).on('intro_ready', function(){
-      self.refreshed_datas();
-    });
-	}
+      		self.refreshed_datas();
+    	});
+	};
 
 	IntroView.prototype.refreshed_datas = function(){
 		var self = this;

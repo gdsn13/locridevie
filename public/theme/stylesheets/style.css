@@ -37,6 +37,48 @@ body{
 	background:#CCC;
 }
 
+/* TEST SCROLLING
+--------------------------------------------------------*/
+.viewport { 
+	overflow: hidden; 
+	position: relative; 
+}
+
+.overview { 
+	list-style: none; 
+	position: absolute; 
+	left: 0; 
+	top: 0;
+	margin: 0; 
+}
+
+.scrollbar{ 
+	position: relative;
+	float: right; 
+	width: 2px; 
+}	
+	
+.track{ 
+	background: #333; 
+	border-radius: 2px 2px 2px 2px;
+	height: 100%; 
+	width:2px; 
+	position: relative; 
+}
+.thumb { 
+	background: #999; 
+	height: 20px; 
+	width: 2px; 
+	cursor: pointer; 
+	overflow: hidden; 
+	position: absolute; 
+	top: 0; 
+	left: 0px; 
+}
+
+.disable { display: none; }
+
+
 /* SPECTACLE
 --------------------------------------------------------*/
 #images_spectacle{
@@ -49,7 +91,7 @@ body{
 	background:#000;
 	letter-spacing:-0.8px;
 	font-size:12px;
-	padding-right:50px;
+	padding-right:10px;
 	position:absolute;
 	top:0;
 	right:0;
@@ -80,8 +122,9 @@ body{
 .numero{
 	position:absolute;
 	bottom:-6px;
-	left:300px;
+	left:270px;
 	font-size:60px;
+	font-weight:bold;
 }
 
 .presentation{
@@ -182,10 +225,11 @@ body{
 }
 
 #bck_img{
-	position:absolute;
-	top:0;
-	left:0;
-	z-index:200;
+	left: 0;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	z-index: 200;
 }
 
 /* MENU
@@ -206,24 +250,24 @@ body{
 
 #menu{
 	display:block;
-	padding:160px 30px 10px;
+	padding:20px 30px 10px;
 	background:rgba(0,0,0,0.8);
 	border-right:1px solid #CCC;
 	position:absolute;
 	top:0;
-	bottom: 0;
-	left:-300px;
 	z-index:6000;
+	font-size:14px;
+	letter-spacing:-0.5;
 }
 
-#menu li ul{
-	display:none;
-	padding-left:20px;
+#menu li ul li{
+	float:none;
 }
 
 #menu li{
 	display:block !important;
-	position:static !important
+	float:left;
+	margin-left:30px;
 }
 
 #close_menu{
@@ -233,10 +277,15 @@ body{
 	display:none;
 }
 
+.menu_title{
+	color:#333;
+	font-size:16px;
+}
+
 .fat_menu{
 	background: none repeat scroll 0 0 #111111;
 	border:1px solid #CCC;
-	display: block;
+	display: none;
 	left: 200px;
 	position: absolute;
 	top: 160px;

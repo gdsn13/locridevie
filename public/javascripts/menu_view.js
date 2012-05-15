@@ -39,7 +39,7 @@ window.application.addView((function( $, application ){
 		this.menu_title.hover(function(){
 			//clearTimeout(self.menu_up_to);
 			//self.menu_up_to = null;
-			self.menu.animate({left: 0}, 'fast');
+			self.menu.animate({top: 0}, 'fast');
 			//self.close_btn.fadeIn('fast');
 			self.view.css({"opacity": "1"});
 		});
@@ -49,7 +49,7 @@ window.application.addView((function( $, application ){
 			//clearTimeout(self.menu_up_to);
 			//self.menu_up_to = null;
 			//self.menu_up_to = setTimeout(self.up_menu, 5000);
-			self.menu.animate({left: -300});
+			self.menu.animate({top: -$(window).height()});
 			//self.close_btn.fadeOut('fast');
 		})
 		

@@ -1,4 +1,11 @@
 window.application.addView((function( $, application ){
+	
+	
+	/*
+	/	TRICKS : le sliders des images joue sur l'opacité puisque si display = none, on a plus accés aux informations de l'image (height et width)
+	/
+	/
+	----------------------------------------------*/
   
   function SpectacleView(){
 		this.model = null;
@@ -50,8 +57,9 @@ window.application.addView((function( $, application ){
 		this.slider_container = $('#sliders_spectacle_containers');
 		this.slider_menu = $('#sliders_spectacle_menu');
 		
-		this.images_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-		this.spectacles_sliders.css('width', $(window).width()/2 -100 );
+		//INITIALISATION DES TAILLES DES CONTAINERS
+		this.images_container.css({'width': $(window).width()/2, 'height' : "100%"});
+		this.spectacles_sliders.css('width', $(window).width()/2 - 20 ); //100 de margin!
 		
 		// GENERATION DES IMAGES
 		$.each(this.model.pages[this.current_spectacle].images, function(index, img){
@@ -64,11 +72,9 @@ window.application.addView((function( $, application ){
 		// RESIZE DES IMAGES UNE FOIS QU'ELLES SONT CHARGEES
 		this.images_container.find('img').load(function(){
 			var img = this;
-			console.log($(this));
-			self.resize(self.images_container, $(this));
+			self.resize($(this).parent(), $(this));
 			$(window).on('resize', function(){
-				console.log(img);
-				self.resize(self.images_container, $(img));
+				self.resize($(img).parent(), $(img));
 			});
 		});
 		
@@ -88,15 +94,17 @@ window.application.addView((function( $, application ){
 		this.view.imagesLoaded(function(){
 			$(window).resize(function(){
 				self.images_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-				self.spectacles_sliders.css('width', $(window).width()/2 -50 );	
+				self.spectacles_sliders.css('width', $(window).width()/2 - 20 );	
 				if( self.slider_container.find('.cont') != null ){
 					self.slider_container.find('.cont').css({'left' : $(window).width(), 'width' : $(window).width()/2 - 150});
 				}
-				
 			});
 			
-			self.images_container.find('.image').css('display', 'none');
-			self.images[0].css('display', 'block');
+			//INIT DU SCROLLER
+			self.spectacles_sliders.tinyscrollbar({lockscroll: true});
+			
+			
+			// ON AFFICHE LA VUE
 			self.view.animate({opacity:1},'fast', function(){
 				// LANCEMENT DU FULL-SLIDER
 				self.slider_timeout = setTimeout(function(){
@@ -121,8 +129,8 @@ window.application.addView((function( $, application ){
 				break;
 		}
 
-		this.images[saved_index].fadeOut('fast');
-		this.images[this.current_index].fadeIn('fast');
+		this.images[saved_index].animate({opacity:0}, 'fast');
+		this.images[this.current_index].animate({opacity:1}, 'fast');
 		
 		//if (this.auto == true){
 			this.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches
@@ -134,7 +142,7 @@ window.application.addView((function( $, application ){
 	SpectacleView.prototype.init_sliders_positions = function(){
 		var self = this;
 		// POSITIONNEMENT DES SLIDERS
-		this.slider_container.find('.cont').css({'left' : $(window).width(), 'width' : $(window).width()/2 - 150});
+		this.slider_container.find('.cont').css({'left' : $(window).width() + 20, 'width' : $(window).width()/2 - 150});
 		
 		
 		// OUVERTURE DES SLIDERS
@@ -196,32 +204,13 @@ window.application.addView((function( $, application ){
 	};
 	
 	//je resize la photo
-	SpectacleView.prototype.resize = function(p_container, p_img) {
-		
-		console.log(p_img);
-		
-		
-		//Define starting width and height values for the original image
-		var start_width = p_img.width();  
-		var start_height = p_img.height();
-				
-		//Define image ratio
-		var ratio = start_height/start_width;
-		//Gather browser dimensions
-		var browser_width = p_container.width();
-		var browser_height = p_container.height();
-		//Resize image to proper ratio
-		if ((browser_height/browser_width) > ratio) {
-			//p_container.height(browser_height);
-		  //p_container.width(browser_height / ratio);
-		  p_img.height(browser_height);
-		  p_img.width(browser_height / ratio);
-		} else {
-		  //p_container.width(browser_width);
-		  //p_container.height(browser_width * ratio);
-		  p_img.width(browser_width);
-		  p_img.height(browser_width * ratio);
-	  }
+	SpectacleView.prototype.resize = function(p_container, p_img) {				
+		p_img.width($(window).width()/2);
+		var top_pos = ($(window).height() - p_img.height())/2;
+		p_container.css('top', top_pos);
+		this.spectacles_sliders.css({'top' : top_pos + 10, 'height' : p_img.height() - 10});
+		this.spectacles_sliders.find('.viewport').css('height', p_img.height() - 10);
+		this.spectacles_sliders.tinyscrollbar({lockscroll: true});	
 	};
 	
   // Return a new view class singleton instance.

@@ -131,8 +131,13 @@ $(document).ready(function() {
 					$('.added').each(function(){
 						indexes.push($(this).attr('data-index'));
 					});
-					indexes.sort();
-					return indexes[indexes.length - 1] + 1;
+					if (indexes.length > 0){
+						indexes.sort();
+						return parseInt(indexes[indexes.length - 1]) + 1;
+					}
+					else{
+						return 0;
+					}
 			  },
 				item_position: function(){
 					return context.data.taken_ids.length;

@@ -289,6 +289,7 @@ fr:
     content_types:
       index:
         new: nouveau modèle
+        see: voir en ligne
         
       new:
         title: Nouveau modèle

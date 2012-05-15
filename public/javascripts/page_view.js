@@ -45,16 +45,7 @@ window.application.addView((function( $, application ){
 			self.dispay_picto();
 		}
 		
-		console.log('data_ready_page');
-		
 		this.view.imagesLoaded(function( $images, $proper, $broken ){
-			//on ne resize que l'image du fond
-			console.log(self.model.current_page.picto);
-			if (self.model.current_page.picto != ""){
-				$( window ).on( 'resize', function(){	
-					self.resize( self.bck_img, self.bck_img.find('img')[0]);
-				});
-			}
 			self.view.animate({opacity:1}, 'fast');
 		});
 	};
@@ -64,9 +55,15 @@ window.application.addView((function( $, application ){
 		//on charge l'image, on l'ajoute au bon background!
 		var img = new Image();
     $(img).load(function(){
-			self.resize(self.bck_img, $(this));
+			var i = this;
+			self.resize(self.bck_img, $(i));
 			// on ajoute au back
 			self.bck_img.html(this);
+			
+			$( window ).on( 'resize', function(){	
+				self.resize( self.bck_img, $(i));
+			});
+			
 		}).attr('src', this.model.current_page.picto);
 	};
 
@@ -138,8 +135,8 @@ window.application.addView((function( $, application ){
 		this.view.css({'display' : 'block', 'opacity' : '0'});
 	};
 	
-	PageView.prototype.resize = function(p_container,p_img) {
-				
+	PageView.prototype.resize = function(p_container,p_img) {		
+			
 		//Define starting width and height values for the original image
 		var start_width = p_img.width();  
 		var start_height = p_img.height();
@@ -150,16 +147,18 @@ window.application.addView((function( $, application ){
 		var browser_height = $(window).height();
 		//Resize image to proper ratio
 		if ((browser_height/browser_width) > ratio) {
-			p_container.height(browser_height);
-		  p_container.width(browser_height / ratio);
+			//p_container.height(browser_height);
+		  //p_container.width(browser_height / ratio);
 		  p_img.height(browser_height);
 		  p_img.width(browser_height / ratio);
 		} else {
-		  p_container.width(browser_width);
-		  p_container.height(browser_width * ratio);
+		  //p_container.width(browser_width);
+		  //p_container.height(browser_width * ratio);
 		  p_img.width(browser_width);
 		  p_img.height(browser_width * ratio);
 	  }
+		p_container.width(browser_width);
+		p_container.height(browser_height);
 	};
   
   // Return a new view class singleton instance.

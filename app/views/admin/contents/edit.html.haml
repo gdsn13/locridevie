@@ -9,8 +9,9 @@
 - content_for :buttons do
   - if can?(:manage, ContentType)
     = admin_button_tag t('admin.contents.index.edit'), edit_admin_content_type_url(@content_type), :class => 'edit'
-
   = admin_button_tag t('admin.contents.index.new'), new_admin_content_url(@content_type.slug), :class => 'new'
+  - if @content_type.slug == "spectacles"
+    = admin_button_tag t('admin.content_types.index.see'), "/#/spectacle/" + @content._slug , :class => 'see'
 
 %p= @content_type.description
 
