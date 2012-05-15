@@ -2,7 +2,8 @@ module Front::PagesHelper
   
   def get_generated_menu()
     
-    children_output = "<ul id='menu'>"
+    #children_output = "<ul id='menu'>"
+    children_output = ""
     children_of_root = @current_site.pages.root.minimal_attributes.first.children_with_minimal_attributes.to_a
     
     #children_of_root.delete_if { |p| !include_page?(p) }
@@ -12,16 +13,15 @@ module Front::PagesHelper
       css << 'first' if index == 0
       css << 'last' if index == children_of_root.size - 1
       
-      if p.slug == "spectacles" || p.slug == "spectacle" || p.slug == "newsletter" || p.slug == "home_page"
+      if p.slug == "spectacles" || p.slug == "spectacle" || p.slug == "newsletter" || p.slug == "home_page" || p.slug == "newsletter"
         is_page = false
       else
         is_page = true  
       end
 
-      children_output += render_entry_link(p, css.join(' '), is_page, 1)
+      children_output += render_entry_link(p, css.join(' '), is_page, 0.succ)
     end
     
-    children_output += "</ul>"
     children_output 
     
   end
@@ -34,14 +34,15 @@ module Front::PagesHelper
     
     css << 'fat' if page.fat
     
-    output  = %{<li id="#{page.slug.dasherize}-link" class="link #{selected} #{css}">}
-    
+    depth <= 1 ? css_title = 'menu_title' : css_title = ''
+
+    output  = %{<li id="#{page.slug.dasherize}-link" class="link #{selected} #{css}">}    
     # si la page est une sous catégorie d'un fat, on affiche pas le titre.
     if page.parent.fat == false
       if is_page 
-        output << %{<a href="/#/pages/#{page.fullpath}">#{page.title}</a>}
+        output << %{<a href="/#/pages/#{page.fullpath}" class="#{css_title}">#{page.title}</a>}
       else
-        output << %{<a href="/#/#{page.fullpath}">#{page.title}</a>}
+        output << %{<a href="/#/#{page.fullpath}" class="#{css_title}">#{page.title}</a>}
       end
     end
     output << render_entry_children(page, is_page, depth.succ)

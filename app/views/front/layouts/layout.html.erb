@@ -62,20 +62,22 @@
 	
 	<div id="logo_menu">
 		<div id="logo">
-			<img src="theme/images/logo.png">
+			<img src="theme/images/LogoB-N.jpg">
 		</div>
-		<div id="menu_title">Menu</div>
 	</div>
 	
-	<ul id='menu'>
-		<%= get_generated_menu.html_safe%>
-		<li>
+	<div id="menu">
+		<ul>
+			<%= get_generated_menu.html_safe%>
+		</ul>
+		<div id="other_menu">
 			<form method="post" action="/admin/api/contacts/contents" name="messages">
 				<input name="email" type="text"/>
 				<a href="" class="submit">s'inscrire</a>
 			</form>
-		</li>
-	</ul>
+		</div>
+		
+	</div>
 	
 	<div id="intro">
 		<div id="main_pic_intro">
