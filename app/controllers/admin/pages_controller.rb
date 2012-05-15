@@ -14,6 +14,8 @@ module Admin
     end
 
     def update
+            
+      params[:page][:embeded_items] = nil if params[:page][:embeded_items] == ""
       
       update! do |success, failure|
         @page.clean_embededs(params[:page][:embeded_items])

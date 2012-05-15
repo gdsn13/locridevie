@@ -21,7 +21,6 @@
         %input{ :name => 'page[embeded_items][{{index}}][position]', :value => '{{item_position}}', :type => 'hidden', :'data-field' => 'position'}
         %input{ :name => 'page[embeded_items][{{index}}][item_id]', :value => '{{item_id}}', :type => 'hidden', :'data-field' => 'item_id' }
         %input{ :name => 'page[embeded_items][{{index}}][type]', :value => type, :type => 'hidden', :'data-field' => 'type' }
-        -# = select_tag 'page[embeded_items][{{index}}][situation]', '<option value="top">Top</option><option "bottom">Bottom</option>'.html_safe
         {{/if_template}}
 
         {{#if_template}}

@@ -3,7 +3,6 @@ class EmbededItem
   include Locomotive::Mongoid::Document
   
   ## fields ##
-  field :situation, :default => 'top' 
   field :position
   field :type
   field :item_id
@@ -12,19 +11,27 @@ class EmbededItem
   #referenced_in :jule, :validate => false
   embedded_in :page, :inverse_of => :embeded_items
   
-  ## named scopes ##
-  scope :top, :where => { :situation => 'top' }
-  scope :bottom, :where => { :situation => 'bottom' }
-  
   scope :jules, :where => { :type => 'jules'}, :order_by => [[:position, :asc]]
   scope :actus, :where => { :type => 'actus'}, :order_by => [[:position, :asc]]
   scope :boutons, :where => { :type => 'boutons'}, :order_by => [[:position, :asc]]
   
-  def self.get_jules
+  def self.get_jules( p_page )
     res = []
-    jules.each { |j| res << Jule.find(j.item_id) }
+    
+    jul = p_page.embeded_items.jules
+    cur_p = p_page
+    
+    while jul.size == 0
+      cur_p = cur_p.parent
+      jul = cur_p.embeded_items.jules
+    end
+    
+    jul.each { |j| res << Jule.find(j.item_id) }
+    
     res
   end
+  
+  
   
   def self.get_actus
     res = []
@@ -38,8 +45,8 @@ class EmbededItem
     res
   end
   
-  def self.get_jules_for_json
-    json = get_jules.map do |j|
+  def self.get_jules_for_json( p_page )
+    json = get_jules(p_page).map do |j|
       { :name => j.name, :block => j.block, :picto => j.picto.url, :url => j.url }
     end
   end
