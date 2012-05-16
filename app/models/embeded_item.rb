@@ -21,11 +21,15 @@ class EmbededItem
     jul = p_page.embeded_items.jules
     cur_p = p_page
     
+    
     #récupére les jules, et s'il n'y en a pas, remonte au parent, remonte au parent....
     while jul.size == 0
+      p '33333333'
       if cur_p.parent != nil
+        p '44444444444444'
         jul = cur_p.parent.embeded_items.jules
       else
+        p '55555555555555'
         break
       end
     end

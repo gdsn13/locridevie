@@ -2,7 +2,23 @@ window.application.addView((function( $, application ){
 	
 	
 	/*
-	/	TRICKS : le sliders des images joue sur l'opacité puisque si display = none, on a plus accés aux informations de l'image (height et width)
+	/		TRICKS : le sliders des images joue sur l'opacité DU CONTENEUR puisque si display = none, on a plus accés aux informations de l'image (height et width)
+	/		
+	/		Affiche un spéctacle. en mode holywood : slider d'image à droite, scroller de texte à gauche. en 50/50 de largeur
+	/
+	/		{
+	/			"slug":"spectacle-1",
+	/			"tld":"<p>tarif C</p>\r\n<p>dure\u0301e 3h30 avec entracte</p>\r\n<p>Grand The\u0301a\u0302tre</p>\r\n<p>Mar-Sam 19h Dim 15h du 5 au 11 janvier</p>",
+	/			"title":"Spectacle 1",
+	/			"logo":"/contents/content_instance/4fb25eb5fc70f501f20000fa/3.jpg",
+	/			"date":"2012-01-01",
+	/			"images":[
+	/				{"thumb":"/contents/content_instance/4fb25f0afc70f501f20000ff/thumb_MM_photo003.jpg","image":"/contents/content_instance/4fb25f0afc70f501f20000ff/MM_photo003.jpg"},
+	/				{"thumb":"/contents/content_instance/4fb25f0dfc70f501f2000102/thumb_MM_photo004.jpg","image":"/contents/content_instance/4fb25f0dfc70f501f2000102/MM_photo004.jpg"}
+	/			],
+	/			"presentation":"<p>Mise en sce\u0300ne de DenisPodalyde\u0300s Guerrier, Yvan Garcia et Olivier Fortin clavecin (en alternance)</p>",
+	/			"numero":"24"
+	/		}
 	/
 	/
 	----------------------------------------------*/
@@ -12,11 +28,9 @@ window.application.addView((function( $, application ){
 		this.view = null;
 		this.current_spectacle = null;
 		this.template = null;
-		this.slider_container = null;
 		this.images_container = null;
-		this.slider_menu = null;
 		this.close_button = null;
-		this.spectacles_sliders = null;
+		this.spectacle_content = null;
 		this.slider_timeout = null;
 		this.current_index = null;
 		this.images = [];
@@ -38,28 +52,23 @@ window.application.addView((function( $, application ){
   };
 
 	SpectacleView.prototype.display_view = function(){
+		//INITIALISATION
 		var self = this;
 		this.current_index = 0;
-		this.slider_menu = null;
-		this.slider_container = null;
 		this.images_container = null;
 		this.view.html("");
-		$('.slider_command').unbind('click');
-		$('.close_button').unbind('click');	
 		
-		// on affiche la vue.
+		// RECUPERATION DU TEMPLATE ET REMPLISSAGE
 		this.view.html(application.getFromTemplate(this.template, this.model.pages[this.current_spectacle]));
 
 		// INITALISATION DES CONTAINERS 
 		this.images_container = $('#images_spectacle');
-		this.spectacles_sliders = $('#spectacles_sliders');
+		this.spectacle_content = $('#spectacle_content');
 		var image_template = $('#image_galery_for_spectacle');
-		this.slider_container = $('#sliders_spectacle_containers');
-		this.slider_menu = $('#sliders_spectacle_menu');
 		
 		//INITIALISATION DES TAILLES DES CONTAINERS
 		this.images_container.css({'width': $(window).width()/2, 'height' : "100%"});
-		this.spectacles_sliders.css('width', $(window).width()/2 - 20 ); //100 de margin!
+		this.spectacle_content.css('width', $(window).width()/2);
 		
 		// GENERATION DES IMAGES
 		$.each(this.model.pages[this.current_spectacle].images, function(index, img){
@@ -67,46 +76,38 @@ window.application.addView((function( $, application ){
 			self.images_container.append(application.getFromTemplate(image_template, img));
 			var current = self.images_container.find('#image_'+index);
 			self.images.push(current);
+			if (index > 0){
+				current.css('opacity', 0);
+			}
 		});
 		
 		// RESIZE DES IMAGES UNE FOIS QU'ELLES SONT CHARGEES
 		this.images_container.find('img').load(function(){
 			var img = this;
+			//$(this).css('opacity', 0);
 			self.resize($(this).parent(), $(this));
+			// SUIVRE LE RESIZE DE WINDOWS
 			$(window).on('resize', function(){
 				self.resize($(img).parent(), $(img));
 			});
 		});
-		
-		//GENERATION DES SLIDERS
-		$.each(this.model.pages[this.current_spectacle].sliders, function(index, slid){
-			if (slid != ""){
-				var slider = '<div id="' + index + '" class="cont">' + slid;
-				slider += '<a href="javascript:void(0)" class="close_button" rel="' + index + '"><img src="/theme/images/close_plus.png"/></a></div>';
-				self.slider_container.append(slider);
-				self.slider_menu.append('<li><a href="javascript:void(0)" rel="' + index + '" class="slider_command"><img src="/theme/images/' + index + '.png"/></a></li>');
-			}
-		});
-		
-		//INITIALISATION DE LA POSITION DES SLIDERS
-		self.init_sliders_positions();
-		
+				
 		this.view.imagesLoaded(function(){
-			$(window).resize(function(){
-				self.images_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-				self.spectacles_sliders.css('width', $(window).width()/2 - 20 );	
-				if( self.slider_container.find('.cont') != null ){
-					self.slider_container.find('.cont').css({'left' : $(window).width(), 'width' : $(window).width()/2 - 150});
-				}
+			$(window).on('resize', function(){
+				self.resize_containers();
 			});
 			
-			//INIT DU SCROLLER
-			self.spectacles_sliders.tinyscrollbar({lockscroll: true});
 			
+			
+			//INIT DES POS DES CONTAINERS
+			self.resize_containers();
+			
+			//INIT DE LA ZONE DE SCROLL
+			self.spectacle_content.tinyscrollbar({lockscroll: true});
 			
 			// ON AFFICHE LA VUE
 			self.view.animate({opacity:1},'fast', function(){
-				// LANCEMENT DU FULL-SLIDER
+				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE
 				self.slider_timeout = setTimeout(function(){
 					self.animate("next");
 				}, self.slider_duration);
@@ -132,40 +133,29 @@ window.application.addView((function( $, application ){
 		this.images[saved_index].animate({opacity:0}, 'fast');
 		this.images[this.current_index].animate({opacity:1}, 'fast');
 		
-		//if (this.auto == true){
-			this.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches
-				self.animate("next");
-			}, this.slider_duration);
-		//}
+		this.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches
+			self.animate("next");
+		}, this.slider_duration);
 	};
 	
-	SpectacleView.prototype.init_sliders_positions = function(){
-		var self = this;
-		// POSITIONNEMENT DES SLIDERS
-		this.slider_container.find('.cont').css({'left' : $(window).width() + 20, 'width' : $(window).width()/2 - 150});
+	//je resize la photo
+	SpectacleView.prototype.resize = function(p_container, p_img) {				
+		p_img.width($(window).width()/2);
+		var top_pos = ($(window).height() - p_img.height())/2;
+		p_container.css('top', top_pos);
+	};
+	
+	SpectacleView.prototype.resize_containers = function(){
+		var first_image = this.images_container.find('img').first();
+		var top_pos = ($(window).height() - first_image.height())/2;
 		
-		
-		// OUVERTURE DES SLIDERS
-		$('.slider_command').on('click', function(){
-			var concern = $("#" + $(this).attr("rel"));
+		this.images_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+		this.spectacle_content.css('width', $(window).width()/2);
+		this.spectacle_content.css({'top' : top_pos, 'height' : first_image.height()});
+		this.spectacle_content.find('.viewport').css('height', first_image.height() - 10);
+		this.spectacle_content.tinyscrollbar({lockscroll: true});
+	};
 
-			// ON FERME TOUS LES SLIDER
-			$('.cont').animate({left: $(window).width() + 200}, 'fast');
-			
-			//TOGGLE SLIDER, SI DEJA OUVERT? ON RECLIQUE, ON REFERME
-			if(concern.position().left < $(window).width()){
-				concern.stop().animate({left: $(window).width() + 200 }, 'fast');
-			}else{
-				concern.stop().animate({left: $(window).width()/2}, 'fast');
-			}			
-		});
-		
-		// FERMETURE PAR BOUTON
-		$('.close_button').click(function(){
-			$("#" + $(this).attr("rel")).stop().animate({left: $(window).width()}, 'fast');
-		});
-	};
-	
 	// Je cache la vue
 	SpectacleView.prototype.hide_view = function(){
 		clearTimeout(this.slider_timeout);
@@ -186,9 +176,7 @@ window.application.addView((function( $, application ){
 	SpectacleView.prototype.check = function(){
 		
 		var left = $('#logo_menu');
-		
-		this.slider_menu = null;
-		this.slider_container = null;
+	
 		this.images_container = null;
 		var ss = $('#spectacle_slider');
 		if( ss.css('display') == 'none') ss.fadeIn('fast');
@@ -201,16 +189,6 @@ window.application.addView((function( $, application ){
 		if(left.css('display') == 'none'){
 			left.show('fast');
 		}
-	};
-	
-	//je resize la photo
-	SpectacleView.prototype.resize = function(p_container, p_img) {				
-		p_img.width($(window).width()/2);
-		var top_pos = ($(window).height() - p_img.height())/2;
-		p_container.css('top', top_pos);
-		this.spectacles_sliders.css({'top' : top_pos + 10, 'height' : p_img.height() - 10});
-		this.spectacles_sliders.find('.viewport').css('height', p_img.height() - 10);
-		this.spectacles_sliders.tinyscrollbar({lockscroll: true});	
 	};
 	
   // Return a new view class singleton instance.

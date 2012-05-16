@@ -70,12 +70,6 @@ class Front::DatasController < ApplicationController
                   :presentation => sp.presentation,
                   :logo => sp.logo.url,
                   :images => images,
-                  :sliders => {
-                    :bio => sp.biographie,
-                    :distribution => sp.distribution,
-                    :la_presse => sp.la_presse,
-                    :dossier_de_presse => sp.dossier_de_presse
-                  }
                 }
                 
     render :json => spectacle

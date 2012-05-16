@@ -57,6 +57,7 @@ body{
 	position: relative;
 	float: right; 
 	width: 2px; 
+	margin:5px 5px 0 0;
 }	
 	
 .track{ 
@@ -88,14 +89,14 @@ body{
 	left:0;
 	overflow:hidden;
 }
-#spectacles_sliders{
-	background:#000;
+#spectacle_content{
+	background:#fff;
 	letter-spacing:-0.8px;
 	font-size:12px;
-	padding-right:10px;
 	position:absolute;
 	top:0;
 	right:0;
+	color:#000;
 }
 #spectacles_sliders h2{ 
 	background:#fff;
