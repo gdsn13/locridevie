@@ -4,6 +4,8 @@ window.application.addView((function( $, application ){
 		this.model = null;
 		this.view = null;
 		this.image_container = null;
+		this.logo_container = null;
+		this.jules_is_there = false;
   };
   
   IntroView.prototype.init = function(){  
@@ -14,49 +16,73 @@ window.application.addView((function( $, application ){
 		this.view = $('#intro');
 		this.model = application.getModel( "Model" );
 		this.image_container = $('#image_intro');
+		this.logo_container = $('#logo_intro');
 		
 		$(this.model).on('intro_ready', function(){
       self.refreshed_datas();
     });
   };
 
-	IntroView.prototype.initialize = function(){
-		var self = this;
-		$(this.model).on('intro_ready', function(){
-      		self.refreshed_datas();
-    	});
-	};
-
 	IntroView.prototype.refreshed_datas = function(){
 		var self = this;
 		var nav_intro = $('#nav_intro');
+		this.jules_is_there = false;
 		
-		//chargement de la grosse image
-		var img = new Image();
-    $(img).load(function(){
-			// on met l'image à la bonne taille pour le full screen
-			self.resize(self.image_container, $(this));
+		if (this.model.current_page.jules.length > 0){
 			
-			// on l'ajoute
-			self.image_container.append(this);
-			$('#texte_intro').html(self.model.current_page.jules[0].block);
+			this.jules_is_there = true;
+			//chargement de la grosse image
+			var img = new Image();
+		  $(img).load(function(){
+				// on ajoute l'image et le texte
+				self.image_container.append(this);
+				$('#texte_intro').html(self.model.current_page.jules[0].block);
 			
-			// on peut ajouter les boutons!
-			$.each(self.model.current_page.boutons, function(index, btn){
-				nav_intro.append('<li><div class="intro_li_text">' + btn.block + '</div><img src="' + btn.img + '"width="80"/></li>')
-			});
+				// on met l'image à la bonne taille pour le full screen
+				self.resize(self.image_container, $(this));
 						
-			self.view.show('fast');
-		}).attr('src', this.model.current_page.jules[0].picto);
+				self.view.fadeTo('fast', 1);
+			}).attr('src', this.model.current_page.jules[0].picto);
+		}else{
+			// on affiche l'image de fond de la page
+			var img = new Image();
+			$(img).load(function(){
+				self.logo_container.append(this);
+				
+				self.resize_logo($(this));
+	
+				self.view.fadeTo('fast', 1);
+				
+			}).attr('src', this.model.current_page.logo);
+		}
 		
+		// on ajoute les boutons!
+		$.each(self.model.current_page.boutons, function(index, btn){
+			nav_intro.append('<li><div class="intro_li_text">' + btn.block + '</div><img src="' + btn.img + '"width="80"/></li>')
+		});
+				
 		// TODO : resize de la window
 		$(window).on('resize', function(){
-			self.resize(self.image_container, $(img));
+			if (self.jules_is_there == true){
+				self.resize(self.image_container, $(img));
+			}else{
+				self.resize_logo(self.logo_container.find('img'));
+			}
 		});
 				
 	};
 	
-	IntroView.prototype.resize = function(p_container,p_img) {
+	IntroView.prototype.resize_logo = function ( p_img ){
+		//initialisation des tailles
+		p_img.width($(window).width() - 100);
+		var pos_top = ($(window).height() - 62 - p_img.height())/2;
+		var pos_left = ($(window).width() - p_img.width())/2;
+
+		//affectation des tailles
+		p_img.css({'top' : pos_top, 'left' : pos_left});
+	};
+	
+	IntroView.prototype.resize = function( p_container,p_img ) {
 		
 		//Define starting width and height values for the original image
 		var start_width = p_img.width();  
@@ -87,7 +113,7 @@ window.application.addView((function( $, application ){
 
 	IntroView.prototype.hide_view = function( ){
 		var self = this;
-		this.view.fadeOut('slow');
+		this.view.fadeTo('fast', 0);
 	}
 
   // I get called when the view needs to be shown.

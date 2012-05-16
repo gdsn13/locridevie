@@ -13,6 +13,7 @@ window.application.addView((function( $, application ){
 		this.view = $('#logo_menu');
 		this.first_level = $('#menu > li');
 		this.menu = $('#menu');
+		this.menu.css('top', -$(window).height());
 
 		// fait apparaitre le menu, le menu ne se range que l'orsqu'on clique sur un élément.
 		//OPEN MENU

@@ -41,6 +41,7 @@ class Front::DatasController < ApplicationController
     
     if intro.embeded_items.exists? 
       intro_to_json = {
+        :logo => intro.bck_img.url,
         :jules => intro.embeded_items.get_jules_for_json(intro), 
         :boutons => intro.embeded_items.get_boutons_for_json
       } 
