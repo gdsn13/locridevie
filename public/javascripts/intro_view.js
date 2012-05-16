@@ -1,5 +1,28 @@
 window.application.addView((function( $, application ){
   
+	/* 	DESCRIPTION
+	/	 	Affiche la page de gaurde ou d'intro du site. Une prépage avec : 
+	/		- soit l'image bck_img de la page racine du site (slug = index), en width 100%
+	/		- soit un jules associé à la page slug = index (et un seul) avec une image en cover et un texte en hover si besoin.
+	/		- une liste de boutons qui redirigent directement vers des pages du site (image + texte + lien)
+	/
+	/		Si le jules est présent, on l'affihce, sinon on affiche la bck_img
+	/		
+	/ 	format des données serveurs : 
+	/
+	/		{
+	/			"boutons":[
+	/				{"title":"bouton un prog","img":"/contents/boutons/4fb25cb2fc70f501f20000d9/apaches-talons.jpg","url":"","block":"<p>cliquez <a href=\"/#/spectacles/programmation\">ici</a> pour acc&eacute;der au programme</p>","son":null},
+	/				{"title":"bouton entrez","img":"/contents/boutons/4fb25cf4fc70f501f20000db/MM_saison.png","url":"","block":"<p>entrez par <a href=\"/#/home_page\">ici</a></p>","son":null}
+	/			],
+	/			"logo":"/contents/pages/4facd19cfc70f5c727000007/Saison1213criee_pgegarde.png",
+	/			"jules":[
+	/				{"name":"full intro","url":"","block":"<h1>Bienvenus</h1>","picto":"/contents/jules/4fb24da8fc70f501f2000002/MM_photo004.jpg"}
+	/			]
+	/		}
+	/		
+	----------------------------------------------------------------------------------------*/
+
   function IntroView(){
 		this.model = null;
 		this.view = null;
