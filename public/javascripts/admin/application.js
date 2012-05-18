@@ -51,7 +51,7 @@ var TinyMceDefaultSettings = {
   plugins: 'safari,inlinepopups,locomedia,fullscreen',
   extended_valid_elements: 'iframe[width|height|frameborder|allowfullscreen|src|title]',
   theme_advanced_buttons1 : 'fullscreen,code,|,bold,italic,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink',
-  theme_advanced_buttons2 : 'formatselect,fontselect,fontsizeselect,|,locomedia',
+  theme_advanced_buttons2 : 'formatselect,fontsizeselect,forecolor,|,locomedia',
   theme_advanced_buttons3 : '',
   theme_advanced_toolbar_location : "top",
   theme_advanced_toolbar_align : "left",
