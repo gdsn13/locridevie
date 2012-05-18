@@ -11,7 +11,7 @@ class Front::DatasController < ApplicationController
       :page => {
         :fullpath => page.fullpath, 
         :body => page.body,
-        :jules => page.embeded_items.get_jules_for_json, 
+        :jules => page.embeded_items.get_jules_for_json(page), 
         :boutons => page.embeded_items.get_boutons_for_json, 
         :actus => page.embeded_items.get_actus_for_json
       }

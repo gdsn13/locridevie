@@ -158,7 +158,6 @@ window.application.addView((function( $, application ){
 		}
 		//spectacles ne dois pas s'afficher
 		$('#spectacle_slider').css('display', 'none');
-		$('body').css({'overflow-y': 'hidden'});
 	};
 	 
   // Return a new view class singleton instance.

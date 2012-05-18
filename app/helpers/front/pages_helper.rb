@@ -34,15 +34,15 @@ module Front::PagesHelper
     
     css << 'fat' if page.fat
     
-    depth <= 1 ? css_title = 'menu_title' : css_title = ''
-
     output  = %{<li id="#{page.slug.dasherize}-link" class="link #{selected} #{css}">}    
     # si la page est une sous catégorie d'un fat, on affiche pas le titre.
     if page.parent.fat == false
-      if is_page 
-        output << %{<a href="/#/pages/#{page.fullpath}" class="#{css_title}">#{page.title}</a>}
+      if depth <= 1
+        output << %{<div class="menu_title"/>#{page.title}</div>}
+      elsif is_page 
+        output << %{<a href="/#/pages/#{page.fullpath}">#{page.title}</a>}
       else
-        output << %{<a href="/#/#{page.fullpath}" class="#{css_title}">#{page.title}</a>}
+        output << %{<a href="/#/#{page.fullpath}">#{page.title}</a>}
       end
     end
     output << render_entry_children(page, is_page, depth.succ)

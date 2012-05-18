@@ -156,7 +156,6 @@ window.application.addView((function( $, application ){
 		//est remplie au moment ou les données sont ok.
 		this.spectacles = [];
 		$('#logo_menu').show('fast');
-		$('body').css({'overflow-y': 'hidden'});
 		
 		var ss = $('#spectacle_slider');
 		if( ss.css('display') == 'none') ss.fadeIn('fast'); 

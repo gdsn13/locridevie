@@ -35,7 +35,7 @@ window.application.addView((function( $, application ){
 		this.spectacle_slider.hover(function(){
 			$(this).stop().animate({bottom: "0"}, 'fast');
 		}, function(){
-			$(this).stop().animate({bottom: "-140px"}, 'fast');
+			$(this).stop().animate({bottom: "-165px"}, 'fast');
 		});
 		
 		this.spectacle_slider.css('width', $(window).width());
@@ -97,7 +97,7 @@ window.application.addView((function( $, application ){
 				if (left < 10) left = 10; 	//cas des bordures
 				else if (left + tltp.width() > self.nav_width) left = left - tltp.width() - 10;
 								
-				tltp.css({'top' : "-50px", 'left' : left});	// positionnement du titre
+				tltp.css({'left' : left});	// positionnement du titre
 			});
 			
 			// INITIALISATION DU MOUVEMENT DES SPECTACLES
@@ -161,7 +161,7 @@ window.application.addView((function( $, application ){
 			}
 			spec["index"] = index;
 			self.spectacle_slider_ul.append(application.getFromTemplate(self.template, spec));
-			self.spectacles_titles.append("<div id='s_" + index + "' >" + spec.titre + "<span></span></div>");
+			self.spectacles_titles.append("<div id='s_" + index + "' class='tool_tip_title'><div class='numero_title'>" + spec.numero + "</div>" + spec.titre + "<span></span></div>");
 		});
 		
 		// LOAD THE NAV IMAGES

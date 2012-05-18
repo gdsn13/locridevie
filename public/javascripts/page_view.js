@@ -5,8 +5,8 @@ window.application.addView((function( $, application ){
 		this.view = null;
 		this.content_view = null;
 		this.jules_container = null;
-		this.bck_img = null;
-		this.boutons_container = null;
+		this.content_container = null;
+		this.jules = [];
   };
   
   PageView.prototype.init = function(){  
@@ -15,11 +15,10 @@ window.application.addView((function( $, application ){
 		/* INIT DATAS
 		----------------------------------------------------------------------------------------*/
 		this.jules_container = $('#jules_list');
-		this.boutons_container = $('#buttons_containers');
 		this.model = application.getModel( "Model" );
 		this.content_view = $('#contents');
 		this.view = $('#pages');
-		this.bck_img = $('#bck_img');
+		this.content_container = $('#content_static_container');
 		
 		/* DATA REFRESH
 		----------------------------------------------------------------------------------------*/
@@ -31,80 +30,85 @@ window.application.addView((function( $, application ){
 	PageView.prototype.data_ready = function(){
 		var self = this;
 		self.jules_container.html("");
-		self.boutons_container.html("");
-		self.content_view.html("");
-		self.bck_img.html("");
+		self.content_container.html("");
+		self.jules = [];
+		
+		//INITIALISATION DES TAILLES DES CONTAINERS
+		this.jules_container.css({'width': $(window).width()/2, 'height' : "100%"});
+		this.content_view.css('width', $(window).width()/2);
 		
 		// AFFICHAGE DES DIFFERENTS ELEMENT DE LA PAGE
-    self.display_boutons();
-		self.display_actus();
-		self.display_jules();
-		self.display_body();
-		
-		if (this.model.current_page.picto != ""){
-			self.dispay_picto();
-		}
+  	//self.display_jules();
+		//self.display_body();
 		
 		this.view.imagesLoaded(function( $images, $proper, $broken ){
 			self.view.animate({opacity:1}, 'fast');
 		});
-	};
-
-	PageView.prototype.dispay_picto = function(){
-		var self = this;
-		//on charge l'image, on l'ajoute au bon background!
-		var img = new Image();
-    $(img).load(function(){
-			var i = this;
-			self.resize(self.bck_img, $(i));
-			// on ajoute au back
-			self.bck_img.html(this);
-			
-			$( window ).on( 'resize', function(){	
-				self.resize( self.bck_img, $(i));
+		
+		//AFFICHAGE DES JULES
+		$.each(this.model.current_page.jules, function(index, j){						
+			var html = '<div class="jules_slider" id="jules_' + index +'"><img src="' + j.picto + '"/></div>';
+			self.jules_container.append(html);
+			var this_container = $('#jules_' + index);
+			if (index > 0) this_container.css('opacity', 0);				//opacity à 0 sauf pour la premiere image
+			self.jules.push(this_container);
+		});
+		
+		// RESIZE LES IMAGES UNE FOIS CHARGEE. on repasse par une boucle pour ajouter directement les images au DOM et
+		// et éviter de déclancher le imagesLoaded avant qu'elles ne soient chargées
+		this.jules_container.find('img').load(function(){
+			var img = this;
+			//$(this).css('opacity', 0);
+			self.resize($(this).parent(), $(this));
+			// SUIVRE LE RESIZE DE WINDOWS
+			$(window).on('resize', function(){
+				self.resize($(img).parent(), $(img));
+			});
+		});
+		
+		this.content_container.html(this.model.current_page.body);
+		
+		this.view.imagesLoaded(function(){
+			$(window).on('resize', function(){
+				self.resize_containers();
 			});
 			
-		}).attr('src', this.model.current_page.picto);
-	};
-
-	PageView.prototype.display_boutons = function(){
-		var self = this;
-		if (this.model.current_page.actus != null){
-			$.each(this.model.current_page.boutons, function(index, b){
-				if (b.son != null){
-					var son_associe = soundManager.createSound({
-					 	id: 'mySound2',
-					 	url: b.son
-					});
-					son_associe.play();
-				}
-				self.boutons_container.append('<div class="btn"><a href="' + b.url + '"><img src="' + + '"/></a></div>')
+			self.model.set_message_to_growl("");			// on cache le loader
+			
+			//INIT DES POS DES CONTAINERS
+			self.resize_containers();
+			
+			//INIT DE LA ZONE DE SCROLL
+			self.content_view.tinyscrollbar({lockscroll: true});
+			
+			// ON AFFICHE LA VUE
+			self.view.animate({opacity:1},'fast', function(){
+			
+				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE
+				/*self.slider_timeout = setTimeout(function(){
+					self.animate("next");
+					}, self.slider_duration);*/
 			});
-		}
+			
+		});
+		
 	};
 	
-	PageView.prototype.display_body = function(){
-		this.content_view.html(this.model.current_page.body);
-	};
-  
-	PageView.prototype.display_actus = function(){
-		var self = this;
+	PageView.prototype.resize_containers = function(){
+		var first_image = this.jules_container.find('img').first();
+		var top_pos = ($(window).height() - first_image.height())/2;
 		
-		if (this.model.current_page.actus != null){
-			$.each(this.model.current_page.actus.reverse(), function(index, j){
-				self.jules_container.prepend(j.block);
-			});
-		}
+		this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+		this.content_view.css('width', $(window).width()/2);
+		this.content_view.css({'top' : top_pos, 'height' : first_image.height()});
+		this.content_view.find('.viewport').css('height', first_image.height() - 10);
+		this.content_view.tinyscrollbar({lockscroll: true});
 	};
-
-	PageView.prototype.display_jules = function(){
-		var self = this;
-		
-		if (this.model.current_page.jules != null){
-			$.each(this.model.current_page.jules.reverse(), function(index, j){
-				self.jules_container.prepend(j.block);
-			});
-		}
+	
+	PageView.prototype.resize = function(p_container,p_img) {		
+		p_img.width($(window).width()/2);
+		var top_pos = ($(window).height() - p_img.height())/2;
+		p_container.css('top', top_pos);
 	};
 	
 	PageView.prototype.hide_view = function(){
@@ -121,7 +125,6 @@ window.application.addView((function( $, application ){
 	PageView.prototype.check = function(){
 		var menu = $('#logo_menu');
 		$( window ).unbind();
-		$('body').css({'overflow-y': 'auto'});
 		//check que le slider soit bien affiché
 		var ss = $('#spectacle_slider');
 		if( ss.css('display') == 'none') ss.fadeIn('fast'); 
@@ -133,32 +136,6 @@ window.application.addView((function( $, application ){
 			menu.show();
 		}
 		this.view.css({'display' : 'block', 'opacity' : '0'});
-	};
-	
-	PageView.prototype.resize = function(p_container,p_img) {		
-			
-		//Define starting width and height values for the original image
-		var start_width = p_img.width();  
-		var start_height = p_img.height();
-		//Define image ratio
-		var ratio = start_height/start_width;
-		//Gather browser dimensions
-		var browser_width = $(window).width();
-		var browser_height = $(window).height();
-		//Resize image to proper ratio
-		if ((browser_height/browser_width) > ratio) {
-			//p_container.height(browser_height);
-		  //p_container.width(browser_height / ratio);
-		  p_img.height(browser_height);
-		  p_img.width(browser_height / ratio);
-		} else {
-		  //p_container.width(browser_width);
-		  //p_container.height(browser_width * ratio);
-		  p_img.width(browser_width);
-		  p_img.height(browser_width * ratio);
-	  }
-		p_container.width(browser_width);
-		p_container.height(browser_height);
 	};
   
   // Return a new view class singleton instance.

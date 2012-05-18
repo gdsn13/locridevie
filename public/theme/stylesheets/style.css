@@ -1,3 +1,46 @@
+/*@font-face {
+    font-family: 'KozMinPro-Heavy-AlphaNum';
+    src: url('../fonts/kozminpro-heavy.eot');
+    src: url('../fonts/kozminpro-heavy.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/kozminpro-heavy.woff') format('woff'),
+         url('../fonts/kozminpro-heavy.ttf') format('truetype'),
+         url('../fonts/kozminpro-heavy.svg#kozminpro-heavy') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HiraKakuPro-W3-AlphaNum';
+    src: url('../fonts/HiraKakuPro.eot');
+    src: url('../fonts/HiraKakuPro.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/HiraKakuPro.woff') format('woff'),
+         url('../fonts/HiraKakuPro.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AvenirLT-Heavy';
+    src: url('../fonts/avenirlt85heavy.eot');
+    src: url('../fonts/avenirlt85heavy.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/avenirlt85heavy.woff') format('woff'),
+         url('../fonts/avenirlt85heavy.ttf') format('truetype'),
+         url('../fonts/avenirlt85heavy.svg#avenirlt85heavy') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AvenirLT-Light';
+    src: url('../fonts/avenirlt35light.eot');
+    src: url('../fonts/avenirlt35light.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/avenirlt35light.woff') format('woff'),
+         url('../fonts/avenirlt35light.ttf') format('truetype'),
+         url('../fonts/avenirlt35light.svg#avenirlt35light') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}*/
+
 *{
 	margin:0;
 	padding:0;
@@ -12,6 +55,10 @@ a:hover{
 	text-decoration:underlined;
 }
 
+img{
+	border:none;
+}
+
 html{
 	background:#000;
 	color:#FFF;
@@ -23,6 +70,7 @@ body{
 	height:100%;
 	overflow:hidden;
 	min-width:980px;
+	font-family: 'AvenirLT-Light';
 }
 
 /* MESSAGING
@@ -215,25 +263,22 @@ body{
 	padding-bottom:50px;
 }
 
-#contents, #jules_list{
-	position:relative;
-	width:780px;
-	margin:0 auto;
-	z-index:400;
-}
-
 #jules_list{
-	overflow:hidden;
+	left:0;
+}
+#contents{
+	right:0;
+	background:#fff;
+	color:#000;
 }
 
-#bck_img{
-	left: 0;
-	overflow: hidden;
-	position: fixed;
-	top: 0;
-	z-index: 200;
+#contents, #jules_list{
+	position:absolute;
 }
 
+#content_static_container{
+	padding:10px 20px 10px;
+}
 /* MENU
 --------------------------------------------------------*/
 #logo_menu{
@@ -241,7 +286,7 @@ body{
 	position:absolute;
 	top:10px;
 	right:0px;
-	z-index:7000;
+	z-index:5000;
 	display:none;
 	opacity:1;
 }
@@ -288,12 +333,13 @@ body{
 	display:block !important;
 	float:left;
 	margin-left: 18px;
-	width: 110px;
 }
 
 .menu_title{
-	color:#999;
-	font-size:14px;
+	/*font-family: 'AvenirLT-Heavy';*/
+  color: #FDC400 !important;
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 .fat_menu{
@@ -317,11 +363,11 @@ body{
 --------------------------------------------------------*/
 
 #spectacle_slider{
-	position:fixed;
+	position:absolute;
 	bottom:0;
 	z-index:6000;
 	height:180px;
-	width:100%;bottom:-140px;
+	width:100%;bottom:-165px;
 	background:rgba(0,0,0,0.5);	
 	box-shadow: 0px 0px 5px 0px #333;
 }
@@ -346,7 +392,7 @@ body{
 	left:0;
 }
 
-#spectacles_titles div{
+#spectacles_titles .tool_tip_title{
 	position:absolute;
 	top:300px;
 	background:rgba(0,0,0,1);
@@ -358,6 +404,13 @@ body{
 	color:#EEE;
 	font-size:12px;
 	display:none;
+	top:-70px;
+}
+
+.numero_title{
+	font-size:20px;
+	font-weight:bold;
+	text-align:center;
 }
 
 #spectacles_titles div span{
@@ -390,62 +443,41 @@ body{
 
 /*SPECTACLES
 --------------------------------------------------------*/
-#spectacles_container, #jules_sliders, .jule_slider{
+#jules_slider{
 	position:absolute;
-	top:0;left:0;
-	width:100%;height:100%;
-	overflow: hidden;
+	top:0;
+	left:0;
 }
 
-#spectacles_container{
-	display:none;
-}
-
-#jules_sliders{
-	z-index:100;
-}
-
-.jule_slider_block{
+.jules_slider{
 	position:absolute;
-	top:100px;
-	right:200px;
-	width:300px;
-	background:rgba(0,0,0,0.9);
+}
+
+#programmation_content{
+	position:absolute;
+	top:0;
+	right:0;
+	background:#fff;
+	color:#000;
+}
+
+#programmation_spectacles{
 	padding:10px;
-	box-shadow: 0px 0px 50px 0px #000000;
 }
 
-#slide_left_btn, #slide_right_btn{
-	position:absolute;
-	height:50px;
-	width:50px;
-	z-index:500;
+#programmation_spectacles li{
+	font-size:12px;
+	padding:5px 0 0;
 }
-#slide_left_btn{
-	background:url(../images/scroll_btn_left.png) no-repeat center;
-	left:20px;
-}
-#slide_right_btn{
-	background:url(../images/scroll_btn_right.png) no-repeat center;
-	right:20px;
-}
-.slide_link{height:50px;width:50px;display:block;}
 
-#slider_nav{
-	position:absolute;
-	top:50px;
-	left:50%;
-	display:block;
-	z-index:500;
+#programmation_spectacles li a, #programmation_spectacles li a:visited{
+	color:#000;
 }
-.slider_indicator{
-	float:left;
-	width:8px;height:8px;
-	margin:5px;
-	background:url(../images/gallery_indicator_inactive.png) no-repeat;
-}
-.active_indicator{
-	background:url(../images/gallery_indicator_active.png) no-repeat !important;
+
+#programmation_spectacles li span{
+	font-size:20px;
+	font-weight:bold;
+	/*font-family: 'KozMinPro-Heavy-AlphaNum';*/
 }
 
 /*INTRO
@@ -534,7 +566,6 @@ body{
 	display:block;
 }
 
-
 /*HOME
 --------------------------------------------------------*/
 #home{
@@ -581,4 +612,29 @@ body{
 .home_boutons_image{
 	width:240px;
 	overflow:hidden;
+}
+
+/* FOOTER
+--------------------------------------------------------------*/
+#footer{
+	display:none;
+	position:absolute;
+	bottom:0;
+	width:100%;
+	height:24px;
+	color:#FFF;
+	background:#000;
+	z-index:7000;
+	padding:3px 10px 0;
+	-moz-box-shadow: 0px 0px 5px 3px #000;
+	-webkit-box-shadow: 0px 0px 5px 3px #000;
+	-o-box-shadow: 0px 0px 5px 3px #000;
+	box-shadow: 0px 0px 5px 3px #000;
+	text-transform:uppercase;
+}
+
+#footer #billeterie{
+	background:url(/theme/images/ticket.png) no-repeat;
+	line-height: 31px;
+	padding-left: 20px;
 }

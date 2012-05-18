@@ -25,6 +25,7 @@ class EmbededItem
     #récupére les jules, et s'il n'y en a pas, remonte au parent, remonte au parent....
     while jul.size == 0
       p '33333333'
+      cur_p = cur_p.parent
       if cur_p.parent != nil
         p '44444444444444'
         jul = cur_p.parent.embeded_items.jules

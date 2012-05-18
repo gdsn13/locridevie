@@ -8,7 +8,7 @@ window.application.addController((function( $, application ){
 	function Controller(){    
     this.route( "/", this.intro );
 		this.route( "/home_page", this.home );
-		this.route( "/spectacles/:id", this.spectacles );
+		this.route( "/spectacles/programmation", this.programmation );
 		this.route( "/spectacle/:id", this.spectacle );
 		this.route( "/pages.*", this.pages );
 		//this.route( "/newsletter", this.newsletter );
@@ -38,7 +38,8 @@ window.application.addController((function( $, application ){
 		this.menu_view = application.getView( "MenuView" );
 		this.site_view = application.getView( "HomeView" );
 		this.page_view = application.getView( "PageView" );
-		this.spectacles_view = application.getView( "SpectaclesView" );
+		//this.spectacles_view = application.getView( "SpectaclesView" );
+		this.programmation_view = application.getView( "ProgrammationView" );
 		this.spectacle_view = application.getView( "SpectacleView" );
 		//this.newsletter_view = application.getViex( "NewsletterView" );
 		this.model = application.getModel( "Model" );
@@ -63,8 +64,8 @@ window.application.addController((function( $, application ){
 		this.changeView(this.site_view, event);
 	};
 
-	Controller.prototype.spectacles = function( event ){
-		this.changeView(this.spectacles_view, event);
+	Controller.prototype.programmation = function( event ){
+		this.changeView(this.programmation_view, event);
 	};
 	
 	Controller.prototype.spectacle = function( event ){
