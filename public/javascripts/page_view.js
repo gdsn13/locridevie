@@ -89,20 +89,22 @@ window.application.addView((function( $, application ){
 	
 	PageView.prototype.resize_containers = function(){
 		var displayed_image = this.currently_displayed_jules;
-		var top_pos;
+		if (displayed_image != null){
+			var top_pos;
 		
-		this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-		this.jules_container.find('.jules_slider img').width($(window).width()/2);
+			this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+			this.jules_container.find('.jules_slider img').width($(window).width()/2);
 		
-		top_pos = ($(window).height() - displayed_image.height())/2;
+			top_pos = ($(window).height() - displayed_image.height())/2;
 		
-		this.jules_container.find('.jules_slider').css('top', top_pos);
+			this.jules_container.find('.jules_slider').css('top', top_pos);
 		
-		this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-		this.content_view.css('width', $(window).width()/2);
-		this.content_view.css({'top' : top_pos, 'height' : displayed_image.height()});
-		this.content_view.find('.viewport').css('height', displayed_image.height() - 10);
-		this.content_view.tinyscrollbar({lockscroll: true});
+			this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+			this.content_view.css('width', $(window).width()/2);
+			this.content_view.css({'top' : top_pos, 'height' : displayed_image.height()});
+			this.content_view.find('.viewport').css('height', displayed_image.height() - 10);
+			this.content_view.tinyscrollbar({lockscroll: true});
+		}
 	};
 	
 	PageView.prototype.hide_view = function(next_view_is_page){

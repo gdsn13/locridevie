@@ -22,9 +22,9 @@ class EmbededItem
     cur_p = p_page
     
     #récupére les jules, et s'il n'y en a pas, remonte au parent, remonte au parent....
-    while jul.size == 0
-      cur_p = cur_p.parent
+    while jul.size == 0 && cur_p != nil
       jul = cur_p.embeded_items.jules
+      cur_p = cur_p.parent
     end
     
     jul.each { |j| res << Jule.find(j.item_id) }
