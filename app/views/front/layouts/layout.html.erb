@@ -44,7 +44,7 @@
 		<% @spectacles.map do |spec| %> 
   		{ "id": "<%= spec.id %>",
 		  "slug": "<%= spec._slug %>",
-		  "titre": "<%= spec.titre %>",
+		  "titre": "<%= spec.titre.html_safe %>",
 		  "date": "<%= spec.date %>",
 		  "en_tournee": "<%= spec.en_tournee %>",
 		  "saison": "<%= spec.season_id %>",

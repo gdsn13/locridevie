@@ -165,7 +165,8 @@ window.application.addView((function( $, application ){
 			}
 			spec["index"] = index;
 			self.spectacle_slider_ul.append(application.getFromTemplate(self.template, spec));
-			self.spectacles_titles.append("<div id='s_" + index + "' class='tool_tip_title'><div class='numero_title'>" + spec.numero + "</div>" + spec.titre + "<span></span></div>");
+			var title = "<div id='s_" + index + "' class='tool_tip_title'><div class='numero_title'>" + spec.numero + "</div>" + spec.titre + "<span class='tltp_arrow'></span></div>";
+			self.spectacles_titles.append(title);
 		});
 		
 		// LOAD THE NAV IMAGES

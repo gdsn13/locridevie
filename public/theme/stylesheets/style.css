@@ -414,7 +414,7 @@ body{
 	text-align:center;
 }
 
-#spectacles_titles div span{
+#spectacles_titles div .tltp_arrow{
 	background: url("../images/tooltip_arr.png") no-repeat scroll 0 0 transparent;
 	bottom: -10px;
 	display: block;
