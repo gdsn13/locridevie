@@ -12,6 +12,7 @@ window.application.addView((function( $, application ){
 		this.current_index = 0;
 		this.slider_timeout = null;
 		this.slider_duration = 5000;
+		this.currently_displayed_jules = null;
   };
   
   ProgrammationView.prototype.init = function(){  
@@ -37,35 +38,16 @@ window.application.addView((function( $, application ){
 
 	ProgrammationView.prototype.refreshed_datas = function(){
 		var self = this;
-		this.jules = [];
-		this.current_index = 0;
-		this.jules_container.html("");
-		$(window).unbind('resize');
-		
-		//INITIALISATION DES TAILLES DES CONTAINERS
-		this.jules_container.css({'width': $(window).width()/2, 'height' : "100%"});
-		this.programmation_content.css('width', $(window).width()/2);
+		this.view.css({'top':"10000px", "display" : "block"});
 		
 		//AFFICHAGE DES JULES
 		$.each(this.model.current_page.jules, function(index, j){
-						
 			var html = '<div class="jules_slider" id="image_' + index +'"><img src="' + j.picto + '"/></div>';
 			self.jules_container.append(html);
 			var this_container = $('#image_' + index);
-			if (index > 0) this_container.css('opacity', 0);				//opacity à 0 sauf pour la premiere image
 			self.jules.push(this_container);
-		});
-		
-		// RESIZE LES IMAGES UNE FOIS CHARGEE. on repasse par une boucle pour ajouter directement les images au DOM et
-		// et éviter de déclancher le imagesLoaded avant qu'elles ne soient chargées
-		this.jules_container.find('img').load(function(){
-			var img = this;
-			//$(this).css('opacity', 0);
-			self.resize($(this).parent(), $(this));
-			// SUIVRE LE RESIZE DE WINDOWS
-			$(window).on('resize', function(){
-				self.resize($(img).parent(), $(img));
-			});
+			if (index == 0) self.currently_displayed_jules = this_container.find('img').first();
+			else this_container.css('display', 'none');
 		});
 		
 		//AFFICHAGE DE LA LISTE DES SPECTACLES
@@ -77,58 +59,58 @@ window.application.addView((function( $, application ){
 		// QUAND TOUT EST CHARGE DANS LA VUE
 		// ---------------------------------------------------------------------------------------------------------
 		this.view.imagesLoaded(function($images, $proper, $broken){
-			self.model.set_message_to_growl("");			// on cache le loader
 			self.resize_containers();
 
-			self.view.fadeTo(1, 'slow');							// on affiche la vue
+			self.view.css({'top':"0px", "display" : "none"});
 			
-			$(window).on('resize', function(){ self.resize_containers();self.resize_containers(); });			
+			$(window).on('resize', function(){ self.resize_containers(); });			
 			
-			// LANCEMENT DU JULES SLIDER
-			self.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches
-				self.animate("next");
-			}, self.slider_duration);
+			// ON AFFICHE LA VUE
+			self.view.fadeIn('fast', function(){
+				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE
+				self.slider_timeout = setTimeout(function(){
+					self.animate();
+				}, self.slider_duration);	
+			});
+			
+			self.model.set_message_to_growl("");
+			
 		});
 	};
 	
 	ProgrammationView.prototype.resize_containers = function(){
-		var first_image = this.jules_container.find('img').first();
+
+		var displayed_image = this.currently_displayed_jules;
+		var top_pos;
 		
-		var top_pos = ($(window).height() - first_image.height())/2;
+		this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+		this.jules_container.find('.jules_slider img').width($(window).width()/2);
+		
+		top_pos = ($(window).height() - displayed_image.height())/2;
+		
+		this.jules_container.find('.jules_slider').css('top', top_pos);
 		
 		this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
 		this.programmation_content.css('width', $(window).width()/2);
-		this.programmation_content.css({'top' : top_pos, 'height' : first_image.height()});
-		this.programmation_content.find('.viewport').css('height', first_image.height() - 10);
+		this.programmation_content.css({'top' : top_pos, 'height' : displayed_image.height()});
+		this.programmation_content.find('.viewport').css('height', displayed_image.height() - 10);
 		this.programmation_content.tinyscrollbar({lockscroll: true});
 	};
 	
-	// SERT A RESIZER L IMAGE DE BACKGROUND POUR FULL BACKGROUND
-	ProgrammationView.prototype.resize = function(p_container, p_img) {
-		p_img.width($(window).width()/2);
-		var top_pos = ($(window).height() - p_img.height())/2;
-		p_container.css('top', top_pos);
-	};
 				
 	// SLIDE DANS LA BONNE DIRECTION LE SLIDER.
-	ProgrammationView.prototype.animate = function( p_way ){
+	ProgrammationView.prototype.animate = function( ){
 		var saved_index = this.current_index;
 		var self = this;
 		
-		switch(p_way){
-			case "next":
-				this.current_index == this.jules.length - 1 ? this.current_index = 0 : ++this.current_index;
-				break;
-			case "prev":
-				this.current_index == 0 ? this.current_index = this.jules.length - 1 : --this.current_index;
-				break;
-		}
+		this.current_index == this.jules.length - 1 ? this.current_index = 0 : ++this.current_index;
 		
-		this.jules[saved_index].animate( {opacity:0}, 'fast' );
-		this.jules[this.current_index].animate( {opacity:1}, 'fast' );
+		this.jules[saved_index].fadeOut( 'fast' );
+		this.jules[this.current_index].fadeIn( 'fast' );
+		this.currently_displayed_jules = this.jules[this.current_index].find('img').first(); 
 
 		this.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches
-			self.animate("next");
+			self.animate();
 		}, this.slider_duration);
 	};
 	
@@ -137,11 +119,17 @@ window.application.addView((function( $, application ){
 		var self = this;
 		clearTimeout(self.slider_timeout);
 		this.slider_timeout = null;
-		this.view.stop().fadeOut('fast');
+		this.view.fadeOut('fast');
+		$(window).unbind('resize');
+		this.jules = [];
+		this.current_index = 0;
+		this.jules_container.html("");
+		this.spectacle_ul.html("");
 	};
 
   // I get called when the view needs to be shown.
   ProgrammationView.prototype.show_view = function( p_parameters ){
+		this.view.stop();
     this.check();
 		this.current_ordering = p_parameters.id;
 		
@@ -153,10 +141,7 @@ window.application.addView((function( $, application ){
   };
 
 	// I check if everything is ok for the correct display of the view.
-	ProgrammationView.prototype.check = function(){
-		
-		
-		
+	ProgrammationView.prototype.check = function(){		
 		$('#logo_menu').show('fast');
 		
 		var ss = $('#spectacle_slider');

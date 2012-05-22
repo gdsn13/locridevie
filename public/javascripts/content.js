@@ -9,6 +9,7 @@ window.application.addController((function( $, application ){
     this.route( "/", this.intro );
 		this.route( "/home_page", this.home );
 		this.route( "/spectacles/programmation", this.programmation );
+		//this.route( "/spectacles/calendrier", this.calendrier );
 		this.route( "/spectacle/:id", this.spectacle );
 		this.route( "/pages.*", this.pages );
 		//this.route( "/newsletter", this.newsletter );
@@ -20,10 +21,11 @@ window.application.addController((function( $, application ){
 		this.intro_view = null;
 		this.menu_view = null;
 		this.site_view = null;
-		this.spectacles_view = null;
+		this.programmation_view = null;
 		this.spectacle_view = null;
 		this.page_view = null;
 		this.current_parameter = null;
+		this.calendrier_view = null;
   };
   
   Controller.prototype = new application.Controller();
@@ -38,8 +40,8 @@ window.application.addController((function( $, application ){
 		this.menu_view = application.getView( "MenuView" );
 		this.site_view = application.getView( "HomeView" );
 		this.page_view = application.getView( "PageView" );
-		//this.spectacles_view = application.getView( "SpectaclesView" );
 		this.programmation_view = application.getView( "ProgrammationView" );
+		//this.calendrier_view = application.getView( "calendrierView" );
 		this.spectacle_view = application.getView( "SpectacleView" );
 		//this.newsletter_view = application.getViex( "NewsletterView" );
 		this.model = application.getModel( "Model" );
@@ -66,6 +68,10 @@ window.application.addController((function( $, application ){
 
 	Controller.prototype.programmation = function( event ){
 		this.changeView(this.programmation_view, event);
+	};
+	
+	Controller.prototype.calendrier = function( event ){
+		this.changeView(this.calendrier_view, event)
 	};
 	
 	Controller.prototype.spectacle = function( event ){
@@ -100,7 +106,6 @@ window.application.addController((function( $, application ){
 		
 		this.current_view = p_view;	
 		this.current_parameter = p_event.parameters;
-		
 		if (p_view && p_view.show_view){
 			this.current_view.show_view( this.current_parameter );
 		}

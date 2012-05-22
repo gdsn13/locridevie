@@ -90,12 +90,15 @@ window.application.addView((function( $, application ){
 			
 			// INITIALISATION DE LA POSITION DES TITRES
 			self.spectacle_slider_ul.find('li a').each(function(){
-				var tltp = $('#s_' + $(this).attr('rel')); //initialisation de la position des titres.
+				// This = l'image du spectacle
+				var tltp = $('#s_' + $(this).attr('rel')); //récupération du tooltip
 				var middle = (tltp.width() - $(this).width() + 12)/2;	// + 12 = padding + border, 5 + 5 +1 +1
-				var left = $(this).offset().left - middle
+				var left = $(this).offset().left - middle;
+				
 				
 				if (left < 10) left = 10; 	//cas des bordures
-				else if (left + tltp.width() > self.nav_width) left = left - tltp.width() - 10;
+				//TODO : positionner le titre.
+				else if (left + tltp.width() > self.nav_width) xleft = self.nav_width - tltp.width() - 20;
 								
 				tltp.css({'left' : left});	// positionnement du titre
 			});
@@ -151,12 +154,13 @@ window.application.addView((function( $, application ){
 		
 		// POPULATE SPECTACLE LIST
 		$.each(this.spectacles, function(index, spec){
+			//AFFICHAGE DU MOIS DU CALENDRIER
 			if (self.model.current_ordering == "calendrier"){
 				var month = new Date(spec.date).getMonth();
 				if(self.current_month_for_calendar_display != month){
 					self.current_month_for_calendar_display = month;
-					self.spectacle_slider_ul.append('<li class="month_name_for_calendar">' + self.localize.localize_month(month) + '</li>');
-					self.nav_width += 125;
+					self.spectacle_slider_ul.append('<li class="month_name_for_calendar"><p>' + self.localize.localize_month(month) + '</p></li>');
+					self.nav_width += 45;
 				}
 			}
 			spec["index"] = index;

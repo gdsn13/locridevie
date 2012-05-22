@@ -32,9 +32,10 @@ window.application.addView((function( $, application ){
 		this.close_button = null;
 		this.spectacle_content = null;
 		this.slider_timeout = null;
-		this.current_index = null;
+		this.current_index = 0;
 		this.images = [];
 		this.slider_duration = 5000;
+		this.currently_displayed_image = null;
   };
   
   SpectacleView.prototype.init = function(){  
@@ -54,9 +55,6 @@ window.application.addView((function( $, application ){
 	SpectacleView.prototype.display_view = function(){
 		//INITIALISATION
 		var self = this;
-		this.current_index = 0;
-		this.images_container = null;
-		this.view.html("");
 		
 		// RECUPERATION DU TEMPLATE ET REMPLISSAGE
 		this.view.html(application.getFromTemplate(this.template, this.model.pages[this.current_spectacle]));
@@ -66,91 +64,67 @@ window.application.addView((function( $, application ){
 		this.spectacle_content = $('#spectacle_content');
 		var image_template = $('#image_galery_for_spectacle');
 		
-		//INITIALISATION DES TAILLES DES CONTAINERS
-		this.images_container.css({'width': $(window).width()/2, 'height' : "100%"});
-		this.spectacle_content.css('width', $(window).width()/2);
-		
 		// GENERATION DES IMAGES
 		$.each(this.model.pages[this.current_spectacle].images, function(index, img){
 			img.index = index; //index sert à alimenter le template!
 			self.images_container.append(application.getFromTemplate(image_template, img));
 			var current = self.images_container.find('#image_'+index);
 			self.images.push(current);
-			if (index > 0){
-				current.css('opacity', 0);
-			}
+			if (index == 0) self.currently_displayed_image = current.find('img').first();
+			else current.css('display', 'none');
 		});
-		
-		// RESIZE DES IMAGES UNE FOIS QU'ELLES SONT CHARGEES
-		this.images_container.find('img').load(function(){
-			var img = this;
-			//$(this).css('opacity', 0);
-			self.resize($(this).parent(), $(this));
-			// SUIVRE LE RESIZE DE WINDOWS
-			$(window).on('resize', function(){
-				self.resize($(img).parent(), $(img));
-			});
-		});
-				
+						
+		//TOUT EST CHARGÉ
 		this.view.imagesLoaded(function(){
-			$(window).on('resize', function(){
-				self.resize_containers();
-			});
+			//RESIZING
+			$(window).on('resize', function(){	self.resize_containers();	});
 			
 			//INIT DES POS DES CONTAINERS
 			self.resize_containers();
-			
-			//INIT DE LA ZONE DE SCROLL
-			self.spectacle_content.tinyscrollbar({lockscroll: true});
+						
+			self.view.css({'top':"0px", "display" : "none"});
 			
 			// ON AFFICHE LA VUE
-			self.view.animate({opacity:1},'fast', function(){
+			self.view.fadeIn('fast', function(){
 				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE
 				self.slider_timeout = setTimeout(function(){
-					self.animate("next");
-				}, self.slider_duration);
-				
+					self.animate();
+				}, self.slider_duration);	
 			});
 			self.model.set_message_to_growl("");
 		});
 	};
 	
-	SpectacleView.prototype.animate = function( p_way ){
+	SpectacleView.prototype.animate = function( ){
 		var saved_index = this.current_index;
 		var self = this;
-		
-		switch( p_way ){
-			case "next":
-				this.current_index == this.images.length - 1 ? this.current_index = 0 : ++this.current_index;
-				break;
-			case "prev":
-				this.current_index == 0 ? this.current_index = this.images.length - 1 : --this.current_index;
-				break;
-		}
 
-		this.images[saved_index].animate({opacity:0}, 'fast');
-		this.images[this.current_index].animate({opacity:1}, 'fast');
+		this.current_index == this.images.length - 1 ? this.current_index = 0 : ++this.current_index;
+		
+		this.images[saved_index].fadeOut('fast');
+		this.images[this.current_index].fadeIn('fast');
+		this.currently_displayed_image = this.images[this.current_index].find('img').first(); 
 		
 		this.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches
-			self.animate("next");
+			self.animate();
 		}, this.slider_duration);
 	};
-	
-	//je resize la photo
-	SpectacleView.prototype.resize = function(p_container, p_img) {				
-		p_img.width($(window).width()/2);
-		var top_pos = ($(window).height() - p_img.height())/2;
-		p_container.css('top', top_pos);
-	};
-	
+		
 	SpectacleView.prototype.resize_containers = function(){
-		var first_image = this.images_container.find('img').first();
-		var top_pos = ($(window).height() - first_image.height())/2;
+		var displayed_image = this.currently_displayed_image;
+		var top_pos;
 		
 		this.images_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+		this.images_container.find('.image img').width($(window).width()/2);
+		
+		top_pos = ($(window).height() - displayed_image.height())/2;
+		
+		this.images_container.find('.image').css('top', top_pos);
+		
+		
 		this.spectacle_content.css('width', $(window).width()/2);
-		this.spectacle_content.css({'top' : top_pos, 'height' : first_image.height()});
-		this.spectacle_content.find('.viewport').css('height', first_image.height() - 10);
+		this.spectacle_content.css({'top' : top_pos, 'height' : displayed_image.height()});
+		this.spectacle_content.find('.viewport').css('height', displayed_image.height() - 10);
 		this.spectacle_content.tinyscrollbar({lockscroll: true});
 	};
 
@@ -159,11 +133,17 @@ window.application.addView((function( $, application ){
 		clearTimeout(this.slider_timeout);
 		this.slider_timeout = null;
 		$(window).unbind();
-		this.view.animate({opacity : 0}, 'fast');
+		this.view.fadeOut('fast');
+		this.current_index = 0;
+		this.images_container = null;
+		this.view.html("");
+		this.currently_displayed_image = null;
+		this.images = [];
 	};
 
   // I get called when the view needs to be shown.
   SpectacleView.prototype.show_view = function( p_parameters ){
+		this.view.stop();
     this.check();
 		this.current_spectacle = p_parameters.id;
 
@@ -172,14 +152,14 @@ window.application.addView((function( $, application ){
   
 	// I check if everything is ok for the correct display of the view.
 	SpectacleView.prototype.check = function(){
-		
 		var left = $('#logo_menu');
+		
+		this.view.css({'top':"10000px", "display" : "block"});
 	
 		this.images_container = null;
 		var ss = $('#spectacle_slider');
 		if( ss.css('display') == 'none') ss.fadeIn('fast');
 		
-		this.view.css({'display' : 'block', 'opacity' : '0'});
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );
 		}

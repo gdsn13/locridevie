@@ -7,6 +7,10 @@ window.application.addView((function( $, application ){
 		this.jules_container = null;
 		this.content_container = null;
 		this.jules = [];
+		this.currently_displayed_jules = null;
+		this.slider_timeout = null;
+		this.slider_duration = 5000;
+		this.current_index = 0;
   };
   
   PageView.prototype.init = function(){  
@@ -29,94 +33,93 @@ window.application.addView((function( $, application ){
 
 	PageView.prototype.data_ready = function(){
 		var self = this;
-		self.jules_container.html("");
-		self.content_container.html("");
-		self.jules = [];
-		
-		//INITIALISATION DES TAILLES DES CONTAINERS
-		this.jules_container.css({'width': $(window).width()/2, 'height' : "100%"});
-		this.content_view.css('width', $(window).width()/2);
-		
-		// AFFICHAGE DES DIFFERENTS ELEMENT DE LA PAGE
-  	//self.display_jules();
-		//self.display_body();
-		
-		this.view.imagesLoaded(function( $images, $proper, $broken ){
-			self.view.animate({opacity:1}, 'fast');
-		});
-		
+		// etre sur que la view est en display block, sinon, pas de calcul de tailles
+		this.view.css({'top':"10000px", "display" : "block"});
+				
 		//AFFICHAGE DES JULES
 		$.each(this.model.current_page.jules, function(index, j){						
 			var html = '<div class="jules_slider" id="jules_' + index +'"><img src="' + j.picto + '"/></div>';
 			self.jules_container.append(html);
 			var this_container = $('#jules_' + index);
-			if (index > 0) this_container.css('opacity', 0);				//opacity à 0 sauf pour la premiere image
 			self.jules.push(this_container);
+			if (index == 0) self.currently_displayed_jules = this_container.find('img').first();
+			else this_container.css('display', 'none');
 		});
 		
-		// RESIZE LES IMAGES UNE FOIS CHARGEE. on repasse par une boucle pour ajouter directement les images au DOM et
-		// et éviter de déclancher le imagesLoaded avant qu'elles ne soient chargées
-		this.jules_container.find('img').load(function(){
-			var img = this;
-			//$(this).css('opacity', 0);
-			self.resize($(this).parent(), $(this));
-			// SUIVRE LE RESIZE DE WINDOWS
-			$(window).on('resize', function(){
-				self.resize($(img).parent(), $(img));
-			});
-		});
-		
+		//AFFICHAGE DU BODY
 		this.content_container.html(this.model.current_page.body);
 		
 		this.view.imagesLoaded(function(){
-			$(window).on('resize', function(){
-				self.resize_containers();
-			});
-			
-			self.model.set_message_to_growl("");			// on cache le loader
+			$(window).on('resize', function(){ self.resize_containers(); });
 			
 			//INIT DES POS DES CONTAINERS
 			self.resize_containers();
 			
-			//INIT DE LA ZONE DE SCROLL
-			self.content_view.tinyscrollbar({lockscroll: true});
+			self.view.css({'top':"0px", "display" : "none"});
 			
 			// ON AFFICHE LA VUE
-			self.view.animate({opacity:1},'fast', function(){
-			
+			self.view.fadeIn('fast', function(){
 				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE
-				/*self.slider_timeout = setTimeout(function(){
-					self.animate("next");
-					}, self.slider_duration);*/
+				if (self.jules.size < 2){
+					self.slider_timeout = setTimeout(function(){
+						self.animate();
+						}, self.slider_duration);
+				}
 			});
-			
+
+			self.model.set_message_to_growl("");			// on cache le loader
 		});
+	};
+	
+	// SLIDE DANS LA BONNE DIRECTION LE SLIDER.
+	PageView.prototype.animate = function(){
+		var saved_index = this.current_index;
+		var self = this;
 		
+		this.current_index == this.jules.length - 1 ? this.current_index = 0 : ++this.current_index;
+		
+		this.jules[saved_index].fadeOut( 'fast' );
+		this.jules[this.current_index].fadeIn( 'fast' );
+		this.currently_displayed_jules = this.jules[this.current_index].find('img').first(); 
+
+		this.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches
+			self.animate();
+			}, this.slider_duration);
 	};
 	
 	PageView.prototype.resize_containers = function(){
-		var first_image = this.jules_container.find('img').first();
-		var top_pos = ($(window).height() - first_image.height())/2;
+		var displayed_image = this.currently_displayed_jules;
+		var top_pos;
+		
+		this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+		this.jules_container.find('.jules_slider img').width($(window).width()/2);
+		
+		top_pos = ($(window).height() - displayed_image.height())/2;
+		
+		this.jules_container.find('.jules_slider').css('top', top_pos);
 		
 		this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
 		this.content_view.css('width', $(window).width()/2);
-		this.content_view.css({'top' : top_pos, 'height' : first_image.height()});
-		this.content_view.find('.viewport').css('height', first_image.height() - 10);
+		this.content_view.css({'top' : top_pos, 'height' : displayed_image.height()});
+		this.content_view.find('.viewport').css('height', displayed_image.height() - 10);
 		this.content_view.tinyscrollbar({lockscroll: true});
 	};
 	
-	PageView.prototype.resize = function(p_container,p_img) {		
-		p_img.width($(window).width()/2);
-		var top_pos = ($(window).height() - p_img.height())/2;
-		p_container.css('top', top_pos);
-	};
-	
-	PageView.prototype.hide_view = function(){
+	PageView.prototype.hide_view = function(next_view_is_page){
 		var self = this;
+		clearTimeout(this.slider_timeout);
+		this.slider_timeout = null;
 		this.view.fadeOut('fast', function(){});
+		this.view.css('display', 'none');
+		$( window ).unbind();
+		this.jules_container.html("");
+		this.content_container.html("");
+		this.jules = [];
+		this.current_index = 0;
 	};
 	
 	PageView.prototype.show_view = function(){
+		this.view.stop();
 		this.check();
 		this.model.get_page(application.currentLocation.slice(application.currentLocation.indexOf("/"), application.currentLocation.length));
 	};
@@ -124,7 +127,7 @@ window.application.addView((function( $, application ){
 	// I check if everything is ok for the correct display of the view.
 	PageView.prototype.check = function(){
 		var menu = $('#logo_menu');
-		$( window ).unbind();
+
 		//check que le slider soit bien affiché
 		var ss = $('#spectacle_slider');
 		if( ss.css('display') == 'none') ss.fadeIn('fast'); 
@@ -135,7 +138,6 @@ window.application.addView((function( $, application ){
 		if(menu.css('display') == 'none'){
 			menu.show();
 		}
-		this.view.css({'display' : 'block', 'opacity' : '0'});
 	};
   
   // Return a new view class singleton instance.

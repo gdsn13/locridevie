@@ -36,8 +36,8 @@ window.application.addModel((function( $, application ){
 	};
 	
 	Model.prototype.set_page = function(p_page){
-		this.pages[p_page.fullpath] = p_page;
-		this.set_current_page(p_page.fullpath);
+		this.pages["/" + p_page.fullpath] = p_page;
+		this.set_current_page("/" + p_page.fullpath);
 		this.set_message_to_growl("");
 	};
 	
@@ -88,7 +88,7 @@ window.application.addModel((function( $, application ){
 			application.getModel("LocoService").get_spectacle(p_title);
 		}
 		else{
-			this.set_current_page(p_title);
+			this.current_page = this.pages[p_title];
 			$(this).trigger('spectacle_ready');
 		}
 	};
