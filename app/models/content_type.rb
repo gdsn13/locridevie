@@ -98,7 +98,7 @@ class ContentType
     res = []
     season_b = Site.find(site_id).season_back
     
-    liste = self.contents.sort{|a,b| a.send(self.highlighted_field_name) <=> b.send(self.highlighted_field_name)}
+    liste = self.contents.sort{|a,b| a.titre_back_office <=> b.titre_back_office}
     
     liste.each do |s|
       if (s.season_id == season_b)
