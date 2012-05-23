@@ -72,12 +72,12 @@ class ContentType
         groups
       end
     else
-      
-      #if self.slug == "spectacles"
-      #  liste = self.contents.sort{|a,b| a.titre_back_office <=> b.titre_back_office}
-      #else  
+      if self.slug == "spectacles"
+        # highlighted_field_value must be a required field and not null
+        liste = self.contents.sort{|a,b| a.highlighted_field_value <=> b.highlighted_field_value}
+      else  
         self.ordered_contents
-      #end
+      end
     end
   end
 
@@ -98,9 +98,11 @@ class ContentType
     res = []
     season_b = Site.find(site_id).season_back
     
-    liste = self.contents.sort{|a,b| a.titre_back_office <=> b.titre_back_office}
+    # highlighted_field_value must be a required field and not null
+    liste = self.contents.sort{|a,b| a.highlighted_field_value <=> b.highlighted_field_value}
     
     liste.each do |s|
+      p s.highlighted_field_value
       if (s.season_id == season_b)
         res << s
       end

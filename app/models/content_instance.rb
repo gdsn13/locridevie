@@ -38,10 +38,6 @@ class ContentInstance
   alias :visible? :_visible?
   alias :_permalink :_slug
   alias :_permalink= :_slug=
-  
-  def order_by_alpha_title
-    
-  end
 
   def site_id  # needed by the uploader of custom fields
     self.content_type.site_id
