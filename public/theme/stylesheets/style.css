@@ -425,6 +425,10 @@ body{
 	width:17px;
 }
 
+#spectacles_titles div span{
+	font-weight:bold;
+}
+
 #spectacles_titles{
 	position:absolute;
 	left:0;

@@ -72,7 +72,12 @@ class ContentType
         groups
       end
     else
-      self.ordered_contents
+      
+      if self.slug == "spectacles"
+        liste = self.contents.sort{|a,b| a.titre_back_office.downcase <=> b.titre_back_office.downcase}
+      else  
+        self.ordered_contents
+      end
     end
   end
 
@@ -92,7 +97,10 @@ class ContentType
   def season_show
     res = []
     season_b = Site.find(site_id).season_back
-    self.contents.each do |s|
+    
+    liste = self.contents.sort{|a,b| a.titre_back_office.downcase <=> b.titre_back_office.downcase}
+    
+    liste.each do |s|
       if (s.season_id == season_b)
         res << s
       end

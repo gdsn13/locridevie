@@ -30,6 +30,7 @@ class ContentInstance
   ## named scopes ##
   scope :latest_updated, :order_by => :updated_at.desc, :limit => Locomotive.config.latest_items_nb
 
+
   ## methods ##
 
   delegate :site, :to => :content_type
@@ -37,6 +38,10 @@ class ContentInstance
   alias :visible? :_visible?
   alias :_permalink :_slug
   alias :_permalink= :_slug=
+  
+  def order_by_alpha_title
+    
+  end
 
   def site_id  # needed by the uploader of custom fields
     self.content_type.site_id
