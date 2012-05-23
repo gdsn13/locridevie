@@ -73,11 +73,11 @@ class ContentType
       end
     else
       
-      if self.slug == "spectacles"
-        liste = self.contents.sort{|a,b| a.titre_back_office <=> b.titre_back_office}
-      else  
+      #if self.slug == "spectacles"
+      #  liste = self.contents.sort{|a,b| a.titre_back_office <=> b.titre_back_office}
+      #else  
         self.ordered_contents
-      end
+      #end
     end
   end
 
