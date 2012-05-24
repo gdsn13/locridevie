@@ -38,7 +38,11 @@ module Front::PagesHelper
     # si la page est une sous catégorie d'un fat, on affiche pas le titre.
     if page.parent.fat == false
       if depth <= 1
-        output << %{<div class="menu_title"/>#{page.title}</div>}
+        if page.children.size > 0
+          output << %{<div class="menu_title"/>#{page.title}</div>}
+        else
+          output << %{<a href="/#/#{page.fullpath}"><div class="menu_title"/>#{page.title}</div></a>}
+        end
       elsif is_page 
         output << %{<a href="/#/pages/#{page.fullpath}">#{page.title}</a>}
       else

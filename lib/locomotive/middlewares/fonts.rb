@@ -9,6 +9,7 @@ module Locomotive
       end
 
       def call(env)
+        
         if env["PATH_INFO"] =~ @path_regexp
           if Locomotive.config.multi_sites?
             site = fetch_site(env['SERVER_NAME'])

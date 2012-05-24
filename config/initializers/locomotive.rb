@@ -82,7 +82,7 @@ Locomotive.configure do |config|
   #   :entitystore => URI.encode("file:#{Rails.root}/tmp/dragonfly/cache/body")
   # }
   # If you do want to disable it for good, just use the following syntax
-  # config.rack_cache = false
+  config.rack_cache = false
   #
   # Note: by default, rack/cache is disabled in the Heroku platform
 

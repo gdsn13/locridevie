@@ -15,6 +15,7 @@ module Locomotive
       end
 
       def call(env)
+        
         if env['PATH_INFO'] =~ @regexp
           @context.call(env)
         else
