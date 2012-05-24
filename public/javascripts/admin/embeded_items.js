@@ -61,7 +61,8 @@ $(document).ready(function() {
 
       if (context.data.taken_ids.length == 0) {
         context.empty.show();
-        context.list.after('<input type="hidden" name="' + context.baseInputName + '" value="" />');
+				// mis dans le controller => si == nil => = "", faisait planter sinon, si plus de jules, me faisiat un get string want hash
+        //context.list.after('<input type="hidden" name="' + context.baseInputName + '" value="" />');
       }
 
       context.sep.show();
