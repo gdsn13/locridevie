@@ -395,7 +395,6 @@ body{
 
 #spectacles_titles .tool_tip_title{
 	position:absolute;
-	top:300px;
 	background:rgba(0,0,0,1);
 	border:1px solid #666;
 	padding:5px;
@@ -405,7 +404,7 @@ body{
 	color:#EEE;
 	font-size:12px;
 	display:none;
-	top:-70px;
+	bottom:25px;
 }
 
 .numero_title{
@@ -663,6 +662,7 @@ body{
 
 #logo_intro img{
 	position:absolute;
+	height:auto;
 }
 
 #logo_intro{

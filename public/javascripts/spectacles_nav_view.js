@@ -12,6 +12,7 @@ window.application.addView((function( $, application ){
 		this.loaded_images = 0;
 		this.mouseX = 0;
 		this.enter_frame_nav = null;
+		this.tltp_template = null;
   };
   
   SpectaclesNavView.prototype.init = function(){  
@@ -25,6 +26,7 @@ window.application.addView((function( $, application ){
 		this.template = $('#spectacle_list_template');
 		this.spectacle_slider_ul = $('#spectacle_slider > ul');
 		this.spectacles_titles = $('#spectacles_titles');
+		this.tltp_template = $('#tltp_template');
 		
 		/* DATA REFRESH
 		----------------------------------------------------------------------------------------*/
@@ -56,20 +58,7 @@ window.application.addView((function( $, application ){
 		this.spectacle_slider_ul.css('left', 0);
 		this.spectacles_titles.css('left', 0);
 		
-		switch(this.model.current_ordering){
-			case 'programmation':
-				this.spectacles = this.model.spectacles_ordered_by_name();
-			break;
-			case 'calendrier':
-				this.spectacles = this.model.spectacles_ordered_by_date();
-			break;
-			case 'la-criee-en-tournee':
-				this.spectacles = this.model.spectacles_en_tournee();
-			break;
-			default:
-				this.spectacles = this.model.spectacles_ordered_by_date();
-			break;
-		}
+		this.spectacles = this.model.spectacles_ordered_by_date();
 		
 		if (this.spectacles != []){
 			this.display_spectacles();
@@ -93,28 +82,25 @@ window.application.addView((function( $, application ){
 			// INITIALISATION DE LA POSITION DES TITRES
 			self.spectacle_slider_ul.find('li a').each(function(){
 				var tltp = $('#s_' + $(this).attr('rel')); 							//récupération du tooltip
+
 				var middle = (tltp.width() - $(this).width() + 12)/2;		// + 12 = padding + border, 5 + 5 +1 +1
 				var left = $(this).offset().left - middle;
 				
 				if (left < 10) left = 10; 	//cas des bordures
 				//TODO : positionner le titre.
-				else if (left + tltp.width() > self.nav_width) xleft = self.nav_width - tltp.width() - 20;
-								
-				tltp.css({'left' : left});	// positionnement du titre
+				else if (left + tltp.width() > self.nav_width) xleft = self.nav_width - tltp.width() - 30;			
+				
+				tltp.css({'left' : left, 'top' : -(tltp.height() + 50)});	// positionnement du titre
 			});
 			
 			//POSITIONNEMENT SUR LA DATE COURANTE
 			var current_month = new Date().getMonth();
-			console.log(current_month);
 			var current_month_li = self.spectacle_slider_ul.find('#month_' + current_month);
 			current_month_li.css("background-color", "#1285bc");
 			var date_offset = - Math.abs(current_month_li.offset().left);
-			console.log(date_offset);
 			//limite à droite
 			var limitRight = - (self.nav_width - $(window).width());
-			console.log(limitRight);
 			if (date_offset < limitRight) {
-				console.log('inside');
 				date_offset = limitRight;
 			}
 			
@@ -185,18 +171,19 @@ window.application.addView((function( $, application ){
 		// POPULATE SPECTACLE LIST
 		$.each(this.spectacles, function(index, spec){
 			//AFFICHAGE DU MOIS DU CALENDRIER
-			if (self.model.current_ordering == "calendrier"){
-				var month = new Date(spec.date).getMonth();
-				if(self.current_month_for_calendar_display != month){
-					self.current_month_for_calendar_display = month;
-					self.spectacle_slider_ul.append('<li class="month_name_for_calendar" id="month_' + month + '"><p><a href="javascript:void();">' + self.localize.localize_month(month) + '</a></p></li>');
-					self.nav_width += 45;
-				}
+			var month = new Date(spec.date).getMonth();
+			if(self.current_month_for_calendar_display != month){
+				self.current_month_for_calendar_display = month;
+				self.spectacle_slider_ul.append('<li class="month_name_for_calendar" id="month_' + month + '"><p><a href="javascript:void();">' + self.localize.localize_month(month) + '</a></p></li>');
+				self.nav_width += 45;
 			}
-			spec["index"] = index;
+			
+			//AFFICHAGE DU SPECTACLE
+			spec["index"] = index;	//rajout de l'index à l'object
+			if (spec.spectacle_associe_path != "") spec["url"] =  spec.spectacle_associe_path;
+			else spec["url"] = spec.slug;
 			self.spectacle_slider_ul.append(application.getFromTemplate(self.template, spec));
-			var title = "<div id='s_" + index + "' class='tool_tip_title'><div class='numero_title'>" + spec.numero + "</div>" + spec.titre + "<span class='tltp_arrow'></span></div>";
-			self.spectacles_titles.append(title);
+			self.spectacles_titles.append(application.getFromTemplate(self.tltp_template, spec));
 		});
 		
 		// LOAD THE NAV IMAGES

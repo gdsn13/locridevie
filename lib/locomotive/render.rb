@@ -12,13 +12,15 @@ module Locomotive
           render :template => '/admin/errors/404', :layout => '/admin/layouts/box', :status => :not_found
         else
           @page = locomotive_page
-          @spectacles = []
+          spectacles = []
 
           ContentType.where(:slug => "spectacles").first.contents.each do |s|
             if s.season_id == current_site.season_front
-              @spectacles << s
+              spectacles << s
             end
           end
+          
+          @spectacles = spectacles.sort_by { |a| a.numero }
 
           #redirect_to(@page.redirect_url) and return if @page.present? && @page.redirect?
 

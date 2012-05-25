@@ -148,13 +148,12 @@ window.application.addView((function( $, application ){
   CalendrierView.prototype.show_view = function( p_parameters ){
 		this.view.stop();
     this.check();
-		this.current_ordering = p_parameters.id;
 		
 		// application.currentLocation parce que la page correpondante sockée 
 		// contient /spectacles (mécanique commune aux pages et spectacles)
 		// par contre ordrering ne le contient pas, sert juste à ordonner correctement 
 		// et est interne à cette vue.
-		this.model.get_calendrier(application.currentLocation, this.current_ordering);
+		this.model.get_calendrier(application.currentLocation);
   };
 
 	// I check if everything is ok for the correct display of the view.

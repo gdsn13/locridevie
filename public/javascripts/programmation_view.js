@@ -6,7 +6,7 @@ window.application.addView((function( $, application ){
 		this.programmation_content = null;
 		this.jules_container = null;
 		this.spectacle_ul = null;
-		
+		this.spectacles = null;
 		this.localize = null;
 		this.jules = [];
 		this.current_index = 0;
@@ -40,6 +40,8 @@ window.application.addView((function( $, application ){
 		var self = this;
 		this.view.css({'top':"10000px", "display" : "block"});
 		
+		this.spectacles = this.model.spectacles_ordered_by_numero();
+		
 		//AFFICHAGE DES JULES
 		$.each(this.model.current_page.jules, function(index, j){
 			var html = '<div class="jules_slider" id="image_' + index +'"><img src="' + j.picto + '"/></div>';
@@ -51,9 +53,11 @@ window.application.addView((function( $, application ){
 		});
 		
 		//AFFICHAGE DE LA LISTE DES SPECTACLES
-		$.each(this.model.spectacles, function(index, s){
-			var html = '<li><span>' + s.numero + '</span> <a href="/#/spectacle/' + s.slug + '">' + s.titre + '</a></li>';
-			self.spectacle_ul.append(html);
+		$.each(this.spectacles, function(index, s){
+			if (s.spectacle_associe_path == ""){
+				var html = '<li><span>' + s.numero + '</span> <a href="/#/spectacle/' + s.slug + '">' + s.titre + '</a></li>';
+				self.spectacle_ul.append(html);
+			}
 		});
 		
 		// QUAND TOUT EST CHARGE DANS LA VUE
@@ -131,13 +135,12 @@ window.application.addView((function( $, application ){
   ProgrammationView.prototype.show_view = function( p_parameters ){
 		this.view.stop();
     this.check();
-		this.current_ordering = p_parameters.id;
 		
 		// application.currentLocation parce que la page correpondante sockée 
 		// contient /spectacles (mécanique commune aux pages et spectacles)
 		// par contre ordrering ne le contient pas, sert juste à ordonner correctement 
 		// et est interne à cette vue.
-		this.model.get_spectacles(application.currentLocation, this.current_ordering);
+		this.model.get_spectacles(application.currentLocation);
   };
 
 	// I check if everything is ok for the correct display of the view.

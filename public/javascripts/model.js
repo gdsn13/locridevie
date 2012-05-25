@@ -12,7 +12,6 @@ window.application.addModel((function( $, application ){
 		this.current_page = null;
 		this.message_to_growl = "";
 		this.spectacles_loaded = false;
-		this.current_ordering = "calendrier";
 	};
 	
 	Model.prototype.hide_finished = function(){
@@ -108,7 +107,7 @@ window.application.addModel((function( $, application ){
 		$(this).trigger('spectacles_ready');
 	};
 	
-	Model.prototype.get_spectacles = function(p_path, p_ordering){
+	Model.prototype.get_spectacles = function(p_path){
 		if (this.pages[p_path] == null){
 			this.set_message_to_growl("Chargement...");
 			application.getModel("LocoService").get_spectacles(p_path, this.spectacles_loaded);
@@ -116,10 +115,6 @@ window.application.addModel((function( $, application ){
 		else{
 			this.current_page = this.pages[p_path];
 			$(this).trigger('spectacles_ready');
-		}
-		if (p_ordering != this.current_ordering){
-			this.current_ordering = p_ordering;
-			$(this).trigger('spectacles_list_ready');
 		}
 	};
 	
@@ -146,15 +141,7 @@ window.application.addModel((function( $, application ){
 			$(this).trigger('calendrier_ready');
 		}
 	}
-	
-	/* I order spectacles list by title (alphabetic order)
-	----------------------------------------------------------------------------------------*/
-	Model.prototype.spectacles_ordered_by_name = function(){
-		var spec = this.spectacles;		
-		spec.sort(this.sort_by('titre', true, function(a){return a.toUpperCase()}));
-		return spec;
-	};
-	
+		
 	/* I return only spectacles with en_tournee == true, ordered by title 	
 	----------------------------------------------------------------------------------------*/
 	Model.prototype.spectacles_en_tournee = function(){
@@ -169,12 +156,17 @@ window.application.addModel((function( $, application ){
 		return spec;
 	};
 	
+	Model.prototype.spectacles_ordered_by_numero = function(){
+		var spec = this.spectacles;
+		spec.sort(this.sort_by('numero', true, function(a){return a.toUpperCase()}));
+		return spec;
+	};
+	
 	/* I order spectacles list by date of representation 			
 	----------------------------------------------------------------------------------------*/
 	Model.prototype.spectacles_ordered_by_date = function(){
 		var spec = this.spectacles;
 		spec.sort(this.sort_by('date', true, function(a){return new Date(a)}));
-		//spec.sort(this.sort_by_date);
 		return spec;
 	};
 	
@@ -187,8 +179,6 @@ window.application.addModel((function( $, application ){
 	Model.prototype.sort_by_date = function(a, b){
 		var data = new Date(a.date);
 		var datb = new Date(b.date);
-		
-		console.log(data);
 		
 		return data.getTime() - datb.getTime();
 	}
