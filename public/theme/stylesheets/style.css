@@ -1,4 +1,4 @@
-@font-face {
+/*@font-face {
     font-family: 'KozMinPro-Heavy-AlphaNum';
     src: url('../fonts/kozminpro-heavy.eot');
     src: url('../fonts/kozminpro-heavy.eot?#iefix') format('embedded-opentype'),
@@ -39,7 +39,7 @@
          url('../fonts/avenirlt35light.svg#avenirlt35light') format('svg');
     font-weight: normal;
     font-style: normal;
-}
+}*/
 
 *{
 	margin:0;

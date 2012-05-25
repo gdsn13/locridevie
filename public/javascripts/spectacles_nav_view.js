@@ -108,18 +108,18 @@ window.application.addView((function( $, application ){
 			console.log(current_month);
 			var current_month_li = self.spectacle_slider_ul.find('#month_' + current_month);
 			current_month_li.css("background-color", "#1285bc");
-			var date_offset = current_month_li.offset().left;
+			var date_offset = - Math.abs(current_month_li.offset().left);
 			console.log(date_offset);
 			//limite à droite
-			var limitRight = self.nav_width - $(window).width();
+			var limitRight = - (self.nav_width - $(window).width());
 			console.log(limitRight);
-			if (date_offset > -limitRight) {
+			if (date_offset < limitRight) {
 				console.log('inside');
 				date_offset = limitRight;
 			}
 			
-			self.spectacle_slider_ul.css('left', - date_offset);
-			self.spectacles_titles.css('left', - date_offset);
+			self.spectacle_slider_ul.css('left', date_offset);
+			self.spectacles_titles.css('left', date_offset);
 			
 			// INITIALISATION DU MOUVEMENT DES SPECTACLES
 			self.spectacle_slider_ul.hover(function( e ){
