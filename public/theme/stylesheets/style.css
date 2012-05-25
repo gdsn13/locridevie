@@ -1,45 +1,13 @@
-/*@font-face {
-    font-family: 'KozMinPro-Heavy-AlphaNum';
-    src: url('../fonts/kozminpro-heavy.eot');
-    src: url('../fonts/kozminpro-heavy.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/kozminpro-heavy.woff') format('woff'),
-         url('../fonts/kozminpro-heavy.ttf') format('truetype'),
-         url('../fonts/kozminpro-heavy.svg#kozminpro-heavy') format('svg');
+@font-face {
+    font-family: 'CabinRegular';
+    src: url('../fonts/cabin-regular-webfont.eot');
+    src: url('../fonts/cabin-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/cabin-regular-webfont.woff') format('woff'),
+         url('../fonts/cabin-regular-webfont.ttf') format('truetype'),
+         url('../fonts/cabin-regular-webfont.svg#CabinRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
-
-@font-face {
-    font-family: 'HiraKakuPro-W3-AlphaNum';
-    src: url('../fonts/HiraKakuPro.eot');
-    src: url('../fonts/HiraKakuPro.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/HiraKakuPro.woff') format('woff'),
-         url('../fonts/HiraKakuPro.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'AvenirLT-Heavy';
-    src: url('../fonts/avenirlt85heavy.eot');
-    src: url('../fonts/avenirlt85heavy.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/avenirlt85heavy.woff') format('woff'),
-         url('../fonts/avenirlt85heavy.ttf') format('truetype'),
-         url('../fonts/avenirlt85heavy.svg#avenirlt85heavy') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'AvenirLT-Light';
-    src: url('../fonts/avenirlt35light.eot');
-    src: url('../fonts/avenirlt35light.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/avenirlt35light.woff') format('woff'),
-         url('../fonts/avenirlt35light.ttf') format('truetype'),
-         url('../fonts/avenirlt35light.svg#avenirlt35light') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}*/
 
 *{
 	margin:0;
@@ -62,7 +30,7 @@ img{
 html{
 	background:#000;
 	color:#FFF;
-	font-family: verdana;
+	font-family: 'CabinRegular';
 }
 
 body{
@@ -70,7 +38,7 @@ body{
 	height:100%;
 	overflow:hidden;
 	min-width:980px;
-	font-family: 'AvenirLT-Light';
+	font-family: 'CabinRegular';
 }
 
 /* MESSAGING
@@ -533,7 +501,7 @@ body{
 	text-transform:uppercase;
 	padding-top:10px !important;
 	border-bottom:1px solid #fdc400;
-	margin-right:9%;
+	margin-right:12%;
 }
 
 .green_line{color:green;}

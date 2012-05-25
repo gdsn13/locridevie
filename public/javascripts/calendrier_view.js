@@ -63,10 +63,6 @@ window.application.addView((function( $, application ){
 			
 			//AFFICHAGE DE LA LIGNE DEPUIS TEMPLATE
 			self.calendrier_spectacles.append(application.getFromTemplate(self.calendar_line, d));
-			self.calendrier_spectacles.append(application.getFromTemplate(self.calendar_line, d));
-			self.calendrier_spectacles.append(application.getFromTemplate(self.calendar_line, d));
-			self.calendrier_spectacles.append(application.getFromTemplate(self.calendar_line, d));
-			self.calendrier_spectacles.append(application.getFromTemplate(self.calendar_line, d));
 		});
 		
 		//AFFICHAGE DES JULES
