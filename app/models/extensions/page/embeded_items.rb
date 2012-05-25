@@ -14,12 +14,6 @@ module Extensions
       module InstanceMethods
         
         def clean_embededs(items)
-          p '55555555'
-          p '55555555'
-          p '55555555'
-          
-          p items
-          
           self.embeded_items = []
           
           items.keys.each do |emb|

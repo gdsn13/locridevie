@@ -29,6 +29,7 @@
 	<script src="/javascripts/intro_view.js" type="text/javascript"></script>
 	<script src="/javascripts/home_view.js" type="text/javascript"></script>
 	<script src="/javascripts/programmation_view.js" type="text/javascript"></script>
+	<script src="/javascripts/calendrier_view.js" type="text/javascript"></script>
 	<script src="/javascripts/spectacles_nav_view.js" type="text/javascript"></script>
 	<script src="/javascripts/spectacle_view.js" type="text/javascript"></script>
 	<script src="/javascripts/page_view.js" type="text/javascript"></script>
@@ -137,6 +138,29 @@
 			</div>
 		</div> 
 	</div>
+	
+	<div id="calendrier_container">
+		<div id="calendrier_content">
+			<div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
+			<div class="viewport">
+				<ul id="calendrier_spectacles" class="overview"></ul>
+			</div>
+		</div>
+		<div id="calendrier_jules_sliders">
+			
+		</div>
+	</div>
+	<script id="calendar_line" type="application/template">
+		<li>	
+			<div class="calendar_field calendar_date">${humanized_date}</div>
+			<div class="calendar_field calendar_heure ${color_line}">${heure}</div>
+			<div class="calendar_field calendar_numero ${color_line}">${numero}</div>
+			<div class="calendar_field calendar_spectacle ${color_line}">${spectacle}</div>
+			<div class="calendar_field calendar_lieu ${color_line}">${lieu}</div>
+			<div class="calendar_field calendar_tarif ${color_line}">${tarif}</div>
+			<div class="calendar_field calendar_extras">${extra}</div>
+		</li>
+	</script>
 	
 	<div id="spectacle_slider">
 		<ul>

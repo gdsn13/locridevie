@@ -464,7 +464,7 @@ body{
 
 /*SPECTACLES
 --------------------------------------------------------*/
-#jules_slider{
+#jules_sliders{
 	position:absolute;
 	top:0;
 	left:0;
@@ -474,7 +474,7 @@ body{
 	position:absolute;
 }
 
-#programmation_container{
+#programmation_container, #calendrier_container{
 	position:absolute;
 	top:0;left:0;
 	width:100%;
@@ -482,7 +482,7 @@ body{
 	display:none;
 }
 
-#programmation_content{
+#programmation_content, #calendrier_content{
 	position:absolute;
 	top:0;
 	right:0;
@@ -490,8 +490,78 @@ body{
 	color:#000;
 }
 
-#programmation_spectacles{
+#calendrier_content{
+	left:0;
+	z-index:5000;
+	min-width:530px;
+}
+
+#programmation_spectacles, #calendrier_spectacles{
 	padding:10px;
+}
+
+#calendrier_spectacles{
+	font-size:10px;
+	min-width:530px;
+	width:95%;
+}
+#calendrier_spectacles li{
+	clear:both;
+	overflow:hidden;
+	padding-top:2px;
+}
+
+#calendrier_spectacles li .calendar_field{
+	float:left;
+	text-align:center;
+	border-bottom:1px solid #fdc400;
+	margin-bottom:2px;
+	padding-bottom:1px;
+}
+
+.calendar_date{width:9%; text-align:left !important;}
+.calendar_heure{width:8%;}
+.calendar_numero{width:7%;}
+.calendar_spectacle{width:40%;text-align:left !important;}
+.calendar_lieu{width:14%; }
+.calendar_tarif{width:10%; }
+.calendar_extras{width:6%; border:none !important;margin-left:10px}
+
+
+.month_name{
+	font-size:16px;
+	font-weight:bold;
+	text-transform:uppercase;
+	padding-top:10px !important;
+	border-bottom:1px solid #fdc400;
+	margin-right:9%;
+}
+
+.green_line{color:green;}
+.red_line{color:red;}
+
+.des {
+	background-color:#08618D;
+	color:#FFFFFF;
+	padding-bottom: 0;
+	line-height: 8px;
+	padding-top: 5px;
+	display: block;
+	float: left;
+	margin-top: 0px;
+	margin-right: 5px;
+}
+
+.audiodescription, .lsf{
+	background-color:#000000;
+	color:#FFFFFF;
+	padding-bottom: 0;
+	line-height: 8px;
+	padding-top: 5px;
+	display: block;
+	float: left;
+	margin-top: 0px;
+	margin-right: 5px;
 }
 
 #programmation_spectacles li{
@@ -507,6 +577,12 @@ body{
 	font-size:20px;
 	font-weight:bold;
 	/*font-family: 'KozMinPro-Heavy-AlphaNum';*/
+}
+
+#calendrier_jules_sliders{
+	position:absolute;
+	top:0;right:0;
+	z-index:4000;
 }
 
 /*INTRO

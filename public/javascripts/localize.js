@@ -23,6 +23,10 @@ window.application.addModel((function( $, application ){
 	Localize.prototype.localize_month = function(p_month){
 		return eval(this.current_language + ".monthNames[" + p_month + "]");
 	};
+	
+	Localize.prototype.localize_day = function(p_day){
+		return eval(this.current_language + ".days[" + p_day + "]");
+	}
 
 	// ----------------------------------------------------------------------- //
 	// ----------------------------------------------------------------------- //

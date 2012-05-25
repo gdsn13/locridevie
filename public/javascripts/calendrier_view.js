@@ -3,6 +3,13 @@ window.application.addView((function( $, application ){
   function CalendrierView(){
 		this.model = null;
 		this.view = null;
+		this.calendrier_spectacles = null;
+		this.calendrier_content = null;
+		this.jules_container = null;
+		this.currently_displayed_jules = null;
+		this.jules = [];
+		this.calendar_line = null;
+		this.localize = null;
   };
   
   CalendrierView.prototype.init = function(){  
@@ -11,22 +18,72 @@ window.application.addView((function( $, application ){
 		var self = this;
 		
 		this.model = application.getModel( "Model" );
-		this.view = $('#programmation_container');
+		this.view = $('#calendrier_container');
+		this.localize = application.getModel( "Localize" );
+		this.calendrier_spectacles = $('#calendrier_spectacles');
+		this.calendrier_content = $('#calendrier_content');
+		this.jules_container = $('#calendrier_jules_sliders');
+		this.calendar_line = $('#calendar_line');
 		
 		/* DATA REFRESH
 		----------------------------------------------------------------------------------------*/
-		$(this.model).on('spectacles_ready', function(){
+		$(this.model).on('calendrier_ready', function(){
       self.refreshed_datas();
     });
   };
 
 	CalendrierView.prototype.refreshed_datas = function(){
 		var self = this;
+		var current_month_for_display = 0;
 		this.view.css({'top':"10000px", "display" : "block"});
+		
+		//AFFICHAGE DES DATES
+		$.each(this.model.current_page.dates, function(index, d){
+			//AFFICHAGE NOM DU MOIS
+			var date = new Date(d.date);
+			if (current_month_for_display != date.getMonth()){
+				current_month_for_display = date.getMonth();
+				self.calendrier_spectacles.append("<li class='month_name'>" + self.localize.localize_month(date.getMonth()) + "</li>");
+			} 
+			d.humanized_date = self.localize.localize_day(date.getDay()) + " " + date.getDate();
+			
+			//CALCUL COULEUR DE LA LIGNE
+			if (d.green == true) d.color_line = "green_line";
+			else if (d.red == true) d.color_line = "red_line";
+			
+			//CALCUL DES EXTRAS
+			var extra = "";
+			if (d.tout_public == true) extra += '<img src="/theme/images/tout_public.png" width="15px" align="left"/>';
+			if (d.des != "")	extra += '<span class="des">' + d.des + '</span>';
+			if (d.temps_scolaire == true) extra += '<img src="/theme/images/temps_scolaire.png" width="15px" align="left"/>';
+			if (d.audiodesc == true) extra += '<span class="audiodescription">Audio</span>';
+			if (d.lds == true) extra += '<span class="lsf">LSF</span>';
+
+			d.extra = extra
+			
+			//AFFICHAGE DE LA LIGNE DEPUIS TEMPLATE
+			self.calendrier_spectacles.append(application.getFromTemplate(self.calendar_line, d));
+			self.calendrier_spectacles.append(application.getFromTemplate(self.calendar_line, d));
+			self.calendrier_spectacles.append(application.getFromTemplate(self.calendar_line, d));
+			self.calendrier_spectacles.append(application.getFromTemplate(self.calendar_line, d));
+			self.calendrier_spectacles.append(application.getFromTemplate(self.calendar_line, d));
+		});
+		
+		//AFFICHAGE DES JULES
+		$.each(this.model.current_page.jules, function(index, j){
+			var html = '<div class="jules_slider" id="calendrier_jules_' + index +'"><img src="' + j.picto + '"/></div>';
+			self.jules_container.append(html);
+			var this_container = $('#calendrier_jules_' + index);
+			self.jules.push(this_container);
+			if (index == 0) self.currently_displayed_jules = this_container.find('img').first();
+			else this_container.css('display', 'none');
+		});
 		
 		// QUAND TOUT EST CHARGE DANS LA VUE
 		// ---------------------------------------------------------------------------------------------------------
 		this.view.imagesLoaded(function($images, $proper, $broken){
+
+			self.resize_containers();
 
 			self.view.css({'top':"0px", "display" : "none"});
 			
@@ -43,7 +100,24 @@ window.application.addView((function( $, application ){
 	};
 	
 	CalendrierView.prototype.resize_containers = function(){
-
+		var displayed_image = this.currently_displayed_jules;
+		var top_pos;
+		
+		this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+		this.jules_container.find('.jules_slider img').width($(window).width()/2);
+		
+		top_pos = ($(window).height() - displayed_image.height())/2;
+		
+		this.jules_container.find('.jules_slider').css('top', top_pos);
+		
+		this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+		
+		//var new_width = $(window).width()/2;
+		
+		this.calendrier_content.css('width', $(window).width()/2);
+		this.calendrier_content.css({'top' : top_pos, 'height' : displayed_image.height()});
+		this.calendrier_content.find('.viewport').css('height', displayed_image.height() - 10);
+		this.calendrier_content.tinyscrollbar({lockscroll: true});
 	};
 	
 				
@@ -80,7 +154,7 @@ window.application.addView((function( $, application ){
 		// contient /spectacles (mécanique commune aux pages et spectacles)
 		// par contre ordrering ne le contient pas, sert juste à ordonner correctement 
 		// et est interne à cette vue.
-		this.model.get_spectacles(application.currentLocation, this.current_ordering);
+		this.model.get_calendrier(application.currentLocation, this.current_ordering);
   };
 
 	// I check if everything is ok for the correct display of the view.

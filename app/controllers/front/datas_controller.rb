@@ -25,7 +25,7 @@ class Front::DatasController < ApplicationController
   def get_page
     page = Page.where(:fullpath => params[:fullpath]).first
     
-    page_to_json = {  :fullpath => page.fullpath, 
+    page_to_json = {  :fullpath => page.fullpath,
                       :body => page.body, 
                       :jules => page.embeded_items.get_jules_for_json(page), 
                       :boutons => page.embeded_items.get_boutons_for_json, 
@@ -34,6 +34,39 @@ class Front::DatasController < ApplicationController
                    }
     
     render :json => page_to_json.to_json
+  end
+  
+  def get_dates
+    dates = ContentType.where(:slug => "calendrier").first.contents
+    page = Page.where(:slug => "calendrier").first
+    
+    dates_classified = dates.sort_by {|d| [d.date, d.heure]}
+    
+    calendar = dates_classified.map do |d|
+      {
+        :numero => d.spectacle.numero,
+        :date => d.date,
+        :heure => d.heure,
+        :lieu => d.lieu,
+        :spectacle => d.spectacle.titre,
+        :href => d.spectacle._slug,
+        :tarif => d.tarif,
+        :green => d.green,
+        :red => d.red,
+        :tout_public => d.tout_public,
+        :temps_scolaire => d.temps_scolaire,
+        :des => d.des,
+        :audiodesc => d.audiodescription,
+        :lds => d.langage_des_signes
+      }
+    end
+    
+    calendar_to_json = {
+      :dates => calendar,
+      :jules => page.embeded_items.get_jules_for_json(page)
+    } 
+    
+    render :json => calendar_to_json
   end
   
   def get_intro
@@ -51,8 +84,6 @@ class Front::DatasController < ApplicationController
   end
   
   def get_spectacle
-    site = Site.first
-    
     sp = ContentType.where(:slug => "spectacles").first.contents.where(:_slug => params[:slug]).first
     
     images = sp.images.map do |img|
@@ -69,7 +100,7 @@ class Front::DatasController < ApplicationController
                   :date => sp.date,
                   :presentation => sp.presentation,
                   :logo => sp.logo.url,
-                  :images => images,
+                  :images => images
                 }
                 
     render :json => spectacle

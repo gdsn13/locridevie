@@ -61,9 +61,6 @@ function addElementInHasManyList(context, element) {
 
           /// Dirty Hack
           var addId = function(context, id) {
-      console.log("AddID");
-      console.log(context);
-      console.log(id);
       context.data.taken_ids.push(id);
 
       populateSelect(context);

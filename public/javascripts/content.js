@@ -9,7 +9,7 @@ window.application.addController((function( $, application ){
     this.route( "/", this.intro );
 		this.route( "/home_page", this.home );
 		this.route( "/spectacles/programmation", this.programmation );
-		//this.route( "/spectacles/calendrier", this.calendrier );
+		this.route( "/spectacles/calendrier", this.calendrier );
 		this.route( "/spectacle/:id", this.spectacle );
 		this.route( "/pages.*", this.pages );
 		//this.route( "/newsletter", this.newsletter );
@@ -41,7 +41,7 @@ window.application.addController((function( $, application ){
 		this.site_view = application.getView( "HomeView" );
 		this.page_view = application.getView( "PageView" );
 		this.programmation_view = application.getView( "ProgrammationView" );
-		//this.calendrier_view = application.getView( "calendrierView" );
+		this.calendrier_view = application.getView( "CalendrierView" );
 		this.spectacle_view = application.getView( "SpectacleView" );
 		//this.newsletter_view = application.getViex( "NewsletterView" );
 		this.model = application.getModel( "Model" );

@@ -130,6 +130,23 @@ window.application.addModel((function( $, application ){
 		}
 	}
 	
+	Model.prototype.set_calendrier = function(p_dates){
+		this.pages["/calendrier"] = p_dates;
+		this.current_page = this.pages["/calendrier"];
+		$(this).trigger('calendrier_ready');
+	}
+	
+	Model.prototype.get_calendrier = function(){
+		if (this.pages["/calendrier"] == null){
+			this.set_message_to_growl("Chargement...");
+			application.getModel("LocoService").get_calendrier();
+		}
+		else{
+			this.current_page = this.pages["/calendrier"];
+			$(this).trigger('calendrier_ready');
+		}
+	}
+	
 	/* I order spectacles list by title (alphabetic order)
 	----------------------------------------------------------------------------------------*/
 	Model.prototype.spectacles_ordered_by_name = function(){

@@ -33,6 +33,22 @@ window.application.addModel((function( $, application ){
 		});
 	};
 	
+	/* CALENDRIER
+	----------------------------------------------------------------------------------------*/
+	LocoService.prototype.get_calendrier = function(){
+		var self = this;
+		
+		application.ajax({
+			url: "/calendrier",
+			success: function(json){
+				self.model.set_calendrier(json);
+			},
+			error: function(json){
+				self.model.set_message_to_growl(json.statusText);
+			}
+		});
+	}
+	
 	/* SPECTACLE
 	----------------------------------------------------------------------------------------*/
 	LocoService.prototype.get_spectacle = function(p_slug){
