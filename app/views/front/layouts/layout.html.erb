@@ -45,7 +45,7 @@
   		{ "id": "<%= spec.id %>",
 		  "slug": "<%= spec._slug %>",
 		  "titre": "<%= spec.titre.html_safe %>",
-		  "date": "<%= spec.date %>",
+		  "date": "<%= spec.date.strftime("%Y/%m/%d") %>",
 		  "en_tournee": "<%= spec.en_tournee %>",
 		  "saison": "<%= spec.season_id %>",
 		  "logo": "<%= spec.logo.url %>",

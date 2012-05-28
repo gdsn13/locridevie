@@ -45,7 +45,7 @@ class Front::DatasController < ApplicationController
     calendar = dates_classified.map do |d|
       {
         :numero => d.spectacle.numero,
-        :date => d.date,
+        :date => d.date.strftime("%Y/%m/%d"),
         :heure => d.heure,
         :lieu => d.lieu,
         :spectacle => d.spectacle.titre,
@@ -97,7 +97,7 @@ class Front::DatasController < ApplicationController
                   :numero => sp.numero,
                   :tld => sp.tld,
                   :slug => sp._slug,
-                  :date => sp.date,
+                  :date => sp.date.strftime("%Y/%m/%d"),
                   :presentation => sp.presentation,
                   :logo => sp.logo.url,
                   :images => images
