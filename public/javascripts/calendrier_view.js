@@ -50,7 +50,7 @@ window.application.addView((function( $, application ){
 			//CALCUL COULEUR DE LA LIGNE
 			if (d.green == true) d.color_line = "green_line";
 			else if (d.red == true) d.color_line = "red_line";
-			
+						
 			//CALCUL DES EXTRAS
 			var extra = "";
 			if (d.tout_public == true) extra += '<img src="/theme/images/tout_public.png" width="15px" align="left"/>';
@@ -158,6 +158,9 @@ window.application.addView((function( $, application ){
 		
 		var ss = $('#spectacle_slider');
 		if( ss.css('display') == 'none') ss.fadeIn('fast'); 
+		
+		var menu_btn = $('#menu_command');
+		if (menu_btn.css('display') != "block") menu_btn.css('display', 'block');
 	
 		//securisation des données.
 		if (this.model == null) {

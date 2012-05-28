@@ -43,8 +43,14 @@ window.application.addView((function( $, application ){
 			}
 		});
 		
-		//
+		//click sur close bouton
 		this.close_btn.on('click', function(){
+			self.open = false;
+			self.model.call_menu_hiding();
+			self.menu.animate({top:-$(window).height()}, 'fast');
+		});
+		
+		this.menu.find('a').on('click', function(){
 			self.open = false;
 			self.model.call_menu_hiding();
 			self.menu.animate({top:-$(window).height()}, 'fast');

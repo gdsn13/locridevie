@@ -43,13 +43,16 @@ class Front::DatasController < ApplicationController
     dates_classified = dates.sort_by {|d| [d.date, d.heure]}
     
     calendar = dates_classified.map do |d|
+      
+      d.spectacle.spectacle_associe != nil ? url = d.spectacle.spectacle_associe._slug : url = d.spectacle._slug
+      
       {
         :numero => d.spectacle.numero,
         :date => d.date.strftime("%Y/%m/%d"),
         :heure => d.heure,
         :lieu => d.lieu,
         :spectacle => d.spectacle.titre,
-        :href => d.spectacle._slug,
+        :href => url,
         :tarif => d.tarif,
         :green => d.green,
         :red => d.red,

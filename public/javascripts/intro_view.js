@@ -153,6 +153,12 @@ window.application.addView((function( $, application ){
 		if (left.css('display') != "none"){
 			left.css('display', 'none');
 		}
+		
+		var menu_btn = $('#menu_command');
+		if (menu_btn.css('display') != "none"){
+			menu_btn.css('display', 'none');
+		}
+		
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );
 		}

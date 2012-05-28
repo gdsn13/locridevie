@@ -134,6 +134,9 @@ window.application.addView((function( $, application ){
 		var ss = $('#spectacle_slider');
 		if( ss.css('display') == 'none') ss.fadeIn('fast'); 
 		
+		var menu_btn = $('#menu_command');
+		if (menu_btn.css('display') != "block") menu_btn.css('display', 'block');
+		
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );
 		}

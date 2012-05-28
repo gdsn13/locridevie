@@ -123,17 +123,23 @@ window.application.addView((function( $, application ){
 			
 			//POSITIONNEMENT SUR LA DATE COURANTE
 			var current_month = new Date().getMonth();
-			var current_month_li = self.spectacle_slider_ul.find('#month_' + current_month);
-			current_month_li.css("background-color", "#1285bc");
-			var date_offset = - Math.abs(current_month_li.offset().left);
-			//limite à droite
-			var limitRight = - (self.nav_width - $(window).width());
-			if (date_offset < limitRight) {
-				date_offset = limitRight;
-			}
+			var current_year = new Date().getFullYear();
+			var current_month_li = self.spectacle_slider_ul.find('#month_' + current_month + '_' + current_year);
+			//si le mois de l'année en cours existe 
+			if (current_month_li.size() > 0){
+				current_month_li.css("background-color", "#1285bc");
+				var date_offset = - Math.abs(current_month_li.offset().left);
+				//limite à droite
+				var limitRight = - (self.nav_width - $(window).width());
+				if (date_offset < limitRight) {
+					date_offset = limitRight;
+				}
 			
-			self.spectacle_slider_ul.css('left', date_offset);
-			self.spectacles_titles.css('left', date_offset);
+				self.spectacle_slider_ul.css('left', date_offset);
+				self.spectacles_titles.css('left', date_offset);
+			}else{// sinon, on se met au début
+				
+			}
 			
 			// INITIALISATION DU MOUVEMENT DES SPECTACLES
 			self.spectacle_slider_ul.hover(function( e ){
@@ -200,9 +206,10 @@ window.application.addView((function( $, application ){
 		$.each(this.spectacles, function(index, spec){
 			//AFFICHAGE DU MOIS DU CALENDRIER
 			var month = new Date(spec.date).getMonth();
+			var year = new Date(spec.date).getFullYear();
 			if(self.current_month_for_calendar_display != month){
 				self.current_month_for_calendar_display = month;
-				self.spectacle_slider_ul.append('<li class="month_name_for_calendar" id="month_' + month + '"><p><a href="javascript:void();">' + self.localize.localize_month(month) + '</a></p></li>');
+				self.spectacle_slider_ul.append('<li class="month_name_for_calendar" id="month_' + month + '_' + year + '"><p><a href="javascript:void();">' + self.localize.localize_month(month) + '</a></p></li>');
 				self.nav_width += 45;
 			}
 			
@@ -248,6 +255,11 @@ window.application.addView((function( $, application ){
 	SpectaclesNavView.prototype.show_view = function(){
 		//annulation du comportement normal du up and down.
 		$('#logo_menu').show('fast');
+		var menu_btn = $('#menu_command');
+		if (menu_btn.css('display') != "block") menu_btn.css('display', 'block');
+		var ss = $('#spectacle_slider');
+		if( ss.css('display') == 'none') ss.fadeIn('fast');
+		
 		this.lock_up_and_down = true;
 		this.spectacle_slider.css('bottom', ($(window).height() - this.spectacle_slider.height())/2);
 	};

@@ -15,7 +15,7 @@
 }
 
 a, a:visited{
-	color:#fff;
+	color:#aaa;
 	text-decoration:none;
 }
 
@@ -212,6 +212,7 @@ body{
 	top:0;left:20px;
 	z-index:10000;
 	padding:0 5px;
+	display:block;
 }
 
 #logo_menu{
