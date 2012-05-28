@@ -60,7 +60,12 @@ window.application.addView((function( $, application ){
 		
 		$(this.model).on('menu_is_hidding', function(){
 			self.lock_up_and_down = false;
-			self.spectacle_slider.stop().animate({bottom: "-165px"}, 'fast');
+			var pos_to_slide = "-165px";
+			
+			if (application.currentLocation == "home_page"){
+				pos_to_slide = ($(window).height() - self.spectacle_slider.height())/2
+			}
+			self.spectacle_slider.stop().animate({bottom: pos_to_slide}, 'fast');
 		});
 		
 		//TODO => Mettre dans le resize
@@ -261,7 +266,8 @@ window.application.addView((function( $, application ){
 		if( ss.css('display') == 'none') ss.fadeIn('fast');
 		
 		this.lock_up_and_down = true;
-		this.spectacle_slider.css('bottom', ($(window).height() - this.spectacle_slider.height())/2);
+		
+		this.spectacle_slider.stop().css('bottom', ($(window).height() - this.spectacle_slider.height())/2);
 	};
 
   // Return a new view class singleton instance.

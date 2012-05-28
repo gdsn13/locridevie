@@ -15,7 +15,7 @@
 }
 
 a, a:visited{
-	color:#aaa;
+	color:#000;
 	text-decoration:none;
 }
 
@@ -248,6 +248,10 @@ body{
 
 #menu ul li ul{
 	padding:10px 0 0 !important;
+}
+
+#menu ul a{
+	color:#FFF !important;
 }
 
 #other_menu{
