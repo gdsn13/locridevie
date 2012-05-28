@@ -71,10 +71,12 @@ Rails.application.routes.draw do
 
   end
   
+  match '/newsletter/:id' => "front/datas#newsletter"
   match '/spectacles/:id' => "front/datas#spectacle_list"
   match '/spectacle/:slug' => "front/datas#get_spectacle"
   match '/pages/*fullpath' => "front/datas#get_page"
   match '/intro' => "front/datas#get_intro"
+  match '/calendrier' => "front/datas#get_dates"
 
   # sitemap
   match '/sitemap.xml' => 'admin/sitemaps#show', :format => 'xml'
