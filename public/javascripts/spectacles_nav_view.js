@@ -1,5 +1,13 @@
 window.application.addView((function( $, application ){
   
+
+	/*
+	/		Affiche le menu du bas. normalement
+	/		Utilise show_view pour afficher en mode accueil! et hide view pour revenir à la normale
+	/	
+	/
+	/ ----------------------------------------------------------------------------------------*/
+
   function SpectaclesNavView(){
 		this.model = null;
 		this.spectacles = null;
@@ -13,6 +21,7 @@ window.application.addView((function( $, application ){
 		this.mouseX = 0;
 		this.enter_frame_nav = null;
 		this.tltp_template = null;
+		this.lock_up_and_down = false;
   };
   
   SpectaclesNavView.prototype.init = function(){  
@@ -33,15 +42,34 @@ window.application.addView((function( $, application ){
 		$(this.model).on('spectacles_list_ready', function(){
       self.refreshed_datas();
     });
-
+		
 		this.spectacle_slider.hover(function(){
-			$(this).stop().animate({bottom: "0"}, 'fast');
+			if (self.lock_up_and_down == false){
+				$(this).stop().animate({bottom: "0"}, 'fast');
+			}
 		}, function(){
-			$(this).stop().animate({bottom: "-165px"}, 'fast');
+			if (self.lock_up_and_down == false){
+				$(this).stop().animate({bottom: "-165px"}, 'fast');
+			}
 		});
 		
+		$(this.model).on('menu_is_displaying', function(){
+			self.lock_up_and_down = true;
+			self.spectacle_slider.stop().animate({bottom: "0"}, 'fast');
+		});
+		
+		$(this.model).on('menu_is_hidding', function(){
+			self.lock_up_and_down = false;
+			self.spectacle_slider.stop().animate({bottom: "-165px"}, 'fast');
+		});
+		
+		//TODO => Mettre dans le resize
 		this.spectacle_slider.css('width', $(window).width());
   };
+
+	SpectaclesNavView.prototype.set_hover_behaviour = function(){
+		
+	};
 
 	SpectaclesNavView.prototype.refreshed_datas = function(){
 		var self = this;
@@ -208,6 +236,20 @@ window.application.addView((function( $, application ){
 			$(this).find('img').stop().animate({marginTop : "0px"}, 'fast');
 			tltp.stop().fadeOut('fast');
 		});
+	};
+	
+	SpectaclesNavView.prototype.hide_view = function(){
+		this.spectacle_slider.stop().animate({bottom: "-165px"}, 'fast', function(){
+			this.lock_up_and_down = true;
+		});
+	};
+	
+	//AFFICHAGE DE LA VUE EN MODE HOME!
+	SpectaclesNavView.prototype.show_view = function(){
+		//annulation du comportement normal du up and down.
+		$('#logo_menu').show('fast');
+		this.lock_up_and_down = true;
+		this.spectacle_slider.css('bottom', ($(window).height() - this.spectacle_slider.height())/2);
 	};
 
   // Return a new view class singleton instance.

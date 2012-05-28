@@ -149,41 +149,6 @@ body{
 	padding-top:30px;
 }
 
-#sliders_spectacle_containers{
-	position:absolute;
-	top:0px;
-	left:0px;
-}
-
-#sliders_spectacle_menu{
-	position:absolute;
-	top:50px;
-	right:0;
-	list-style:none;
-	z-index:400;
-}
-
-#sliders_spectacle_menu li{
-	width:35px;
-	height:35px;
-	background:#FFF;
-	margin-bottom:5px;
-}
-#sliders_spectacle_menu li a{
-	display:block;
-	padding:5px 0 0 5px;
-}
-
-.cont{
-	position:absolute;
-	left:4000px;
-	top:0px;
-	display:block;
-	background:#999;
-	z-index:11000;
-	padding:50px;
-}
-
 #spectacle_container{
 	position:absolute;
 	top:0;
@@ -191,18 +156,6 @@ body{
 	width:100%;
 	height:100%;
 	display:none;
-}
-
-#buttons{
-	position:absolute;
-	right:0;
-	top:100px;
-}
-
-.close_button{
-	position:absolute;
-	right:10px;
-	top:10px;
 }
 
 #presentation{
@@ -250,6 +203,17 @@ body{
 }
 /* MENU
 --------------------------------------------------------*/
+
+#menu_command{
+	background: #FFF;
+	border-radius: 0 0 3px 3px;
+	height: 19px;
+	position:absolute;
+	top:0;left:20px;
+	z-index:10000;
+	padding:0 5px;
+}
+
 #logo_menu{
 	width:250px;
 	position:absolute;
@@ -328,6 +292,13 @@ body{
 }
 
 
+#close_menu{
+	position:absolute;
+	display:block;
+	top:10px;
+	right:50px;
+}
+
 /*SPECTACLES_NAV
 --------------------------------------------------------*/
 
@@ -338,7 +309,7 @@ body{
 	height:180px;
 	width:100%;bottom:-165px;
 	background:rgba(0,0,0,0.5);	
-	box-shadow: 0px 0px 5px 0px #333;
+	/*x-shadow: 0px 0px 5px 0px #333;*/
 }
 
 #spectacle_slider ul{
@@ -346,7 +317,7 @@ body{
 	position:absolute;
 	top:0;
 	left:0;
-	border-top: 1px solid #CCCCCC;
+	/*border-top: 1px solid #CCCCCC;*/
 	opacity:0;
 }
 #spectacle_slider ul li{
@@ -406,7 +377,7 @@ body{
 	background: none repeat scroll 0 0 #333333;
 	color: #CCCCCC;
 	font-weight: bold;
-	height: 170px;
+	height: 165px;
 	letter-spacing: -0.8px;
 	padding-top: 5px;
 	text-align: center;
@@ -637,77 +608,4 @@ body{
 	width:100%;
 	height:100%;
 	display:block;
-}
-
-/*HOME
---------------------------------------------------------*/
-#home{
-	width:880px;
-	background:#FFF;
-	margin:0 auto;
-	display:none;
-	padding-bottom:50px;
-}
-#home_container{
-	overflow:hidden;
-	padding-top: 6px;
-}
-#home_jules{
-	width:880px;
-}
-#home_jules a{
-	display:block;
-	overflow:hidden;
-}
-.home_actus{
-	background:#000;
-	margin:0 0 10px 10px;
-	width:300px;
-	overflow:hidden;
-}
-#home_news{
-	width:620px;
-	float:left;
-	margin-right:10px;
-}
-#home_boutons{
-	width:240px;
-	float:left;
-	margin:0 10px 10px 0;
-}
-.home_actus_body{
-	padding:10px;
-	color:#fff;
-}
-.home_boutons_body{
-	color:#000;
-}
-.home_boutons_image{
-	width:240px;
-	overflow:hidden;
-}
-
-/* FOOTER
---------------------------------------------------------------*/
-#footer{
-	display:none;
-	position:absolute;
-	bottom:0;
-	width:100%;
-	height:24px;
-	color:#FFF;
-	background:#000;
-	z-index:7000;
-	padding:3px 10px 0;
-	-moz-box-shadow: 0px 0px 5px 3px #000;
-	-webkit-box-shadow: 0px 0px 5px 3px #000;
-	-o-box-shadow: 0px 0px 5px 3px #000;
-	box-shadow: 0px 0px 5px 3px #000;
-	text-transform:uppercase;
-}
-
-#footer #billeterie{
-	background:url(/theme/images/ticket.png) no-repeat;
-	line-height: 31px;
-	padding-left: 20px;
 }

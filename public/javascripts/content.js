@@ -38,7 +38,7 @@ window.application.addController((function( $, application ){
 
 		this.intro_view = application.getView( "IntroView" );
 		this.menu_view = application.getView( "MenuView" );
-		this.site_view = application.getView( "HomeView" );
+		this.site_view = application.getView( "SpectaclesNavView" );
 		this.page_view = application.getView( "PageView" );
 		this.programmation_view = application.getView( "ProgrammationView" );
 		this.calendrier_view = application.getView( "CalendrierView" );

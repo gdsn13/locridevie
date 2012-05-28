@@ -1,42 +1,54 @@
 window.application.addView((function( $, application ){
   
   function MenuView(){
-		this.view = null;
-		this.first_level = null;
+		this.command = null;
+		this.command_link = null;
 		this.menu = null;
-		this.menu_up_to = null;
+		this.model = null;
+		this.close_btn = null;
+		this.open = false;
   };
   
   MenuView.prototype.init = function(){  
 		var self = this;
 		
-		this.view = $('#logo_menu');
-		this.first_level = $('#menu > li');
+		this.command = $('#menu_command');
+		this.command_link = $('#menu_command').find('a');
+		this.close_btn = $('#close_menu');
 		this.menu = $('#menu');
-		this.menu.css('top', -$(window).height());
+		this.model = application.getModel( "Model" );
+		
+		
+		// INITIALISATION DES POSITIONS
+		this.menu.css({'top' : -$(window).height(), 'height' : $(window).height() - 170});
 
-		// fait apparaitre le menu, le menu ne se range que l'orsqu'on clique sur un élément.
-		//OPEN MENU
-		this.view.hover(function(){
-			//clearTimeout(self.menu_up_to);
-			//self.menu_up_to = null;
-			self.menu.animate({top: 0}, 'fast');
-			//self.close_btn.fadeIn('fast');
+		//ANIMATION HOVER DU BOUTON
+		this.command.hover(function(){
+			$(this).animate({paddingTop: "5px"}, 'fast');
+		}, function(){
+			$(this).animate({paddingTop: "0px"}, 'fast');
 		});
 		
-		//CLOSE MENU
-		this.menu.on('mouseleave', function(){
-			//clearTimeout(self.menu_up_to);
-			//self.menu_up_to = null;
-			//self.menu_up_to = setTimeout(self.up_menu, 5000);
-			self.menu.animate({top: -$(window).height()});
-			//self.close_btn.fadeOut('fast');
-		})
-  };
-
-	MenuView.prototype.up_menu = function( p_menu ){  
-		var menu = $('#menu');
-		menu.animate({left: -300});
+		// OUVERTURE/FERMETURE DU MENU
+		this.command_link.click(function(){
+			if (self.open == false){
+				self.open = true;
+				self.model.call_menu_displaying();
+				self.menu.animate({top:0}, 'fast');
+			}
+			else{
+				self.open = false;
+				self.model.call_menu_hiding();
+				self.menu.animate({top:-$(window).height()}, 'fast');
+			}
+		});
+		
+		//
+		this.close_btn.on('click', function(){
+			self.open = false;
+			self.model.call_menu_hiding();
+			self.menu.animate({top:-$(window).height()}, 'fast');
+		});
   };
   
   // Return a new view class singleton instance.

@@ -71,6 +71,12 @@
 		</div>
 	</div>
 	
+	<div id="menu_command">
+		<a href="javascript:void(0)">
+			<img src="/theme/images/navigation.png"/>
+		</a>
+	</div>
+	
 	<div id="menu">
 		<ul>
 			<%= get_generated_menu.html_safe%>
@@ -82,7 +88,7 @@
 				<a href="" class="submit">=></a>
 			</form>
 		</div>
-		
+		<a href="javascript:void(0)" id="close_menu"><img src="/theme/images/close_plus.png"></a>
 	</div>
 	
 	<div id="intro">
@@ -94,28 +100,6 @@
 		<ul id="nav_intro">
 			
 		</ul>
-	</div>
-	
-	<div id="home">
-		<div id="home_jules"></div>
-		<div id="home_container">
-			<div id="home_news">
-				<script id="home_actus_template" type="application/template">
-					<div class="home_actus">
-						<div class="home_actus_image"><img src="${picto}"/></div>
-						<div class="home_actus_body">${block}</div>
-					</div>
-				</script>
-			</div>
-			<div id="home_boutons">
-				<script id="boutons_actus_template" type="application/template">
-					<div class="home_boutons">
-						<div class="home_boutons_image"><img src="${img}"/></div>
-						<div class="home_boutons_body">${block}</div>
-					</div>
-				</script>
-			</div>
-		</div>
 	</div>
 	
 	<div id="pages">
@@ -180,10 +164,10 @@
 	<script id="tltp_template" type="application/template">
 		<div id="s_${index}" class="tool_tip_title">
 			<div class="numero_title">${numero}</div>
-			${titre}<br/>
-			${date_infobulles}<br/>
-			${lieu}</br>
-			${infobulle}
+			<div>${titre}</div>
+			<div>${date_infobulles}</div>
+			<div>${lieu}</div>
+			<div>${infobulle}</div>
 			<span class='tltp_arrow'></span>
 		</div>
 	</script>

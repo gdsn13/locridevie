@@ -173,6 +173,14 @@ window.application.addModel((function( $, application ){
 	Model.prototype.init = function(){
 		
 	};
+	
+	Model.prototype.call_menu_displaying = function(){
+		$(this).trigger('menu_is_displaying');
+	};
+	
+	Model.prototype.call_menu_hiding = function(){
+		$(this).trigger('menu_is_hidding');
+	};
 		
 	/* FUNCTIONS TOOL
 	----------------------------------------------------------------------------------------*/	
