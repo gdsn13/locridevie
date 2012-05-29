@@ -47,8 +47,6 @@ body{
 	overflow:hidden;
 	min-width:980px;
 	font-family: 'IntervalSansPro-UltLight';
-	/*font-family: 'IntervalSansPro-Med';
-	font-family: 'IntervalSansPro-Light';*/
 }
 
 /* MESSAGING
@@ -112,6 +110,12 @@ body{
 --------------------------------------------------------*/
 .overview h1{
 	padding-top:20px;
+	font-family: 'IntervalSansPro-Med';
+	font-weight:bold;
+}
+
+.overview h1 span{
+	font-family: 'IntervalSansPro-UltLight';
 }
 
 #images_spectacle{
@@ -122,8 +126,8 @@ body{
 }
 #spectacle_content{
 	background:#fff;
-	letter-spacing:-0.8px;
-	font-size:12px;
+	/*letter-spacing:-0.8px;*/
+	font-size:14px;
 	position:absolute;
 	top:0;
 	right:0;
@@ -150,7 +154,11 @@ body{
 
 .tld{
 	width:300px;
-	font-style:italic;
+}
+
+.tld strong{
+	font-style:normal !important;
+	font-family: 'IntervalSansPro-Med';
 }
 
 .numero{
@@ -163,7 +171,9 @@ body{
 
 .presentation{
 	padding-top:30px;
-	padding-bottom:30px;
+	padding-bottom:50px;
+	font-family: 'IntervalSansPro-Light';
+	font-size:14px;
 }
 
 #spectacle_container{
@@ -476,14 +486,16 @@ body{
 }
 
 #calendrier_spectacles{
-	font-size:10px;
+	font-size:11px;
 	min-width:530px;
 	width:95%;
+	padding-bottom:30px;
 }
 #calendrier_spectacles li{
 	clear:both;
 	overflow:hidden;
 	padding-top:2px;
+	font-family: 'IntervalSansPro-Light';
 }
 
 #calendrier_spectacles li .calendar_field{
@@ -492,15 +504,16 @@ body{
 	border-bottom:1px solid #fdc400;
 	margin-bottom:2px;
 	padding-bottom:1px;
+	vertical-align: bottom;
 }
 
-.calendar_date{width:9%; text-align:left !important;}
-.calendar_heure{width:8%;}
-.calendar_numero{width:7%;}
-.calendar_spectacle{width:40%;text-align:left !important;}
-.calendar_lieu{width:14%; }
-.calendar_tarif{width:10%; }
-.calendar_extras{width:6%; border:none !important;margin-left:10px}
+.calendar_date{width:7%; text-align:left !important;font-family: 'IntervalSansPro-Med';line-height:16px;padding-bottom:2px !important;}
+.calendar_heure{width:8%;line-height:17px;font-size:10px;}
+.calendar_numero{width:7%;font-family: 'IntervalSansPro-Med';line-height:16px;padding-bottom:2px !important;}
+.calendar_spectacle{width:39%;text-align:left !important;font-family: 'IntervalSansPro-Med';line-height:16px;padding-bottom:2px !important;}
+.calendar_lieu{width:16%; line-height:17px;font-size:10px !important;}
+.calendar_tarif{width:12%; line-height:17px;font-size:10px !important;}
+.calendar_extras{width:8%; border:none !important;margin-left:10px;line-height:17px;}
 
 
 .month_name{
@@ -510,6 +523,7 @@ body{
 	padding-top:10px !important;
 	border-bottom:1px solid #fdc400;
 	margin-right:12%;
+	font-family: 'IntervalSansPro-Med';
 }
 
 .green_line{color:green;}
