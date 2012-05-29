@@ -7,6 +7,7 @@ window.application.addView((function( $, application ){
 		this.model = null;
 		this.close_btn = null;
 		this.open = false;
+		this.spectacle_slider = null;
   };
   
   MenuView.prototype.init = function(){  
@@ -17,7 +18,6 @@ window.application.addView((function( $, application ){
 		this.close_btn = $('#close_menu');
 		this.menu = $('#menu');
 		this.model = application.getModel( "Model" );
-		
 		
 		// INITIALISATION DES POSITIONS
 		this.menu.css({'top' : -$(window).height(), 'height' : $(window).height() - 170});
@@ -37,25 +37,29 @@ window.application.addView((function( $, application ){
 				self.menu.animate({top:0}, 'fast');
 			}
 			else{
-				self.open = false;
-				self.model.call_menu_hiding();
-				self.menu.animate({top:-$(window).height()}, 'fast');
+				self.hide_menu();
 			}
 		});
 		
 		//click sur close bouton
 		this.close_btn.on('click', function(){
-			self.open = false;
-			self.model.call_menu_hiding();
-			self.menu.animate({top:-$(window).height()}, 'fast');
+			self.hide_menu();
 		});
 		
 		this.menu.find('a').on('click', function(){
-			self.open = false;
-			self.model.call_menu_hiding();
-			self.menu.animate({top:-$(window).height()}, 'fast');
+			self.hide_menu();
 		});
+		
+		$(this.model).on('hide_menu', function(){
+			self.hide_menu();
+		});		
   };
+
+	MenuView.prototype.hide_menu = function(){  
+		this.open = false;
+		this.model.call_menu_hiding();
+		this.menu.animate({top:-$(window).height()}, 'fast');
+	}
   
   // Return a new view class singleton instance.
   return( new MenuView() );

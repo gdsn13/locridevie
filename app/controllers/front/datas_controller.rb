@@ -1,6 +1,7 @@
 class Front::DatasController < ApplicationController
 
   respond_to :json
+  caches_action :spectacle_list, :get_page, :get_dates, :get_intro, :get_spectacle
   
   #render a specatcle list and the associated page to be rendered
   def spectacle_list   

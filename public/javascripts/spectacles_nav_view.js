@@ -59,21 +59,21 @@ window.application.addView((function( $, application ){
 		});
 		
 		$(this.model).on('menu_is_hidding', function(){
-			self.lock_up_and_down = false;
-			var pos_to_slide = "-165px";
-			
-			if (application.currentLocation == "home_page"){
-				pos_to_slide = ($(window).height() - self.spectacle_slider.height())/2
-			}
-			self.spectacle_slider.stop().animate({bottom: pos_to_slide}, 'fast');
+			self.hide_menu();
 		});
 		
 		//TODO => Mettre dans le resize
 		this.spectacle_slider.css('width', $(window).width());
   };
 
-	SpectaclesNavView.prototype.set_hover_behaviour = function(){
+	SpectaclesNavView.prototype.hide_menu = function(){
+		this.lock_up_and_down = false;
+		var pos_to_slide = "-165px";
 		
+		if (application.currentLocation == "home_page"){
+			pos_to_slide = ($(window).height() - this.spectacle_slider.height())/2
+		}
+		this.spectacle_slider.stop().animate({bottom: pos_to_slide}, 'fast');
 	};
 
 	SpectaclesNavView.prototype.refreshed_datas = function(){
@@ -248,6 +248,11 @@ window.application.addView((function( $, application ){
 			$(this).find('img').stop().animate({marginTop : "0px"}, 'fast');
 			tltp.stop().fadeOut('fast');
 		});
+		
+		$('.spectacle_thumb').on('click', function(){
+			self.hide_view();
+			self.model.hide_menu_command();
+		})
 	};
 	
 	SpectaclesNavView.prototype.hide_view = function(){
@@ -267,7 +272,7 @@ window.application.addView((function( $, application ){
 		
 		this.lock_up_and_down = true;
 		
-		this.spectacle_slider.stop().css('bottom', ($(window).height() - this.spectacle_slider.height())/2);
+		this.spectacle_slider.stop().animate({bottom: ($(window).height() - this.spectacle_slider.height())/2}, 'fast');
 	};
 
   // Return a new view class singleton instance.

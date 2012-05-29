@@ -181,6 +181,10 @@ window.application.addModel((function( $, application ){
 	Model.prototype.call_menu_hiding = function(){
 		$(this).trigger('menu_is_hidding');
 	};
+	
+	Model.prototype.hide_menu_command = function(){
+		$(this).trigger('hide_menu');
+	};
 		
 	/* FUNCTIONS TOOL
 	----------------------------------------------------------------------------------------*/	

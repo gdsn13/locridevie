@@ -79,6 +79,8 @@ window.application.addView((function( $, application ){
 			//RESIZING
 			$(window).on('resize', function(){	self.resize_containers();	});
 			
+			Cufon.replace('div.numero');
+			
 			//INIT DES POS DES CONTAINERS
 			self.resize_containers();
 						
@@ -120,7 +122,6 @@ window.application.addView((function( $, application ){
 		top_pos = ($(window).height() - displayed_image.height())/2;
 		
 		this.images_container.find('.image').css('top', top_pos);
-		
 		
 		this.spectacle_content.css('width', $(window).width()/2);
 		this.spectacle_content.css({'top' : top_pos, 'height' : displayed_image.height()});

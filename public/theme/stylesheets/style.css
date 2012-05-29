@@ -59,6 +59,7 @@ body{
 .viewport { 
 	overflow: hidden; 
 	position: relative; 
+	top:10px;
 }
 
 .overview { 
@@ -66,7 +67,7 @@ body{
 	position: absolute; 
 	left: 0; 
 	top: 0;
-	margin: 0; 
+	margin:20px 60px; 
 }
 
 .scrollbar{ 
@@ -134,13 +135,14 @@ body{
 }
 
 .tld{
-	width:200px;
+	width:300px;
+	font-style:italic;
 }
 
 .numero{
 	position:absolute;
-	bottom:-6px;
-	left:270px;
+	top:10px;
+	right:0px;
 	font-size:60px;
 	font-weight:bold;
 }
@@ -159,7 +161,6 @@ body{
 }
 
 #presentation{
-	padding:10px;
 	position:relative;
 	z-index:300;
 }
@@ -207,11 +208,15 @@ body{
 #menu_command{
 	background: #FFF;
 	border-radius: 0 0 3px 3px;
-	height: 19px;
+	height: 24px;
 	position:absolute;
 	top:0;left:20px;
 	z-index:10000;
-	padding:0 5px;
+	display:block;
+}
+
+#menu_command a{
+	padding:3px 6px;
 	display:block;
 }
 
@@ -245,6 +250,11 @@ body{
 	display:block;
 	overflow:hidden;
 }
+
+#menu_ul{
+	margin-top:100px;
+}
+
 
 #menu ul li ul{
 	padding:10px 0 0 !important;
@@ -388,6 +398,9 @@ body{
 	text-align: center;
 	width: 40px;
 }
+.month_name_for_calendar p a{
+	color:#FFF !important;
+}
 
 .month_name_for_calendar p{
 	writing-mode: bt-lr;
@@ -411,6 +424,10 @@ body{
 	position:absolute;
 	top:0;
 	left:0;
+}
+
+.calendar_margin{
+	margin:0px 20px;
 }
 
 .jules_slider{

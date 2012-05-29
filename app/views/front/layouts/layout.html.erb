@@ -38,6 +38,8 @@
 	<script src="/javascripts/en.js" type="text/javascript"></script>
 	<script src="/javascripts/growl_view.js" type="text/javascript"></script>
 	<script src="/javascripts/jquery.tinyscrollbar.min.js" type="text/javascript"></script>
+	<script src="http://cufon.shoqolate.com/js/cufon-yui.js?v=1.09i" type="text/javascript"></script>
+	<script src="/theme/fonts/kozminpro_900.font.js" type="text/javascript"></script>
 	
 	<script type="text/javascript">
 		var spectacles_list = [
@@ -78,7 +80,7 @@
 	</div>
 	
 	<div id="menu">
-		<ul>
+		<ul id="menu_ul">
 			<%= get_generated_menu.html_safe%>
 		</ul>
 		<div id="other_menu">
@@ -130,7 +132,7 @@
 		<div id="calendrier_content">
 			<div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
 			<div class="viewport">
-				<ul id="calendrier_spectacles" class="overview"></ul>
+				<ul id="calendrier_spectacles" class="overview calendar_margin"></ul>
 			</div>
 		</div>
 		<div id="calendrier_jules_sliders">
@@ -150,7 +152,7 @@
 	</script>
 	
 	<div id="spectacle_slider">
-		<ul>
+		<ul id="spectacle_slider_ul">
 			
 		</ul>
 		<div id="spectacles_titles">
