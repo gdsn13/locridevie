@@ -36,6 +36,7 @@ window.application.addView((function( $, application ){
 		var self = this;
 		var current_month_for_display = 0;
 		this.view.css({'top':"10000px", "display" : "block"});
+		this.calendrier_spectacles.html('');
 		
 		//AFFICHAGE DES DATES
 		$.each(this.model.current_page.dates, function(index, d){

@@ -43,7 +43,6 @@ window.application.addController((function( $, application ){
 		this.programmation_view = application.getView( "ProgrammationView" );
 		this.calendrier_view = application.getView( "CalendrierView" );
 		this.spectacle_view = application.getView( "SpectacleView" );
-		//this.newsletter_view = application.getViex( "NewsletterView" );
 		this.model = application.getModel( "Model" );
 		
 		$(window).load(function(){

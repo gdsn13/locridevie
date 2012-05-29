@@ -87,7 +87,7 @@ window.application.addView((function( $, application ){
 			this.model = application.getModel( "Model" );
 		}
 		
-		this.spectacle_slider_ul.animate({opacity:0}, 'fast');
+		//this.spectacle_slider_ul.animate({opacity:0}, 'fast');
 		this.spectacle_slider_ul.css('left', 0);
 		this.spectacles_titles.css('left', 0);
 		
@@ -109,6 +109,8 @@ window.application.addView((function( $, application ){
 		// QUAND TOUT EST CHARGE DANS LA VUE
 		// ---------------------------------------------------------------------------------------------------------
 		this.spectacle_slider.imagesLoaded(function($images, $proper, $broken){
+			
+			self.spectacle_slider.css('opacity', "1");
 			
 			$(window).unbind();
 			
@@ -271,8 +273,11 @@ window.application.addView((function( $, application ){
 		$('#logo_menu').show('fast');
 		var menu_btn = $('#menu_command');
 		if (menu_btn.css('display') != "block") menu_btn.css('display', 'block');
-		var ss = $('#spectacle_slider');
-		if( ss.css('display') == 'none') ss.fadeIn('fast');
+		//var ss = $('#spectacle_slider');
+		//if( ss.css('display') == 'none') ss.fadeIn('fast');
+		this.spectacle_slider.fadeIn('fast');
+		
+		console.log(this.spectacle_slider.css('opacity'));
 		
 		this.lock_up_and_down = true;
 		

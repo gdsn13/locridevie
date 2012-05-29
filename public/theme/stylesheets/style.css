@@ -370,8 +370,6 @@ body{
 	position:absolute;
 	top:0;
 	left:0;
-	/*border-top: 1px solid #CCCCCC;*/
-	opacity:0;
 }
 #spectacle_slider ul li{
 	float:left;
@@ -700,6 +698,10 @@ body{
 	display:block;
 	width:130px;
 	padding:2px;
+}
+
+.intro_li_text a, .intro_li_text a:hover{
+	color:#FFF;
 }
 
 #nav_intro li.last{
