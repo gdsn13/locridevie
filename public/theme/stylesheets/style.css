@@ -1,4 +1,4 @@
-@font-face {
+/*@font-face {
     font-family: 'CabinRegular';
     src: url('../fonts/cabin-regular-webfont.eot');
     src: url('../fonts/cabin-regular-webfont.eot?#iefix') format('embedded-opentype'),
@@ -7,7 +7,16 @@
          url('../fonts/cabin-regular-webfont.svg#CabinRegular') format('svg');
     font-weight: normal;
     font-style: normal;
-}
+}*/
+
+@font-face {font-family: 'IntervalSansPro-UltLight';src: url('/theme/fonts/2317AB_0_0.eot');src: url('/theme/fonts/2317AB_0_0.eot?#iefix') format('embedded-opentype'),url('/theme/fonts/2317AB_0_0.woff') format('woff'),url('/theme/fonts/2317AB_0_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'IntervalSansPro-Med';src: url('/theme/fonts/2317AB_1_0.eot');src: url('/theme/fonts/2317AB_1_0.eot?#iefix') format('embedded-opentype'),url('/theme/fonts/2317AB_1_0.woff') format('woff'),url('/theme/fonts/2317AB_1_0.ttf') format('truetype');}
+ 
+  
+@font-face {font-family: 'IntervalSansPro-Light';src: url('/theme/fonts/2317AB_2_0.eot');src: url('/theme/fonts/2317AB_2_0.eot?#iefix') format('embedded-opentype'),url('/theme/fonts/2317AB_2_0.woff') format('woff'),url('/theme/fonts/2317AB_2_0.ttf') format('truetype');}
+
 
 *{
 	margin:0;
@@ -30,7 +39,6 @@ img{
 html{
 	background:#000;
 	color:#FFF;
-	font-family: 'CabinRegular';
 }
 
 body{
@@ -38,7 +46,9 @@ body{
 	height:100%;
 	overflow:hidden;
 	min-width:980px;
-	font-family: 'CabinRegular';
+	font-family: 'IntervalSansPro-UltLight';
+	/*font-family: 'IntervalSansPro-Med';
+	font-family: 'IntervalSansPro-Light';*/
 }
 
 /* MESSAGING
@@ -67,7 +77,7 @@ body{
 	position: absolute; 
 	left: 0; 
 	top: 0;
-	margin:20px 60px; 
+	margin:0px 60px; 
 }
 
 .scrollbar{ 
@@ -100,6 +110,10 @@ body{
 
 /* SPECTACLE
 --------------------------------------------------------*/
+.overview h1{
+	padding-top:20px;
+}
+
 #images_spectacle{
 	position:absolute;
 	top:0;
@@ -149,6 +163,7 @@ body{
 
 .presentation{
 	padding-top:30px;
+	padding-bottom:30px;
 }
 
 #spectacle_container{
