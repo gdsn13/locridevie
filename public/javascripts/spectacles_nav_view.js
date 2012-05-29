@@ -123,7 +123,7 @@ window.application.addView((function( $, application ){
 				//TODO : positionner le titre.
 				else if (left + tltp.width() > self.nav_width) xleft = self.nav_width - tltp.width() - 30;			
 				
-				tltp.css({'left' : left, 'top' : -(tltp.height() + 50)});	// positionnement du titre
+				tltp.css({'left' : left, 'top' : -(tltp.height() + 60)});	// positionnement du titre
 			});
 			
 			//POSITIONNEMENT SUR LA DATE COURANTE
@@ -168,6 +168,8 @@ window.application.addView((function( $, application ){
 				self.spectacle_slider_ul.css('left', left_pos);
 				self.spectacles_titles.css('left', left_pos);
 			});
+			
+			Cufon.replace('div.numero_title');
 			
 			self.spectacle_slider_ul.animate({opacity:1}, 'fast');
 		});
@@ -220,7 +222,9 @@ window.application.addView((function( $, application ){
 			
 			//AFFICHAGE DU SPECTACLE
 			spec["index"] = index;	//rajout de l'index à l'object
+			spec["pipe"] = "";
 			if (spec.spectacle_associe_path != "") spec["url"] =  spec.spectacle_associe_path;
+			if (spec.date_infobulles != "" && spec.lieu != "") spec["pipe"] = "|"
 			else spec["url"] = spec.slug;
 			self.spectacle_slider_ul.append(application.getFromTemplate(self.template, spec));
 			self.spectacles_titles.append(application.getFromTemplate(self.tltp_template, spec));

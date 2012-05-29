@@ -53,9 +53,11 @@ window.application.addView((function( $, application ){
 		});
 		
 		//AFFICHAGE DE LA LISTE DES SPECTACLES
+		var liste_title = "<li class='opening'>Programmation</li>";
+		self.spectacle_ul.append(liste_title);
 		$.each(this.spectacles, function(index, s){
 			if (s.spectacle_associe_path == ""){
-				var html = '<li><span>' + s.numero + '</span> <a href="/#/spectacle/' + s.slug + '">' + s.titre + '</a></li>';
+				var html = '<li><div class="spectacle_list_numero">' + s.numero + '</div><div class="spectacle_list_title"><a href="/#/spectacle/' + s.slug + '">' + s.titre + '</a></div></li>';
 				self.spectacle_ul.append(html);
 			}
 		});
@@ -76,6 +78,8 @@ window.application.addView((function( $, application ){
 					self.animate();
 				}, self.slider_duration);	
 			});
+			
+			Cufon.replace('.spectacle_list_numero');
 			
 			self.model.set_message_to_growl("");
 			

@@ -55,11 +55,14 @@ body{
 #growl_messages{
 	position:absolute;
 	top:0;
-	left:0;
-	padding:20px;
+	left:50px;
+	padding:5px;
+	padding-left:60px;
 	z-index:8000;
 	text-align:center;
-	background:#CCC;
+	background:url('../images/mouette.gif') no-repeat 0 5px;
+	font-family: 'IntervalSansPro-Light';
+	color:#FDC400;
 }
 
 /* TEST SCROLLING
@@ -110,12 +113,12 @@ body{
 --------------------------------------------------------*/
 .overview h1{
 	padding-top:20px;
-	font-family: 'IntervalSansPro-Med';
-	font-weight:bold;
+	font-family: 'IntervalSansPro-Light';
 }
 
 .overview h1 span{
 	font-family: 'IntervalSansPro-UltLight';
+	color:#999;
 }
 
 #images_spectacle{
@@ -132,6 +135,7 @@ body{
 	top:0;
 	right:0;
 	color:#000;
+	font-family: 'IntervalSansPro-Light';
 }
 #spectacles_sliders h2{ 
 	background:#fff;
@@ -154,11 +158,13 @@ body{
 
 .tld{
 	width:300px;
+	color:#999;
 }
 
 .tld strong{
 	font-style:normal !important;
-	font-family: 'IntervalSansPro-Med';
+	font-family: 'IntervalSansPro-Light';
+	color:#000 !important;
 }
 
 .numero{
@@ -287,6 +293,12 @@ body{
 
 #menu ul a{
 	color:#FFF !important;
+	font-family: 'IntervalSansPro-Light';
+	font-size:14px;
+}
+
+#menu ul a:hover{
+	color:#AAA !important;
 }
 
 #other_menu{
@@ -311,8 +323,9 @@ body{
 .menu_title{
 	/*font-family: 'AvenirLT-Heavy';*/
   color: #FDC400 !important;
-  font-size: 12px;
+  font-size: 14px;
   text-transform: uppercase;
+	font-family: 'IntervalSansPro-Med';
 }
 
 .fat_menu{
@@ -375,21 +388,33 @@ body{
 #spectacles_titles .tool_tip_title{
 	position:absolute;
 	background:rgba(0,0,0,1);
-	border:1px solid #666;
-	padding:5px;
+	border:1px solid #434343;
+	padding:10px;
 	left:0;
-	text-transform:uppercase;
 	font-weight:bold;
 	color:#EEE;
 	font-size:12px;
 	display:none;
 	bottom:25px;
+	font-family: 'IntervalSansPro-Med';
 }
 
 .numero_title{
-	font-size:20px;
-	font-weight:bold;
+	font-size:40px;
 	text-align:center;
+	padding-bottom:15px;
+}
+
+.infobulle{
+	padding-top:5px;
+	font-family: 'IntervalSansPro-Light';
+	color:#AAA;
+}
+.infobulle_title{
+	font-size:16px;
+}
+.infobulle_lieu{
+	color:#AAA;
 }
 
 #spectacles_titles div .tltp_arrow{
@@ -556,23 +581,54 @@ body{
 #programmation_spectacles li{
 	font-size:12px;
 	padding:5px 0 0;
+	overflow:hidden;
+}
+
+.spectacle_list_numero, .spectacle_list_title{
+	float:left;
+}
+
+.spectacle_list_numero{
+	font-size:14px;
+	color:#cc071e;
+}
+
+.spectacle_list_title{
+	padding-left:10px;
+	padding-top:2px;
+	font-size:16px;
+	font-family: 'IntervalSansPro-Light';
+}
+
+.opening{
+	font-size:24px !important;
+	padding-bottom:20px !important;
+	padding-top:60px !important;
+}
+
+.spectacle_list_title span{
+	font-family:'IntervalSansPro-UltLight';
+	color:#666;
 }
 
 #programmation_spectacles li a, #programmation_spectacles li a:visited{
 	color:#000;
+	display:block;
+	height:22px;
 }
 
-#programmation_spectacles li span{
+/*#programmation_spectacles li span{
 	font-size:20px;
 	font-weight:bold;
-	/*font-family: 'KozMinPro-Heavy-AlphaNum';*/
-}
+	/*font-family: 'KozMinPro-Heavy-AlphaNum';
+}*/
 
 #calendrier_jules_sliders{
 	position:absolute;
 	top:0;right:0;
 	z-index:4000;
 }
+
 
 /*INTRO
 --------------------------------------------------------*/
