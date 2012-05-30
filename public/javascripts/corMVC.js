@@ -189,9 +189,9 @@
 		
 			// Update the iFrame location. This is needed to enable back button 
 			// functionality in Internet Explorer (IE).
-			//if (this.locationFrame){
-			//	this.locationFrame.attr( "src", "ie_back_button.htm?_=" + (new Date()).getTime() + "&hash=" + liveLocation );
-			//}
+			if (this.locationFrame){
+				this.locationFrame.attr( "src", "ie_back_button.htm?_=" + (new Date()).getTime() + "&hash=" + liveLocation );
+			}
 		
 			// Set the current location.
 			this.setLocation( liveLocation );
