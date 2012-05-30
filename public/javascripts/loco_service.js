@@ -17,15 +17,13 @@ window.application.addModel((function( $, application ){
 			
 	/* SPECTACLESSSSSS
 	----------------------------------------------------------------------------------------*/
-	LocoService.prototype.get_spectacles = function(p_ordering, p_spectacles){
+	LocoService.prototype.get_spectacles = function(p_ordering, p_request_number){
 		var self = this;
-		
-		//p_spectacles == false ? url = p_ordering + "?specacles=true" : url = p_ordering;	
 
 		application.ajax({
 			url: p_ordering,
 			success: function(json){
-				self.model.set_spectacles(json);
+				self.model.set_spectacles(json, p_request_number);
 			},
 			error: function(json){
 				self.model.set_message_to_growl(json.statusText);
@@ -35,13 +33,13 @@ window.application.addModel((function( $, application ){
 	
 	/* CALENDRIER
 	----------------------------------------------------------------------------------------*/
-	LocoService.prototype.get_calendrier = function(){
+	LocoService.prototype.get_calendrier = function(p_request_number){
 		var self = this;
 		
 		application.ajax({
 			url: "/calendrier",
 			success: function(json){
-				self.model.set_calendrier(json);
+				self.model.set_calendrier(json, p_request_number);
 			},
 			error: function(json){
 				self.model.set_message_to_growl(json.statusText);
@@ -51,29 +49,13 @@ window.application.addModel((function( $, application ){
 	
 	/* SPECTACLE
 	----------------------------------------------------------------------------------------*/
-	LocoService.prototype.get_spectacle = function(p_slug){
+	LocoService.prototype.get_spectacle = function(p_slug, p_request_number){
 		var self = this;
 
 		application.ajax({
 			url: '/spectacle/' + p_slug,
 			success: function(json){
-				self.model.set_spectacle(json);
-			},
-			error: function(json){
-				self.model.set_message_to_growl(json.statusText);
-			}
-		});
-	};
-	
-	/* HOME TODO => Remove
-	----------------------------------------------------------------------------------------*/
-	LocoService.prototype.get_home = function(){
-		var self = this;
-
-		application.ajax({
-			url: '/pages/home_page',
-			success: function(json){
-				self.model.set_home(json);
+				self.model.set_spectacle(json, p_request_number);
 			},
 			error: function(json){
 				self.model.set_message_to_growl(json.statusText);
@@ -99,13 +81,13 @@ window.application.addModel((function( $, application ){
 	
 	/* PAGES
 	----------------------------------------------------------------------------------------*/
-	LocoService.prototype.get_page = function(p_page_slug){
+	LocoService.prototype.get_page = function(p_page_slug, p_request_number){
 		var self = this;
 		
 		application.ajax({
 			url: p_page_slug,
 			success: function(json){
-				self.model.set_page(json);
+				self.model.set_page(json, p_request_number);
 			},
 			error: function(json){
 				self.model.set_message_to_growl(json.statusText);

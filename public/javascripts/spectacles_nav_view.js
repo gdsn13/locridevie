@@ -263,7 +263,7 @@ window.application.addView((function( $, application ){
 	
 	SpectaclesNavView.prototype.hide_view = function(){
 		this.spectacle_slider.stop().animate({bottom: "-165px"}, 'fast', function(){
-			this.lock_up_and_down = true;
+			this.lock_up_and_down = false;
 		});
 	};
 	
@@ -273,11 +273,7 @@ window.application.addView((function( $, application ){
 		$('#logo_menu').show('fast');
 		var menu_btn = $('#menu_command');
 		if (menu_btn.css('display') != "block") menu_btn.css('display', 'block');
-		//var ss = $('#spectacle_slider');
-		//if( ss.css('display') == 'none') ss.fadeIn('fast');
 		this.spectacle_slider.fadeIn('fast');
-		
-		console.log(this.spectacle_slider.css('opacity'));
 		
 		this.lock_up_and_down = true;
 		

@@ -2,8 +2,14 @@
 window.application.addModel((function( $, application ){
 	
 	
-	// les pages sont stockées dans un tableau JSON  de pages.
+	// les pages sont stockées dans un tableau JSON de pages.
 	// les identifiants des pages sont : noms de la page
+	// toutes les données sont stockées dans le page.json == la base de donnée
+	
+	// this.current_request_number :
+	// le lancement des requette porte un numéro de requette. Si une autre requette est lancée avant que la requette
+	// soit exécutée, le resultat de la premiére requette sera mis en mémoire, mais ne sera pas affichée. SInon, avec le hide et show
+	// on se retrouve avec deux vues en même temps!
 
 	// I am the contacts service class.
 	function Model(){
@@ -11,7 +17,7 @@ window.application.addModel((function( $, application ){
 		this.pages = [];
 		this.current_page = null;
 		this.message_to_growl = "";
-		this.spectacles_loaded = false;
+		this.current_request_number = 0;
 	};
 	
 	Model.prototype.hide_finished = function(){
@@ -28,22 +34,26 @@ window.application.addModel((function( $, application ){
 	
 	/* PAGES
 	----------------------------------------------------------------------------------------*/
-	
 	Model.prototype.set_current_page = function(p_page_path){
 		this.current_page = this.pages[p_page_path];
 		$(this).trigger('page_ready');
 	};
 	
-	Model.prototype.set_page = function(p_page){
+	Model.prototype.set_page = function(p_page, p_request_number){
+		// on stocke le resultat de la requette
 		this.pages["/" + p_page.fullpath] = p_page;
-		this.set_current_page("/" + p_page.fullpath);
-		this.set_message_to_growl("");
+		// si une autre requette n'a pas été lancée entre temps, on lance l'affichage
+		if (this.current_request_number == p_request_number){
+			this.set_current_page("/" + p_page.fullpath);
+			this.set_message_to_growl("");
+		}
 	};
 	
 	Model.prototype.get_page = function(p_path){
 		if (this.pages[p_path] == null){
 			this.set_message_to_growl("Chargement...");
-			application.getModel( "LocoService" ).get_page(application.currentLocation);
+			this.current_request_number += 1;
+			application.getModel( "LocoService" ).get_page(application.currentLocation, this.current_request_number);
 		}
 		else{
 			this.set_current_page(p_path);
@@ -59,32 +69,14 @@ window.application.addModel((function( $, application ){
 		this.set_message_to_growl("");
 		$(this).trigger('intro_ready');
 	};
-
-	/* HOME
-	----------------------------------------------------------------------------------------*/
-	Model.prototype.set_home = function(p_home){
-		this.pages["pages/home_page"] = p_home;
-		this.current_page = this.pages["pages/home_page"];
-		$(this).trigger('home_datas_ready');
-	};
-	
-	Model.prototype.get_home = function(){
-		if (this.pages["pages/home_page"] == null){
-			this.set_message_to_growl("Chargement...");
-			application.getModel( "LocoService" ).get_home();
-		}
-		else{
-			this.current_page = this.pages["pages/home_page"];
-			$(this).trigger('home_datas_ready');
-		}
-	};
 	
 	/* SPECTACLE
 	----------------------------------------------------------------------------------------*/
 	Model.prototype.get_spectacle = function(p_title){
 		if (this.pages[p_title] == null){
 			this.set_message_to_growl("Chargement...");
-			application.getModel("LocoService").get_spectacle(p_title);
+			this.current_request_number += 1;
+			application.getModel("LocoService").get_spectacle(p_title, this.current_request_number);
 		}
 		else{
 			this.current_page = this.pages[p_title];
@@ -92,25 +84,34 @@ window.application.addModel((function( $, application ){
 		}
 	};
 	
-	Model.prototype.set_spectacle = function(p_spectacle){
+	Model.prototype.set_spectacle = function(p_spectacle, p_request_number){
+		// on stocke le resultat de la requette
 		this.pages[p_spectacle.slug] = p_spectacle;
-		this.current_page = this.pages[p_spectacle.slug];
-		$(this).trigger('spectacle_ready');
+		// si une autre requette n'a pas été lancée entre temps, on lance l'affichage
+		if (this.current_request_number == p_request_number){
+			this.current_page = this.pages[p_spectacle.slug];
+			$(this).trigger('spectacle_ready');
+		}
 	};
 	
 	/* SPECTACLES
 	----------------------------------------------------------------------------------------*/
 	
-	Model.prototype.set_spectacles = function(p_spectacles){
+	Model.prototype.set_spectacles = function(p_spectacles, p_request_number){
+		// on stocke le resultat de la requette
 		this.pages[p_spectacles.page.fullpath] = p_spectacles.page;
-		this.current_page = this.pages[p_spectacles.page.fullpath];
-		$(this).trigger('spectacles_ready');
+		// si une autre requette n'a pas été lancée entre temps, on lance l'affichage
+		if (this.current_request_number == p_request_number){
+			this.current_page = this.pages[p_spectacles.page.fullpath];
+			$(this).trigger('spectacles_ready');
+		}
 	};
 	
 	Model.prototype.get_spectacles = function(p_path){
 		if (this.pages[p_path] == null){
 			this.set_message_to_growl("Chargement...");
-			application.getModel("LocoService").get_spectacles(p_path, this.spectacles_loaded);
+			this.current_request_number += 1;
+			application.getModel("LocoService").get_spectacles(p_path, this.current_request_number);
 		}
 		else{
 			this.current_page = this.pages[p_path];
@@ -125,22 +126,30 @@ window.application.addModel((function( $, application ){
 		}
 	}
 	
-	Model.prototype.set_calendrier = function(p_dates){
+	Model.prototype.set_calendrier = function(p_dates, p_request_number){
+		// on stocke le resultat de la requette
 		this.pages["/calendrier"] = p_dates;
-		this.current_page = this.pages["/calendrier"];
-		$(this).trigger('calendrier_ready');
+		// si une autre requette n'a pas été lancée entre temps, on lance l'affichage
+		if (this.current_request_number == p_request_number){
+			this.current_page = this.pages["/calendrier"];
+			$(this).trigger('calendrier_ready');
+		}
 	}
 	
 	Model.prototype.get_calendrier = function(){
 		if (this.pages["/calendrier"] == null){
 			this.set_message_to_growl("Chargement...");
-			application.getModel("LocoService").get_calendrier();
+			this.current_request_number += 1;
+			application.getModel("LocoService").get_calendrier(this.current_request_number);
 		}
 		else{
 			this.current_page = this.pages["/calendrier"];
 			$(this).trigger('calendrier_ready');
 		}
 	}
+	
+	/* ORDERING FUNCTIONS
+	----------------------------------------------------------------------------------------*/
 		
 	/* I return only spectacles with en_tournee == true, ordered by title 	
 	----------------------------------------------------------------------------------------*/
@@ -162,8 +171,6 @@ window.application.addModel((function( $, application ){
 		return spec;
 	};
 	
-	/* I order spectacles list by date of representation 			
-	----------------------------------------------------------------------------------------*/
 	Model.prototype.spectacles_ordered_by_date = function(){
 		var spec = this.spectacles;
 		spec.sort(this.sort_by('date', true, function(a){return new Date(a)}));
@@ -173,6 +180,9 @@ window.application.addModel((function( $, application ){
 	Model.prototype.init = function(){
 		
 	};
+	
+	/* INTER VIEW EVENTS
+	----------------------------------------------------------------------------------------*/	
 	
 	Model.prototype.call_menu_displaying = function(){
 		$(this).trigger('menu_is_displaying');
