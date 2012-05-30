@@ -79,6 +79,7 @@ window.application.addView((function( $, application ){
 			}).attr('src', this.model.current_page.logo);
 		}
 		
+		nav_intro.html('');
 		// on ajoute les boutons!
 		$.each(self.model.current_page.boutons, function(index, btn){
 			nav_intro.append('<li><div class="intro_li_text">' + btn.block + '</div><img src="' + btn.img + '"width="80"/></li>')
@@ -136,7 +137,9 @@ window.application.addView((function( $, application ){
 
 	IntroView.prototype.hide_view = function( ){
 		var self = this;
-		this.view.fadeTo('fast', 0);
+		if (this.jules_is_there == true) this.image_container.html('');
+		this.logo_container.html('');
+		this.view.fadeOut('fast');
 	}
 
   // I get called when the view needs to be shown.

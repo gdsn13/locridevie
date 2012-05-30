@@ -1,5 +1,15 @@
 #menu{
 	background:transparent;
-	bafilter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#CC000000,endColorstr=#CC000000);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#CC000000,endColorstr=#CC000000);
 	zoom: 1;
+}
+
+.month_name_for_calendar p{
+	left:0;
+	top:10px;
+	zoom: 1;
+}
+
+#spectacle_slider{
+	width:100%;
 }

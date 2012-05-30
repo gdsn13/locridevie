@@ -244,7 +244,7 @@ body{
 	height: 24px;
 	position:absolute;
 	top:0;left:20px;
-	z-index:10000;
+	z-index:8000;
 	display:block;
 }
 
@@ -375,7 +375,7 @@ body{
 #spectacle_slider{
 	position:absolute;
 	bottom:0;
-	z-index:6000;
+	z-index:10000;
 	height:180px;
 	width:100%;bottom:-165px;
 	background:rgba(0,0,0,0.5);	
@@ -471,7 +471,7 @@ body{
 	writing-mode: bt-lr;
 	-webkit-transform: rotate(-90deg);	
 	-moz-transform: rotate(-90deg);
-	-ms-transform: rotate(-90deg);
+	-ms-transform: rotate(270deg);
 	-o-transform: rotate(-90deg);
 	transform: rotate(-90deg);
 	font-size: 20px;

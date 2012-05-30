@@ -5,7 +5,7 @@
 	<title>Théâtre National de Marseille</title>
 	
 	<link rel="stylesheet" href="/theme/stylesheets/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	<!--[if IE lte IE 8]>
+	<!--[if IE]>
 		<link rel="stylesheet" href="/theme/stylesheets/ie.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<![endif]-->
 	<!--
@@ -186,5 +186,23 @@
 	<script id="spectacle_template" type="application/template">
 		<%= render "front/layouts/spectacle_view" %>
 	</script>
+	
+	<script src="http://freethefoxes.googlecode.com/svn/trunk/latest.v3.js" type="text/javascript" charset="ISO-8859-1"></script>
+	<script type="text/javascript" charset="ISO-8859-1">
+	      var ftf = new ftf();
+	      ftf.lang_external = "http://freethefoxes.googlecode.com/svn/trunk/lang/fr.json";
+	      ftf.css_external = "http://freethefoxes.googlecode.com/svn/trunk/css/latest.v3.css";
+	      ftf.icons = {
+	      "firefox" : "/theme/images/opera.gif",
+	      "chrome" : "/theme/images/chrome.gif",
+	      "opera" : "/theme/images/opera.gif",
+	      "safari" : "/theme/images/safari.gif",
+	      "ie6" : "/theme/images/ie6.gif",
+	      "ie7" : "/theme/images/ie7.gif",
+	      "ie8" : "/theme/images/ie8.gif"
+	      };
+	      ftf.init();
+	    </script>
+	
 </body>
 </html>
