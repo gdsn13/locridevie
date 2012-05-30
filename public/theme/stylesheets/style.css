@@ -736,3 +736,7 @@ body{
 	height:100%;
 	display:block;
 }
+
+#ftf_link{
+	display:none;
+}
