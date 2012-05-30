@@ -102,7 +102,7 @@ class Front::DatasController < ApplicationController
                   :tld => sp.tld,
                   :slug => sp._slug,
                   :date => sp.date.strftime("%Y/%m/%d"),
-                  :presentation => sp.presentation,
+                  :presentation => sp.presentation.html_safe,
                   :logo => sp.logo.url,
                   :images => images
                 }
