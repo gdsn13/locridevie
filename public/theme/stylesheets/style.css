@@ -353,6 +353,22 @@ body{
 	right:50px;
 }
 
+#informations_pratiques{
+	margin-top:100px;
+	margin-left:48px;
+}
+#informations_pratiques div{
+	padding-left:40px;
+	background:url('../images/arrow.png') no-repeat 0 0;
+	margin-bottom:10px;
+}
+
+#informations_pratiques a, #informations_pratiques a:visited, #informations_pratiques div{
+	color:#FDC400;
+	font-size:24px;
+	font-family: 'IntervalSansPro-Med';
+}
+
 /*SPECTACLES_NAV
 --------------------------------------------------------*/
 
