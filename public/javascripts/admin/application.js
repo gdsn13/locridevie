@@ -48,9 +48,7 @@ var TinyMceDefaultSettings = {
   script_url : '/javascripts/admin/plugins/tiny_mce/tiny_mce.js',
   theme : 'advanced',
   skin : 'locomotive',
-	paste_auto_cleanup_on_paste : 'false',
-	paste_retain_style_properties : 'all',
-  plugins: 'safari,inlinepopups,locomedia,fullscreen,paste',
+  plugins: 'safari,inlinepopups,locomedia,fullscreen',
   extended_valid_elements: 'iframe[width|height|frameborder|allowfullscreen|src|title]',
   theme_advanced_buttons1 : 'fullscreen,code,|,bold,italic,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink',
   theme_advanced_buttons2 : 'formatselect,fontsizeselect,forecolor,|,locomedia',
@@ -61,7 +59,7 @@ var TinyMceDefaultSettings = {
   width: '709',
   inlinepopups_skin: 'locomotive',
   convert_urls: false,
-	theme_advanced_text_colors: "000000,FFFFFF,FDC400,1285bc,cc071e,009D85",
+	theme_advanced_text_colors: "000000,FFFFFF,FDC400,1285bc,cc071e,009D85,999999",
   fullscreen_new_window : false,
   fullscreen_settings : {
     theme_advanced_path_location : "top"
