@@ -57,7 +57,7 @@
 			"infobulle": "<%= spec.infobulle.html_safe if spec.infobulle != nil %>",
 			"date_infobulles": "<%= spec.date_infobulle %>",
 			"lieu": "<%= spec.lieu %>",
-			"spectacle_associe_path": "<%= spec.spectacle_associe._slug if spec.spectacle_associe != nil %>",
+			"spectacle_associe_path": "<%= spec.spectacle_associe != nil ? spec.spectacle_associe._slug : "" %>",
 	  	} <%= "," unless spec == @spectacles.last -%>
 		<% end -%>
 		];
