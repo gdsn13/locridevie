@@ -225,9 +225,9 @@ window.application.addView((function( $, application ){
 			//AFFICHAGE DU SPECTACLE
 			spec["index"] = index;	//rajout de l'index à l'object
 			spec["pipe"] = "";
-			if (spec.spectacle_associe_path != "") spec["url"] =  spec.spectacle_associe_path;
-			if (spec.date_infobulles != "" && spec.lieu != "") spec["pipe"] = "|"
+			if (spec.spectacle_associe_path != "") spec["url"] = spec.spectacle_associe_path;
 			else spec["url"] = spec.slug;
+			if (spec.date_infobulles != "" && spec.lieu != "") spec["pipe"] = "|"
 			self.spectacle_slider_ul.append(application.getFromTemplate(self.template, spec));
 			self.spectacles_titles.append(application.getFromTemplate(self.tltp_template, spec));
 		});
