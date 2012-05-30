@@ -402,7 +402,7 @@ body{
 
 #spectacles_titles .tool_tip_title{
 	position:absolute;
-	background:rgba(0,0,0,1);
+	background:#000;
 	border:1px solid #434343;
 	padding:10px;
 	left:0;
