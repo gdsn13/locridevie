@@ -53,6 +53,14 @@ window.application.addView((function( $, application ){
 		$(this.model).on('hide_menu', function(){
 			self.hide_menu();
 		});		
+		
+		$(window).on('resize', function(){
+			if (self.open == false){
+				self.menu.css({'top' : -$(window).height(), 'height' : $(window).height() - 170});
+			}else{
+				self.menu.css({'top' : 0, 'height' : $(window).height() - 170});
+			}
+		});
   };
 
 	MenuView.prototype.hide_menu = function(){  

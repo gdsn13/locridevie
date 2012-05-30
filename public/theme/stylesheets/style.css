@@ -257,7 +257,7 @@ body{
 	position:absolute;
 	top:10px;
 	right:0px;
-	z-index:5000;
+	z-index:0;
 	display:none;
 	opacity:1;
 }
@@ -284,7 +284,7 @@ body{
 }
 
 #menu_ul{
-	margin-top:100px;
+	margin-top:50px;
 }
 
 
@@ -345,7 +345,6 @@ body{
 	width:180px;
 }
 
-
 #close_menu{
 	position:absolute;
 	display:block;
@@ -354,7 +353,7 @@ body{
 }
 
 #informations_pratiques{
-	margin-top:100px;
+	margin-top:50px;
 	margin-left:48px;
 }
 #informations_pratiques div{
