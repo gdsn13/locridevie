@@ -45,7 +45,7 @@
 	
 	<script type="text/javascript">
 		var spectacles_list = [
-		<% @spectacles.map do |spec| %> 
+		<% @spectacles.map do |spec| %>
   		{ "id": "<%= spec.id %>",
 		  "slug": "<%= spec._slug %>",
 		  "titre": "<%= spec.titre.html_safe %>",
@@ -54,7 +54,7 @@
 		  "saison": "<%= spec.season_id %>",
 		  "logo": "<%= spec.logo.url %>",
 			"numero": "<%= spec.numero%>",
-			"infobulle": "<%= spec.infobulle.html_safe.to_json if spec.infobulle != nil %>",
+			"infobulle": <%= get_infobulle spec.infobulle.to_json.html_safe%>,
 			"date_infobulles": "<%= spec.date_infobulle %>",
 			"lieu": "<%= spec.lieu %>",
 			"spectacle_associe_path": "<%= spec.spectacle_associe != nil ? spec.spectacle_associe._slug : "" %>",
