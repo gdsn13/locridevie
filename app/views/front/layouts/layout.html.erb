@@ -54,7 +54,7 @@
 		  "saison": "<%= spec.season_id %>",
 		  "logo": "<%= spec.logo.url %>",
 			"numero": "<%= spec.numero%>",
-			"infobulle": "<%= spec.infobulle.html_safe if spec.infobulle != nil %>",
+			"infobulle": "<%= spec.infobulle.html_safe.to_json if spec.infobulle != nil %>",
 			"date_infobulles": "<%= spec.date_infobulle %>",
 			"lieu": "<%= spec.lieu %>",
 			"spectacle_associe_path": "<%= spec.spectacle_associe != nil ? spec.spectacle_associe._slug : "" %>",
