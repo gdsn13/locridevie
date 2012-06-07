@@ -88,8 +88,8 @@ window.application.addView((function( $, application ){
 		}
 		
 		//this.spectacle_slider_ul.animate({opacity:0}, 'fast');
-		this.spectacle_slider_ul.css({'left' : '0'});
-		this.spectacles_titles.css({'left' : '0'});
+		//this.spectacle_slider_ul.css({'left' : '0'});
+		//this.spectacles_titles.css({'left' : '0'});
 		
 		this.spectacles = this.model.spectacles_ordered_by_date();
 		
