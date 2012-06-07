@@ -21,6 +21,33 @@
 	-->
 	
 	<link rel="icon" type="type/png" href="images/favicon.ico" />
+	
+	<script type="text/javascript">
+		var spectacles_list = [
+		<% @spectacles.map do |spec| %>
+			<% infobulle = get_infobulle spec.infobulle.to_json.html_safe %>
+  		{ "id": "<%= spec.id %>",
+		  "slug": "<%= spec._slug %>",
+		  "titre": "<%= spec.titre.html_safe %>",
+		  "date": "<%= spec.date.strftime("%Y/%m/%d") %>",
+		  "en_tournee": "<%= spec.en_tournee %>",
+		  "saison": "<%= spec.season_id %>",
+		  "logo": "<%= spec.logo.url %>",
+			"numero": "<%= spec.numero%>",
+			<% if infobulle == "null" -%>
+			"infobulle": "",
+			<% else -%>
+			"infobulle": <%= infobulle %>,
+			<% end -%> 
+			"date_infobulles": "<%= spec.date_infobulle %>",
+			"lieu": "<%= spec.lieu %>",
+			"spectacle_associe_path": "<%= spec.spectacle_associe != nil ? spec.spectacle_associe._slug : "" %>"
+	  	} <%= "," unless spec == @spectacles.last -%>
+		<% end -%>
+		];
+		
+	</script>
+	
 	<script src="/javascripts/jquery-1.7.2.min.js" type="text/javascript"></script>
 	<script src="/javascripts/corMVC.js" type="text/javascript"></script>
 	<script src="/javascripts/model.js" type="text/javascript"></script>
@@ -42,27 +69,6 @@
 	<script src="/javascripts/jquery.tinyscrollbar.min.js" type="text/javascript"></script>
 	<script src="http://cufon.shoqolate.com/js/cufon-yui.js?v=1.09i" type="text/javascript"></script>
 	<script src="/theme/fonts/kozminpro_900.font.js" type="text/javascript"></script>
-	
-	<script type="text/javascript">
-		var spectacles_list = [
-		<% @spectacles.map do |spec| %>
-  		{ "id": "<%= spec.id %>",
-		  "slug": "<%= spec._slug %>",
-		  "titre": "<%= spec.titre.html_safe %>",
-		  "date": "<%= spec.date.strftime("%Y/%m/%d") %>",
-		  "en_tournee": "<%= spec.en_tournee %>",
-		  "saison": "<%= spec.season_id %>",
-		  "logo": "<%= spec.logo.url %>",
-			"numero": "<%= spec.numero%>",
-			"infobulle": <%= get_infobulle spec.infobulle.to_json.html_safe%>,
-			"date_infobulles": "<%= spec.date_infobulle %>",
-			"lieu": "<%= spec.lieu %>",
-			"spectacle_associe_path": "<%= spec.spectacle_associe != nil ? spec.spectacle_associe._slug : "" %>",
-	  	} <%= "," unless spec == @spectacles.last -%>
-		<% end -%>
-		];
-		
-	</script>
 </head>
 
 <body>
