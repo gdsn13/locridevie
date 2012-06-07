@@ -78,8 +78,8 @@ window.application.addView((function( $, application ){
 
 	SpectaclesNavView.prototype.refreshed_datas = function(){
 		var self = this;
-		this.spectacle_slider_ul.html("");
-		this.spectacles_titles.html("");
+		//this.spectacle_slider_ul.empty();
+		//this.spectacles_titles.empty();
 		this.enter_frame_nav = null;
 		this.loaded_images = 0;
 		this.mouseX = 0;
