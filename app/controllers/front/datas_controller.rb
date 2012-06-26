@@ -110,9 +110,21 @@ class Front::DatasController < ApplicationController
     render :json => spectacle
   end
   
-  def newsletter
-    @newsletter = ContentType.where(:slug => "newsletter").first.contents.where(:_slug => params[:id]).first
+  def newsletters
+    page = Page.where(:slug => "newsletters").first
+    newsletters = ContentType.where(:slug => "newsletters").first.contents.map do |nl|
+      {
+        :titre  => nl.titre,
+        :date   => nl.date,
+        :slug   => nl._slug
+      }
+    end
     
-    render :template => '/front/layouts/newsletter.html', :layout => false
+    nl_json = {
+      :newsletters => newsletters,
+      :jules  => page.embeded_items.get_jules_for_json(page)
+    }
+    
+    render :json => nl_json
   end
 end

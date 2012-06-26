@@ -31,6 +31,24 @@ window.application.addModel((function( $, application ){
 		});
 	};
 	
+	/* NEWSLETTERS
+	----------------------------------------------------------------------------------------*/
+	LocoService.prototype.get_newsletters = function(p_request_number){
+		var self = this;
+		
+		application.ajax({
+			url: "/newsletters",
+			success: function(json){
+				self.model.set_newsletters(json, p_request_number);
+			},
+			error: function(json){
+				self.model.set_message_to_growl(json.statusText);
+			}
+		});
+	}
+	
+	
+	
 	/* CALENDRIER
 	----------------------------------------------------------------------------------------*/
 	LocoService.prototype.get_calendrier = function(p_request_number){
@@ -45,7 +63,7 @@ window.application.addModel((function( $, application ){
 				self.model.set_message_to_growl(json.statusText);
 			}
 		});
-	}
+	};
 	
 	/* SPECTACLE
 	----------------------------------------------------------------------------------------*/

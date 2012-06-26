@@ -79,7 +79,6 @@ window.application.addView((function( $, application ){
 		this.enter_frame_nav = null;
 		this.loaded_images = 0;
 		this.mouseX = 0;
-		this.model.set_message_to_growl("");
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );
 		}

@@ -68,15 +68,16 @@ Rails.application.routes.draw do
     # installation guide
     match '/installation' => 'installation#show', :defaults => { :step => 1 }, :as => :installation
     match '/installation/:step' => 'installation#show', :as => :installation_step
-
+    match '/export/:id' => 'export#export_datas'
   end
   
-  match '/newsletter/:id' => "front/datas#newsletter"
-  match '/spectacles/:id' => "front/datas#spectacle_list"
-  match '/spectacle/:slug' => "front/datas#get_spectacle"
-  match '/pages/*fullpath' => "front/datas#get_page"
-  match '/intro' => "front/datas#get_intro"
-  match '/calendrier' => "front/datas#get_dates"
+  match '/newsletters'      => "front/datas#newsletters"
+  match '/newsletter/:id'   => "front/newsletters#show_newsletter"
+  match '/spectacles/:id'   => "front/datas#spectacle_list"
+  match '/spectacle/:slug'  => "front/datas#get_spectacle"
+  match '/pages/*fullpath'  => "front/datas#get_page"
+  match '/intro'            => "front/datas#get_intro"
+  match '/calendrier'       => "front/datas#get_dates"
 
   # sitemap
   match '/sitemap.xml' => 'admin/sitemaps#show', :format => 'xml'

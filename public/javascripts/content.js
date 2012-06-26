@@ -12,7 +12,7 @@ window.application.addController((function( $, application ){
 		this.route( "/spectacles/calendrier", this.calendrier );
 		this.route( "/spectacle/:id", this.spectacle );
 		this.route( "/pages.*", this.pages );
-		//this.route( "/newsletter", this.newsletter );
+		this.route( "/newsletters", this.newsletter );
 		this.route( "/404", this.not_found );
     
 		this.view = null;
@@ -26,6 +26,7 @@ window.application.addController((function( $, application ){
 		this.page_view = null;
 		this.current_parameter = null;
 		this.calendrier_view = null;
+		this.newsletter_view = null;
   };
   
   Controller.prototype = new application.Controller();
@@ -42,6 +43,7 @@ window.application.addController((function( $, application ){
 		this.page_view = application.getView( "PageView" );
 		this.programmation_view = application.getView( "ProgrammationView" );
 		this.calendrier_view = application.getView( "CalendrierView" );
+		this.newsletter_view = application.getView( "NewsletterView" );
 		this.spectacle_view = application.getView( "SpectacleView" );
 		this.model = application.getModel( "Model" );
 		
@@ -81,9 +83,9 @@ window.application.addController((function( $, application ){
 		this.changeView(this.page_view, event)
 	};
 	
-	/*controller.prototype.newsletter = function ( event ){
+	Controller.prototype.newsletter = function ( event ){
 		this.changeView(this.newsletter_view, event);
-	};*/
+	};
 	
 	
 	Controller.prototype.not_found = function( event ){

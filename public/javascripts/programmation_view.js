@@ -23,9 +23,9 @@ window.application.addView((function( $, application ){
 		this.model = application.getModel( "Model" );
 		this.localize = application.getModel( "Localize" );
 		this.view = $('#programmation_container');
-		this.programmation_content = $('#programmation_content')
+		this.programmation_content = $('#programmation_content');
 		this.jules_container = $('#jules_sliders');
-		this.spectacle_ul = $('#programmation_spectacles')
+		this.spectacle_ul = $('#programmation_spectacles');
 		
 		this.template = $('#spectacle_list_template');
 		
@@ -74,9 +74,11 @@ window.application.addView((function( $, application ){
 			// ON AFFICHE LA VUE
 			self.view.fadeIn('fast', function(){
 				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE
-				self.slider_timeout = setTimeout(function(){
-					self.animate();
-				}, self.slider_duration);	
+				if (self.jules.size > 0){ 
+					self.slider_timeout = setTimeout(function(){
+						self.animate();
+						}, self.slider_duration);	
+				}
 			});
 			
 			Cufon.replace('.spectacle_list_numero');

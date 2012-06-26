@@ -8,7 +8,7 @@ window.application.addModel((function( $, application ){
 	
 	// this.current_request_number :
 	// le lancement des requette porte un numéro de requette. Si une autre requette est lancée avant que la requette
-	// soit exécutée, le resultat de la premiére requette sera mis en mémoire, mais ne sera pas affichée. SInon, avec le hide et show
+	// soit exécutée, le resultat de la premiére requette sera mis en mémoire, mais ne sera pas affichée. Sinon, avec le hide et show
 	// on se retrouve avec deux vues en même temps!
 
 	// I am the contacts service class.
@@ -92,6 +92,30 @@ window.application.addModel((function( $, application ){
 		if (this.current_request_number == p_request_number){
 			this.current_page = this.pages[p_spectacle.slug];
 			$(this).trigger('spectacle_ready');
+		}
+	};
+	
+	/* NEWSLETTERS
+	----------------------------------------------------------------------------------------*/
+	Model.prototype.get_newsletters = function(){
+		if (this.pages["newsletters"] == null){
+			this.set_message_to_growl("Chargement... ");
+			this.current_request_number += 1;
+			application.getModel("LocoService").get_newsletters(this.current_request_number);
+		}
+		else{
+			this.current_page = this.pages["newsletters"];
+			$(this).trigger('newsletters_ready');
+		}
+	};
+	
+	Model.prototype.set_newsletters = function(p_newsletters, p_request_number){
+		// on stocke le resultat de la requette
+		this.pages["newsletter"] = p_newsletters;
+		// si une autre requette n'a pas été lancée entre temps, on lance l'affichage
+		if (this.current_request_number == p_request_number){
+			this.current_page = this.pages["newsletter"];
+			$(this).trigger('newsletters_ready');
 		}
 	};
 	

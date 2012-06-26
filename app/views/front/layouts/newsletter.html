@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Théâtre National de Marseille</title>
 	
-	<link rel="stylesheet" href="/theme/stylesheets/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="/theme/stylesheets/nl_style.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	
 	<!--
 	          __                                 
@@ -22,6 +22,6 @@
 </head>
 
 <body>
-	<%= @newsletter.block %>
+	<%= @newsletter.block.html_safe %>
 </body>
 </html>

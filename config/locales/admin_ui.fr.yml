@@ -290,6 +290,7 @@ fr:
       index:
         new: nouveau modèle
         see: voir en ligne
+        export: exporter csv
         
       new:
         title: Nouveau modèle

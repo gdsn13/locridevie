@@ -24,6 +24,8 @@
       = f.check_box :seasonable
     = f.custom_input :api_enabled, :css => 'toggle' do
       = f.check_box :api_enabled
+    = f.custom_input :exportable, :css => 'toggle' do
+      = f.check_box :exportable
     = hidden_field_tag 'content_type[api_accounts][]', ''
     = f.input :api_accounts, :as => :select, :collection => current_site.accounts.collect { |a| ["#{a.name} <#{a.email}>", a.id] }, :include_blank => false, :multiple => true, :wrapper_html => { :class => 'multiple', :style => (f.object.api_enabled? ? '' : 'display: none') }
 

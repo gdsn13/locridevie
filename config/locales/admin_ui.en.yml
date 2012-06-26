@@ -220,6 +220,7 @@ en:
     content_types:
       index:
         new: new model
+        export: export csv
       new:
         title: New model
         help: "Create your own data model (Projects, People, ...etc). Your model should have one field at least. The items created from this content type would have their first field mandatory."
