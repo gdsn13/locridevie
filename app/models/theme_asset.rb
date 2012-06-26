@@ -32,7 +32,7 @@ class ThemeAsset
   validates_uniqueness_of :local_path, :scope => :site_id
   validates_integrity_of :source
   validate :content_type_can_not_changed
-
+  
   ## named scopes ##
 
   ## accessors ##

@@ -18,6 +18,7 @@ window.application.addModel((function( $, application ){
 		this.current_page = null;
 		this.message_to_growl = "";
 		this.current_request_number = 0;
+		this.home_page_is_displayed = false;
 	};
 	
 	Model.prototype.hide_finished = function(){

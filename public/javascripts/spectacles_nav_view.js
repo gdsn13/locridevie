@@ -48,7 +48,7 @@ window.application.addView((function( $, application ){
 				$(this).stop().animate({bottom: "0"}, 'fast');
 			}
 		}, function(){
-			if (self.lock_up_and_down == false){
+			if (self.lock_up_and_down == false && self.model.home_page_is_displayed == false){
 				$(this).stop().animate({bottom: "-165px"}, 'fast');
 			}
 		});
@@ -67,9 +67,7 @@ window.application.addView((function( $, application ){
   };
 
 	SpectaclesNavView.prototype.hide_menu = function(){
-		this.lock_up_and_down = false;
 		var pos_to_slide = "-165px";
-		
 		if (application.currentLocation == "home_page"){
 			pos_to_slide = ($(window).height() - this.spectacle_slider.height())/2
 		}
@@ -78,19 +76,14 @@ window.application.addView((function( $, application ){
 
 	SpectaclesNavView.prototype.refreshed_datas = function(){
 		var self = this;
-		//this.spectacle_slider_ul.empty();
-		//this.spectacles_titles.empty();
 		this.enter_frame_nav = null;
 		this.loaded_images = 0;
 		this.mouseX = 0;
+		this.model.set_message_to_growl("");
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );
 		}
-		
-		//this.spectacle_slider_ul.animate({opacity:0}, 'fast');
-		//this.spectacle_slider_ul.css({'left' : '0'});
-		//this.spectacles_titles.css({'left' : '0'});
-		
+				
 		this.spectacles = this.model.spectacles_ordered_by_date();
 		
 		if (this.spectacles != []){
@@ -144,9 +137,7 @@ window.application.addView((function( $, application ){
 			
 				self.spectacle_slider_ul.css('left', date_offset);
 				self.spectacles_titles.css('left', date_offset);
-			}else{// sinon, on se met au début
-				
-			}
+			}// sinon, on se met au début (on touche rien quoi)
 			
 			// INITIALISATION DU MOUVEMENT DES SPECTACLES
 			self.spectacle_slider_ul.hover(function( e ){
@@ -257,8 +248,9 @@ window.application.addView((function( $, application ){
 		
 		$('.spectacle_thumb').on('click', function(){
 			self.hide_view();
+			self.lock_up_and_down = false;
 			self.model.hide_menu_command();
-		})
+		});
 	};
 	
 	SpectaclesNavView.prototype.hide_view = function(){

@@ -29,6 +29,7 @@ window.application.addView((function( $, application ){
 		this.image_container = null;
 		this.logo_container = null;
 		this.jules_is_there = false;
+		this.logo_link = null;
   };
   
   IntroView.prototype.init = function(){  
@@ -39,7 +40,7 @@ window.application.addView((function( $, application ){
 		this.view = $('#intro');
 		this.model = application.getModel( "Model" );
 		this.image_container = $('#image_intro');
-		this.logo_container = $('#logo_intro');
+		this.logo_container = $('#logo_link');
 		
 		$(this.model).on('intro_ready', function(){
       self.refreshed_datas();
@@ -70,8 +71,9 @@ window.application.addView((function( $, application ){
 			// on affiche l'image de fond de la page
 			var img = new Image();
 			$(img).load(function(){
+				//var html = "<a href='/#/home_page' id='logo_link'><img src='" + $(this).attr('src') + "'/></a>";
 				self.logo_container.append(this);
-				
+
 				self.resize_logo($(this));
 	
 				self.view.fadeTo('fast', 1);
@@ -98,12 +100,14 @@ window.application.addView((function( $, application ){
 	
 	IntroView.prototype.resize_logo = function ( p_img ){
 		//initialisation des tailles
+		
 		p_img.width($(window).width() - 100);
+		
 		var pos_top = ($(window).height() - 62 - p_img.height())/2;
 		var pos_left = ($(window).width() - p_img.width())/2;
 
 		//affectation des tailles
-		p_img.css({'top' : pos_top, 'left' : pos_left});
+		this.logo_container.css({'position': 'absolute', 'top' : pos_top, 'left' : pos_left, 'height' : p_img.height(), 'width' : p_img.width() });
 	};
 	
 	IntroView.prototype.resize = function( p_container,p_img ) {

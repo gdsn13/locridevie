@@ -103,7 +103,7 @@ window.application.addController((function( $, application ){
 			this.current_view.hide_view();
 		}
 		
-		this.current_view = p_view;	
+		this.current_view = p_view;
 		this.current_parameter = p_event.parameters;
 		if (p_view && p_view.show_view){
 			this.current_view.show_view( this.current_parameter );

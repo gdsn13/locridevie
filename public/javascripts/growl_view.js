@@ -9,10 +9,6 @@ window.application.addView((function( $, application ){
 		var self = this;
 		this.view = $('#growl_messages');
 		this.model = application.getModel( "Model" );
-
-		/* DISPLAY INIT
-		----------------------------------------------------------------------------------------*/
-		this.view.css('margin-top', "-200px");
 		
 		/* DATA REFRESH
 		----------------------------------------------------------------------------------------*/

@@ -54,7 +54,7 @@ body{
 
 #growl_messages{
 	position:absolute;
-	top:0;
+	top:0px;
 	left:50px;
 	padding:5px;
 	padding-left:60px;
@@ -63,6 +63,7 @@ body{
 	background:url('../images/mouette.gif') no-repeat 0 5px;
 	font-family: 'IntervalSansPro-Light';
 	color:#FDC400;
+	margin-top:-200px;
 }
 
 /* TEST SCROLLING
@@ -249,7 +250,7 @@ body{
 	position:absolute;
 	top:0;left:20px;
 	z-index:8000;
-	display:block;
+	display:none;
 }
 
 #menu_command a{
@@ -274,7 +275,7 @@ body{
 #menu{
 	background:rgba(0,0,0,0.8);
 	position:absolute;
-	top:0;
+	top:-2000px;
 	z-index:6000;
 	font-size:12px;
 	letter-spacing:-0.5;
@@ -534,7 +535,29 @@ body{
 	min-width:530px;
 	width:95%;
 	padding-bottom:30px;
+	margin-top:40px;
 }
+
+#legende_calendrier{
+	position:absolute;
+	top:0;
+	width:100%;
+	height:30px;
+	text-align:center;
+	padding-top:2px;
+}
+#legende_calendrier div{
+	float:left;
+	font-size:10px;
+	margin-left:3px;
+}
+#legende_calendrier span{
+	padding-top:3px;
+}
+#legende_calendrier img{
+	margin-top:-2px;
+}
+
 #calendrier_spectacles li{
 	clear:both;
 	overflow:hidden;
