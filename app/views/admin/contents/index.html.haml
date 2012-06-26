@@ -13,7 +13,7 @@
 
   = admin_button_tag :new, new_admin_content_url(@content_type.slug), :class => 'new'
   - if @content_type.exportable
-    = admin_button_tag t('admin.content_type.index.export'), "/admin/export/#{@content_type.name}", :class => 'edit'
+    = admin_button_tag t('admin.content_type.index.export'), "/admin/export/#{@content_type.name._slug}", :class => 'edit'
 
 - if @content_type.description.present?
   %p= @content_type.description
