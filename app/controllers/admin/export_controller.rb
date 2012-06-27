@@ -13,12 +13,12 @@ module Admin
     end
     
     def export_datas
+      #http://www.ruby-doc.org/stdlib-1.9.3/libdoc/csv/rdoc/CSV.html#method-c-generate
+      #http://stackoverflow.com/questions/6933283/ruby-1-9-2-export-a-csv-string-without-generating-a-file
       ct = ContentType.where(:slug => params[:id]).first
       items = ct.contents
-
-      report = StringIO.new 
       
-      CSV::Writer.generate(report, ',') do |csv| 
+      csv_string = CSV.generate do |csv|
         list_of_field = [];
         ct.content_custom_fields.each do |field|
            list_of_field << field.label
@@ -35,9 +35,7 @@ module Admin
         end
       end
 
-      report.rewind 
-
-      send_data(report.read,:type=>'text/csv;charset=utf-8;',:filename=>'contacts_export.csv', :disposition =>'attachment', :encoding => 'utf8')
+      send_data csv_string, :type=>'text/csv;charset=utf-8;', :filename=>'contacts_export.csv', :disposition =>'attachment', :encoding => 'utf8'
     end
 
     protected
