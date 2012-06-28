@@ -50,7 +50,7 @@ class Page
   scope :not_found, :where => { :slug => '404', :depth => 0 }
   scope :published, :where => { :published => true }
   scope :fullpath, lambda { |fullpath| { :where => { :fullpath => fullpath } } }
-  scope :minimal_attributes, :only => %w(title slug fullpath position depth published templatized redirect listed parent_id created_at updated_at fat body)
+  scope :minimal_attributes, :only => %w(title slug fullpath position depth published templatized redirect redirect_url listed parent_id created_at updated_at fat body)
 
   ## methods ##
 

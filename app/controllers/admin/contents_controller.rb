@@ -59,6 +59,7 @@ module Admin
 
     def set_content_type
       @content_type ||= current_site.content_types.where(:slug => params[:slug]).first
+      #$ct = @content_type
     end
 
     def begin_of_association_chain

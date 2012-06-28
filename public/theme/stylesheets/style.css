@@ -543,9 +543,29 @@ body{
 	overflow:hidden;
 }
 
+/*ESPACES PRO
+--------------------------------------------------------*/
+#disconect_link{
+	display:none;
+	position:absolute;
+	top:10px;
+	right:10px;
+}
+#dossiers_de_presse, #fiches_techniques{
+	list-style:none;
+}
+#dossiers_de_presse li, #fiches_techniques li{
+	overflow:hidden;
+	padding-bottom: 10px;
+}
+.presse_file_link{
+	clear:left;
+	padding-left: 40px;
+	font-size:14px;
+}
 /*SPECTACLES
 --------------------------------------------------------*/
-#jules_sliders, #nwslt_jules_sliders{
+#jules_sliders, #nwslt_jules_sliders, #spacepro_jules_sliders{
 	position:absolute;
 	top:0;
 	left:0;
@@ -559,7 +579,7 @@ body{
 	position:absolute;
 }
 
-#programmation_container, #calendrier_container, #newsletter_containers{
+#programmation_container, #calendrier_container, #newsletter_containers, #spacepro_containers{
 	position:absolute;
 	top:0;left:0;
 	width:100%;
@@ -568,7 +588,7 @@ body{
 	z-index:1000;
 }
 
-#programmation_content, #calendrier_content, #newsletter_content{
+#programmation_content, #calendrier_content, #newsletter_content, #spacepro_content{
 	position:absolute;
 	top:0;
 	right:0;

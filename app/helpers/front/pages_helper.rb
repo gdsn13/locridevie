@@ -31,6 +31,11 @@ module Front::PagesHelper
   def render_entry_link(page, css, is_page, depth)
     
     selected = @page.fullpath =~ /^#{page.fullpath}/ ? ' on' : ''
+    if page.redirect == true
+      url = page.redirect_url
+    else
+      url = "/#{page.fullpath}" 
+    end
     
     css << 'fat' if page.fat
     
@@ -41,12 +46,12 @@ module Front::PagesHelper
         if page.children.size > 0
           output << %{<div class="menu_title"/>#{page.title}</div>}
         else
-          output << %{<a href="/#/#{page.fullpath}"><div class="menu_title"/>#{page.title}</div></a>}
+            output << %{<a href="/##{url}"><div class="menu_title"/>#{page.title}</div></a>}          
         end
       elsif is_page 
-        output << %{<a href="/#/pages/#{page.fullpath}">#{page.title}</a>}
+        output << %{<a href="/#/pages#{url}">#{page.title}</a>}
       else
-        output << %{<a href="/#/#{page.fullpath}">#{page.title}</a>}
+        output << %{<a href="/##{url}">#{page.title}</a>}
       end
     end
     output << render_entry_children(page, is_page, depth.succ)

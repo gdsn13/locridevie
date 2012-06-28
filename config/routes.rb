@@ -78,6 +78,9 @@ Rails.application.routes.draw do
   match '/pages/*fullpath'  => "front/datas#get_page"
   match '/intro'            => "front/datas#get_intro"
   match '/calendrier'       => "front/datas#get_dates"
+  match '/espace_pro_datas' => "front/datas#get_pros"
+  match '/espace_pro_page'  => "front/datas#espace_pro_page"
+  
 
   # sitemap
   match '/sitemap.xml' => 'admin/sitemaps#show', :format => 'xml'

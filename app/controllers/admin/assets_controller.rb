@@ -16,7 +16,7 @@ module Admin
 
     def create
       @asset = current_site.assets.build(:name => params[:name], :source => params[:file])
-
+      
       create! do |success, failure|
         success.json do
           render :json => asset_to_json(@asset)

@@ -19,6 +19,7 @@ window.application.addModel((function( $, application ){
 		this.message_to_growl = "";
 		this.current_request_number = 0;
 		this.home_page_is_displayed = false;
+		this.current_user = "";
 	};
 	
 	Model.prototype.hide_finished = function(){
@@ -69,6 +70,43 @@ window.application.addModel((function( $, application ){
 		this.current_page = this.pages["intro"];
 		this.set_message_to_growl("");
 		$(this).trigger('intro_ready');
+	};
+	
+	/* ESPACE_PRO
+	----------------------------------------------------------------------------------------*/
+	Model.prototype.get_user_and_data = function(p_datas){
+		//Dans tous les cas, on va chercher sur le serveur pour savoir si l'utilisateur est la ou non!
+		this.set_message_to_growl("Connexion...");
+		this.current_request_number += 1;
+		application.getModel("LocoService").get_pro(p_datas, this.current_request_number);
+	};
+	
+	Model.prototype.get_pro_page = function(){
+		if (this.pages["pro"] == null){
+			this.set_message_to_growl("Chargement...");
+			this.current_request_number += 1;
+			application.getModel("LocoService").get_pro_page(this.current_request_number);
+		}else{
+			this.current_page = this.pages["pro"];
+			$(this).trigger('spacepro_ready');
+		}
+	};
+	
+	Model.prototype.set_pro_datas = function(p_datas, p_request_number){
+		this.pages["pro_datas"] = p_datas;
+		if (this.current_request_number == p_request_number){
+			$(this).trigger('spacepro_data_ready');
+		}
+	}
+	
+	Model.prototype.set_pro_page = function(p_pro, p_request_number){
+		// on stocke le resultat de la requette
+		this.pages["pro"] = p_pro;
+		// si une autre requette n'a pas été lancée entre temps, on lance l'affichage
+		if (this.current_request_number == p_request_number){
+			this.current_page = this.pages["pro"];
+			$(this).trigger('spacepro_ready');
+		}
 	};
 	
 	/* SPECTACLE

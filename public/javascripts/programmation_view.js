@@ -74,7 +74,7 @@ window.application.addView((function( $, application ){
 			// ON AFFICHE LA VUE
 			self.view.fadeIn('fast', function(){
 				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE
-				if (self.jules.size > 0){ 
+				if (self.jules.length > 0){ 
 					self.slider_timeout = setTimeout(function(){
 						self.animate();
 						}, self.slider_duration);	

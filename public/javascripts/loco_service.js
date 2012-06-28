@@ -31,6 +31,36 @@ window.application.addModel((function( $, application ){
 		});
 	};
 	
+	/* PRO
+	----------------------------------------------------------------------------------------*/
+	LocoService.prototype.get_pro_page = function(p_request_number){
+		var self = this;
+		application.ajax({
+			url: "/espace_pro_page",
+			success: function(json){
+				self.model.set_pro_page(json, p_request_number);
+			},
+			error: function(json){
+				self.model.set_message_to_growl(json.statusText);
+			}
+		});
+	};
+	
+	LocoService.prototype.get_pro = function(p_datas, p_request_number){
+		var self = this;
+		$.post(
+			"/espace_pro_datas",
+			p_datas,
+			function(data) {
+  			if (data.errors == null) {
+					self.model.set_pro_datas(data, p_request_number);
+  			} else{	
+						self.model.set_message_to_growl(data.errors);
+				}
+  		}, 
+			"json");
+	};
+	
 	/* NEWSLETTERS
 	----------------------------------------------------------------------------------------*/
 	LocoService.prototype.get_newsletters = function(p_request_number){
@@ -46,8 +76,6 @@ window.application.addModel((function( $, application ){
 			}
 		});
 	}
-	
-	
 	
 	/* CALENDRIER
 	----------------------------------------------------------------------------------------*/

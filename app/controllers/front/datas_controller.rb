@@ -127,4 +127,55 @@ class Front::DatasController < ApplicationController
     
     render :json => nl_json
   end
+  
+  def espace_pro_page
+    page = Page.where(:redirect_url => "/espace_pro").first
+    
+    page_to_json = {  
+                      :fullpath => page.fullpath,
+                      :jules => page.embeded_items.get_jules_for_json(page), 
+                   }
+    
+    render :json => page_to_json.to_json
+  end
+  
+  def get_pros
+    user = params[:login_field]
+    psswd = params[:psswd_field]
+    
+    if user == "presse" && psswd == "saisonlacriee"
+      ddp = ContentType.where(:slug => "spectacles").first.contents.map do |s|
+        {
+          :titre => s.titre,
+          :slug => s._slug,
+          :numero => s.numero,
+          :ddp => s.dossier_de_presse.url,
+          :images_presse => s.images_presse.url
+        }
+      end
+  
+      res = {
+        :user_name   => "presse",
+        :datas  => ddp
+      }
+    elsif user == "technique" && psswd == "lacriee13"
+      tech = ContentType.where(:slug => "fiches_techniques").first.contents.map do |ft|
+        {
+          :titre => ft.titre,
+          :url => ft.fiche.url
+        }
+      end
+      
+      res = {
+        :user_name => "technique",
+        :datas => tech
+      }
+    else 
+      res = {
+        :user_name => 'unknown'
+      }
+    end
+    
+    render :json => res.to_json
+  end
 end

@@ -102,7 +102,7 @@ var MediafileDialog = {
       multipart: true,
       multipart_params: multipartParams,
       filters : [
-        { title : 'Media files', extensions : 'png,gif,jpg,jpeg,pdf,doc,docx,xls,xlsx,txt' },
+        { title : 'Media files', extensions : 'png,gif,jpg,jpeg,pdf,doc,docx,xls,xlsx,txt,zip' },
       ]
     });
 

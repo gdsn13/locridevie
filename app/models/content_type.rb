@@ -103,7 +103,6 @@ class ContentType
     liste = self.contents.sort{|a,b| a.highlighted_field_value <=> b.highlighted_field_value}
     
     liste.each do |s|
-      p s.highlighted_field_value
       if (s.season_id == season_b)
         res << s
       end

@@ -13,6 +13,7 @@ window.application.addController((function( $, application ){
 		this.route( "/spectacle/:id", this.spectacle );
 		this.route( "/pages.*", this.pages );
 		this.route( "/newsletters", this.newsletter );
+		this.route( "/espace_pro", this.spacepro);
 		this.route( "/404", this.not_found );
     
 		this.view = null;
@@ -45,6 +46,7 @@ window.application.addController((function( $, application ){
 		this.calendrier_view = application.getView( "CalendrierView" );
 		this.newsletter_view = application.getView( "NewsletterView" );
 		this.spectacle_view = application.getView( "SpectacleView" );
+		this.espace_pro_view = application.getView( "EspaceProView" );
 		this.model = application.getModel( "Model" );
 		
 		$(window).load(function(){
@@ -87,6 +89,10 @@ window.application.addController((function( $, application ){
 		this.changeView(this.newsletter_view, event);
 	};
 	
+	Controller.prototype.spacepro = function ( event ){
+		this.changeView(this.espace_pro_view, event);
+	};
+	
 	
 	Controller.prototype.not_found = function( event ){
 		this.model.set_message_to_growl("Page Not Found!")
@@ -94,7 +100,7 @@ window.application.addController((function( $, application ){
 	
   // I show the given view; but first, I hide any existing view.
   Controller.prototype.changeView = function( p_view, p_event ){
-	
+		
 		if (this.model == null) this.model = application.getModel( "Model" );
 		
 		if (p_view != this.intro_view){
