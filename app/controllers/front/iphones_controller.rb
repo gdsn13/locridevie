@@ -6,20 +6,20 @@ class Front::IphonesController < ApplicationController
     
     aff = []
     
-    aff << {:petit => {:title => affiche[0].titre.html_safe, 
+    aff << {:petit => {:title => ActionController::Base.helpers.strip_tags(affiche[0].titre.html_safe), 
                             :auteur => "", 
                             :director => "", 
                             :dates => "",
-                            :logo => affiche[0].images.first.file.url, 
+                            :logo => "http://www.theatre-lacriee.com#{affiche[0].images.first.file.url}", 
                             :sum => ""
                             }
                 }
                             
-    aff << {:grand => {:title => affiche[1].titre.html_safe, 
+    aff << {:grand => {:title => ActionController::Base.helpers.strip_tags(affiche[1].titre), 
                             :auteur => "", 
                             :director => "", 
                             :dates => "",
-                            :logo => affiche[1].images.first.file.url,
+                            :logo => "http://www.theatre-lacriee.com#{affiche[1].images.first.file.url}",
                             :sum => ""
                             }
                 }
