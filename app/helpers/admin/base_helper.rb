@@ -62,4 +62,16 @@ module Admin::BaseHelper
     Season.all
   end
 
+  def get_spectacles
+    spectacles = []
+
+    ContentType.where(:slug => "spectacles").first.contents.each do |s|
+      if s.season_id == current_site.season_front
+        spectacles << [s.titre_back_office, s._slug]
+      end
+    end
+    
+    spectacles
+  end
+
 end

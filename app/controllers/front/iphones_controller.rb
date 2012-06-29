@@ -2,26 +2,29 @@ class Front::IphonesController < ApplicationController
   #Agenda de la saison
   
   def affiche
-    affiche = ContentType.where(:slug => "spectacles").first.contents.limit(2)
+    current_site = Site.first
+        
+    affiche_pt = ContentType.where(:slug => "spectacles").first.contents.where(:_slug => current_site.affiche_pt).first
+    affiche_gt = ContentType.where(:slug => "spectacles").first.contents.where(:_slug => current_site.affiche_gt).first
     
     aff = []
     
-    aff << {:petit => {:title => ActionController::Base.helpers.strip_tags(affiche[0].titre.html_safe), 
-                            :auteur => "", 
-                            :director => "", 
-                            :dates => "",
-                            :logo => "http://www.theatre-lacriee.com#{affiche[0].images.first.file.url}", 
-                            :sum => ""
-                            }
+    aff << {:petit => { :title => affiche_pt.titre, 
+                        :auteur => "", 
+                        :director => "", 
+                        :dates => "",
+                        :logo => affiche_pt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_pt.images.first.file.url}" : "", 
+                        :sum => ""
+                      }
                 }
                             
-    aff << {:grand => {:title => ActionController::Base.helpers.strip_tags(affiche[1].titre), 
-                            :auteur => "", 
-                            :director => "", 
-                            :dates => "",
-                            :logo => "http://www.theatre-lacriee.com#{affiche[1].images.first.file.url}",
-                            :sum => ""
-                            }
+    aff << {:grand => { :title => affiche_gt.titre, 
+                        :auteur => "", 
+                        :director => "", 
+                        :dates => "",
+                        :logo => affiche_gt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_gt.images.first.file.url}" : "",
+                        :sum => ""
+                      }
                 }
                 
     render :json => aff

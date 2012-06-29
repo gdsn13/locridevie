@@ -13,6 +13,10 @@
   = f.input :season_front, :as => :select, :collection => get_seasons, :include_blank => false
   = f.input :season_back, :as => :select, :collection => get_seasons, :include_blank => false
 
+= f.foldable_inputs :name => :iphone_affiche do
+  = f.input :affiche_gt, :as => :select, :collection => get_spectacles, :include_blank => false
+  = f.input :affiche_pt, :as => :select, :collection => get_spectacles, :include_blank => false
+
 - if can?(:point, Site)
   - if manage_subdomain_or_domains?
     = f.foldable_inputs :name => :access_points, :class => 'editable-list off' do

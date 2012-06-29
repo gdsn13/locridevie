@@ -12,6 +12,8 @@ class Site
   field :robots_txt
   field :season_front
   field :season_back
+  field :affiche_gt
+  field :affiche_pt
 
   ## associations ##
   references_many :pages, :validate => false
