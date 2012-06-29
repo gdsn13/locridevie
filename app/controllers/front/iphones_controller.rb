@@ -1,14 +1,41 @@
 class Front::IphonesController < ApplicationController
   #Agenda de la saison
+  
+  def affiche
+    affiche = ContentType.where(:slug => "spectacles").first.contents.limit(2)
+    
+    aff = []
+    
+    aff << {:petit => {:title => affiche[0].titre.html_safe, 
+                            :auteur => "", 
+                            :director => "", 
+                            :dates => "",
+                            :logo => affiche[0].images.first.file.url, 
+                            :sum => ""
+                            }
+                }
+                            
+    aff << {:grand => {:title => affiche[1].titre.html_safe, 
+                            :auteur => "", 
+                            :director => "", 
+                            :dates => "",
+                            :logo => affiche[1].images.first.file.url,
+                            :sum => ""
+                            }
+                }
+                
+    render :json => aff
+  end
+  
   def agenda
     #date = Date.strptime(string, "%d/%m/%Y")
     dates = ContentType.where(:slug => "calendrier").first.contents.map do |d|
       {
         :id => d.spectacle._id,
         :timing => "#{d.date}T00:00:00+02:00",
-        :title => d.titre,
+        :title => d.titre.html_safe,
         :logo => d.spectacle.images.first != nil ? d.spectacle.images.first.file.url : "",
-        :dates => d.spectacle.tld,
+        :dates => "",
         :autheur => "",
         :director => ""
       }
@@ -24,9 +51,9 @@ class Front::IphonesController < ApplicationController
       if s.season_id == current_site.season_front
         {
           :id => s._id,
-          :title => s.titre,
+          :title => s.titre.html_safe,
           :logo => s.images.first.file.url,
-          :date => s.tld,
+          :date => "",
           :autheur => "",
           :director => ""
         }

@@ -82,6 +82,7 @@ Rails.application.routes.draw do
   match 'iphone/agenda'     => "front/iphones#agenda"
   match 'iphone/spectacles' => "front/iphones#spectacles"
   match 'iphone/spectacle/:id' => "front/iphones#spectacle"
+  match 'iphone/affiche' => "front/iphones#affiche"
   
 
   # sitemap
