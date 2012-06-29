@@ -133,7 +133,8 @@ class Front::DatasController < ApplicationController
     
     page_to_json = {  
                       :fullpath => page.fullpath,
-                      :jules => page.embeded_items.get_jules_for_json(page), 
+                      :body => page.body,
+                      :jules => page.embeded_items.get_jules_for_json(page)
                    }
     
     render :json => page_to_json.to_json

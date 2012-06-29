@@ -62,8 +62,6 @@ Rails.application.routes.draw do
     resource :import, :only => [:new, :show, :create], :controller => 'import'
 
     resource :export, :only => [:new], :controller => 'export'
-    
-    
 
     # installation guide
     match '/installation' => 'installation#show', :defaults => { :step => 1 }, :as => :installation
@@ -80,6 +78,10 @@ Rails.application.routes.draw do
   match '/calendrier'       => "front/datas#get_dates"
   match '/espace_pro_datas' => "front/datas#get_pros"
   match '/espace_pro_page'  => "front/datas#espace_pro_page"
+  #iphone!
+  match 'iphone/agenda'     => "front/iphones#agenda"
+  match 'iphone/spectacles' => "front/iphones#spectacles"
+  match 'iphone/spectacle/:id' => "front/iphones#spectacle"
   
 
   # sitemap
