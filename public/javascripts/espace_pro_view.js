@@ -17,6 +17,7 @@ window.application.addView((function( $, application ){
 		this.disconnect = null;
 		this.disconnect_container = null;
 		this.fiches_techniques = null;
+		this.page_container = null;
   };
   
   EspaceProView.prototype.init = function(){  
@@ -30,6 +31,7 @@ window.application.addView((function( $, application ){
 		this.form_container = $('#login_form');
 		this.disconnect = $('#disconnect');
 		this.disconnect_container = $('#disconect_link');
+		this.page_container = $('#pagepro_container');
 		
 		/* DATA REFRESH
 		----------------------------------------------------------------------------------------*/
@@ -125,6 +127,7 @@ window.application.addView((function( $, application ){
 	EspaceProView.prototype.refreshed_datas = function(){
 		var self = this;
 		this.view.css({'top':"10000px", "display" : "block"});
+		this.page_container.append(this.model.current_page.body);
 		
 		//AFFICHAGE DES JULES
 		$.each(this.model.current_page.jules, function(index, j){

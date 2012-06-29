@@ -563,6 +563,10 @@ body{
 	padding-left: 40px;
 	font-size:14px;
 }
+#pagepro_container{
+	padding-top:40px;
+}
+
 /*SPECTACLES
 --------------------------------------------------------*/
 #jules_sliders, #nwslt_jules_sliders, #spacepro_jules_sliders{
