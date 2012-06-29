@@ -34,7 +34,7 @@ class Front::IphonesController < ApplicationController
     #date = Date.strptime(string, "%d/%m/%Y")
     dates = ContentType.where(:slug => "calendrier").first.contents.map do |d|
       {
-        :id => d.spectacle._id,
+        :id => d.spectacle._slug,
         :timing => "#{d.date}T00:00:00+02:00",
         :title => d.titre.html_safe,
         :logo => d.spectacle.images.first != nil ? d.spectacle.images.first.file.url : "",
@@ -53,7 +53,7 @@ class Front::IphonesController < ApplicationController
       
       if s.season_id == current_site.season_front
         {
-          :id => s._id,
+          :id => s._slug,
           :title => s.titre.html_safe,
           :logo => s.images.first.file.url,
           :date => "",
@@ -67,7 +67,7 @@ class Front::IphonesController < ApplicationController
   end
   
   def spectacle
-    spectacle = ContentType.where(:slug => "spectacles").first.contents.where(:id => params[:id]).first
+    spectacle = ContentType.where(:slug => "spectacles").first.contents.where(:_slug => params[:id]).first
     
     images = []
     spectacles.images.each do |i|  
@@ -82,7 +82,5 @@ class Front::IphonesController < ApplicationController
     }
     
   end
-  
-  
   
 end
