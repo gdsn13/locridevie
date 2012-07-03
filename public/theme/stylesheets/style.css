@@ -807,7 +807,7 @@ li.first .menu_title{
 	padding:4px;
 	overflow:hidden;
 	position:absolute;
-	bottom:10px;
+	bottom:20px;
 	left:50px;
 	z-index:600;
 }
@@ -822,7 +822,7 @@ li.first .menu_title{
 
 #nav_intro li a, #nav_intro li a:visited{
 	display:block;
-	padding:7px 20px 5px;
+	padding:8px 20px 3px;
 	color:#fff;
 	font-family:IntervalSansPro-Med;
 }
