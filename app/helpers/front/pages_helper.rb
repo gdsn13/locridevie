@@ -9,17 +9,19 @@ module Front::PagesHelper
     #children_of_root.delete_if { |p| !include_page?(p) }
     
     children_of_root.each_with_index do |p, index|
-      css = []
-      css << 'first' if index == 0
-      css << 'last' if index == children_of_root.size - 1
+      if include_page?(p)
+        css = []
+        css << 'first' if index == 0
+        css << 'last' if index == children_of_root.size - 1
       
-      if p.slug == "spectacles" || p.slug == "spectacle" || p.slug == "newsletter" || p.slug == "home_page" || p.slug == "newsletter"
-        is_page = false
-      else
-        is_page = true  
-      end
+        if p.slug == "spectacles" || p.slug == "spectacle" || p.slug == "newsletter" || p.slug == "home_page" || p.slug == "newsletter"
+          is_page = false
+        else
+          is_page = true  
+        end
 
-      children_output += render_entry_link(p, css.join(' '), is_page, 0.succ)
+        children_output += render_entry_link(p, css.join(' '), is_page, 0.succ)
+      end
     end
     
     children_output 
