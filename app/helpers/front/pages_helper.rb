@@ -35,6 +35,7 @@ module Front::PagesHelper
     selected = @page.fullpath =~ /^#{page.fullpath}/ ? ' on' : ''
     if page.redirect == true
       url = page.redirect_url
+      is_page = false
     else
       url = "/#{page.fullpath}" 
     end
