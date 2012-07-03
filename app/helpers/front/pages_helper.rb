@@ -39,14 +39,14 @@ module Front::PagesHelper
     
     css << 'fat' if page.fat
     
-    output  = %{<li id="#{page.slug.dasherize}-link" class="link #{selected} #{css}">}    
+    output  = %{<li id="#{page.slug.dasherize}-link" class="link #{selected} #{css} dontsplit">}    
     # si la page est une sous catégorie d'un fat, on affiche pas le titre.
     if page.parent.fat == false
       if depth <= 1
         if page.children.size > 0
           output << %{<div class="menu_title"/>#{page.title}</div>}
         else
-            output << %{<a href="/##{url}"><div class="menu_title"/>#{page.title}</div></a>}          
+          output << %{<a href="/##{url}"><div class="menu_title"/>#{page.title}</div></a>}          
         end
       elsif is_page 
         output << %{<a href="/#/pages#{url}">#{page.title}</a>}

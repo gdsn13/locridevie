@@ -31,6 +31,23 @@ window.application.addModel((function( $, application ){
 		});
 	};
 	
+	/* SEARCH
+	----------------------------------------------------------------------------------------*/
+	LocoService.prototype.get_search = function(p_query, p_request_number){
+		var self = this;
+		$.post(
+			"/search",
+			p_query,
+			function(data) {
+  			if (data.errors == null) {
+					self.model.set_search(data, p_request_number);
+  			} else{	
+					self.model.set_message_to_growl(data.errors);
+				}
+  		}, 
+			"json");
+	}
+	
 	/* PRO
 	----------------------------------------------------------------------------------------*/
 	LocoService.prototype.get_pro_page = function(p_request_number){

@@ -87,6 +87,59 @@ class Front::DatasController < ApplicationController
     render :json => intro_to_json.to_json
   end
   
+  def search
+    page = Page.where(:slug => "rechercher").first
+    query = params[:query_string]
+    
+    if query != "" and query != nil
+      query.downcase!
+      spectacles_result = []
+    
+      #récupération du type de contenu et des contenus
+      sct = ContentType.where(:slug => "spectacles").first
+      spectacles = sct.contents
+    
+      #creation du pattern de recherche avec les custom fields n
+      search_pattern = sct.content_custom_fields.map do |fld|
+        {"#{fld._name}" => /#{query}/i} 
+      end
+    
+      #on lance la requette sur les spectacles
+      spectacles.where('$or' => search_pattern).each do |s|
+        spectacles_result << {
+          :titre => s.titre,
+          :numero => s.numero,
+          :slug => s._slug,
+          :spectacle_associe_path => s.spectacle_associe != nil ? s.spectacle_associe._slug : "",
+        }  
+      end
+    
+      #on cherche dans les pages
+      pages = Page.where('$or' => [{:titre => /#{query}/i}, {:body => /#{query}/i}]).map do |pgs|
+        {
+          :titre => pgs.title,
+          :fullpath => pgs.fullpath
+        }
+      end
+    
+      search_result = {
+        :query => query,
+        :jules => page.embeded_items.get_jules_for_json(page),
+        :spectacles => spectacles_result,
+        :pages => pages
+      }
+    else
+      search_result = {
+        :query => query,
+        :jules => page.embeded_items.get_jules_for_json(page),
+        :spectacles => [],
+        :pages => []
+      }
+    end  
+    
+    render :json => search_result.to_json
+  end
+  
   def get_spectacle
     sp = ContentType.where(:slug => "spectacles").first.contents.where(:_slug => params[:slug]).first
     

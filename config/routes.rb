@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   match '/calendrier'       => "front/datas#get_dates"
   match '/espace_pro_datas' => "front/datas#get_pros"
   match '/espace_pro_page'  => "front/datas#espace_pro_page"
+  match '/search'           => "front/datas#search"
   #iphone!
   match 'iphone/agenda'     => "front/iphones#agenda"
   match 'iphone/spectacles' => "front/iphones#spectacles"

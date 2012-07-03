@@ -84,7 +84,7 @@ window.application.addView((function( $, application ){
 		nav_intro.html('');
 		// on ajoute les boutons!
 		$.each(self.model.current_page.boutons, function(index, btn){
-			nav_intro.append('<li><div class="intro_li_text">' + btn.block + '</div><img src="' + btn.img + '"width="80"/></li>')
+			nav_intro.append('<li><a href="' + btn.url + '">' + btn.title + '</a></li>')
 		});
 				
 		// TODO : resize de la window

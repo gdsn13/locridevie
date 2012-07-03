@@ -20,6 +20,7 @@ window.application.addModel((function( $, application ){
 		this.current_request_number = 0;
 		this.home_page_is_displayed = false;
 		this.current_user = "";
+		this.query_string = "";
 	};
 	
 	Model.prototype.hide_finished = function(){
@@ -32,6 +33,25 @@ window.application.addModel((function( $, application ){
 	Model.prototype.set_message_to_growl = function(p_message){
 		p_message == "" ? this.message_to_growl = "" : this.message_to_growl = "<p>" + p_message + "</p>";
 		$(this).trigger('messaging');
+	};
+	
+	/* SEARCH
+	----------------------------------------------------------------------------------------*/
+	
+	Model.prototype.get_search_results = function(){
+		this.set_message_to_growl("Recherche...");
+		this.current_request_number += 1;
+		application.getModel( "LocoService" ).get_search(this.query_string, this.current_request_number);
+	};
+	
+	Model.prototype.set_search = function(p_search_list, p_request_number){
+		if (this.current_request_number == p_request_number){
+			this.pages["recherche"] = p_search_list.jules;
+			this.pages["query_string"] = p_search_list.query;
+			this.current_page = this.pages["recherche"];
+			this.search_result = p_search_list;
+			$(this).trigger('search_results_ready');
+		}
 	};
 	
 	/* PAGES

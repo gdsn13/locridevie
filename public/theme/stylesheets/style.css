@@ -292,11 +292,12 @@ body{
 
 #menu_ul{
 	margin-top:50px;
+	width:500px;
+	float:left;
 }
 
-
-#menu ul li ul{
-	padding:10px 0 0 !important;
+#menu_ul li ul{
+	padding:0 !important;
 }
 
 #menu ul a{
@@ -324,8 +325,9 @@ body{
 
 #menu li{
 	display:block !important;
-	float:left;
+	/*float:left;*/
 	margin-left: 18px;
+	margin-bottom:15px;
 }
 
 .menu_title{
@@ -334,6 +336,10 @@ body{
   font-size: 14px;
   text-transform: uppercase;
 	font-family: 'IntervalSansPro-Med';
+}
+
+li.first .menu_title{
+	color:#fff !important;
 }
 
 .fat_menu{
@@ -360,8 +366,9 @@ body{
 }
 
 #informations_pratiques{
-	margin-top:50px;
+	margin-top:70px;
 	margin-left:48px;
+	float:left;
 }
 #informations_pratiques div{
 	padding-left:40px;
@@ -583,7 +590,7 @@ body{
 	position:absolute;
 }
 
-#programmation_container, #calendrier_container, #newsletter_containers, #spacepro_containers{
+#programmation_container, #calendrier_container, #newsletter_containers, #spacepro_containers, #search_container{
 	position:absolute;
 	top:0;left:0;
 	width:100%;
@@ -592,7 +599,7 @@ body{
 	z-index:1000;
 }
 
-#programmation_content, #calendrier_content, #newsletter_content, #spacepro_content{
+#programmation_content, #calendrier_content, #newsletter_content, #spacepro_content, #search_content{
 	position:absolute;
 	top:0;
 	right:0;
@@ -800,17 +807,24 @@ body{
 	padding:4px;
 	overflow:hidden;
 	position:absolute;
-	bottom:0;
+	bottom:10px;
+	left:50px;
 	z-index:600;
 }
 
 #nav_intro li{
 	display:block;
 	float:left;
-	margin-right:4px;
-	background:#303030;
-	font-size:10px;
-	min-height:54px;
+	margin-right:7px;
+	background:#000;
+	border:1px solid #767676;
+}
+
+#nav_intro li a, #nav_intro li a:visited{
+	display:block;
+	padding:7px 20px 5px;
+	color:#fff;
+	font-family:IntervalSansPro-Med;
 }
 
 #nav_intro li h2{
@@ -851,3 +865,7 @@ body{
 #ftf_link{
 	display:none;
 }
+
+#search_results li{ overflow:hidden;}
+.search_form {margin-bottom:20px;}
+.fat{font-family:IntervalSansPro-Med;color:#444;}

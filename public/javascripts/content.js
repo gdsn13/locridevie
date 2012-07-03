@@ -14,6 +14,7 @@ window.application.addController((function( $, application ){
 		this.route( "/pages.*", this.pages );
 		this.route( "/newsletters", this.newsletter );
 		this.route( "/espace_pro", this.spacepro);
+		this.route( "/search/", this.search_engine);
 		this.route( "/404", this.not_found );
     
 		this.view = null;
@@ -28,6 +29,7 @@ window.application.addController((function( $, application ){
 		this.current_parameter = null;
 		this.calendrier_view = null;
 		this.newsletter_view = null;
+		this.search = null;
   };
   
   Controller.prototype = new application.Controller();
@@ -47,6 +49,7 @@ window.application.addController((function( $, application ){
 		this.newsletter_view = application.getView( "NewsletterView" );
 		this.spectacle_view = application.getView( "SpectacleView" );
 		this.espace_pro_view = application.getView( "EspaceProView" );
+		this.search_view = application.getView( "SearchView" );
 		this.model = application.getModel( "Model" );
 		
 		$(window).load(function(){
@@ -93,6 +96,9 @@ window.application.addController((function( $, application ){
 		this.changeView(this.espace_pro_view, event);
 	};
 	
+	Controller.prototype.search_engine = function ( event ){
+		this.changeView(this.search_view, event);
+	}
 	
 	Controller.prototype.not_found = function( event ){
 		this.model.set_message_to_growl("Page Not Found!")

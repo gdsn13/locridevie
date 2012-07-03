@@ -8,6 +8,7 @@ window.application.addView((function( $, application ){
 		this.close_btn = null;
 		this.open = false;
 		this.spectacle_slider = null;
+		this.search_form = null;
   };
   
   MenuView.prototype.init = function(){  
@@ -18,9 +19,25 @@ window.application.addView((function( $, application ){
 		this.close_btn = $('#close_menu');
 		this.menu = $('#menu');
 		this.model = application.getModel( "Model" );
+		this.search_form = $('form[name=search]');
 		
 		// INITIALISATION DES POSITIONS
 		this.menu.css({'top' : -$(window).height(), 'height' : $(window).height() - 170});
+
+
+		//	MOTEUR DE RECHERCHE
+		this.search_form.submit(function(e){
+			e.stopPropagation();
+    	e.preventDefault();
+			self.model.query_string = self.search_form.serializeArray();
+			self.model.set_message_to_growl("Recherche...");
+			if (location.hash != "#/search"){
+				location.hash = "#/search";
+			}else{
+				self.model.get_search_results();
+			}
+			self.hide_menu();
+		});
 
 		//ANIMATION HOVER DU BOUTON
 		this.command.hover(function(){
@@ -61,6 +78,8 @@ window.application.addView((function( $, application ){
 				self.menu.css({'top' : 0, 'height' : $(window).height() - 170});
 			}
 		});
+		
+		$('#menu_ul').columnize({columns : 2});
   };
 
 	MenuView.prototype.hide_menu = function(){  
