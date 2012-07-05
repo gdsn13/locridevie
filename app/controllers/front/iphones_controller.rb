@@ -10,20 +10,20 @@ class Front::IphonesController < ApplicationController
     aff = []
     
     aff << {:petit => { :title => affiche_pt.titre, 
-                        :auteur => "", 
-                        :director => "", 
-                        :dates => "",
+                        :auteur => affiche_pt.numero, 
+                        :director => " ", 
+                        :dates => affiche_pt.tld,
                         :logo => affiche_pt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_pt.images.first.file.url}" : "", 
-                        :sum => ""
+                        :sum => affiche_pt.presentation
                       }
                 }
                             
     aff << {:grand => { :title => affiche_gt.titre, 
-                        :auteur => "", 
-                        :director => "", 
-                        :dates => "",
+                        :auteur => affiche_gt.numero, 
+                        :director => " ", 
+                        :dates => affiche_gt.tld,
                         :logo => affiche_gt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_gt.images.first.file.url}" : "",
-                        :sum => ""
+                        :sum => affiche_gt.presentation
                       }
                 }
                 
@@ -38,9 +38,9 @@ class Front::IphonesController < ApplicationController
         :timing => "#{d.date}T00:00:00+02:00",
         :title => d.titre.html_safe,
         :logo => d.spectacle.images.first != nil ? d.spectacle.images.first.file.url : "",
-        :dates => "",
-        :auteur => "",
-        :director => ""
+        :dates => " ",
+        :auteur => " ",
+        :director => " "
       }
     end
     
@@ -57,9 +57,9 @@ class Front::IphonesController < ApplicationController
           :id => s._slug,
           :title => s.titre.html_safe,
           :logo => s.images.first != nil ? s.images.first.file.url : "",
-          :date => "",
-          :auteur => "",
-          :director => ""
+          :date => " ",
+          :auteur => " ",
+          :director => " "
         }
       end
     end
@@ -76,8 +76,8 @@ class Front::IphonesController < ApplicationController
     end
     
     {
-      :information => "",
-      :contenu => "",
+      :information => " ",
+      :contenu => " ",
       :description => spectacle.presentation,
       :images => images
     }
