@@ -39,7 +39,7 @@ class Front::IphonesController < ApplicationController
         :title => d.titre.html_safe,
         :logo => d.spectacle.images.first != nil ? d.spectacle.images.first.file.url : "",
         :dates => "",
-        :autheur => "",
+        :auteur => "",
         :director => ""
       }
     end
@@ -50,14 +50,15 @@ class Front::IphonesController < ApplicationController
   #Liste des spectacles
   def spectacles
     spectacles = ContentType.where(:slug => "spectacles").first.contents.map do |s|
+    current_site = Site.first
       
       if s.season_id == current_site.season_front
         {
           :id => s._slug,
           :title => s.titre.html_safe,
-          :logo => s.images.first.file.url,
+          :logo => s.images.first != nil ? s.images.first.file.url : "",
           :date => "",
-          :autheur => "",
+          :auteur => "",
           :director => ""
         }
       end
