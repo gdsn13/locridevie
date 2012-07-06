@@ -71,14 +71,14 @@ class Front::IphonesController < ApplicationController
     spectacle = ContentType.where(:slug => "spectacles").first.contents.where(:_slug => params[:id]).first
     
     images = []
-    spectacles.images.each do |i|  
+    spectacle.images.each do |i|  
       images << i.file.url
     end
     
     {
-      :information => " ",
+      :information => spectacle.presentation,
       :contenu => " ",
-      :description => spectacle.presentation,
+      :description => " ",
       :images => images
     }
     
