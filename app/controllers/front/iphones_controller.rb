@@ -56,7 +56,7 @@ class Front::IphonesController < ApplicationController
         {
           :id => s._slug,
           :title => s.numero + " " + s.titre_back_office,
-          :logo => s.images.first != nil ? s.images.first.file.url : " ",
+          :logo =>s.images.first != nil ? "http://www.theatre-lacriee.com#{s.images.first.file.url}" : " ",
           :dates => " ",
           :auteur => " ",
           :director => " "
@@ -72,7 +72,7 @@ class Front::IphonesController < ApplicationController
     
     images = []
     spectacle.images.each do |i|  
-      images << i.file.url
+      images << "http://www.theatre-lacriee.com#{i.file.url}"
     end
     
     info = {
