@@ -56,7 +56,7 @@ class Front::IphonesController < ApplicationController
         {
           :id => s._slug,
           :title => s.numero + " " + s.titre_back_office,
-          :logo =>s.images.first != nil ? "http://www.theatre-lacriee.com#{s.images.first.file.url}" : " ",
+          :logo => s.images.first != nil ? "http://www.theatre-lacriee.com#{s.images.first.file.url}" : " ",
           :dates => " ",
           :auteur => " ",
           :director => " "
@@ -75,12 +75,12 @@ class Front::IphonesController < ApplicationController
       images << "http://www.theatre-lacriee.com#{i.file.url}"
     end
     
-    info = {
-      :information => spectacle.presentation,
-      :contenu => " ",
-      :description => " ",
-      :images => images
-    }
+    info = [{
+      :information => spectacle.presentation},
+      {:contenu => " "},
+      {:description => spectacle.tld},
+      {:images => spectacle.images.first != nil ? "http://www.theatre-lacriee.com#{spectacle.images.first.file.url}" : " "}
+    ]
     
     render :json => info
     
