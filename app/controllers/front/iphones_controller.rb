@@ -55,9 +55,9 @@ class Front::IphonesController < ApplicationController
       if s.season_id == current_site.season_front
         {
           :id => s._slug,
-          :title => s.titre.html_safe,
-          :logo => s.images.first != nil ? s.images.first.file.url : "",
-          :date => " ",
+          :title => s.titre,
+          :logo => s.images.first != nil ? s.images.first.file.url : " ",
+          :date => s.tld,
           :auteur => " ",
           :director => " "
         }
