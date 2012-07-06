@@ -75,12 +75,14 @@ class Front::IphonesController < ApplicationController
       images << i.file.url
     end
     
-    {
+    info = {
       :information => spectacle.presentation,
       :contenu => " ",
       :description => " ",
       :images => images
     }
+    
+    render :json => info
     
   end
   
