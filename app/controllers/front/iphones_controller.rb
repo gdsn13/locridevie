@@ -57,7 +57,7 @@ class Front::IphonesController < ApplicationController
           :id => s._slug,
           :title => s.titre,
           :logo => s.images.first != nil ? s.images.first.file.url : " ",
-          :date => s.tld,
+          :dates => s.tld,
           :auteur => " ",
           :director => " "
         }
