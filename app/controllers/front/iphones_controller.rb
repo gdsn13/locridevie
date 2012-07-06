@@ -10,9 +10,9 @@ class Front::IphonesController < ApplicationController
     aff = []
     
     aff << {:petit => { :title => affiche_pt.titre, 
-                        :auteur => affiche_pt.numero, 
+                        :auteur => " ", 
                         :director => " ", 
-                        :dates => affiche_pt.tld,
+                        :dates => affiche_pt.numero + "<br/>" + affiche_pt.tld,
                         :logo => affiche_pt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_pt.images.first.file.url}" : "", 
                         :sum => affiche_pt.presentation
                       }
