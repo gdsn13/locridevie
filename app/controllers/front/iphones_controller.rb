@@ -1,6 +1,9 @@
 class Front::IphonesController < ApplicationController
   #Agenda de la saison
   
+  caches_page :affiche, :agenda, :spectacles
+  
+  
   def affiche
     current_site = Site.first
         
@@ -70,10 +73,10 @@ class Front::IphonesController < ApplicationController
   def spectacle
     spectacle = ContentType.where(:slug => "spectacles").first.contents.where(:_slug => params[:id]).first
     
-    images = []
-    spectacle.images.each do |i|  
-      images << "http://www.theatre-lacriee.com#{i.file.url}"
-    end
+    #images = []
+    #spectacle.images.each do |i|  
+    #  images << "http://www.theatre-lacriee.com#{i.file.url}"
+    #end
     
     info = [
       {:information => spectacle.presentation}, 

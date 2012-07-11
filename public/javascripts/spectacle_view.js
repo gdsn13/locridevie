@@ -114,19 +114,40 @@ window.application.addView((function( $, application ){
 		
 	SpectacleView.prototype.resize_containers = function(){
 		var displayed_image = this.currently_displayed_image;
-		var top_pos;
 		
-		this.images_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-		this.images_container.find('.image img').width($(window).width()/2);
+		if (Modernizr.mq('(max-width: 640px)') == true){
+			this.images_container.find('.image img').width($(window).width());
+
+			this.images_container.css({	'width': $(window).width(), 
+																	'height': displayed_image.height(),
+																	'position': 'absolute',
+																	'top': '100px',
+																	'left': '0'});
+
+			$(".scrollbar").css('display', 'none');
+			$(".viewport").css('height', $('#presentation').height() + 130);
+			this.view.css('height', displayed_image.height() + $('.viewport').height() + 100);
+
+			this.spectacle_content.css({'width': $(window).width(),
+																			'top': (displayed_image.height() + 100) + "px",
+																			'left': '0',
+																			'height': $('#presentation').height() + 130
+																			});
+		}else{
+			var top_pos;
 		
-		top_pos = ($(window).height() - displayed_image.height())/2;
+			this.images_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+			this.images_container.find('.image img').width($(window).width()/2);
 		
-		this.images_container.find('.image').css('top', top_pos);
+			top_pos = ($(window).height() - displayed_image.height())/2;
 		
-		this.spectacle_content.css('width', $(window).width()/2);
-		this.spectacle_content.css({'top' : top_pos, 'height' : displayed_image.height()});
-		this.spectacle_content.find('.viewport').css('height', displayed_image.height() - 10);
-		this.spectacle_content.tinyscrollbar({lockscroll: true});
+			this.images_container.find('.image').css('top', top_pos);
+		
+			this.spectacle_content.css('width', $(window).width()/2);
+			this.spectacle_content.css({'top' : top_pos, 'height' : displayed_image.height()});
+			this.spectacle_content.find('.viewport').css('height', displayed_image.height() - 10);
+			this.spectacle_content.tinyscrollbar({lockscroll: true});
+		}
 	};
 
 	// Je cache la vue
@@ -162,7 +183,7 @@ window.application.addView((function( $, application ){
 		if( ss.css('display') == 'none') ss.fadeIn('fast');
 		
 		var menu_btn = $('#menu_command');
-		if (menu_btn.css('display') != "block") menu_btn.css('display', 'block');
+		if (menu_btn.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_btn.css('display', 'block');
 		
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );

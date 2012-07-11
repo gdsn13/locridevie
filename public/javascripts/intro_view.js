@@ -50,6 +50,7 @@ window.application.addView((function( $, application ){
 	IntroView.prototype.refreshed_datas = function(){
 		var self = this;
 		var nav_intro = $('#nav_intro');
+		this.view.css({'top':"10000px", "display" : "block"});
 		this.jules_is_there = false;
 		
 		if (this.model.current_page.jules.length > 0){
@@ -65,7 +66,8 @@ window.application.addView((function( $, application ){
 				// on met l'image à la bonne taille pour le full screen
 				self.resize(self.image_container, $(this));
 						
-				self.view.fadeTo('fast', 1);
+				self.view.css({'top':"0px", "display" : "none"});
+				self.view.fadeIn('fast');
 			}).attr('src', this.model.current_page.jules[0].picto);
 		}else{
 			// on affiche l'image de fond de la page
@@ -76,7 +78,8 @@ window.application.addView((function( $, application ){
 
 				self.resize_logo($(this));
 	
-				self.view.fadeTo('fast', 1);
+				self.view.css({'top':"0px", "display" : "none"});
+				self.view.fadeIn('fast');
 				
 			}).attr('src', this.model.current_page.logo);
 		}
@@ -87,7 +90,6 @@ window.application.addView((function( $, application ){
 			nav_intro.append('<li><a href="' + btn.url + '">' + btn.title + '</a></li>')
 		});
 				
-		// TODO : resize de la window
 		$(window).on('resize', function(){
 			if (self.jules_is_there == true){
 				self.resize(self.image_container, $(img));
@@ -95,6 +97,7 @@ window.application.addView((function( $, application ){
 				self.resize_logo(self.logo_container.find('img'));
 			}
 		});
+		
 				
 	};
 	
@@ -143,7 +146,9 @@ window.application.addView((function( $, application ){
 		var self = this;
 		if (this.jules_is_there == true) this.image_container.html('');
 		this.logo_container.html('');
-		this.view.fadeOut('fast');
+		this.view.fadeOut('fast', function(){
+
+		});
 	}
 
   // I get called when the view needs to be shown.

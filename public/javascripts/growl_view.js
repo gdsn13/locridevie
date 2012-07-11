@@ -9,6 +9,7 @@ window.application.addView((function( $, application ){
 		var self = this;
 		this.view = $('#growl_messages');
 		this.model = application.getModel( "Model" );
+		this.spectacle_slider = $('#spectacle_slider');
 		
 		/* DATA REFRESH
 		----------------------------------------------------------------------------------------*/
@@ -24,6 +25,9 @@ window.application.addView((function( $, application ){
 	GrowlView.prototype.show_message = function(){
 		this.view.html(this.model.message_to_growl);
 		this.view.animate({"marginTop": 0});
+		if (Modernizr.mq('(max-width: 640px)') == true){
+			this.spectacle_slider.css("padding-top", 100);
+		}
 	};
 	
 	GrowlView.prototype.hide_message = function(){
@@ -33,6 +37,10 @@ window.application.addView((function( $, application ){
 		this.view.animate({"marginTop": -new_margin}, function(){
 			self.view.html("");
 		});
+		
+		if (Modernizr.mq('(max-width: 640px)') == true){
+			this.spectacle_slider.css("padding-top", 0);
+		}
 	};
   
   // Return a new view class singleton instance.

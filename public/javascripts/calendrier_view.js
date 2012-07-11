@@ -98,23 +98,44 @@ window.application.addView((function( $, application ){
 	
 	CalendrierView.prototype.resize_containers = function(){
 		var displayed_image = this.currently_displayed_jules;
-		var top_pos;
-		
-		this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-		this.jules_container.find('.jules_slider img').width($(window).width()/2);
-		
-		top_pos = ($(window).height() - displayed_image.height())/2;
-		
-		this.jules_container.find('.jules_slider').css('top', top_pos);
-		
-		this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-		
-		//var new_width = $(window).width()/2;
-		
-		this.calendrier_content.css('width', $(window).width()/2);
-		this.calendrier_content.css({'top' : top_pos, 'height' : displayed_image.height()});
-		this.calendrier_content.find('.viewport').css('height', displayed_image.height() - 10);
-		this.calendrier_content.tinyscrollbar({lockscroll: true});
+		if (Modernizr.mq('(max-width: 640px)') == true){
+			this.jules_container.find('.jules_slider img').width($(window).width());
+			
+			this.jules_container.css({	'width': $(window).width(), 
+																	'height': displayed_image.height(),
+																	'position': 'absolute',
+																	'top': '100px',
+																	'left': '0'});
+																	
+			this.view.css('height', displayed_image.height() + this.calendrier_spectacles.height() + 130);
+																	
+			$(".scrollbar").css('display', 'none');
+			$(".viewport").css('height', this.calendrier_spectacles.height() + 70);
+																	
+			this.calendrier_content.css({'width': $(window).width(),
+																			'top': (displayed_image.height() + 100) + "px",
+																			'left': '0',
+																			'height': 'auto'
+																			});
+		}else{
+			var top_pos;
+
+			this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+			this.jules_container.find('.jules_slider img').width($(window).width()/2);
+
+			top_pos = ($(window).height() - displayed_image.height())/2;
+
+			this.jules_container.find('.jules_slider').css('top', top_pos);
+
+			this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
+
+			//var new_width = $(window).width()/2;
+
+			this.calendrier_content.css('width', $(window).width()/2);
+			this.calendrier_content.css({'top' : top_pos, 'height' : displayed_image.height()});
+			this.calendrier_content.find('.viewport').css('height', displayed_image.height() - 10);
+			this.calendrier_content.tinyscrollbar({lockscroll: true});
+		}
 	};
 	
 				
@@ -161,7 +182,7 @@ window.application.addView((function( $, application ){
 		if( ss.css('display') == 'none') ss.fadeIn('fast'); 
 		
 		var menu_btn = $('#menu_command');
-		if (menu_btn.css('display') != "block") menu_btn.css('display', 'block');
+		if (menu_btn.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_btn.css('display', 'block');
 	
 		//securisation des données.
 		if (this.model == null) {

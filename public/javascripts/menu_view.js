@@ -80,6 +80,12 @@ window.application.addView((function( $, application ){
 		});
 		
 		$('#menu_ul').columnize({columns : 2});
+		
+		if (Modernizr.mq('(max-width: 640px)') == true){
+			$('a').on('click', function(){
+				$(window).scrollTop(0);
+			});
+		}
   };
 
 	MenuView.prototype.hide_menu = function(){  
