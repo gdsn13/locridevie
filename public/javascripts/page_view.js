@@ -34,7 +34,7 @@ window.application.addView((function( $, application ){
 	PageView.prototype.data_ready = function(){
 		var self = this;
 		// etre sur que la view est en display block, sinon, pas de calcul de tailles
-		this.view.css({'top':"10000px", "display" : "block"});
+		this.view.css({'top':"10000px", "display" : "block", "position" : "absolute"});
 				
 		//AFFICHAGE DES JULES
 		$.each(this.model.current_page.jules, function(index, j){						
@@ -55,7 +55,12 @@ window.application.addView((function( $, application ){
 			//INIT DES POS DES CONTAINERS
 			self.resize_containers();
 			
-			self.view.css({'top':"0px", "display" : "none"});
+			if (Modernizr.mq('(max-width: 640px)') == true){
+				self.view.css({'top':"0px", "display" : "none", "position" : "static"});	
+			}else{
+				self.view.css({'top':"0px", "display" : "none"});	
+			}
+				
 			
 			// ON AFFICHE LA VUE
 			self.view.fadeIn('fast', function(){

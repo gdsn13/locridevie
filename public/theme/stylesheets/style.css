@@ -63,6 +63,9 @@ body{
 	#intro {
 		position:static !important;
 	}
+	#nav_intro li {
+		margin-top:5px;
+	}
 	
 	#spectacle_slider{
 		background:#000;
@@ -144,7 +147,7 @@ body{
 	}
 	#menu_ul {
 		padding: 20px 0 10px !important;
-		width: 350px !important;
+		width: 330px !important;
 	}
 	#informations_pratiques{
 		margin-left:18px !important;

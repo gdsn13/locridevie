@@ -35,7 +35,7 @@ window.application.addView((function( $, application ){
 	CalendrierView.prototype.refreshed_datas = function(){
 		var self = this;
 		var current_month_for_display = 0;
-		this.view.css({'top':"10000px", "display" : "block"});
+		this.view.css({'top':"10000px", "display" : "block", "position" : "absolute"});
 		this.calendrier_spectacles.html('');
 		
 		//AFFICHAGE DES DATES
@@ -82,7 +82,11 @@ window.application.addView((function( $, application ){
 
 			self.resize_containers();
 
-			self.view.css({'top':"0px", "display" : "none"});
+			if (Modernizr.mq('(max-width: 640px)') == true){
+				self.view.css({'top':"0px", "display" : "none", "position" : "static"});	
+			}else{
+				self.view.css({'top':"0px", "display" : "none"});	
+			}
 			
 			$(window).on('resize', function(){ self.resize_containers(); });			
 			

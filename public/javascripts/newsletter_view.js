@@ -55,7 +55,7 @@ window.application.addView((function( $, application ){
 
 	NewsletterView.prototype.refreshed_datas = function(){
 		var self = this;
-		this.view.css({'top':"10000px", "display" : "block"});
+		this.view.css({'top':"10000px", "display" : "block", "position" : "absolute"});
 		
 		this.newsletters = this.model.current_page.newsletters
 		
@@ -82,7 +82,11 @@ window.application.addView((function( $, application ){
 		this.view.imagesLoaded(function($images, $proper, $broken){
 			self.resize_containers();
 
-			self.view.css({'top':"0px", "display" : "none"});
+			if (Modernizr.mq('(max-width: 640px)') == true){
+				self.view.css({'top':"0px", "display" : "none", "position" : "static"});	
+			}else{
+				self.view.css({'top':"0px", "display" : "none"});	
+			}
 			
 			$(window).on('resize', function(){ self.resize_containers(); });			
 			

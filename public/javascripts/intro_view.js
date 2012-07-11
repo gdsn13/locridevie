@@ -96,9 +96,7 @@ window.application.addView((function( $, application ){
 			}else{
 				self.resize_logo(self.logo_container.find('img'));
 			}
-		});
-		
-				
+		});	
 	};
 	
 	IntroView.prototype.resize_logo = function ( p_img ){

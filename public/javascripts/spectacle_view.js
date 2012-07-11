@@ -55,6 +55,7 @@ window.application.addView((function( $, application ){
 	SpectacleView.prototype.display_view = function(){
 		//INITIALISATION
 		var self = this;
+		this.view.css({'top':"10000px", "display" : "block", "position" : "absolute"});
 		
 		// RECUPERATION DU TEMPLATE ET REMPLISSAGE
 		this.view.html(application.getFromTemplate(this.template, this.model.pages[this.current_spectacle]));
@@ -84,7 +85,11 @@ window.application.addView((function( $, application ){
 			//INIT DES POS DES CONTAINERS
 			self.resize_containers();
 						
-			self.view.css({'top':"0px", "display" : "none"});
+			if (Modernizr.mq('(max-width: 640px)') == true){
+				self.view.css({'top':"0px", "display" : "none", "position" : "static"});	
+			}else{
+				self.view.css({'top':"0px", "display" : "none"});	
+			}
 			
 			// ON AFFICHE LA VUE
 			self.view.fadeIn('fast', function(){
