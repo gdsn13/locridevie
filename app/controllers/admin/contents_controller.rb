@@ -42,6 +42,7 @@ module Admin
     end
 
     def update
+      expire_page :controller => "datas", :action => 'get_spectacle'
       update! { after_create_or_update_url }
     end
 
