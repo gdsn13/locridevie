@@ -74,6 +74,7 @@ window.application.addView((function( $, application ){
 		if (application.currentLocation == "home_page"){
 			pos_to_slide = ($(window).height() - this.spectacle_slider.height())/2
 		}
+		this.lock_up_and_down = false;
 		this.spectacle_slider.stop().animate({bottom: pos_to_slide}, 'fast');
 	};
 
@@ -276,8 +277,9 @@ window.application.addView((function( $, application ){
 			this.spectacle_slider.css("padding-top", 100);
 		}else{
 			this.spectacle_slider.stop().animate({bottom: "-165px"}, 'fast', function(){
-				this.lock_up_and_down = false;
+				//this.lock_up_and_down = false;
 			});
+			
 		}
 	};
 	
