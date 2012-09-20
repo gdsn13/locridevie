@@ -10,6 +10,7 @@ spec/fixtures/themes/default
 public/assets
 public/sites
 public/contents
+public/theme
 pkg
 rails_3_gems
 doc/performance.txt
