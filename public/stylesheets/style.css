@@ -181,11 +181,15 @@ body{
 	.calendar_tarif {padding-right: 5px; width:auto !important;}
 	.calendar_date {width:14% !important;}
 	.calendar_heure {width:19% !important;}
-	.calendar_extras {width:14% !important;}
+	.calendar_extras {width:15% !important;}
 	.month_name{padding-top:30px !important;}
 	
 	.search_form input{
 		width:250px !important;
+	}
+	
+	.infobulle_lieu, .{
+		color:#fff !important;
 	}
 }
 
@@ -626,12 +630,6 @@ li.first .menu_title{
 .infobulle_title{
 	font-size:16px;
 }
-@media only screen and (max-width: 640px) {
-	.infobulle_lieu, .{
-		color:#fff;
-	}
-	
-}
 
 .infobulle_lieu{
 	color:#AAA;
@@ -1023,7 +1021,8 @@ li.first .menu_title{
 
 #nav_intro li a, #nav_intro li a:visited{
 	display:block;
-	padding:8px 20px 3px;
+	font-size: 12px;
+	padding: 6px 20px 3px;
 	color:#fff;
 	font-family:IntervalSansPro-Med;
 }
