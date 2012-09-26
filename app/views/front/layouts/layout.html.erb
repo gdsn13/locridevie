@@ -32,7 +32,6 @@
 			<% infobulle = get_infobulle spec.infobulle.to_json.html_safe %>
   		{ "id": "<%= spec.id %>",
 		  "slug": "<%= spec._slug %>",
-			"headline": "<%= spec.headline ? spec.headline.html_safe : spec.headline %>",
 		  "titre": "<%= spec.titre.html_safe %>",
 		  "date": "<%= spec.date.strftime("%Y/%m/%d") %>",
 		  "en_tournee": "<%= spec.en_tournee %>",
