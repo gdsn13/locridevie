@@ -1,7 +1,7 @@
 window.application.addView((function( $, application ){
   
 	/* 	DESCRIPTION
-	/	 	Affiche la page de gaurde ou d'intro du site. Une prépage avec : 
+	/	 	Affiche la page de garde ou d'intro du site. Une prépage avec : 
 	/		- soit l'image bck_img de la page racine du site (slug = index), en width 100%
 	/		- soit un jules associé à la page slug = index (et un seul) avec une image en cover et un texte en hover si besoin.
 	/		- une liste de boutons qui redirigent directement vers des pages du site (image + texte + lien)
@@ -144,6 +144,9 @@ window.application.addView((function( $, application ){
 		var self = this;
 		if (this.jules_is_there == true) this.image_container.html('');
 		this.logo_container.html('');
+		if (Modernizr.mq('(max-width: 640px)') == true){
+			$('#menu').css('display', 'block');
+		}
 		this.view.fadeOut('fast', function(){
 
 		});
@@ -167,6 +170,10 @@ window.application.addView((function( $, application ){
 		var menu_btn = $('#menu_command');
 		if (menu_btn.css('display') != "none"){
 			menu_btn.css('display', 'none');
+		}
+		
+		if (Modernizr.mq('(max-width: 640px)') == true){
+			$('#menu').css('display', 'none');
 		}
 		
 		if (this.model == null) {

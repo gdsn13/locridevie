@@ -8,9 +8,9 @@
 	<![endif]-->
 	<title>Théâtre National de Marseille</title>
 	
-	<link rel="stylesheet" href="/theme/stylesheets/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen" title="no title" charset="utf-8" />
 	<!--[if IE]>
-		<link rel="stylesheet" href="/theme/stylesheets/ie.css" type="text/css" media="screen" title="no title" charset="utf-8">
+		<link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	<![endif]-->
 	<!--
 	          __                                 
@@ -32,6 +32,7 @@
 			<% infobulle = get_infobulle spec.infobulle.to_json.html_safe %>
   		{ "id": "<%= spec.id %>",
 		  "slug": "<%= spec._slug %>",
+			"headline": "<%= spec.headline ? spec.headline.html_safe : spec.headline %>",
 		  "titre": "<%= spec.titre.html_safe %>",
 		  "date": "<%= spec.date.strftime("%Y/%m/%d") %>",
 		  "en_tournee": "<%= spec.en_tournee %>",
@@ -94,6 +95,11 @@
 			Menu
 			<img src="/theme/images/navigation.png"/>
 		</a>
+	</div>
+	<div id="menu_important">
+		<a href="http://www.forumsirius.fr/orion/lacriee.phtml?kld=1213">Réservez en ligne</a> |
+		<a href="http://www.forumsirius.fr/orion/lacriee.phtml?aboG=1213">Abonnez Vous</a> |
+		Billetterie : 04 91 54 70 54
 	</div>
 	
 	<div id="intro">
@@ -268,7 +274,7 @@
 			<div class="billetterie">Billetterie : 04 91 54 70 54</div>
 			<div class="search_form">
 				<form action="#" name="search">
-					<input type="text" size="20" name="query_string" required tabindex="1" >
+					<input type="text" name="query_string" required tabindex="1" >
 				  <input type="submit" class="submit_btn" value="Rechercher"/>
 				</form>
 			</div>
