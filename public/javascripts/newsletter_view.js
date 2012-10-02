@@ -73,8 +73,10 @@ window.application.addView((function( $, application ){
 		//var liste_title = "<li class='opening'>Newsletters</li>";
 		//self.nl_ul.append(liste_title);
 		$.each(this.newsletters, function(index, n){
-			var html = '<li><div class="newsletter_date">' + n.date + '</div><div class="newsletter_title"><a href="/newsletter/' + n.slug + '">' + n.titre + '</a></div></li>';
-			self.nl_ul.append(html);
+			if(n.publie == true){
+				var html = '<li><div class="newsletter_date">' + n.date + '</div><div class="newsletter_title"><a href="/newsletter/' + n.slug + '">' + n.titre + '</a></div></li>';
+				self.nl_ul.append(html);
+			}
 		});
 		
 		// QUAND TOUT EST CHARGE DANS LA VUE
