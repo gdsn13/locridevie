@@ -170,7 +170,8 @@ class Front::DatasController < ApplicationController
       {
         :titre  => nl.titre,
         :date   => nl.date,
-        :slug   => nl._slug
+        :slug   => nl._slug,
+        :publie => nl.publie
       }
     end
     
