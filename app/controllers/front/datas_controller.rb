@@ -165,7 +165,7 @@ class Front::DatasController < ApplicationController
   end
   
   def newsletters
-    page = Page.where(:redirect_url => "newsletters").first
+    page = Page.where(:redirect_url => "/newsletters").first
     newsletters = ContentType.where(:slug => "newsletters").first.contents.map do |nl|
       {
         :titre  => nl.titre,
