@@ -33,7 +33,11 @@
 			<% info_prog = get_infobulle spec.info_prog.to_json.html_safe %>
   		{ "id": "<%= spec.id %>",
 		  "slug": "<%= spec._slug %>",
-			"info_prog" : "<%= info_prog == 'null' ? "" : info_prog  %>",
+			<% if info_prog == "null" -%>
+			"info_prog": "",
+			<% else -%>
+			"info_prog": <%= info_prog %>,
+			<% end -%>
 		  "titre": "<%= spec.titre.html_safe %>",
 		  "date": "<%= spec.date.strftime("%Y/%m/%d") %>",
 		  "en_tournee": "<%= spec.en_tournee %>",
