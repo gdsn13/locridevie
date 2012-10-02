@@ -158,7 +158,12 @@ window.application.addView((function( $, application ){
 		$('#logo_menu').show('fast');
 		
 		var ss = $('#spectacle_slider');
-		if( ss.css('display') == 'none') ss.fadeIn('fast'); 
+		if( ss.css('display') == 'none') ss.fadeIn('fast');
+		
+		var menu_btn = $('#menu_command');
+		if (menu_btn.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_btn.css('display', 'block');
+		var menu_bis = $('#menu_important');
+		if (menu_bis.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_bis.css('display', 'block');
 		
 		//securisation des données.
 		if (this.model == null) {

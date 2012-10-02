@@ -172,6 +172,10 @@ window.application.addView((function( $, application ){
 		if (menu_btn.css('display') != "none"){
 			menu_btn.css('display', 'none');
 		}
+		var menu_bis = $('#menu_important');
+		if (menu_bis.css('display') != "none"){
+			menu_bis.css('display', 'none');
+		} 
 		
 		if (Modernizr.mq('(max-width: 640px)') == true){
 			$('#menu').css('display', 'none');
