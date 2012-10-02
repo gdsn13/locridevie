@@ -69,21 +69,21 @@ Rails.application.routes.draw do
     match '/export/:id' => 'export#export_datas'
   end
   
-  match '/newsletters'      => "front/datas#newsletters"
-  match '/newsletter/:id'   => "front/newsletters#show_newsletter"
-  match '/spectacles/:id'   => "front/datas#spectacle_list"
-  match '/spectacle/:slug'  => "front/datas#get_spectacle"
-  match '/pages/*fullpath'  => "front/datas#get_page"
-  match '/intro'            => "front/datas#get_intro"
-  match '/calendrier'       => "front/datas#get_dates"
-  match '/espace_pro_datas' => "front/datas#get_pros"
-  match '/espace_pro_page'  => "front/datas#espace_pro_page"
-  match '/search'           => "front/datas#search"
+  match '/newsletters'              => "front/datas#newsletters"
+  match '/newsletter/:id'           => "front/newsletters#show_newsletter"
+  match '/spectacles/:id'           => "front/datas#spectacle_list"
+  match '/spectacle/:slug'          => "front/datas#get_spectacle"
+  match '/pages/*fullpath'          => "front/datas#get_page"
+  match '/intro'                    => "front/datas#get_intro"
+  match '/calendrier'               => "front/datas#get_dates"
+  match '/espace_pro_datas'         => "front/datas#get_pros"
+  match '/espace_pro_page'          => "front/datas#espace_pro_page"
+  match '/search'                   => "front/datas#search"
   #iphone!
-  match 'iphone/agenda'     => "front/iphones#agenda"
-  match 'iphone/spectacles' => "front/iphones#spectacles"
-  match 'iphone/spectacle/:id' => "front/iphones#spectacle"
-  match 'iphone/affiche' => "front/iphones#affiche"
+  match 'iphone/agenda'             => "front/iphones#agenda"
+  match 'iphone/spectacles'         => "front/iphones#spectacles"
+  match 'iphone/spectacle'          => "front/iphones#spectacle"
+  match 'iphone/affiche'            => "front/iphones#affiche"
   
 
   # sitemap
