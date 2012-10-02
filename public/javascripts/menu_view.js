@@ -9,6 +9,8 @@ window.application.addView((function( $, application ){
 		this.open = false;
 		this.spectacle_slider = null;
 		this.search_form = null;
+		this.formulaire_inscription = null;
+		this.menu_container = null;
   };
   
   MenuView.prototype.init = function(){  
@@ -20,10 +22,47 @@ window.application.addView((function( $, application ){
 		this.menu = $('#menu');
 		this.model = application.getModel( "Model" );
 		this.search_form = $('form[name=search]');
+		this.menu_container = $('#menu_important');
+		this.formulaire_inscription = $('.newsletter_subscribe_menu');
+		this.sub_menu = $('.sub_menu');
 		
 		// INITIALISATION DES POSITIONS
 		this.menu.css({'top' : -$(window).height(), 'height' : $(window).height() - 170});
 
+		// SOUS MENU NL et ABONNEMENTS
+		this.menu_container.bind('mouseleave', function(){
+			$(this).find('ul li ul').slideUp('fast');
+		});
+
+		$('.sub_menu').bind('mouseenter', function(){
+		  self.menu_container.find('ul li ul').stop().hide('fast');
+		  $(this).find('ul').stop().slideDown('fast');					
+		});
+
+	  $('.sub_menu_ul').bind('mouseleave', function(){
+		    $(this).hide('fast');
+		});		
+		
+		// FORM NEWSLETTER 
+    this.formulaire_inscription.submit(function(e) {
+    	e.stopPropagation();
+    	e.preventDefault();
+			self.model.set_message_to_growl("Inscription...");
+    	$.post(
+				self.formulaire_inscription.attr('action'),
+    		self.formulaire_inscription.serializeArray(),
+    		function(data) {
+    				if (data.errors == null) {
+							self.model.set_message_to_growl("");
+    					alert("Merci! Vous allez recevoir notre prochaine newsletter");
+    					self.formulaire_inscription.reset();
+    				} else{
+    					alert("Désolé mais nous n'avons pu traiter cette demande d'inscription.");
+							self.model.set_message_to_growl(data.errors);
+						}
+    			}, 
+				"json");
+    });
 
 		//	MOTEUR DE RECHERCHE
 		this.search_form.submit(function(e){

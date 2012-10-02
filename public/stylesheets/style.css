@@ -396,15 +396,86 @@ body{
 
 #menu_important{
 	position:absolute;
-	top:0;left:90px;
+	top:0;left:300px;
 	z-index:8000;
-	display:none;
+	display:block;
 	height: 24px;
 	padding-top:2px;
 }
 
 #menu_important a{
 	color:#FDC400;
+}
+
+#menu_important ul{
+	list-style:none;
+	padding-top:3px;
+}
+
+#menu_important ul li{
+	position:relative;
+	display: block;
+	float: left;
+	padding-right:9px;
+	font-family:'IntervalSansPro-Light';
+	padding-left:6px;
+}
+
+#menu_important ul li ul{
+	position: absolute;
+	top: 20px;
+	min-width:200px;
+	z-index: 10000;
+	left: 0px;
+	padding:5px;
+	background: black;
+	border: 1px solid #424242;
+	display:none;
+}
+
+#menu_important ul li ul li{
+	padding:0 !important;
+}
+
+#menu_important ul li ul li label{
+	clear:both;
+	display:block;
+	float:left;
+	width:100px;
+	padding-top:10px;
+}
+
+#menu_important ul li ul li form{
+	overflow: hidden;
+	width: 264px;
+	min-width: 264px !important;
+}
+
+#menu_important ul li img{
+	margin-top:-5px;
+}
+
+#menu_important ul li ul li input{
+	float:left;
+	display:block;
+	margin-top:5px;
+	width:150px;
+	background: none repeat scroll 0 0 #EEE;
+	border: none;
+	height: 35px;
+	padding: 0 5px;
+}
+
+#menu_important ul li ul li .submit_btn{
+	color:#FFF;
+	margin-left: -3px;
+	width: 100px !important;
+	background: url(../images/small_arrow.png) no-repeat 73px 11px;
+	font-size: 14px;
+	font-weight: bold;
+	border:none !important;
+	height: 37px;
+	padding-right:30px;
 }
 
 #menu_command{
@@ -712,6 +783,15 @@ li.first .menu_title{
 	width:100%;
 	min-width:300px;
 }
+
+.newsletter_subscribe label{
+	clear:both;
+	display:block;
+	float:left;
+	width:100px;
+	padding-top:10px;
+}
+
 .newsletter_subscribe input{
 	background: none repeat scroll 0 0 #EEE;
 	border: none;
@@ -720,6 +800,7 @@ li.first .menu_title{
 	height: 35px;
 	padding: 0 5px;
 	width: 200px;
+	margin-top:5px;
 }
 .newsletter_subscribe .submit_btn{
 	height: 37px;
@@ -1072,4 +1153,34 @@ li.first .menu_title{
 
 .search_form input{
 	width:150px;
+}
+
+#inter_spectacle_navigation{
+	text-align:right;
+	padding-top:2px;
+	position:relative;
+}
+
+#next_show, #prev_show{
+	color:#000;
+	border:1px solid #000;
+	padding:2px;
+}
+
+#next_show_caption, #prev_show_caption{
+	position:absolute;
+	display:none;
+	border:1px solid #434343;
+	background:#000;
+	top:0px;
+	right:50px;
+	padding:15px;
+	color:#eee;
+	z-index:9999;
+}
+#prev_show_number, #next_show_number{
+	font-size:40px;
+}
+#prev_show_title span, #next_show_title span{
+	font-weight:bold;
 }

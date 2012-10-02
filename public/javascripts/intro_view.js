@@ -48,6 +48,7 @@ window.application.addView((function( $, application ){
   };
 
 	IntroView.prototype.refreshed_datas = function(){
+		
 		var self = this;
 		var nav_intro = $('#nav_intro');
 		this.view.css({'top':"10000px", "display" : "block"});
@@ -60,7 +61,7 @@ window.application.addView((function( $, application ){
 			var img = new Image();
 		  $(img).load(function(){
 				// on ajoute l'image et le texte
-				self.image_container.append(this);
+				self.image_container.append("<a href='" + self.model.current_page.jules[0].url + "'><img src='" + $(this).attr("src") + "'/></a>");
 				$('#texte_intro').html(self.model.current_page.jules[0].block);
 			
 				// on met l'image à la bonne taille pour le full screen

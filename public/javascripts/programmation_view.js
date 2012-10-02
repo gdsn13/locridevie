@@ -57,7 +57,8 @@ window.application.addView((function( $, application ){
 		self.spectacle_ul.append(liste_title);
 		$.each(this.spectacles, function(index, s){
 			if (s.spectacle_associe_path == ""){
-				var html = '<li><div class="spectacle_list_numero">' + s.numero + '</div><div class="spectacle_list_title"><a href="/#/spectacle/' + s.slug + '">' + s.titre + '</a></div></li>';
+				var html = '<li><div class="spectacle_list_numero">' + s.numero + '</div><div class="spectacle_list_title"><a href="/#/spectacle/' + s.slug + '">' + s.titre + '</a></div>';
+				html += '<div class="headline">' + s.info_prog + '</div</li>';
 				self.spectacle_ul.append(html);
 			}
 		});
@@ -68,7 +69,7 @@ window.application.addView((function( $, application ){
 			self.resize_containers();
 
 			if (Modernizr.mq('(max-width: 640px)') == true){
-				self.view.css({'top':"0px", "display" : "none", "position" : "static"});	
+				self.view.css({'top':"0px", "display" : "none", "position" : "static"});
 			}else{
 				self.view.css({'top':"0px", "display" : "none"});	
 			}
@@ -77,6 +78,9 @@ window.application.addView((function( $, application ){
 			
 			// ON AFFICHE LA VUE
 			self.view.fadeIn('fast', function(){
+				if (Modernizr.mq('(max-width: 640px)') == true){
+					$('#menu').css('display', 'block');
+				}
 				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE
 				if (self.jules.length > 0){ 
 					self.slider_timeout = setTimeout(function(){
@@ -185,7 +189,7 @@ window.application.addView((function( $, application ){
 		
 		var menu_btn = $('#menu_command');
 		if (menu_btn.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_btn.css('display', 'block');
-		
+				
 		//securisation des données.
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );

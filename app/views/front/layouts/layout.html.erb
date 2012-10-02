@@ -24,14 +24,16 @@
 	One Men Web agency		
 	-->
 	
-	<link rel="icon" type="type/png" href="images/favicon.ico" />
+	<link rel="icon" type="type/png" href="/theme/images/favicon.ico" />
 	
 	<script type="text/javascript">
 		var spectacles_list = [
 		<% @spectacles.map do |spec| %>
 			<% infobulle = get_infobulle spec.infobulle.to_json.html_safe %>
+			<% info_prog = get_infobulle spec.info_prog.to_json.html_safe %>
   		{ "id": "<%= spec.id %>",
 		  "slug": "<%= spec._slug %>",
+			"info_prog" : "<%= info_prog == 'null' ? "" : info_prog  %>",
 		  "titre": "<%= spec.titre.html_safe %>",
 		  "date": "<%= spec.date.strftime("%Y/%m/%d") %>",
 		  "en_tournee": "<%= spec.en_tournee %>",
@@ -96,9 +98,31 @@
 		</a>
 	</div>
 	<div id="menu_important">
-		<a href="http://www.forumsirius.fr/orion/lacriee.phtml?kld=1213">Réservez en ligne</a> |
-		<a href="http://www.forumsirius.fr/orion/lacriee.phtml?aboG=1213">Abonnez Vous</a> |
-		Billetterie : 04 91 54 70 54
+		<ul>
+			<li class="sub_menu">
+				<a href="javascript:void(0)" id="billetterie_sub">Billetterie</a>
+				<ul class="sub_menu_ul">
+					<li><a href="http://www.forumsirius.fr/orion/lacriee.phtml?kld=1213">Réservez en ligne</a></li>
+					<li><a href="http://www.forumsirius.fr/orion/lacriee.phtml?aboG=1213">Abonnez Vous</a></li>
+					<li>Billetterie : 04 91 54 70 54</li>
+				</ul>
+			</li>
+			<li class="sub_menu">
+				<a href="javascript:void(0)" id="newsletter_sub">Newsletter</a>
+				<ul class="sub_menu_ul">
+					<li>
+						<form method="post" action="/admin/api/contacts/contents" name="newsletter_menu" class="newsletter_subscribe_menu">
+						  <label>Nom Prénom :</label><input type="text" size="20" name="content[name]" required tabindex="1" />
+							<label>Mail : </label><input type="text" size="20" name="content[email]" required tabindex="2" />
+							<label>Code Postal : </label><input type="text" size="20" name="content[cp]" required tabindex="3" />
+						  <input type="submit" class="submit_btn" value="S'inscrire"/>
+						</form>
+					</li>
+				</ul>
+			</li>
+			<li><a href="http://www.facebook.com/lacriee"><img src="images/facebook.png" height="24px"/></a></li>
+			<li><a href="http://www.youtube.com/user/LACRIEEMARSEILLE"><img src="images/youtube.png" height="24px"/></a></li>
+		</ul>		
 	</div>
 	
 	<div id="intro">
@@ -190,8 +214,10 @@
 					<div id="newsletter_form" >
 						<p>Entrez votre adresse mail pour vous inscrire :</p>
 						<form method="post" action="/admin/api/contacts/contents" name="newsletter" class="newsletter_subscribe">
-						   <input type="text" size="20" name="content[email]" required tabindex="1" >
-						   <input type="submit" class="submit_btn" value="S'inscrire"/>
+							<label>Nom Prénom :</label><input type="text" size="20" name="content[name]" required tabindex="1" />
+							<label>Mail : </label><input type="text" size="20" name="content[email]" required tabindex="2" />
+							<label>Code Postal : </label><input type="text" size="20" name="content[cp]" required tabindex="3" />
+						  <input type="submit" class="submit_btn" value="S'inscrire"/>
 						</form>
 					</div>
 					<ul id="newsletters"></ul>

@@ -35,7 +35,12 @@ window.application.addView((function( $, application ){
 		this.current_index = 0;
 		this.images = [];
 		this.slider_duration = 5000;
-		this.currently_displayed_image = null;
+		this.currently_displayed_image = null
+		this.spectacle_index = null;
+		this.next_show = null;
+		this.prev_show = null;
+		this.next_caption = null;
+		this.prev_caption = null;
   };
   
   SpectacleView.prototype.init = function(){  
@@ -64,6 +69,10 @@ window.application.addView((function( $, application ){
 		this.images_container = $('#images_spectacle');
 		this.spectacle_content = $('#spectacle_content');
 		var image_template = $('#image_galery_for_spectacle');
+		this.next_show = $('#next_show');
+		this.prev_show = $('#prev_show');
+		this.next_caption = $('#next_show_caption');
+		this.prev_caption = $('#prev_show_caption');
 		
 		// GENERATION DES IMAGES
 		$.each(this.model.pages[this.current_spectacle].images, function(index, img){
@@ -90,6 +99,40 @@ window.application.addView((function( $, application ){
 			}else{
 				self.view.css({'top':"0px", "display" : "none"});	
 			}
+			
+			// NAVIGATION INTER - SPECTACLES (NEXT + PREV)
+			// CREATION DES CAPTIONS
+			if (self.spectacle_index > 0){
+				self.prev_show.attr('href', '/#/spectacle/' + self.model.spectacles[self.spectacle_index - 1].slug);
+				$('#prev_show_title').html(self.model.spectacles[self.spectacle_index - 1].titre);
+				$('#prev_show_number').html(self.model.spectacles[self.spectacle_index - 1].numero);
+				$('#prev_show_infos').html(self.model.spectacles[self.spectacle_index - 1].date_infobulles + "<br/>" + self.model.spectacles[self.spectacle_index - 1].infobulle);
+				Cufon.replace('div#prev_show_number');
+			}else{
+				self.prev_show.css('display', 'none');
+			}
+			if (self.spectacle_index < self.model.spectacles.length - 2){
+				self.next_show.attr('href', '/#/spectacle/' + self.model.spectacles[self.spectacle_index + 1].slug);
+				$('#next_show_title').html(self.model.spectacles[self.spectacle_index + 1].titre);
+				$('#next_show_number').html(self.model.spectacles[self.spectacle_index + 1].numero);
+				$('#next_show_infos').html(self.model.spectacles[self.spectacle_index + 1].date_infobulles + "<br/>" + self.model.spectacles[self.spectacle_index + 1].infobulle);
+				Cufon.replace('div#next_show_number');
+			}else{
+				self.next_show.css('display', 'none');
+			}
+			
+			self.prev_show.hover(function(){
+				self.prev_caption.stop().fadeIn('fast');
+			}, function(){
+				self.prev_caption.stop().fadeOut('fast');
+			});
+			
+			self.next_show.hover(function(){
+				self.next_caption.stop().fadeIn('fast');
+			}, function(){
+				self.next_caption.stop().fadeOut('fast');
+			});
+			
 			
 			// ON AFFICHE LA VUE
 			self.view.fadeIn('fast', function(){
@@ -166,13 +209,24 @@ window.application.addView((function( $, application ){
 		this.view.html("");
 		this.currently_displayed_image = null;
 		this.images = [];
+		this.next_show = null;
+		this.prev_show = null;
+		this.next_caption = null;
+		this.prev_caption = null;
 	};
 
   // I get called when the view needs to be shown.
   SpectacleView.prototype.show_view = function( p_parameters ){
+		var self = this;
 		this.view.stop();
     this.check();
 		this.current_spectacle = p_parameters.id;
+		
+		$.each(this.model.spectacles, function(index, s){
+			if (s.slug == self.current_spectacle){
+				self.spectacle_index = index;
+			}
+		});
 
 		this.model.get_spectacle(this.current_spectacle);
   };
