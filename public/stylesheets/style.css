@@ -434,6 +434,7 @@ body{
 
 #menu_important ul li ul li{
 	padding:0 !important;
+	float:none !important;
 }
 
 #menu_important ul li ul li label{
