@@ -44,7 +44,7 @@ window.application.addView((function( $, application ){
 		});		
 		
 		// FORM NEWSLETTER 
-    this.formulaire_inscription.submit(function(e) {
+    /*this.formulaire_inscription.submit(function(e) {
     	e.stopPropagation();
     	e.preventDefault();
 			self.model.set_message_to_growl("Inscription...");
@@ -62,7 +62,7 @@ window.application.addView((function( $, application ){
 						}
     			}, 
 				"json");
-    });
+    });*/
 
 		//	MOTEUR DE RECHERCHE
 		this.search_form.submit(function(e){
