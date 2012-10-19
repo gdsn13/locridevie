@@ -30,6 +30,7 @@ window.application.addView((function( $, application ){
 		this.logo_container = null;
 		this.jules_is_there = false;
 		this.logo_link = null;
+		this.menu = null;
   };
   
   IntroView.prototype.init = function(){  
@@ -41,6 +42,7 @@ window.application.addView((function( $, application ){
 		this.model = application.getModel( "Model" );
 		this.image_container = $('#image_intro');
 		this.logo_container = $('#logo_link');
+		this.menu = $('#menu');
 		
 		$(this.model).on('intro_ready', function(){
       self.refreshed_datas();
@@ -61,13 +63,11 @@ window.application.addView((function( $, application ){
 			var img = new Image();
 		  $(img).load(function(){
 				// on ajoute l'image et le texte
-				//self.image_container.append("<a href='" + self.model.current_page.jules[0].url + "'><img src='" + $(this).attr("src") + "'/></a>");
-				self.image_container.append("<img src='" + $(this).attr("src") + "'/>");
+				self.image_container.append("<a href='" + self.model.current_page.jules[0].url + "'><img src='" + $(this).attr("src") + "'/></a>");
 				$('#texte_intro').html(self.model.current_page.jules[0].block);
 				
 				// on met l'image à la bonne taille pour le full screen
 				self.resize(self.image_container, this);
-								
 				self.view.css({'top':"0px", "display" : "none"});
 				self.view.fadeIn('fast');
 			}).attr('src', this.model.current_page.jules[0].picto);
@@ -150,6 +150,7 @@ window.application.addView((function( $, application ){
 		if (Modernizr.mq('(max-width: 640px)') == true){
 			$('#menu').css('display', 'block');
 		}
+		this.menu.css('display', 'block');
 		this.view.fadeOut('fast', function(){
 
 		});
@@ -170,10 +171,17 @@ window.application.addView((function( $, application ){
 			left.css('display', 'none');
 		}
 		
+		this.menu.css('display', 'none');
+		
 		var menu_btn = $('#menu_command');
 		if (menu_btn.css('display') != "none"){
 			menu_btn.css('display', 'none');
 		}
+		var menu_bis = $('#menu_important');
+		if (menu_bis.css('display') != "none"){
+			menu_bis.css('display', 'none');
+		}
+		
 		var menu_bis = $('#menu_important');
 		if (menu_bis.css('display') != "none"){
 			menu_bis.css('display', 'none');
