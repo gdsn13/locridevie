@@ -61,12 +61,18 @@ window.application.addView((function( $, application ){
 			var img = new Image();
 		  $(img).load(function(){
 				// on ajoute l'image et le texte
-				self.image_container.append("<a href='" + self.model.current_page.jules[0].url + "'><img src='" + $(this).attr("src") + "'/></a>");
+				//self.image_container.append("<a href='" + self.model.current_page.jules[0].url + "'><img src='" + $(this).attr("src") + "'/></a>");
+				self.image_container.append("<img src='" + $(this).attr("src") + "'/>");
 				$('#texte_intro').html(self.model.current_page.jules[0].block);
-			
+				
+				console.log(self.image_container);
+				
+				console.log('on load before' + $(this).width());
 				// on met l'image à la bonne taille pour le full screen
 				self.resize(self.image_container, $(this));
-						
+				
+				console.log('on load' + $(this).width());
+				
 				self.view.css({'top':"0px", "display" : "none"});
 				self.view.fadeIn('fast');
 			}).attr('src', this.model.current_page.jules[0].picto);
@@ -102,7 +108,6 @@ window.application.addView((function( $, application ){
 	
 	IntroView.prototype.resize_logo = function ( p_img ){
 		//initialisation des tailles
-		
 		p_img.width($(window).width() - 100);
 		
 		var pos_top = ($(window).height() - 62 - p_img.height())/2;
@@ -117,11 +122,15 @@ window.application.addView((function( $, application ){
 		//Define starting width and height values for the original image
 		var start_width = p_img.width();  
 		var start_height = p_img.height();
-		//Define image ratio
+		
+		console.log('in resize : ' + start_width);
+		
+		//Define image ratio (vertical ou horizontal)
 		var ratio = start_height/start_width;
 		//Gather browser dimensions
 		var browser_width = $(window).width();
 		var browser_height = $(window).height();
+	
 		//Resize image to proper ratio
 		if ((browser_height/browser_width) > ratio) {
 			p_container.height(browser_height);
@@ -136,8 +145,8 @@ window.application.addView((function( $, application ){
 	  }
 		
 		//Make sure the image stays center in the window
-		p_img.css('left', (browser_width - p_container.width())/2);
-		p_img.css('top', (browser_height - p_container.height())/2);
+		p_container.css('left', (browser_width - p_container.width())/2);
+		p_container.css('top', (browser_height - p_container.height())/2);
 	};
 	
 
