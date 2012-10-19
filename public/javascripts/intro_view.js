@@ -56,7 +56,7 @@ window.application.addView((function( $, application ){
 		this.view.css({'top':"10000px", "display" : "block"});
 		this.jules_is_there = false;
 		
-		if (this.model.current_page.jules.length > 0){
+		if (this.model.current_page.jules.length > 0 && Modernizr.mq('(max-width: 640px)') == false){
 			
 			this.jules_is_there = true;
 			//chargement de la grosse image
