@@ -40,7 +40,7 @@ window.application.addView((function( $, application ){
 		----------------------------------------------------------------------------------------*/
 		this.view = $('#intro');
 		this.model = application.getModel( "Model" );
-		this.image_container = $('#image_intro');
+		this.image_container = $('#image_intro_link');
 		this.logo_container = $('#logo_link');
 		this.menu = $('#menu');
 		
@@ -63,7 +63,10 @@ window.application.addView((function( $, application ){
 			var img = new Image();
 		  $(img).load(function(){
 				// on ajoute l'image et le texte
-				self.image_container.append("<a href='" + self.model.current_page.jules[0].url + "'><img src='" + $(this).attr("src") + "'/></a>");
+				//self.image_container.append("<a href='" + self.model.current_page.jules[0].url + "'><img src='" + $(this).attr("src") + "'/></a>");
+				//self.image_container.append("<img src='" + $(this).attr("src") + "'/>");
+				
+				self.image_container.append($(this));
 				$('#texte_intro').html(self.model.current_page.jules[0].block);
 				
 				// on met l'image à la bonne taille pour le full screen
