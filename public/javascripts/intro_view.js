@@ -65,14 +65,9 @@ window.application.addView((function( $, application ){
 				self.image_container.append("<img src='" + $(this).attr("src") + "'/>");
 				$('#texte_intro').html(self.model.current_page.jules[0].block);
 				
-				console.log(self.image_container);
-				
-				console.log('on load before' + $(this).width());
 				// on met l'image à la bonne taille pour le full screen
-				self.resize(self.image_container, $(this));
-				
-				console.log('on load' + $(this).width());
-				
+				self.resize(self.image_container, this);
+								
 				self.view.css({'top':"0px", "display" : "none"});
 				self.view.fadeIn('fast');
 			}).attr('src', this.model.current_page.jules[0].picto);
@@ -99,7 +94,7 @@ window.application.addView((function( $, application ){
 				
 		$(window).on('resize', function(){
 			if (self.jules_is_there == true){
-				self.resize(self.image_container, $(img));
+				self.resize(self.image_container, img);
 			}else{
 				self.resize_logo(self.logo_container.find('img'));
 			}
@@ -117,13 +112,11 @@ window.application.addView((function( $, application ){
 		this.logo_container.css({'position': 'absolute', 'top' : pos_top, 'left' : pos_left, 'height' : p_img.height(), 'width' : p_img.width() });
 	};
 	
-	IntroView.prototype.resize = function( p_container,p_img ) {
+	IntroView.prototype.resize = function( p_container, p_img ) {
 		
 		//Define starting width and height values for the original image
-		var start_width = p_img.width();  
-		var start_height = p_img.height();
-		
-		console.log('in resize : ' + start_width);
+		var start_width = p_img.width;  
+		var start_height = p_img.height;
 		
 		//Define image ratio (vertical ou horizontal)
 		var ratio = start_height/start_width;
@@ -135,13 +128,13 @@ window.application.addView((function( $, application ){
 		if ((browser_height/browser_width) > ratio) {
 			p_container.height(browser_height);
 		  p_container.width(browser_height / ratio);
-		  p_img.height(browser_height);
-		  p_img.width(browser_height / ratio);
+		  $(p_img).height(browser_height);
+		  $(p_img).width(browser_height / ratio);
 		} else {
 		  p_container.width(browser_width);
 		  p_container.height(browser_width * ratio);
-		  p_img.width(browser_width);
-		  p_img.height(browser_width * ratio);
+		  $(p_img).width(browser_width);
+		  $(p_img).height(browser_width * ratio);
 	  }
 		
 		//Make sure the image stays center in the window
