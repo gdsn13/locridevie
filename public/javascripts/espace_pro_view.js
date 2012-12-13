@@ -97,8 +97,8 @@ window.application.addView((function( $, application ){
 		this.dossiers_de_presse.append(liste_title);
 		$.each(this.datas.datas, function(index, s){
 			var html = '<li><div class="spectacle_list_numero">' + s.numero + '</div><div class="spectacle_list_title"><a href="/#/spectacle/' + s.slug + '">' + s.titre + '</a></div>';
-			if (s.ddp != null) html += '<div class="presse_file_link"><a href="' + s.ddp + '">Dossier de presse</a></div>';
-			if (s.images_presse != null) html += '<div class="presse_file_link"><a href="' + s.images_presse + '">Images presse</a></div>';
+			if (s.ddp != null) html += '<div class="presse_file_link"><a href="' + s.ddp + '" target="_blank">Dossier de presse</a></div>';
+			if (s.images_presse != null) html += '<div class="presse_file_link"><a href="' + s.images_presse + '" target="_blank">Images presse</a></div>';
 			html += '</li>';
 			self.dossiers_de_presse.append(html);
 		});
