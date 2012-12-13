@@ -209,10 +209,10 @@ class Front::DatasController < ApplicationController
           :images_presse => s.images_presse.url
         }
       end
-  
+
       res = {
         :user_name   => "presse",
-        :datas  => ddp
+        :datas  => ddp.sort_by{|e| e[:numero]}
       }
     elsif user == "technique" && psswd == "lacriee13"
       tech = ContentType.where(:slug => "fiches_techniques").first.contents.map do |ft|
