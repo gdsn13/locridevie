@@ -221,23 +221,26 @@ window.application.addView((function( $, application ){
 		
 		// POPULATE SPECTACLE LIST
 		$.each(this.spectacles, function(index, spec){
-			//AFFICHAGE DU MOIS DU CALENDRIER
-			var month = new Date(spec.date).getMonth();
-			var year = new Date(spec.date).getFullYear();
-			if(self.current_month_for_calendar_display != month){
-				self.current_month_for_calendar_display = month;
-				self.spectacle_slider_ul.append('<li class="month_name_for_calendar" id="month_' + month + '_' + year + '"><p><a href="javascript:void();">' + self.localize.localize_month(month) + '</a></p></li>');
-				self.nav_width += 45;
+			if (spec.spectacle_associe_path == ""){
+				//AFFICHAGE DU MOIS DU CALENDRIER
+				var month = new Date(spec.date).getMonth();
+				var year = new Date(spec.date).getFullYear();
+				if(self.current_month_for_calendar_display != month){
+					self.current_month_for_calendar_display = month;
+					self.spectacle_slider_ul.append('<li class="month_name_for_calendar" id="month_' + month + '_' + year + '"><p><a href="javascript:void();">' + self.localize.localize_month(month) + '</a></p></li>');
+					self.nav_width += 45;
+				}
+		
+				//AFFICHAGE DU SPECTACLE
+				spec["index"] = index;	//rajout de l'index à l'object
+				spec["pipe"] = "";
+				//if (spec.spectacle_associe_path != "") spec["url"] = spec.spectacle_associe_path;
+				//else spec["url"] = spec.slug;
+				spec["url"] = spec.slug;
+				if (spec.date_infobulles != "" && spec.lieu != "") spec["pipe"] = "|"
+				self.spectacle_slider_ul.append(application.getFromTemplate(self.template, spec));
+				self.spectacles_titles.append(application.getFromTemplate(self.tltp_template, spec));
 			}
-			
-			//AFFICHAGE DU SPECTACLE
-			spec["index"] = index;	//rajout de l'index à l'object
-			spec["pipe"] = "";
-			if (spec.spectacle_associe_path != "") spec["url"] = spec.spectacle_associe_path;
-			else spec["url"] = spec.slug;
-			if (spec.date_infobulles != "" && spec.lieu != "") spec["pipe"] = "|"
-			self.spectacle_slider_ul.append(application.getFromTemplate(self.template, spec));
-			self.spectacles_titles.append(application.getFromTemplate(self.tltp_template, spec));
 		});
 		
 		// LOAD THE NAV IMAGES
