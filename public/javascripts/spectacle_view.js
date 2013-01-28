@@ -36,7 +36,6 @@ window.application.addView((function( $, application ){
 		this.images = [];
 		this.slider_duration = 5000;
 		this.currently_displayed_image = null
-		//this.spectacle_index = null;
 		this.next_show = null;
 		this.prev_show = null;
 		this.next_caption = null;
@@ -116,9 +115,7 @@ window.application.addView((function( $, application ){
 			});
 			
 			//PREV LINK
-			//if (self.spectacle_index > 0){
 			if (ci > 0){	
-				//self.prev_show.attr('href', '/#/spectacle/' + self.model.spectacles[self.spectacle_index - 1].slug);
 				self.prev_show.attr('href', '/#/spectacle/' + only_sp[ci - 1].slug);
 				$('#prev_show_title').html(only_sp[ci - 1].titre);
 				$('#prev_show_number').html(only_sp[ci - 1].numero);
@@ -129,9 +126,7 @@ window.application.addView((function( $, application ){
 			}
 			
 			//NEXT LINK
-			//if (self.spectacle_index < self.model.spectacles.length - 2){ //commence à 0 et le dernier
 			if (ci < only_sp.length - 2){ //commence à 0 et le dernier
-				//self.next_show.attr('href', '/#/spectacle/' + self.model.spectacles[self.spectacle_index + 1].slug);
 				self.next_show.attr('href', '/#/spectacle/' + only_sp[ci + 1].slug);
 				$('#next_show_title').html(only_sp[ci + 1].titre);
 				$('#next_show_number').html(only_sp[ci + 1].numero);
@@ -157,9 +152,11 @@ window.application.addView((function( $, application ){
 			// ON AFFICHE LA VUE
 			self.view.fadeIn('fast', function(){
 				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE
-				self.slider_timeout = setTimeout(function(){
-					self.animate();
-				}, self.slider_duration);	
+				if (self.images.length > 1){
+					self.slider_timeout = setTimeout(function(){
+						self.animate();
+					}, self.slider_duration);	
+				}
 			});
 			self.model.set_message_to_growl("");
 		});
@@ -241,12 +238,6 @@ window.application.addView((function( $, application ){
 		this.view.stop();
     this.check();
 		this.current_spectacle = p_parameters.id;
-		
-		/*$.each(this.model.spectacles, function(index, s){
-			if (s.slug == self.current_spectacle){
-				self.spectacle_index = index;
-			}
-		})*/
 
 		this.model.get_spectacle(this.current_spectacle);
   };
