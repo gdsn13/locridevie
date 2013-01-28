@@ -58,9 +58,9 @@ var MediafileDialog = {
     if (tinymce.isWebKit) ed.getWin().focus();
 
     if (asset.content_type == 'image')
-      tinymce.extend(args, { src : asset.url });
+      tinymce.extend(args, { src : "http://www.theatre-lacriee.com" + asset.url });
     else
-      tinymce.extend(args, { href : asset.url });
+      tinymce.extend(args, { href : "http://www.theatre-lacriee.com" + asset.url });
 
     el = ed.selection.getNode();
 
