@@ -28,7 +28,7 @@ a, a:visited{
 	text-decoration:none;
 }
 
-.presentation a, .presentation a:visited{
+.presentation a, .presentation a:visited, #content_static_container a, #content_static_container a:visited{
 	text-decoration:underline;
 }
 
