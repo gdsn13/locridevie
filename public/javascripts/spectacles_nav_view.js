@@ -22,6 +22,7 @@ window.application.addView((function( $, application ){
 		this.enter_frame_nav = null;
 		this.tltp_template = null;
 		this.lock_up_and_down = false;
+		this.number_of_displayed_spectacle = 0;
   };
   
   SpectaclesNavView.prototype.init = function(){  
@@ -218,10 +219,12 @@ window.application.addView((function( $, application ){
 		var self = this;
 		this.nav_width = 0;
 		this.loaded_images = 0;
+		this.number_of_displayed_spectacle = 0;
 		
 		// POPULATE SPECTACLE LIST
 		$.each(this.spectacles, function(index, spec){
 			if (spec.spectacle_associe_path == ""){
+				self.number_of_displayed_spectacle += 1;
 				//AFFICHAGE DU MOIS DU CALENDRIER
 				var month = new Date(spec.date).getMonth();
 				var year = new Date(spec.date).getFullYear();
@@ -250,7 +253,7 @@ window.application.addView((function( $, application ){
 				self.nav_width += (this.width * 170 / this.height) + 5;
 				self.loaded_images ++;
 			
-				if (self.loaded_images == self.spectacles.length){	//set size du ul des slepcatcles et des titres
+				if (self.loaded_images == self.number_of_displayed_spectacle){	//set size du ul des slepcatcles et des titres
 					self.spectacle_slider_ul.css('width', self.nav_width);
 					self.spectacles_titles.css('width', self.nav_width);
 				}
