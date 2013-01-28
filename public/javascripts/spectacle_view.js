@@ -36,7 +36,7 @@ window.application.addView((function( $, application ){
 		this.images = [];
 		this.slider_duration = 5000;
 		this.currently_displayed_image = null
-		this.spectacle_index = null;
+		//this.spectacle_index = null;
 		this.next_show = null;
 		this.prev_show = null;
 		this.next_caption = null;
@@ -102,20 +102,40 @@ window.application.addView((function( $, application ){
 			
 			// NAVIGATION INTER - SPECTACLES (NEXT + PREV)
 			// CREATION DES CAPTIONS
-			if (self.spectacle_index > 0){
-				self.prev_show.attr('href', '/#/spectacle/' + self.model.spectacles[self.spectacle_index - 1].slug);
-				$('#prev_show_title').html(self.model.spectacles[self.spectacle_index - 1].titre);
-				$('#prev_show_number').html(self.model.spectacles[self.spectacle_index - 1].numero);
-				$('#prev_show_infos').html(self.model.spectacles[self.spectacle_index - 1].date_infobulles + "<br/>" + self.model.spectacles[self.spectacle_index - 1].infobulle);
+			
+			var only_sp = []; //ne contient que les spectacle, et pas les spectacle avec sp associés
+			var ci = 0; //index dans les vrais sepctacles
+			
+			$.each(self.model.spectacles, function(index, s){
+				if (s.spectacle_associe_path == ""){
+					only_sp.push(s);
+					if (s.slug == self.current_spectacle){
+						ci = index;
+					}
+				}
+			});
+			
+			//PREV LINK
+			//if (self.spectacle_index > 0){
+			if (ci > 0){	
+				//self.prev_show.attr('href', '/#/spectacle/' + self.model.spectacles[self.spectacle_index - 1].slug);
+				self.prev_show.attr('href', '/#/spectacle/' + only_sp[ci - 1].slug);
+				$('#prev_show_title').html(only_sp[ci - 1].titre);
+				$('#prev_show_number').html(only_sp[ci - 1].numero);
+				$('#prev_show_infos').html(only_sp[ci - 1].date_infobulles + "<br/>" + only_sp[ci - 1].infobulle);
 				Cufon.replace('div#prev_show_number');
 			}else{
 				self.prev_show.css('display', 'none');
 			}
-			if (self.spectacle_index < self.model.spectacles.length - 2){
-				self.next_show.attr('href', '/#/spectacle/' + self.model.spectacles[self.spectacle_index + 1].slug);
-				$('#next_show_title').html(self.model.spectacles[self.spectacle_index + 1].titre);
-				$('#next_show_number').html(self.model.spectacles[self.spectacle_index + 1].numero);
-				$('#next_show_infos').html(self.model.spectacles[self.spectacle_index + 1].date_infobulles + "<br/>" + self.model.spectacles[self.spectacle_index + 1].infobulle);
+			
+			//NEXT LINK
+			//if (self.spectacle_index < self.model.spectacles.length - 2){ //commence à 0 et le dernier
+			if (ci < only_sp.length - 2){ //commence à 0 et le dernier
+				//self.next_show.attr('href', '/#/spectacle/' + self.model.spectacles[self.spectacle_index + 1].slug);
+				self.next_show.attr('href', '/#/spectacle/' + only_sp[ci + 1].slug);
+				$('#next_show_title').html(only_sp[ci + 1].titre);
+				$('#next_show_number').html(only_sp[ci + 1].numero);
+				$('#next_show_infos').html(only_sp[ci + 1].date_infobulles + "<br/>" + only_sp[ci + 1].infobulle);
 				Cufon.replace('div#next_show_number');
 			}else{
 				self.next_show.css('display', 'none');
@@ -222,11 +242,11 @@ window.application.addView((function( $, application ){
     this.check();
 		this.current_spectacle = p_parameters.id;
 		
-		$.each(this.model.spectacles, function(index, s){
+		/*$.each(this.model.spectacles, function(index, s){
 			if (s.slug == self.current_spectacle){
 				self.spectacle_index = index;
 			}
-		});
+		})*/
 
 		this.model.get_spectacle(this.current_spectacle);
   };
