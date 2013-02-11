@@ -42,7 +42,7 @@ class Front::IphonesController < ApplicationController
         :title => d.spectacle.numero + " " + d.spectacle.titre_back_office,
         :logo => d.spectacle.images.first != nil ? d.spectacle.images.first.file.url : "",
         :dates => " ",
-        :auteur => d.info_prog.html_safe,
+        :auteur => d.spectacle.info_prog.html_safe,
         :director => " "
       }
     end
