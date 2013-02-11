@@ -105,15 +105,17 @@ window.application.addView((function( $, application ){
 			var only_sp = []; //ne contient que les spectacle, et pas les spectacle avec sp associés
 			var ci = 0; //index dans les vrais sepctacles
 			
-			$.each(self.model.spectacles_ordered_by_numero, function(index, s){
+			$.each(self.model.spectacles_ordered_by_numero(), function(index, s){
 				if (s.spectacle_associe_path == ""){
 					only_sp.push(s);
 					if (s.slug == self.current_spectacle){
 						ci = index;
 					}
-					
 				}
 			});
+			
+			//console.log(self.model.spectacles_ordered_by_numero());
+			//console.log(ci);
 			
 			//PREV LINK
 			if (ci > 0){	
