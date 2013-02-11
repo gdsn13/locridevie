@@ -57,7 +57,7 @@ class Front::IphonesController < ApplicationController
     spectacles = ContentType.where(:slug => "spectacles").first.contents.map do |s|
     current_site = Site.first
       
-      if s.season_id == current_site.season_front && (s.spectacle_associe.size == 0)
+      if s.season_id == current_site.season_front && (s.spectacle_associe == nil)
         {
           :id => s._slug,
           :title => s.numero + " " + s.titre_back_office,
