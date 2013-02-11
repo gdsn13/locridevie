@@ -35,7 +35,6 @@ class Front::IphonesController < ApplicationController
   end
   
   def agenda
-    #date = Date.strptime(string, "%d/%m/%Y")
     dates = ContentType.where(:slug => "calendrier").first.contents.map do |d|
       {
         :id => d.spectacle._slug,
@@ -43,7 +42,6 @@ class Front::IphonesController < ApplicationController
         :title => d.spectacle.numero + " " + d.spectacle.titre_back_office,
         :logo => d.spectacle.images.first != nil ? d.spectacle.images.first.file.url : "",
         :dates => " ",
-        #:auteur => d.spectacle.info_prog != nil ? d.spectacle.info_prog.gsub(/<[^>]*>/ui,'') : " ",
         :auteur => strip_tags(d.spectacle.info_prog),
         :director => " "
       }
@@ -54,20 +52,25 @@ class Front::IphonesController < ApplicationController
   
   #Liste des spectacles
   def spectacles
-    spectacles = ContentType.where(:slug => "spectacles").first.contents.map do |s|
     current_site = Site.first
-      
+    
+    s_list = []
+    
+    ContentType.where(:slug => "spectacles").first.contents.each do |s|      
       if s.season_id == current_site.season_front && (s.spectacle_associe == nil)
-        {
-          :id => s._slug,
-          :title => s.numero + " " + s.titre_back_office,
-          :logo => "http://www.theatre-lacriee.com#{s.logo.url}",
-          :dates => " ",
-          #:auteur => s.info_prog != nil ? s.info_prog.gsub(/<[^>]*>/ui,'') : " ",
-          :auteur => strip_tags(s.info_prog),
-          :director => " "
-        }
+        s_list << s
       end
+    end
+    
+    spectacles = s_list.map do |s|
+      {
+        :id => s._slug,
+        :title => s.numero + " " + s.titre_back_office,
+        :logo => "http://www.theatre-lacriee.com#{s.logo.url}",
+        :dates => " ",
+        :auteur => strip_tags(s.info_prog),
+        :director => " "
+      }
     end
     
     render :json => spectacles
