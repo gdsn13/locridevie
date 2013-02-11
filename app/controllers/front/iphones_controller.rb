@@ -39,10 +39,10 @@ class Front::IphonesController < ApplicationController
       {
         :id => d.spectacle._slug,
         :timing => "#{d.date}T00:00:00+02:00",
-        :title => d.titre.html_safe,
+        :title => d.spectacle.numero + " " + d.spectacle.titre_back_office,
         :logo => d.spectacle.images.first != nil ? d.spectacle.images.first.file.url : "",
         :dates => " ",
-        :auteur => " ",
+        :auteur => d.info_prog.html_safe,
         :director => " "
       }
     end
