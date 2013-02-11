@@ -61,7 +61,7 @@ class Front::IphonesController < ApplicationController
           :title => s.numero + " " + s.titre_back_office,
           :logo => "http://www.theatre-lacriee.com#{s.logo.url}",
           :dates => " ",
-          :auteur => " ",
+          :auteur => s.info_prog.html_safe,
           :director => " "
         }
       end

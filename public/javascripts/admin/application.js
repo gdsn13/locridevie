@@ -48,7 +48,7 @@ var TinyMceDefaultSettings = {
   script_url : '/javascripts/admin/plugins/tiny_mce/tiny_mce.js',
   theme : 'advanced',
   skin : 'locomotive',
-  plugins: 'safari,inlinepopups,locomedia,fullscreen',
+  plugins: 'safari,inlinepopups,locomedia,fullscreen,paste',
   extended_valid_elements: 'iframe[width|height|frameborder|allowfullscreen|src|title]',
   theme_advanced_buttons1 : 'fullscreen,code,|,bold,italic,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink',
   theme_advanced_buttons2 : 'formatselect,fontsizeselect,forecolor,|,locomedia',
@@ -64,6 +64,14 @@ var TinyMceDefaultSettings = {
   fullscreen_settings : {
     theme_advanced_path_location : "top"
   },
+	paste_text_sticky: true,
+	paste_text_sticky_default: true,
+	setup : function(ed) 
+	        {    ed.onInit.add(function(ed)
+	            {    ed.pasteAsPlainText = true;
+	                ed.controlManager.setActive("pastetext", true);
+	            });
+	           }
   /*
   *
   * These are call backs aide in the guider creation
