@@ -42,7 +42,7 @@ class Front::IphonesController < ApplicationController
         :title => d.spectacle.numero + " " + d.spectacle.titre_back_office,
         :logo => d.spectacle.images.first != nil ? d.spectacle.images.first.file.url : "",
         :dates => " ",
-        :auteur => d.spectacle.info_prog.html_safe,
+        :auteur => d.spectacle.info_prog.strip_tags,
         :director => " "
       }
     end
@@ -61,7 +61,7 @@ class Front::IphonesController < ApplicationController
           :title => s.numero + " " + s.titre_back_office,
           :logo => "http://www.theatre-lacriee.com#{s.logo.url}",
           :dates => " ",
-          :auteur => s.info_prog.html_safe,
+          :auteur => s.info_prog.strip_tags,
           :director => " "
         }
       end
