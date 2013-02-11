@@ -33,11 +33,7 @@ a, a:visited{
 }
 
 .presentation a:hover, #content_static_container a:hover;{
-	color:#1285bc;
-}
-
-a:hover{
-	text-decoration:underline;
+	color:#1285bc !important;
 }
 
 img{
@@ -252,13 +248,13 @@ body{
 	background: #ccc; 
 	border-radius: 2px 2px 2px 2px;
 	height: 100%; 
-	width:2px; 
+	width:3px; 
 	position: relative; 
 }
 .thumb { 
 	background: #1285bc; 
 	height: 20px; 
-	width: 2px; 
+	width: 3px; 
 	cursor: pointer; 
 	overflow: hidden; 
 	position: absolute; 
