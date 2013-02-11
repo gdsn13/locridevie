@@ -32,7 +32,7 @@ a, a:visited{
 	text-decoration:underline;
 }
 
-.presentation a:hover, #content_static_container a:hover;{
+.presentation a:hover, #content_static_container a:hover{
 	color:#1285bc !important;
 }
 
