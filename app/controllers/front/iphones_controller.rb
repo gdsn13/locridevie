@@ -35,9 +35,10 @@ class Front::IphonesController < ApplicationController
   end
   
   def agenda
-    dates = ContentType.where(:slug => "calendrier").first.contents.map do |d|
+    dates = ContentType.where(:slug => "calendrier").first.ordered_contents.map do |d|
       {
         :id => d.spectacle._slug,
+        
         :timing => "#{d.date}T00:00:00+02:00",
         :title => d.spectacle.numero + " " + d.spectacle.titre_back_office,
         :logo => d.spectacle.images.first != nil ? d.spectacle.images.first.file.url : "",
