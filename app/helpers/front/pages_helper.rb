@@ -14,7 +14,7 @@ module Front::PagesHelper
         css << 'first' if index == 0
         css << 'last' if index == children_of_root.size - 1
       
-        if p.slug == "spectacles" || p.slug == "spectacle" || p.slug == "newsletter" || p.slug == "home_page" || p.slug == "newsletter"
+        if p.slug == "spectacles" || p.slug == "spectacle" || p.slug == "newsletter" || p.slug == "home_page"
           is_page = false
         else
           is_page = true  

@@ -12,6 +12,8 @@ class ContentInstance
   field :_position_in_list, :type => Integer, :default => 0
   field :_visible, :type => Boolean, :default => true
   field :season_id
+  
+  scope :by_numeros, order_by(:numeros => :desc)
 
   ## validations ##
   validate :require_highlighted_field
