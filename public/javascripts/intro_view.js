@@ -50,7 +50,7 @@ window.application.addView((function( $, application ){
 			$(img).load(function(){
 				
 				var nh = (this.height * 490)/this.width;
-				$(this).css('width', '490px');
+				$(this).css({'width' : '490px', 'height': nh });
 				$(this).parent().css({'height' : nh + 1, "width" : '490px'});
 				$(this).parent().parent().find('.spectacle_infos').css({'height' : nh + 1});
 				
