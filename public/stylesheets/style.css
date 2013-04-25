@@ -731,6 +731,7 @@ header #navigation{
 	padding-bottom: 33px;
 	cursor: pointer;
 	float:left;
+	position:relative;
 }
 
 #navigation li ul{
