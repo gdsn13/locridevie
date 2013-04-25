@@ -26,11 +26,6 @@ window.application.addView((function( $, application ){
   function IntroView(){
 		this.model = null;
 		this.view = null;
-		this.image_container = null;
-		this.logo_container = null;
-		this.jules_is_there = false;
-		this.logo_link = null;
-		this.menu = null;
   };
   
   IntroView.prototype.init = function(){  
@@ -38,11 +33,8 @@ window.application.addView((function( $, application ){
 		
 		/* INIT DATAS
 		----------------------------------------------------------------------------------------*/
-		this.view = $('#intro');
+		this.view = $('#home_container');
 		this.model = application.getModel( "Model" );
-		this.image_container = $('#image_intro_link');
-		this.logo_container = $('#logo_link');
-		this.menu = $('#menu');
 		
 		$(this.model).on('intro_ready', function(){
       self.refreshed_datas();
@@ -50,113 +42,55 @@ window.application.addView((function( $, application ){
   };
 
 	IntroView.prototype.refreshed_datas = function(){
-		
 		var self = this;
-		var nav_intro = $('#nav_intro');
-		this.view.css({'top':"10000px", "display" : "block"});
-		this.jules_is_there = false;
-		
-		if (this.model.current_page.jules.length > 0 && Modernizr.mq('(max-width: 640px)') == false){
 			
-			this.jules_is_there = true;
-			//chargement de la grosse image
-			var img = new Image();
-		  $(img).load(function(){
-				// on ajoute l'image et le texte
-				//self.image_container.append("<a href='" + self.model.current_page.jules[0].url + "'><img src='" + $(this).attr("src") + "'/></a>");
-				//self.image_container.append("<img src='" + $(this).attr("src") + "'/>");
-				
-				self.image_container.append($(this));
-				$('#texte_intro').html(self.model.current_page.jules[0].block);
-				
-				// on met l'image à la bonne taille pour le full screen
-				self.resize(self.image_container, this);
-				self.view.css({'top':"0px", "display" : "none"});
-				self.view.fadeIn('fast');
-			}).attr('src', this.model.current_page.jules[0].picto);
-		}else{
-			// on affiche l'image de fond de la page
+		$.each(self.model.current_page.actus, function(index, actu){
+			
 			var img = new Image();
 			$(img).load(function(){
-				//var html = "<a href='/#/home_page' id='logo_link'><img src='" + $(this).attr('src') + "'/></a>";
-				self.logo_container.append(this);
-
-				self.resize_logo($(this));
-	
-				self.view.css({'top':"0px", "display" : "none"});
-				self.view.fadeIn('fast');
 				
-			}).attr('src', this.model.current_page.logo);
-		}
-		
-		nav_intro.html('');
-		// on ajoute les boutons!
-		$.each(self.model.current_page.boutons, function(index, btn){
-			nav_intro.append('<li><a href="' + btn.url + '">' + btn.title + '</a></li>')
+				var nh = (this.height * 490)/this.width;
+				$(this).css('width', '490px');
+				$(this).parent().css({'height' : nh + 1, "width" : '490px'});
+				$(this).parent().parent().find('.spectacle_infos').css({'height' : nh + 1});
+				
+			}).attr('src', actu.img);			
+			
+			var first = ''
+			if (index == 0) first = 'first_home ';
+			
+			var html = '<div class="home_item ' + first + 'home_item_' + index + '"><div class="left_content"></div>';
+			html += '<div class="spectacle_infos"><h1>' + actu.title + '</h1>';
+			html += '<div class="numero">' + actu.numero + '</div>';
+			html += '<div class="top_spectacle">';
+			html += '<div class="genre_age">' + actu.genre + '<span>' + actu.age +'</span></div>';
+			html += '<div class="date_infos">' + actu.dates + '</div>';
+			html += '<div class="tld">' + actu.tld + actu.block + '</div>'
+			html += '</div>';
+			html += '<div class="spectacle_links"><a href="/#/spectacle/' + actu.url + '">+ En savoir plus</a>';
+			
+			if (actu.resa != "" && actu.resa != null) html += '<a href="' + actu.resa + '">> Reservez en ligne	</a></div>'
+			html += '</div></div>';
+			
+			self.view.append(html);
+			self.view.find('.home_item_' + index + ' .left_content').append(img);
 		});
-				
-		$(window).on('resize', function(){
-			if (self.jules_is_there == true){
-				self.resize(self.image_container, img);
-			}else{
-				self.resize_logo(self.logo_container.find('img'));
-			}
-		});	
+		
+		this.view.imagesLoaded(function($images, $proper, $broken){			
+			
+			// ON AFFICHE LA VUE
+			self.view.fadeIn('fast', function(){});
+			
+			Cufon.replace('.numero');
+			
+			self.model.set_message_to_growl("");
+			
+		});
 	};
-	
-	IntroView.prototype.resize_logo = function ( p_img ){
-		//initialisation des tailles
-		p_img.width($(window).width() - 100);
-		
-		var pos_top = ($(window).height() - 62 - p_img.height())/2;
-		var pos_left = ($(window).width() - p_img.width())/2;
-
-		//affectation des tailles
-		this.logo_container.css({'position': 'absolute', 'top' : pos_top, 'left' : pos_left, 'height' : p_img.height(), 'width' : p_img.width() });
-	};
-	
-	IntroView.prototype.resize = function( p_container, p_img ) {
-		
-		//Define starting width and height values for the original image
-		var start_width = p_img.width;  
-		var start_height = p_img.height;
-		
-		//Define image ratio (vertical ou horizontal)
-		var ratio = start_height/start_width;
-		//Gather browser dimensions
-		var browser_width = $(window).width();
-		var browser_height = $(window).height();
-	
-		//Resize image to proper ratio
-		if ((browser_height/browser_width) > ratio) {
-			p_container.height(browser_height);
-		  p_container.width(browser_height / ratio);
-		  $(p_img).height(browser_height);
-		  $(p_img).width(browser_height / ratio);
-		} else {
-		  p_container.width(browser_width);
-		  p_container.height(browser_width * ratio);
-		  $(p_img).width(browser_width);
-		  $(p_img).height(browser_width * ratio);
-	  }
-		
-		//Make sure the image stays center in the window
-		p_container.css('left', (browser_width - p_container.width())/2);
-		p_container.css('top', (browser_height - p_container.height())/2);
-	};
-	
 
 	IntroView.prototype.hide_view = function( ){
 		var self = this;
-		if (this.jules_is_there == true) this.image_container.html('');
-		this.logo_container.html('');
-		if (Modernizr.mq('(max-width: 640px)') == true){
-			$('#menu').css('display', 'block');
-		}
-		this.menu.css('display', 'block');
-		this.view.fadeOut('fast', function(){
-
-		});
+		this.view.fadeOut('fast', function(){});
 	}
 
   // I get called when the view needs to be shown.
@@ -168,37 +102,10 @@ window.application.addView((function( $, application ){
   };
   
 	// I check if everything is ok for the correct display of the view.
-	IntroView.prototype.check = function(){
-		var left = $('#logo_menu');
-		if (left.css('display') != "none"){
-			left.css('display', 'none');
-		}
-		
-		this.menu.css('display', 'none');
-		
-		var menu_btn = $('#menu_command');
-		if (menu_btn.css('display') != "none"){
-			menu_btn.css('display', 'none');
-		}
-		var menu_bis = $('#menu_important');
-		if (menu_bis.css('display') != "none"){
-			menu_bis.css('display', 'none');
-		}
-		
-		var menu_bis = $('#menu_important');
-		if (menu_bis.css('display') != "none"){
-			menu_bis.css('display', 'none');
-		} 
-		
-		if (Modernizr.mq('(max-width: 640px)') == true){
-			$('#menu').css('display', 'none');
-		}
-		
+	IntroView.prototype.check = function(){				
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );
 		}
-		//spectacles ne dois pas s'afficher
-		$('#spectacle_slider').css('display', 'none');
 	};
 	 
   // Return a new view class singleton instance.

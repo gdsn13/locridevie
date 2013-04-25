@@ -79,9 +79,7 @@ class Front::DatasController < ApplicationController
     
     if intro.embeded_items.exists? 
       intro_to_json = {
-        :logo => intro.bck_img.url,
-        :jules => intro.embeded_items.get_jules_for_json(intro), 
-        :boutons => intro.embeded_items.get_boutons_for_json
+        :actus => intro.embeded_items.get_actus_for_json
       } 
     end 
         
@@ -154,10 +152,16 @@ class Front::DatasController < ApplicationController
     spectacle = { :title => sp.titre,
                   :numero => sp.numero,
                   :tld => sp.tld,
+                  :genre => sp.genre,
+                  :age => sp.age,
                   :slug => sp._slug,
                   :date => sp.date.strftime("%Y/%m/%d"),
                   :presentation => sp.presentation.html_safe,
                   :logo => sp.logo.url,
+                  :resa => sp.adresse_reservation,
+                  :plus => sp.en_savoir_plus.html_safe,
+                  :video => sp.youtube,
+                  :date_affichee => sp.date_infobulle,
                   :images => images
                 }
                 

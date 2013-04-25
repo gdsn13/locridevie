@@ -3,6 +3,13 @@
 
 = f.inputs :name => :information do
   = f.input :title, :wrapper_html => { :class => 'highlighted' }
-  = f.input :block, :as => :text, :input_html => { :class => 'html' }
+  = f.input :url
+  = f.input :resa
   = f.input :picto
+  = f.input :numero
+  = f.input :genre
+  = f.input :age
+  = f.input :dates
+  = f.input :tld, :as => :text, :input_html => { :class => 'html' }
+  = f.input :block, :as => :text, :input_html => { :class => 'html' }
   = f.hidden_field :season, :value => @current_site.season_back  

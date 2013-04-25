@@ -3,6 +3,13 @@ class Actu
   
   field :title
   field :block
+  field :numero
+  field :genre
+  field :age
+  field :dates
+  field :tld
+  field :url
+  field :resa
   
   mount_uploader :picto, ActuUploader
   

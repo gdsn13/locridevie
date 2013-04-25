@@ -35,7 +35,6 @@ window.application.addView((function( $, application ){
 	CalendrierView.prototype.refreshed_datas = function(){
 		var self = this;
 		var current_month_for_display = 0;
-		this.view.css({'top':"10000px", "display" : "block", "position" : "absolute"});
 		this.calendrier_spectacles.html('');
 		
 		//AFFICHAGE DES DATES
@@ -68,7 +67,7 @@ window.application.addView((function( $, application ){
 		
 		//AFFICHAGE DES JULES
 		$.each(this.model.current_page.jules, function(index, j){
-			var html = '<div class="jules_slider" id="calendrier_jules_' + index +'"><img src="' + j.picto + '"/></div>';
+			var html = '<div class="image" id="calendrier_jules_' + index +'"><img src="' + j.picto + '"/></div>';
 			self.jules_container.append(html);
 			var this_container = $('#calendrier_jules_' + index);
 			self.jules.push(this_container);
@@ -80,7 +79,7 @@ window.application.addView((function( $, application ){
 		// ---------------------------------------------------------------------------------------------------------
 		this.view.imagesLoaded(function($images, $proper, $broken){
 
-			self.resize_containers();
+			/*self.resize_containers();
 
 			if (Modernizr.mq('(max-width: 640px)') == true){
 				self.view.css({'top':"0px", "display" : "none", "position" : "static"});	
@@ -88,7 +87,7 @@ window.application.addView((function( $, application ){
 				self.view.css({'top':"0px", "display" : "none"});	
 			}
 			
-			$(window).on('resize', function(){ self.resize_containers(); });			
+			$(window).on('resize', function(){ self.resize_containers(); });*/
 			
 			// ON AFFICHE LA VUE
 			self.view.fadeIn('fast', function(){
@@ -163,7 +162,6 @@ window.application.addView((function( $, application ){
 	CalendrierView.prototype.hide_view = function(){
 		var self = this;
 		this.view.fadeOut('fast');
-		$(window).unbind('resize');
 	};
 
   // I get called when the view needs to be shown.
@@ -180,16 +178,6 @@ window.application.addView((function( $, application ){
 
 	// I check if everything is ok for the correct display of the view.
 	CalendrierView.prototype.check = function(){		
-		$('#logo_menu').show('fast');
-		
-		var ss = $('#spectacle_slider');
-		if( ss.css('display') == 'none') ss.fadeIn('fast'); 
-		
-		var menu_btn = $('#menu_command');
-		if (menu_btn.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_btn.css('display', 'block');
-		var menu_bis = $('#menu_important');
-		if (menu_bis.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_bis.css('display', 'block');
-		
 		//securisation des données.
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );

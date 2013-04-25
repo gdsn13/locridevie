@@ -3,8 +3,7 @@
 
 = f.inputs :name => :information do
   = f.input :title, :wrapper_html => { :class => 'highlighted' }
-  = f.input :block, :as => :text, :input_html => { :class => 'html' }
   = f.input :url
   = f.input :le_bouton
-  = f.input :son
+  = f.input :block, :as => :text, :input_html => { :class => 'html' }
   = f.hidden_field :season, :value => @current_site.season_back

@@ -31,6 +31,7 @@
 		<% @spectacles.map do |spec| %>
 			<% infobulle = get_infobulle spec.infobulle.to_json.html_safe %>
 			<% info_prog = get_infobulle spec.info_prog.to_json.html_safe %>
+			<% tld = get_infobulle spec.tld.to_json.html_safe %>
   		{ "id": "<%= spec.id %>",
 		  "slug": "<%= spec._slug %>",
 			<% if info_prog == "null" -%>
@@ -42,6 +43,7 @@
 		  "date": "<%= spec.date.strftime("%Y/%m/%d") %>",
 		  "en_tournee": "<%= spec.en_tournee %>",
 		  "saison": "<%= spec.season_id %>",
+		  "resa" : "<%= spec.adresse_reservation %>",
 		  "logo": "<%= spec.logo.url %>",
 			"numero": "<%= spec.numero%>",
 			<% if infobulle == "null" -%>
@@ -49,8 +51,18 @@
 			<% else -%>
 			"infobulle": <%= infobulle %>,
 			<% end -%> 
+			"logo_large": "<%= spec.images.first != nil ? spec.images.first.file.url : "" %>",
 			"date_infobulles": "<%= spec.date_infobulle %>",
 			"lieu": "<%= spec.lieu %>",
+			"resa": "<%= spec.adresse_reservation %>",
+			"genre": "<%= spec.genre %>",
+			"age": "<%= spec.age %>",
+			"genre": "<%= spec.genre %>",
+			<% if tld == "null" -%>
+			"tld": "",
+			<% else -%>
+			"tld": <%= tld %>,
+			<% end -%>
 			"spectacle_associe_path": "<%= spec.spectacle_associe != nil ? spec.spectacle_associe._slug : "" %>"
 	  	} <%= "," unless spec == @spectacles.last -%>
 		<% end -%>
@@ -68,7 +80,6 @@
 	<script src="/javascripts/programmation_view.js" type="text/javascript"></script>
 	<script src="/javascripts/calendrier_view.js" type="text/javascript"></script>
 	<script src="/javascripts/espace_pro_view.js" type="text/javascript"></script>
-	<script src="/javascripts/spectacles_nav_view.js" type="text/javascript"></script>
 	<script src="/javascripts/spectacle_view.js" type="text/javascript"></script>
 	<script src="/javascripts/newsletter_view.js" type="text/javascript"></script>
 	<script src="/javascripts/page_view.js" type="text/javascript"></script>
@@ -78,104 +89,47 @@
 	<script src="/javascripts/fr.js" type="text/javascript"></script>
 	<script src="/javascripts/en.js" type="text/javascript"></script>
 	<script src="/javascripts/growl_view.js" type="text/javascript"></script>
-	<script src="/javascripts/jquery.tinyscrollbar.min.js" type="text/javascript"></script>
-	<script src="/javascripts/jquery.columnizer.min.js" type="text/javascript"></script> <!-- pour les colonnes du menu -->
 	<script src="http://cufon.shoqolate.com/js/cufon-yui.js?v=1.09i" type="text/javascript"></script>
 	<script src="/theme/fonts/kozminpro_900.font.js" type="text/javascript"></script>
 	<script src="/javascripts/modernizr.custom.10720.js" type="text/javascript"></script>
 </head>
 
 <body>
+	<div id="wrapper">
+		<div id="growl_messages"></div>
 	
-	<div id="growl_messages"></div>
+		<header>
+			<ul id="navigation">
+				<%= get_generated_menu.html_safe%>
+			</ul>
+			<div id="logo">
+				<a href="/"><img src="theme/images/logo.png"></a>
+			</div>
+		</header>
 	
-	<div id="logo_menu">
-		<div id="logo">
-			<img src="theme/images/logo.png">
-		</div>
-	</div>
-	
-	<div id="menu_command">
-		<a href="javascript:void(0)">
-			Menu
-			<img src="/theme/images/navigation.png"/>
-		</a>
-	</div>
-	<div id="menu_important">
-		<ul>
-			<li class="sub_menu">
-				<a href="javascript:void(0)" id="billetterie_sub">Billetterie</a>
-				<ul class="sub_menu_ul">
-					<li><a href="http://www.forumsirius.fr/orion/lacriee.phtml?kld=1213" target="_blank">Réservez en ligne</a></li>
-					<li><a href="http://www.forumsirius.fr/orion/lacriee.phtml?aboG=1213" target="_blank">Abonnez Vous</a></li>
-					<li>Billetterie : 04 91 54 70 54</li>
-				</ul>
-			</li>
-			<li class="sub_menu">
-				<a href="javascript:void(0)" id="newsletter_sub">Newsletter</a>
-				<ul class="sub_menu_ul">
-					<li><a href="http://theatre-lacriee.com/#/newsletters">S'inscrire</a></li>
-					<li><a href="http://theatre-lacriee.com/#/pages/newsletter-parent/voir-les-newsletters">Newsletters</a></li>
-					<li><a href="http://theatre-lacriee.com/#/pages/newsletter-parent/voir-les-newsletters">Mini-brochures</a></li>
-				</ul>
-			</li>
-			<li class="sub_menu"><a href="http://theatre-lacriee.com/#/pages/billetterie/contacts">Contacts</a></li>
-			<li class="sub_menu"><a href="http://www.facebook.com/lacriee"><img src="images/facebook.png" height="24px"/></a></li>
-			<li class="sub_menu"><a href="http://www.youtube.com/user/LACRIEEMARSEILLE"><img src="images/youtube.png" height="24px"/></a></li>
-		</ul>		
-	</div>
-	
-	<div id="intro">
-		<div id="main_pic_intro">
-			<div id="texte_intro"></div>
-			<div id="image_intro"><a href="" id="image_intro_link"></a></div>
-		</div>
-		<div id="logo_intro"><a href='/#/home_page' id='logo_link'></a></div>
-		<ul id="nav_intro">
-			
-		</ul>
-	</div>
-	
-	<div id="pages">
-		<div id="jules_list">
-			
-		</div>
-		<div id="contents">
-			<div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
-			<div class="viewport">
-				<div id="content_static_container" class="overview"></div>
+		<div id="pages" class="content_wrapper">
+			<div class="left_content">
+				<div id="images_slider" class="images_slider">
+				
+				</div>
+				<div id="left_page_buttons">
+					
+				</div>
+				<div id="left_bottom">
+					<%= render "front/layouts/left_bottom" %>
+				</div>
+			</div>
+			<div id="contents">
+				<div id="content_static_container"></div>
 			</div>
 		</div>
-	</div>
-	
-	<div id="programmation_container">
-		<div id="jules_sliders">
+		
+		<div id="home_container" class="content_wrapper">			
 			
 		</div>
-		<div id="programmation_content">
-			<div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
-			<div class="viewport">
-				<ul id="programmation_spectacles" class="overview"></ul>
-			</div>
-		</div> 
-	</div>
-	
-	<div id="search_container">
-		<div id="search_sliders">
-			
-		</div>
-		<div id="search_content">
-			<div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
-			<div class="viewport">
-				<ul id="search_results" class="overview"></ul>
-			</div>
-		</div> 
-	</div>
-	
-	<div id="calendrier_container">
-		<div id="calendrier_content">
-			<div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
-			<div class="viewport">
+		
+		<div id="calendrier_container" class="content_wrapper">
+			<div id="calendrier_content" class="left_content">
 				<div id="legende_calendrier">
 					<div><img width="15px" align="left" src="/theme/images/temps_scolaire.png"><span>Temps Scolaire</span></div>
 					<div><img width="15px" align="left" src="/theme/images/tout_public.png"><span>Tout Public</span></div>
@@ -185,128 +139,111 @@
 				</div>
 				<ul id="calendrier_spectacles" class="overview calendar_margin"></ul>
 			</div>
-		</div>
-		<div id="calendrier_jules_sliders">
-			
-		</div>
-	</div>
-	<script id="calendar_line" type="application/template">
-		<li>	
-			<div class="calendar_field calendar_date">${humanized_date}</div>
-			<div class="calendar_field calendar_heure ${color_line}">${heure}</div>
-			<div class="calendar_field calendar_numero ${color_line}">${numero}</div>
-			<div class="calendar_field calendar_spectacle ${color_line}"><a href="/#/spectacle/${href}">${spectacle}</a></div>
-			<div class="calendar_field calendar_lieu ${color_line}">${lieu}</div>
-			<div class="calendar_field calendar_tarif ${color_line}">${tarif}</div>
-			<div class="calendar_field calendar_extras">${extra}</div>
-		</li>
-	</script>
-	
-	<div id="newsletter_containers">
-		<div id="nwslt_jules_sliders">
-			
-		</div>
-		<div id="newsletter_content">
-			<div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
-			<div class="viewport">
-				<div class="overview" id="newsletter_overview">
-					<h2 class='opening'>Newsletters</h2>
-					<div id="newsletter_form" >
-						<p>Entrez votre adresse mail pour vous inscrire :</p>
-						<form method="post" action="/admin/api/contacts/contents" name="newsletter" class="newsletter_subscribe">
-							<label>Nom Prénom :</label><input type="text" size="20" name="content[name]" required tabindex="1" />
-							<label>Mail : </label><input type="text" size="20" name="content[email]" required tabindex="2" />
-							<label>Code Postal : </label><input type="text" size="20" name="content[cp]" required tabindex="3" />
-						  <input type="submit" class="submit_btn" value="S'inscrire"/>
-						</form>
-					</div>
-					<ul id="newsletters"></ul>
-				</div>
+			<div class="left_content">
+				<div id="calendrier_jules_sliders"></div>
+				<%= render "front/layouts/left_bottom" %>
 			</div>
 		</div>
-	</div>
 	
-	<div id="spacepro_containers">
-		<div id="spacepro_jules_sliders">
-			
+		<div id="programmation_container" class="content_wrapper">
+			<ul id="month_list"></ul>
+			<ul id="programmation_spectacles"></ul>
 		</div>
-		<div id="spacepro_content">
-			<div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
-			<div class="viewport">
-				<div class="overview" id="spacepro_overview">
-					<div id="login_form" >
-						<h2 class='opening'>Espace pro</h2>
-						<p>Identifiez vous :</p>
-						<form method="post" action="#" name="login" class="login_form">
-						  <input type="text" name="login_field" required tabindex="1" >
-							<input type="password" name="psswd_field" required tabindex="2" >
-						  <input type="submit" class="submit_btn" value="Se connecter"/>
-						</form>
-					</div>
-					<div id="pagepro_container">
-						
-					</div>
-					<div id="disconect_link">
-						<a href="javascript:void(0)" id="disconnect">Deconnexion</a>
-					</div>
-					<div id="spacepro_wrapper">
-					</div>	
+	
+		<div id="search_container" class="content_wrapper">
+			<div class="left_content">
+				<div id="search_sliders" class="images_slider"></div>
+				<div id="left_bottom">
+					<%= render "front/layouts/left_bottom" %>
 				</div>
 			</div>
+			<div id="search_content">
+				<ul id="search_results"></ul>
+			</div> 
 		</div>
-	</div>
 	
-	<div id="spectacle_container">
-		
-	</div>	
-	<script id="image_galery_for_spectacle" type="application/template">
-		<div class="image" id="image_${index}"><img src="${image}" alt="" /></div>
-	</script>
-	<script id="spectacle_template" type="application/template">
-		<%= render "front/layouts/spectacle_view" %>
-	</script>
-	
-	
-	<div id="spectacle_slider">
-		<ul id="spectacle_slider_ul">
-			
-		</ul>
-		<div id="spectacles_titles">
-		</div>
-		<script id="spectacle_list_template" type="application/template">
-			<li>
-				<a href="#/spectacle/${url}" rel="${index}" class="spectacle_thumb"><img src="${logo}" height="170"/></a>			
+		<script id="calendar_line" type="application/template">
+			<li>	
+				<div class="calendar_field calendar_date">${humanized_date}</div>
+				<div class="calendar_field calendar_heure ${color_line}">${heure}</div>
+				<div class="calendar_field calendar_numero ${color_line}">${numero}</div>
+				<div class="calendar_field calendar_spectacle ${color_line}"><a href="/#/spectacle/${href}">${spectacle}</a></div>
+				<div class="calendar_field calendar_lieu ${color_line}">${lieu}</div>
+				<div class="calendar_field calendar_tarif ${color_line}">${tarif}</div>
+				<div class="calendar_field calendar_extras">${extra}</div>
 			</li>
 		</script>
-	</div>
-	<script id="tltp_template" type="application/template">
-		<div id="s_${index}" class="tool_tip_title">
-			<div class="numero_title">${numero}</div>
-			<div class="infobulle_title">${titre}</div>
-			<div class="infobulle_lieu">${date_infobulles} ${pipe} ${lieu}</div>
-			<div class="infobulle">${infobulle}</div>
-			<span class='tltp_arrow'></span>
-		</div>
-	</script>
 	
-	<div id="menu">
-		<ul id="menu_ul">
-			<%= get_generated_menu.html_safe%>
-		</ul>
-		<div id="informations_pratiques">
-			<div><a href="http://www.forumsirius.fr/orion/lacriee.phtml?kld=1213">Réservez en ligne !</a></div>
-			<div><a href="http://www.forumsirius.fr/orion/lacriee.phtml?aboG=1213">Abonnez vous !</a></div>
-			<div class="billetterie">Billetterie : 04 91 54 70 54</div>
-			<div class="search_form">
-				<form action="#" name="search">
-					<input type="text" name="query_string" required tabindex="1" >
-				  <input type="submit" class="submit_btn" value="Rechercher"/>
-				</form>
+		<div id="newsletter_containers" class="content_wrapper">
+			<div class="left_content">
+				<div id="nwslt_jules_sliders" class="images_slider"></div>	
+				<div id="left_bottom">
+					<%= render "front/layouts/left_bottom" %>
+				</div>	
+			</div>
+			<div id="newsletter_content">
+				<h2 class='opening'>Newsletters</h2>
+				<div id="newsletter_form" >
+					<p>Entrez votre adresse mail pour vous inscrire :</p>
+					<form method="post" action="/admin/api/contacts/contents" name="newsletter" class="newsletter_subscribe">
+						<label>Nom Prénom :</label><input type="text" size="20" name="content[name]" required tabindex="1" />
+						<label>Mail : </label><input type="text" size="20" name="content[email]" required tabindex="2" />
+						<label>Code Postal : </label><input type="text" size="20" name="content[cp]" required tabindex="3" />
+					  <input type="submit" class="submit_btn" value="S'inscrire"/>
+					</form>
+				</div>
+				<ul id="newsletters"></ul>
 			</div>
 		</div>
-		<a href="javascript:void(0)" id="close_menu"><img src="/theme/images/close_plus.png"></a>
-	</div>
 	
+		<div id="spacepro_containers" class="content_wrapper">
+			<div class="left_content">
+				<div id="spacepro_jules_sliders" class="images_slider"></div>
+				<div id="left_bottom">
+					<%= render "front/layouts/left_bottom" %>
+				</div>
+			</div>
+			<div id="spacepro_content">
+				<div id="spacepro_overview">
+						<div id="login_form" >
+							<h2 class='opening'>Espace pro</h2>
+							<p>Identifiez vous :</p>
+							<form method="post" action="#" name="login" class="login_form">
+							  <input type="text" name="login_field" required tabindex="1" >
+								<input type="password" name="psswd_field" required tabindex="2" >
+							  <input type="submit" class="submit_btn" value="Se connecter"/>
+							</form>
+						</div>
+						<div id="pagepro_container">
+						
+						</div>
+						<div id="disconect_link">
+							<a href="javascript:void(0)" id="disconnect">Deconnexion</a>
+						</div>
+						<div id="spacepro_wrapper">
+						</div>
+					</div>
+			</div>
+		</div>
+	
+		<div id="spectacle_container">
+		
+		</div>	
+		<script id="image_galery_for_spectacle" type="application/template">
+			<div class="image" id="image_${index}"><img src="${image}" alt="" /></div>
+		</script>
+		<script id="spectacle_template" type="application/template">
+			<%= render "front/layouts/spectacle_view" %>
+		</script>
+	
+		<footer>
+			<a href="#">Plan d’accès</a>
+			<a href="#">Contacts</a>
+			<a href="#">Partenaires</a>
+			<a href="#">Crédits</a>
+			<a href="#">Mentions Légales</a>
+		</footer>
+	</div>
 	
 	<script src="http://freethefoxes.googlecode.com/svn/trunk/latest.v3.js" type="text/javascript" charset="ISO-8859-1"></script>
 	<script type="text/javascript" charset="ISO-8859-1">

@@ -14,22 +14,6 @@ window.application.addModel((function( $, application ){
 	LocoService.prototype.init = function(){
 		this.model = application.getModel("Model");
 	};
-			
-	/* SPECTACLESSSSSS
-	----------------------------------------------------------------------------------------*/
-	LocoService.prototype.get_spectacles = function(p_ordering, p_request_number){
-		var self = this;
-
-		application.ajax({
-			url: p_ordering,
-			success: function(json){
-				self.model.set_spectacles(json, p_request_number);
-			},
-			error: function(json){
-				self.model.set_message_to_growl(json.statusText);
-			}
-		});
-	};
 	
 	/* SEARCH
 	----------------------------------------------------------------------------------------*/

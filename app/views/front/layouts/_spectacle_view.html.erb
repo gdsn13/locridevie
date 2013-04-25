@@ -1,19 +1,40 @@
-<div id="spectacle_content">
-	<div class="scrollbar"><div class="track"><div class="thumb"></div></div></div>
-	<div class="viewport">
-		<div id="presentation" class="overview">
+
+<div class="left_content" id="left_spectacle">
+	<div id="images_spectacle" class="images_slider"></div>
+	<div class="reservation no_border" id="reservation_block">
+		<h2 id="lien_reservation_spectacle"><a href="#">Réservez en ligne 24h/24</a></h2>
+		<p>ou par téléphone au 04 91 54 70 54<br>
+		du mardi au samedi de 12h à 18h</p>
+		<ul>
+			<li><a href="">⊲ Découvrez tous nos tarifs</a></li>
+			<li><a href="">⊲ Renseignez-vous sur nos abonnements</a></li>
+		</ul>
+	</div>
+	<div class="reservation" id="plus">
+		<h2>En savoir plus</h2>
+		${plus}
+	</div>
+	<div id="left_bottom">
+		<div id="video_youtube">
+			${video}
+		</div>
+		<%= render "front/layouts/left_bottom" %>
+	</div>
+</div>
+<div id="spectacle_content" class="spectacle_infos">
+
 			<div id="inter_spectacle_navigation">
 				<a href="" id="prev_show" alt="spectacle précédent"><img src="/images/fleche_gauche.png"></a>
 				<a href="" id="next_show" alt="spectacle suivant"><img src="/images/fleche_droite.png"></a>
 				
 				<div id="next_show_caption">
-					Spectacle Suivant
+					<span id="next_show_genre"></span>
 					<div id="next_show_number"></div>
 					<div id="next_show_title"></div>
 					<div id="next_show_infos"></div>
 				</div>
 				<div id="prev_show_caption">
-					Spectacle Précédent  
+					<span id="prev_show_genre"></span>
 					<div id="prev_show_number"></div>
 					<div id="prev_show_title"></div>
 					<div id="prev_show_infos"></div>
@@ -23,11 +44,10 @@
 			<h1>${title}</h1>
 			<div class="numero">${numero}</div>
 			<div class="top_spectacle">
+				<div class="genre_age">${genre}<span>${age}</span></div>
+				<div class="date_infos">${date_affichee}</div>
 				<div class="tld">${tld}</div>
 			</div>
 			<div class="presentation">${presentation}</div>
 		</div>
-	</div>
 </div>
-<div id="images_spectacle"></div>
-	

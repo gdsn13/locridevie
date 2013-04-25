@@ -6,8 +6,7 @@
 window.application.addController((function( $, application ){
   
 	function Controller(){    
-    this.route( "/", this.intro );
-		this.route( "/home_page", this.home );
+		this.route( "/", this.home );
 		this.route( "/spectacles/programmation", this.programmation );
 		this.route( "/spectacles/calendrier", this.calendrier );
 		this.route( "/spectacle/:id", this.spectacle );
@@ -20,9 +19,8 @@ window.application.addController((function( $, application ){
 		this.view = null;
 		this.current_view = null;
 		this.model = null;
-		this.intro_view = null;
 		this.menu_view = null;
-		this.site_view = null;
+		this.home_view = null;
 		this.programmation_view = null;
 		this.spectacle_view = null;
 		this.page_view = null;
@@ -40,9 +38,8 @@ window.application.addController((function( $, application ){
   Controller.prototype.init = function(){
     var self = this;
 
-		this.intro_view = application.getView( "IntroView" );
 		this.menu_view = application.getView( "MenuView" );
-		this.site_view = application.getView( "SpectaclesNavView" );
+		this.home_view = application.getView( "IntroView" );
 		this.page_view = application.getView( "PageView" );
 		this.programmation_view = application.getView( "ProgrammationView" );
 		this.calendrier_view = application.getView( "CalendrierView" );
@@ -64,12 +61,8 @@ window.application.addController((function( $, application ){
   // ----------------------------------------------------------------------- //
   // ----------------------------------------------------------------------- //
 
-  Controller.prototype.intro = function( event ){
-		this.changeView(this.intro_view, event);
-  };
-
 	Controller.prototype.home = function( event ){
-		this.changeView(this.site_view, event);
+		this.changeView(this.home_view, event);
 	};
 
 	Controller.prototype.programmation = function( event ){
@@ -109,9 +102,7 @@ window.application.addController((function( $, application ){
 		
 		if (this.model == null) this.model = application.getModel( "Model" );
 		
-		if (p_view != this.intro_view){
-			this.model.check_for_spectacles();
-		}
+		this.model.check_for_spectacles();
 		
 		if (this.current_view != null){
 			this.current_view.hide_view();
@@ -120,6 +111,7 @@ window.application.addController((function( $, application ){
 		this.current_view = p_view;
 		this.current_parameter = p_event.parameters;
 		if (p_view && p_view.show_view){
+			this.menu_view.change_url(application.currentLocation);
 			this.current_view.show_view( this.current_parameter );
 		}
   };

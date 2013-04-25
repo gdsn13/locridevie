@@ -54,13 +54,22 @@ class EmbededItem
   
   def self.get_boutons_for_json
     btn = get_boutons.map do |b| 
-      { :title => b.title, :son => b.son.url, :img => b.le_bouton.url, :url => b.url, :block => b.block }
+      { :title => b.title, :img => b.le_bouton.url, :url => b.url, :block => b.block }
     end
   end
   
   def self.get_actus_for_json
     act = get_actus.map do |a| 
-      { :name => a.title, :block => a.block, :picto => a.picto.url }
+      { :title => a.title, 
+        :numero => a.numero, 
+        :genre => a.genre, 
+        :age => a.age, 
+        :dates => a.dates, 
+        :tld => a.tld, 
+        :block => a.block, 
+        :url => a.url,
+        :resa => a.resa,
+        :img => a.picto.url }
     end
     
   end

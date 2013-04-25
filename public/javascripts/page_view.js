@@ -1,16 +1,48 @@
 window.application.addView((function( $, application ){
   
+	/*
+	/		Affiche une page statique.
+	/		
+	/		
+	/
+	/		{
+					"fullpath":"espaces-dedies/la-criee-vous-ecoute",
+					"body":"<p><span ",
+					"jules":[
+						{
+							"name":"full intro",
+							"block":"<h1>Bienvenus</h1>",
+							"picto":"/contents/jules/4fb24da8fc70f501f2000002/MM_photo004.jpg",
+							"url":""
+						},{
+							"name":"programmation uno",
+							"block":"<h1>Programmation,</h1>\r\n<p>message pour la programmation</p>",
+							"picto":"/contents/jules/4fb25245fc70f501f2000021/MMtitanic006.jpg",
+							"url":""
+						},
+					"boutons":[],
+					"actus":[],
+					"picto":null
+			}
+	/
+	/
+	----------------------------------------------*/
+
+
   function PageView(){
 		this.model = null;
 		this.view = null;
 		this.content_view = null;
 		this.jules_container = null;
+		this.button_container = null;
 		this.content_container = null;
 		this.jules = [];
 		this.currently_displayed_jules = null;
 		this.slider_timeout = null;
 		this.slider_duration = 5000;
 		this.current_index = 0;
+		this.left_content = null;
+		this.search_form = null;
   };
   
   PageView.prototype.init = function(){  
@@ -18,11 +50,13 @@ window.application.addView((function( $, application ){
 		
 		/* INIT DATAS
 		----------------------------------------------------------------------------------------*/
-		this.jules_container = $('#jules_list');
+		this.jules_container = $('#images_slider');
 		this.model = application.getModel( "Model" );
 		this.content_view = $('#contents');
 		this.view = $('#pages');
 		this.content_container = $('#content_static_container');
+		this.left_content = $('#left_content_pages');
+		this.buttons_container = $('#left_page_buttons');
 		
 		/* DATA REFRESH
 		----------------------------------------------------------------------------------------*/
@@ -33,12 +67,10 @@ window.application.addView((function( $, application ){
 
 	PageView.prototype.data_ready = function(){
 		var self = this;
-		// etre sur que la view est en display block, sinon, pas de calcul de tailles
-		this.view.css({'top':"10000px", "display" : "block", "position" : "absolute"});
 				
 		//AFFICHAGE DES JULES
 		$.each(this.model.current_page.jules, function(index, j){						
-			var html = '<div class="jules_slider" id="jules_' + index +'"><img src="' + j.picto + '"/></div>';
+			var html = '<div class="image" id="jules_' + index +'"><img src="' + j.picto + '"/></div>';
 			self.jules_container.append(html);
 			var this_container = $('#jules_' + index);
 			self.jules.push(this_container);
@@ -46,26 +78,39 @@ window.application.addView((function( $, application ){
 			else this_container.css('display', 'none');
 		});
 		
-		//AFFICHAGE DU BODY
+		//AFFICHAGE DES BOUTONS
+		$.each(this.model.current_page.boutons, function(index, b){
+			var html = '<div id="button_' + index +'"><h2>' + b.title + '</h2>';
+			html += b.block + '</div>';
+			self.buttons_container.append(html);
+		});
+		
+		//REMPLISSAGE DU BODY
 		this.content_container.html(this.model.current_page.body);
 		
-		this.view.imagesLoaded(function(){
-			$(window).on('resize', function(){ self.resize_containers(); });
+		//AFFICHAGE DU FORMULAIRE DE RECHERCHE
+		this.search_form = $('form[name=search]');
+		this.search_form.submit(function(e){
+			e.stopPropagation();
+    	e.preventDefault();
+			self.model.query_string = $(this).serializeArray();
+			$(this).find("input[name=query_string]").val("");
 			
-			//INIT DES POS DES CONTAINERS
-			self.resize_containers();
-			
-			if (Modernizr.mq('(max-width: 640px)') == true){
-				self.view.css({'top':"0px", "display" : "none", "position" : "static"});	
+			self.model.set_message_to_growl("Recherche...");
+			if (location.hash != "#/search"){
+				location.hash = "#/search";
 			}else{
-				self.view.css({'top':"0px", "display" : "none"});	
+				self.model.get_search_results();
 			}
-				
 			
+			return false;
+		});
+		
+		this.view.imagesLoaded(function(){				
 			// ON AFFICHE LA VUE
 			self.view.fadeIn('fast', function(){
 				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE
-				if (self.jules.size < 2){
+				if (self.jules.length >1){
 					self.slider_timeout = setTimeout(function(){
 						self.animate();
 						}, self.slider_duration);
@@ -83,8 +128,8 @@ window.application.addView((function( $, application ){
 		
 		this.current_index == this.jules.length - 1 ? this.current_index = 0 : ++this.current_index;
 		
-		this.jules[saved_index].fadeOut( 'fast' );
-		this.jules[this.current_index].fadeIn( 'fast' );
+		this.jules[saved_index].fadeOut( 1000 );
+		this.jules[this.current_index].fadeIn( 1000 );
 		this.currently_displayed_jules = this.jules[this.current_index].find('img').first(); 
 
 		this.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches
@@ -92,47 +137,6 @@ window.application.addView((function( $, application ){
 			}, this.slider_duration);
 	};
 	
-	PageView.prototype.resize_containers = function(){
-		var displayed_image = this.currently_displayed_jules;
-		
-		if (Modernizr.mq('(max-width: 640px)') == true){
-			this.jules_container.find('.jules_slider img').width($(window).width());
-			
-			this.jules_container.css({	'width': $(window).width(), 
-																	'height': displayed_image.height(),
-																	'position': 'absolute',
-																	'top': '100px',
-																	'left': '0'});
-																	
-			this.view.css('height', displayed_image.height() + this.content_container.height() + 130);
-																	
-			$(".scrollbar").css('display', 'none');
-			$(".viewport").css('height', this.content_container.height() + 30);
-																	
-			this.content_view.css({'width': $(window).width(),
-																			'top': (displayed_image.height() + 100) + "px",
-																			'left': '0',
-																			'height': 'auto'
-																			});
-		}else{
-			if (displayed_image != null){
-				var top_pos;
-
-				this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-				this.jules_container.find('.jules_slider img').width($(window).width()/2);
-
-				top_pos = ($(window).height() - displayed_image.height())/2;
-
-				this.jules_container.find('.jules_slider').css('top', top_pos);
-
-				this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-				this.content_view.css('width', $(window).width()/2);
-				this.content_view.css({'top' : top_pos, 'height' : displayed_image.height()});
-				this.content_view.find('.viewport').css('height', displayed_image.height() - 10);
-				this.content_view.tinyscrollbar({lockscroll: true});
-			}
-		}
-	};
 	
 	PageView.prototype.hide_view = function(next_view_is_page){
 		var self = this;
@@ -145,6 +149,7 @@ window.application.addView((function( $, application ){
 		this.content_container.html("");
 		this.jules = [];
 		this.current_index = 0;
+		this.search_form = null;
 	};
 	
 	PageView.prototype.show_view = function(){
@@ -155,22 +160,9 @@ window.application.addView((function( $, application ){
 	
 	// I check if everything is ok for the correct display of the view.
 	PageView.prototype.check = function(){
-		var menu = $('#logo_menu');
-
-		//check que le slider soit bien affiché
-		var ss = $('#spectacle_slider');
-		if( ss.css('display') == 'none') ss.fadeIn('fast'); 
-		
-		var menu_btn = $('#menu_command');
-		if (menu_btn.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_btn.css('display', 'block');
-		var menu_bis = $('#menu_important');
-		if (menu_bis.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_bis.css('display', 'block');
-		
+		//check que le slider soit bien affiché		
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );
-		}
-		if(menu.css('display') == 'none'){
-			menu.show();
 		}
 	};
   

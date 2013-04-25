@@ -180,28 +180,6 @@ window.application.addModel((function( $, application ){
 	/* SPECTACLES
 	----------------------------------------------------------------------------------------*/
 	
-	Model.prototype.set_spectacles = function(p_spectacles, p_request_number){
-		// on stocke le resultat de la requette
-		this.pages[p_spectacles.page.fullpath] = p_spectacles.page;
-		// si une autre requette n'a pas été lancée entre temps, on lance l'affichage
-		if (this.current_request_number == p_request_number){
-			this.current_page = this.pages[p_spectacles.page.fullpath];
-			$(this).trigger('spectacles_ready');
-		}
-	};
-	
-	Model.prototype.get_spectacles = function(p_path){
-		if (this.pages[p_path] == null){
-			this.set_message_to_growl("Chargement...");
-			this.current_request_number += 1;
-			application.getModel("LocoService").get_spectacles(p_path, this.current_request_number);
-		}
-		else{
-			this.current_page = this.pages[p_path];
-			$(this).trigger('spectacles_ready');
-		}
-	};
-	
 	Model.prototype.check_for_spectacles = function(){
 		if (this.spectacles.length == 0){
 			this.spectacles = spectacles_list;

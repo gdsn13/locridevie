@@ -3,8 +3,9 @@ window.application.addView((function( $, application ){
 	
 	/*
 	/		TRICKS : le sliders des images joue sur l'opacité DU CONTENEUR puisque si display = none, on a plus accés aux informations de l'image (height et width)
+	/   
 	/		
-	/		Affiche un spéctacle. en mode holywood : slider d'image à droite, scroller de texte à gauche. en 50/50 de largeur
+	/		Affiche un spéctacle.
 	/
 	/		{
 	/			"slug":"spectacle-1",
@@ -29,7 +30,6 @@ window.application.addView((function( $, application ){
 		this.current_spectacle = null;
 		this.template = null;
 		this.images_container = null;
-		this.close_button = null;
 		this.spectacle_content = null;
 		this.slider_timeout = null;
 		this.current_index = 0;
@@ -40,6 +40,7 @@ window.application.addView((function( $, application ){
 		this.prev_show = null;
 		this.next_caption = null;
 		this.prev_caption = null;
+		this.left_spectacle = null;
   };
   
   SpectacleView.prototype.init = function(){  
@@ -59,11 +60,27 @@ window.application.addView((function( $, application ){
 	SpectacleView.prototype.display_view = function(){
 		//INITIALISATION
 		var self = this;
-		this.view.css({'top':"10000px", "display" : "block", "position" : "absolute"});
-		
+
 		// RECUPERATION DU TEMPLATE ET REMPLISSAGE
 		this.view.html(application.getFromTemplate(this.template, this.model.pages[this.current_spectacle]));
-
+		
+		// INITIALISATION DU LIEN DE RESERVATION
+		var resa = $('#lien_reservation_spectacle');
+		if (self.model.pages[self.current_spectacle].resa != "")
+			resa.find('a').attr('href', self.model.pages[self.current_spectacle].resa);
+		else
+			resa.css('display', 'none');
+		
+		// EN SAVOIR PLUS
+		if (self.model.pages[self.current_spectacle].plus == ""){
+			$('#plus').css('display', 'none');
+		}
+		
+		// YOUTUBE
+		if (self.model.pages[self.current_spectacle].video == ""){
+			$('#video_youtube').css('display', 'none');
+		}
+		
 		// INITALISATION DES CONTAINERS 
 		this.images_container = $('#images_spectacle');
 		this.spectacle_content = $('#spectacle_content');
@@ -72,6 +89,7 @@ window.application.addView((function( $, application ){
 		this.prev_show = $('#prev_show');
 		this.next_caption = $('#next_show_caption');
 		this.prev_caption = $('#prev_show_caption');
+		this.left_spectacle = $("#left_spectacle");
 		
 		// GENERATION DES IMAGES
 		$.each(this.model.pages[this.current_spectacle].images, function(index, img){
@@ -79,25 +97,15 @@ window.application.addView((function( $, application ){
 			self.images_container.append(application.getFromTemplate(image_template, img));
 			var current = self.images_container.find('#image_'+index);
 			self.images.push(current);
+			//on affiche la premiere puis, on masque les autres
 			if (index == 0) self.currently_displayed_image = current.find('img').first();
 			else current.css('display', 'none');
 		});
+
 						
 		//TOUT EST CHARGÉ
 		this.view.imagesLoaded(function(){
-			//RESIZING
-			$(window).on('resize', function(){	self.resize_containers();	});
-			
 			Cufon.replace('div.numero');
-			
-			//INIT DES POS DES CONTAINERS
-			self.resize_containers();
-						
-			if (Modernizr.mq('(max-width: 640px)') == true){
-				self.view.css({'top':"0px", "display" : "none", "position" : "static"});	
-			}else{
-				self.view.css({'top':"0px", "display" : "none"});	
-			}
 			
 			// NAVIGATION INTER - SPECTACLES (NEXT + PREV)
 			// CREATION DES CAPTIONS
@@ -120,6 +128,7 @@ window.application.addView((function( $, application ){
 			//PREV LINK
 			if (ci > 0){	
 				self.prev_show.attr('href', '/#/spectacle/' + only_sp[ci - 1].slug);
+				$('#prev_show_genre').html(only_sp[ci - 1].genre);
 				$('#prev_show_title').html(only_sp[ci - 1].titre);
 				$('#prev_show_number').html(only_sp[ci - 1].numero);
 				$('#prev_show_infos').html(only_sp[ci - 1].date_infobulles + "<br/>" + only_sp[ci - 1].infobulle);
@@ -131,6 +140,7 @@ window.application.addView((function( $, application ){
 			//NEXT LINK
 			if (ci < only_sp.length - 2){ //commence à 0 et le dernier
 				self.next_show.attr('href', '/#/spectacle/' + only_sp[ci + 1].slug);
+				$('#next_show_genre').html(only_sp[ci + 1].genre);
 				$('#next_show_title').html(only_sp[ci + 1].titre);
 				$('#next_show_number').html(only_sp[ci + 1].numero);
 				$('#next_show_infos').html(only_sp[ci + 1].date_infobulles + "<br/>" + only_sp[ci + 1].infobulle);
@@ -151,7 +161,6 @@ window.application.addView((function( $, application ){
 				self.next_caption.stop().fadeOut('fast');
 			});
 			
-			
 			// ON AFFICHE LA VUE
 			self.view.fadeIn('fast', function(){
 				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE
@@ -171,60 +180,23 @@ window.application.addView((function( $, application ){
 
 		this.current_index == this.images.length - 1 ? this.current_index = 0 : ++this.current_index;
 		
-		this.images[saved_index].fadeOut('fast');
-		this.images[this.current_index].fadeIn('fast');
+		this.images[saved_index].fadeOut(1000);
+		this.images[this.current_index].fadeIn(1000);
 		this.currently_displayed_image = this.images[this.current_index].find('img').first(); 
 		
-		this.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches
+		this.slider_timeout = setTimeout(function(){
 			self.animate();
 		}, this.slider_duration);
 	};
 		
-	SpectacleView.prototype.resize_containers = function(){
-		var displayed_image = this.currently_displayed_image;
-		
-		if (Modernizr.mq('(max-width: 640px)') == true){
-			this.images_container.find('.image img').width($(window).width());
-
-			this.images_container.css({	'width': $(window).width(), 
-																	'height': displayed_image.height(),
-																	'position': 'absolute',
-																	'top': '100px',
-																	'left': '0'});
-
-			$(".scrollbar").css('display', 'none');
-			$(".viewport").css('height', $('#presentation').height() + 130);
-			this.view.css('height', displayed_image.height() + $('.viewport').height() + 100);
-
-			this.spectacle_content.css({'width': $(window).width(),
-																			'top': (displayed_image.height() + 100) + "px",
-																			'left': '0',
-																			'height': $('#presentation').height() + 130
-																			});
-		}else{
-			var top_pos;
-		
-			this.images_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-			this.images_container.find('.image img').width($(window).width()/2);
-		
-			top_pos = ($(window).height() - displayed_image.height())/2;
-		
-			this.images_container.find('.image').css('top', top_pos);
-		
-			this.spectacle_content.css('width', $(window).width()/2);
-			this.spectacle_content.css({'top' : top_pos, 'height' : displayed_image.height()});
-			this.spectacle_content.find('.viewport').css('height', displayed_image.height() - 10);
-			this.spectacle_content.tinyscrollbar({lockscroll: true});
-		}
-	};
 
 	// Je cache la vue
 	SpectacleView.prototype.hide_view = function(){
 		clearTimeout(this.slider_timeout);
 		this.slider_timeout = null;
-		$(window).unbind();
 		this.view.fadeOut('fast');
 		this.current_index = 0;
+		this.left_spectacle = null;
 		this.images_container = null;
 		this.view.html("");
 		this.currently_displayed_image = null;
@@ -246,25 +218,11 @@ window.application.addView((function( $, application ){
   };
   
 	// I check if everything is ok for the correct display of the view.
-	SpectacleView.prototype.check = function(){
-		var left = $('#logo_menu');
-		
-		this.view.css({'top':"10000px", "display" : "block"});
-	
+	SpectacleView.prototype.check = function(){			
 		this.images_container = null;
-		var ss = $('#spectacle_slider');
-		if( ss.css('display') == 'none') ss.fadeIn('fast');
-		
-		var menu_btn = $('#menu_command');
-		if (menu_btn.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_btn.css('display', 'block');
-		var menu_bis = $('#menu_important');
-		if (menu_bis.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_bis.css('display', 'block');
 		
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );
-		}
-		if(left.css('display') == 'none'){
-			left.show('fast');
 		}
 	};
 	

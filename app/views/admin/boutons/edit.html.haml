@@ -17,13 +17,6 @@
     #bouton_preview
       %h4 Image associée au bouton
       %img{ :src => @bouton.le_bouton.thumb.url}
-    - if @bouton.son.url != ""
-      #bouton_sound_preview
-        %h4 Son associé au bouton
-        %object{ :type => "application/x-shockwave-flash", :data => "/player/dewplayer-mini.swf", :width => "200", :height => "20"}
-          %param{ :name => "movie", :value => "dewplayer-mini.swf" }
-          %param{ :name => "flashvars", :value => "mp3=#{@bouton.son.url}" }
-          %param{ :name => "wmode", :value => "transparent" }
 
 = semantic_form_for @bouton, :url => admin_bouton_url(@bouton), :html => { :class => 'save-with-shortcut', :multipart => true } do |form|
 

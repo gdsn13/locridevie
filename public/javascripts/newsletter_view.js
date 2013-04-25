@@ -13,6 +13,7 @@ window.application.addView((function( $, application ){
 		this.slider_duration = 5000;
 		this.currently_displayed_jules = null;
 		this.formulaire_inscription = null;
+		this.search_form = null;
   };
   
   NewsletterView.prototype.init = function(){  
@@ -51,11 +52,28 @@ window.application.addView((function( $, application ){
     			}, 
 				"json");
     });
+
+		//AFFICHAGE DU FORMULAIRE DE RECHERCHE
+		this.search_form = $('form[name=search]');
+		this.search_form.submit(function(e){
+			e.stopPropagation();
+    	e.preventDefault();
+			self.model.query_string = $(this).serializeArray();
+			$(this).find("input[name=query_string]").val("");
+			
+			self.model.set_message_to_growl("Recherche...");
+			if (location.hash != "#/search"){
+				location.hash = "#/search";
+			}else{
+				self.model.get_search_results();
+			}
+			
+			return false;
+		});
   };
 
 	NewsletterView.prototype.refreshed_datas = function(){
 		var self = this;
-		this.view.css({'top':"10000px", "display" : "block", "position" : "absolute"});
 		
 		this.newsletters = this.model.current_page.newsletters
 		
@@ -69,9 +87,7 @@ window.application.addView((function( $, application ){
 			else this_container.css('display', 'none');
 		});
 		
-		//AFFICHAGE DE LA LISTE DES SPECTACLES
-		//var liste_title = "<li class='opening'>Newsletters</li>";
-		//self.nl_ul.append(liste_title);
+		//AFFICHAGE DE LA LISTE DES NEWSLETTER
 		$.each(this.newsletters, function(index, n){
 			if(n.publie == true){
 				var html = '<li><div class="newsletter_date">' + n.date + '</div><div class="newsletter_title"><a href="/newsletter/' + n.slug + '">' + n.titre + '</a></div></li>';
@@ -82,20 +98,10 @@ window.application.addView((function( $, application ){
 		// QUAND TOUT EST CHARGE DANS LA VUE
 		// ---------------------------------------------------------------------------------------------------------
 		this.view.imagesLoaded(function($images, $proper, $broken){
-			self.resize_containers();
-
-			if (Modernizr.mq('(max-width: 640px)') == true){
-				self.view.css({'top':"0px", "display" : "none", "position" : "static"});	
-			}else{
-				self.view.css({'top':"0px", "display" : "none"});	
-			}
-			
-			$(window).on('resize', function(){ self.resize_containers(); });			
-			
 			// ON AFFICHE LA VUE
 			self.view.fadeIn('fast', function(){
 				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE SI IL Y A PLUSIEUR JULES
-				if (self.jules.length > 0){ 
+				if (self.jules.length > 1){ 
 					self.slider_timeout = setTimeout(function(){
 						self.animate();
 					}, self.slider_duration);
@@ -103,66 +109,7 @@ window.application.addView((function( $, application ){
 			});
 						
 			self.model.set_message_to_growl("");
-			
 		});
-	};
-	
-	NewsletterView.prototype.resize_containers = function(){
-		
-		var displayed_image = this.currently_displayed_jules;
-		if (Modernizr.mq('(max-width: 640px)') == true){
-			this.jules_container.find('.jules_slider img').width($(window).width());
-			
-			this.jules_container.css({	'width': $(window).width(), 
-																	'height': displayed_image.height(),
-																	'position': 'absolute',
-																	'top': '100px',
-																	'left': '0'});
-																	
-			this.view.css('height', displayed_image.height() + $("#newsletter_overview").height() + 130);
-																	
-			$(".scrollbar").css('display', 'none');
-			$(".viewport").css('height', $("#newsletter_overview").height() + 30);
-																	
-			this.newsletter_content.css({'width': $(window).width(),
-																			'top': (displayed_image.height() + 100) + "px",
-																			'left': '0',
-																			'height': 'auto'
-																			});
-		}else{
-			var top_pos;
-
-			this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-			this.jules_container.find('.jules_slider img').width($(window).width()/2);
-
-			top_pos = ($(window).height() - displayed_image.height())/2;
-
-			this.jules_container.find('.jules_slider').css('top', top_pos);
-
-			this.jules_container.css({'width': $(window).width()/2, 'height':$(window).height()});
-			this.newsletter_content.css('width', $(window).width()/2);
-			this.newsletter_content.css({'top' : top_pos, 'height' : displayed_image.height()});
-			this.newsletter_content.find('.viewport').css('height', displayed_image.height() - 10);
-			this.newsletter_content.tinyscrollbar({lockscroll: true});
-			
-		}
-	};
-	
-				
-	// SLIDE DANS LA BONNE DIRECTION LE SLIDER.
-	NewsletterView.prototype.animate = function( ){
-		var saved_index = this.current_index;
-		var self = this;
-		
-		this.current_index == this.jules.length - 1 ? this.current_index = 0 : ++this.current_index;
-		
-		this.jules[saved_index].fadeOut( 'fast' );
-		this.jules[this.current_index].fadeIn( 'fast' );
-		this.currently_displayed_jules = this.jules[this.current_index].find('img').first(); 
-
-		this.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches
-			self.animate();
-		}, this.slider_duration);
 	};
 	
 	// tout réinitialiser! pour le prochain affichage!!!
@@ -187,22 +134,9 @@ window.application.addView((function( $, application ){
 
 	// I check if everything is ok for the correct display of the view.
 	NewsletterView.prototype.check = function(){		
-		$('#logo_menu').show('fast');
-		
-		var ss = $('#spectacle_slider');
-		if( ss.css('display') == 'none') ss.fadeIn('fast'); 
-		
-		var menu_btn = $('#menu_command');
-		if (menu_btn.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_btn.css('display', 'block');
-		var menu_bis = $('#menu_important');
-		if (menu_bis.css('display') != "block" && Modernizr.mq('(max-width: 640px)') != true) menu_bis.css('display', 'block');
-		
 		//securisation des données.
 		if (this.model == null) {
 			this.model = application.getModel( "Model" );
-		}
-		if (this.localize == null) {
-			this.localize = application.getModel( "Localize" );
 		}
 	};
 

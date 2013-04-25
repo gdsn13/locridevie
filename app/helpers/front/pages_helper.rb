@@ -32,7 +32,7 @@ module Front::PagesHelper
   # Returns a list element, a link to the page and its children
   def render_entry_link(page, css, is_page, depth)
     
-    selected = @page.fullpath =~ /^#{page.fullpath}/ ? ' on' : ''
+    selected = @page.fullpath =~ /^#{page.fullpath}/ ? 'on' : ''
     if page.redirect == true
       url = page.redirect_url
       is_page = false
@@ -42,7 +42,7 @@ module Front::PagesHelper
     
     css << 'fat' if page.fat
     
-    output  = %{<li id="#{page.slug.dasherize}-link" class="link #{selected} #{css} dontsplit">}    
+    output  = %{<li id="#{page.slug.dasherize}-link" class="link #{selected} #{css}">}    
     # si la page est une sous catégorie d'un fat, on affiche pas le titre.
     if page.parent.fat == false
       if depth <= 1

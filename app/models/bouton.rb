@@ -6,7 +6,6 @@ class Bouton
   field :url
   
   mount_uploader :le_bouton, BoutonUploader
-  mount_uploader :son, SoundUploader
   
   scope :latest_updated, :order_by => [[:updated_at, :desc]]
   
