@@ -131,12 +131,12 @@ body{
 
 .genre_age span{
 	padding-left:15px;
-	background:url(../theme/images/blue_disc.png) no-repeat top left;
+	background:url(../images/blue_disc.png) no-repeat top left;
 }
 
 .date_infos{
 	padding-left:15px;
-	background:url(../theme/images/disc_star.png) no-repeat 0px -1px;
+	background:url(../images/disc_star.png) no-repeat 0px -1px;
 	color:#000;
 }
 
@@ -653,14 +653,14 @@ li .left_content img{
 }
 
 .home_item .genre_age span{
-	background:url(../theme/images/yellow_disc.png) no-repeat top left;
+	background:url(../images/yellow_disc.png) no-repeat top left;
 	padding-left:17px;
 	font-size:16px;
 }
 
 .home_item .date_infos{
 	padding-left:19px;
-	background:url(../theme/images/white_star.png) no-repeat -2px -2px;
+	background:url(../images/white_star.png) no-repeat -2px -2px;
 	color:#FFF;
 	font-size:16px;
 }
