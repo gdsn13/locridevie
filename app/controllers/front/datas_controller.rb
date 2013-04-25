@@ -159,7 +159,7 @@ class Front::DatasController < ApplicationController
                   :presentation => sp.presentation.html_safe,
                   :logo => sp.logo.url,
                   :resa => sp.adresse_reservation,
-                  :plus => sp.en_savoir_plus.html_safe,
+                  :plus => sp.en_savoir_plus == nil ? "" : sp.en_savoir_plus.html_safe,
                   :video => sp.youtube,
                   :date_affichee => sp.date_infobulle,
                   :images => images
