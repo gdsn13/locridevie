@@ -43,6 +43,7 @@ window.application.addView((function( $, application ){
 			$(this).parent().parent().parent().find('.menu_title').addClass('on');
 		});
 		
+		self.menu.tinyNav();
   };  
 
 	MenuView.prototype.change_url = function(p_location){

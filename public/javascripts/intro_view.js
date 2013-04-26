@@ -48,12 +48,15 @@ window.application.addView((function( $, application ){
 			
 			var img = new Image();
 			$(img).load(function(){
-				
-				var nh = (this.height * 490)/this.width;
-				$(this).css({'width' : '490px', 'height': nh });
-				$(this).parent().css({'height' : nh + 1, "width" : '490px'});
-				$(this).parent().parent().find('.spectacle_infos').css({'height' : nh + 1});
-				
+				if (Modernizr.mq('(max-width: 767px)') == false){
+					var nh = (this.height * 490)/this.width;
+					$(this).css({'width' : '490px', 'height': nh });
+					$(this).parent().css({'height' : nh + 1, "width" : '490px'});
+					$(this).parent().parent().find('.spectacle_infos').css({'height' : nh + 1});
+				}else{
+					var nh = (this.height * 300)/this.width;
+					$(this).css({'width' : '300px', 'height' : nh })
+				}
 			}).attr('src', actu.img);			
 			
 			var first = ''

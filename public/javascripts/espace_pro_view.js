@@ -182,8 +182,8 @@ window.application.addView((function( $, application ){
 		
 		this.current_index == this.jules.length - 1 ? this.current_index = 0 : ++this.current_index;
 		
-		this.jules[saved_index].fadeOut( 'fast' );
-		this.jules[this.current_index].fadeIn( 'fast' );
+		this.jules[saved_index].fadeOut( 1500 );
+		this.jules[this.current_index].fadeIn( 1500 );
 		this.currently_displayed_jules = this.jules[this.current_index].find('img').first(); 
 
 		this.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches

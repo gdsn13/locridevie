@@ -35,6 +35,8 @@ body{
 	font-family: 'IntervalSansPro-UltLight';
 }
 
+.tinynav{display:none;}
+
 /* MESSAGING
 --------------------------------------------------------*/
 
@@ -837,75 +839,119 @@ footer a{
 }
 
 
-@media screen and (max-width: 640px){
+@media only screen and (max-width: 767px) {
+
 	body{
-		width:100%;
-		min-width:100% !important;
 		overflow:visible;
 	}
+	
+	.tinynav{display:block;}
+	#navigation{display:none;}
 	
 	#growl_messages{
 		left:10px !important;
 	}
 	
-	#intro {
-		position:static !important;
-	}
-	#nav_intro li {
-		margin-top:5px;
-	}
-	
-	#spectacle_slider{
-		background:#000;
-		overflow:hidden  !important;
-		position:static !important;
-		height:auto  !important;
-	}	
-	
-	#programmation_container, #calendrier_container, #newsletter_containers, #spacepro_containers, #search_container {
-		position:static !important;
-	}
-	#pages, #spectacle_container{
-		position:static !important;
-		padding-bottom:0 !important;
+	#wrapper, header, .content_wrapper, .left_content, .spectacle_infos, footer,
+	li .left_content img, .spectacle_infos h1, #spectacle_container, .image img,
+	#search_content, #newsletter_content, #spacepro_content, #contents{
+		width:300px;
 	}
 	
-	#spectacle_slider ul {
-		position:static !important;
-		overflow:hidden;
+	header #logo, .tinynav{
+		width:250px;
+		margin:0 auto 20px auto;
+		float:none;
 	}
-	#spectacle_slider ul li{
-		float:none !important;
-		clear:both;
-		overflow:hidden;
-		margin:5px 0 !important;
+	
+	.spectacle_infos .spectacle_links a{
+		display:block;
 	}
-	#spectacle_slider ul li a{
+	
+	.spectacle_infos{
+		padding-bottom:10px;
+	}
+	
+	li .spectacle_infos{
+		height:auto;
+	}
+	
+	.spectacle_infos h1{
+		padding-left:0;
+	}
+	
+	.numero{
+		font-size:30px;
+		padding-right:0;
+		width:40px;
+	}
+	
+	.top_spectacle, .home_item .top_spectacle{
+		padding:0;
+	}
+	
+	#programmation_spectacles .left_content{
+		height:200px;
+	}
+	
+	#programmation_spectacles .spectacle_infos{
+		padding:0 5px;
+		width:290px;
+	}
+	
+	#programmation_spectacles li{
+		height:auto;
+	}
+	
+	.images_slider{
+		height:220px;
+	}
+	
+	.spectacle_infos{
+		padding:0 5px;
+		width:290px;
+	}
+	
+	.presentation{
+		padding:20px 0;
+	}
+	
+	#socials{
+		width: 200px;
+		padding-top: 1px;
+		height: 32px;
+		margin: 0 auto;
+		border-right:none;
+		float:none;
+	}
+	
+	#search_form {
+		width: 225px;
+		padding: 15px 0 0 0;
+		margin: 0 auto;
+		float:none;
+	}
+	
+	#spectacle_container .left_content{
+		float:right;
+	}
+	#spectacle_container #spectacle_contnet{
 		float:left;
-		overflow:hidden;
-	}
-	#spectacles_titles {
-		display:none;
-	}
-	#spectacle_slider ul li .tool_tip_title {
-		position:static !important;
-		float:right !important;
-		height: auto;
-		width: 180px;
-		text-align: right;
-		padding-right: 10px;
 	}
 	
-	#spectacle_slider ul li div{
-		position:static !important;
+	#search_content, #newsletter_content, #spacepro_content{
+		padding:5px;
 	}
+		
+	.newsletter_subscribe input {
+		width:280px;
+	}	
+		
 	.month_name_for_calendar{
 		height:25px !important;
 		width:100% !important;
 	}
-	#spectacle_slider ul li.month_name_for_calendar a{
-		float:none !important;
-	}
+	
 	.month_name_for_calendar p{
 		writing-mode: lr-tb !important;
 		-webkit-transform: rotate(0deg) !important;	
@@ -920,24 +966,14 @@ footer a{
 	.numero_title{
 		text-align:right !important;
 	}
-	#programmation_spectacles li a, #programmation_spectacles li a:visited {
-		display:inline !important;
-	}
 	.spectacle_list_title {
 		width: 200px;
 		word-wrap: break-word;
 	}
 	#programmation_spectacles{
-		width:280px !important;
-		margin:0 10px !important;
+		width:300px !important;
 	}
-	#menu {
-		position:static !important;
-	}
-	#menu_ul {
-		padding: 20px 0 10px !important;
-		width: 330px !important;
-	}
+	
 	#informations_pratiques{
 		margin-left:18px !important;
 	}
@@ -976,11 +1012,7 @@ footer a{
 		width:250px !important;
 	}
 	
-	.infobulle_lieu, .{
+	.infobulle_lieu{
 		color:#fff !important;
-	}
-	
-	.overview{
-		margin:0px 10px;
 	}
 }

@@ -125,6 +125,22 @@ window.application.addView((function( $, application ){
 		this.nl_ul.html("");
 		this.search_form = null;
 	};
+	
+	// SLIDE DANS LA BONNE DIRECTION LE SLIDER.
+	NewsletterView.prototype.animate = function(){
+		var saved_index = this.current_index;
+		var self = this;
+		
+		this.current_index == this.jules.length - 1 ? this.current_index = 0 : ++this.current_index;
+		
+		this.jules[saved_index].fadeOut( 1500 );
+		this.jules[this.current_index].fadeIn( 1500 );
+		this.currently_displayed_jules = this.jules[this.current_index].find('img').first(); 
+
+		this.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches
+			self.animate();
+			}, this.slider_duration);
+	};
 
 	// I get called when the view needs to be shown.
   NewsletterView.prototype.show_view = function( p_parameters ){
