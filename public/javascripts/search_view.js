@@ -39,7 +39,7 @@ window.application.addView((function( $, application ){
     });
 
 		//AFFICHAGE DU FORMULAIRE DE RECHERCHE
-		this.form_bottom_page = $('form[name=search]');
+		this.form_bottom_page = this.view.find('form[name=search]');
 		this.form_bottom_page.submit(function(e){
 			e.stopPropagation();
     	e.preventDefault();
@@ -182,6 +182,7 @@ window.application.addView((function( $, application ){
 		this.jules_container.html("");
 		this.search_results.html("");
 		self.from_page = false;
+		this.form_bottom_page = null;
 	};
 
   // I get called when the view needs to be shown.

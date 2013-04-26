@@ -89,11 +89,12 @@ window.application.addView((function( $, application ){
 		this.content_container.html(this.model.current_page.body);
 		
 		//AFFICHAGE DU FORMULAIRE DE RECHERCHE
-		this.search_form = $('form[name=search]');
+		this.search_form = this.view.find('form[name=search]');
 		this.search_form.submit(function(e){
 			e.stopPropagation();
     	e.preventDefault();
 			self.model.query_string = $(this).serializeArray();
+			
 			$(this).find("input[name=query_string]").val("");
 			
 			self.model.set_message_to_growl("Recherche...");
@@ -128,8 +129,8 @@ window.application.addView((function( $, application ){
 		
 		this.current_index == this.jules.length - 1 ? this.current_index = 0 : ++this.current_index;
 		
-		this.jules[saved_index].fadeOut( 1000 );
-		this.jules[this.current_index].fadeIn( 1000 );
+		this.jules[saved_index].fadeOut( 1500 );
+		this.jules[this.current_index].fadeIn( 1500 );
 		this.currently_displayed_jules = this.jules[this.current_index].find('img').first(); 
 
 		this.slider_timeout = setTimeout(function(){ // ce timeout s'arrete lorsque l'utilisateur clique sur une des fleches

@@ -18,6 +18,7 @@ window.application.addView((function( $, application ){
 		this.disconnect_container = null;
 		this.fiches_techniques = null;
 		this.page_container = null;
+		this.search_form = null;
   };
   
   EspaceProView.prototype.init = function(){  
@@ -32,6 +33,24 @@ window.application.addView((function( $, application ){
 		this.disconnect = $('#disconnect');
 		this.disconnect_container = $('#disconect_link');
 		this.page_container = $('#pagepro_container');
+		
+		//AFFICHAGE DU FORMULAIRE DE RECHERCHE
+		this.search_form = this.view.find('form[name=search]');
+		this.search_form.submit(function(e){
+			e.stopPropagation();
+    	e.preventDefault();
+			self.model.query_string = $(this).serializeArray();
+			$(this).find("input[name=query_string]").val("");
+			
+			self.model.set_message_to_growl("Recherche...");
+			if (location.hash != "#/search"){
+				location.hash = "#/search";
+			}else{
+				self.model.get_search_results();
+			}
+			
+			return false;
+		});
 		
 		/* DATA REFRESH
 		----------------------------------------------------------------------------------------*/
@@ -182,6 +201,7 @@ window.application.addView((function( $, application ){
 		this.jules = [];
 		this.current_index = 0;
 		this.wrapper.html("");
+		this.search_form = null;
 	};
 
 	// I get called when the view needs to be shown.

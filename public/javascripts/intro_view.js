@@ -67,7 +67,7 @@ window.application.addView((function( $, application ){
 			html += '<div class="date_infos">' + actu.dates + '</div>';
 			html += '<div class="tld">' + actu.tld + actu.block + '</div>'
 			html += '</div>';
-			html += '<div class="spectacle_links"><a href="/#/spectacle/' + actu.url + '">+ En savoir plus</a>';
+			html += '<div class="spectacle_links"><a href="' + actu.url + '">+ En savoir plus</a>';
 			
 			if (actu.resa != "" && actu.resa != null) html += '<a href="' + actu.resa + '">> Reservez en ligne	</a></div>'
 			html += '</div></div>';

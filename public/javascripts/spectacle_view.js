@@ -41,6 +41,7 @@ window.application.addView((function( $, application ){
 		this.next_caption = null;
 		this.prev_caption = null;
 		this.left_spectacle = null;
+		this.search_form = null;
   };
   
   SpectacleView.prototype.init = function(){  
@@ -55,6 +56,7 @@ window.application.addView((function( $, application ){
 		$(this.model).on('spectacle_ready', function(){
       self.display_view();
     });
+		
   };
 
 	SpectacleView.prototype.display_view = function(){
@@ -63,6 +65,24 @@ window.application.addView((function( $, application ){
 
 		// RECUPERATION DU TEMPLATE ET REMPLISSAGE
 		this.view.html(application.getFromTemplate(this.template, this.model.pages[this.current_spectacle]));
+		
+		// INITIALISATION DU MOTEUR DE RECHERCHE
+		this.search_form = this.view.find('form[name=search]');
+		this.search_form.submit(function(e){
+			e.stopPropagation();
+    	e.preventDefault();
+			self.model.query_string = $(this).serializeArray();
+			$(this).find("input[name=query_string]").val("");
+			
+			self.model.set_message_to_growl("Recherche...");
+			if (location.hash != "#/search"){
+				location.hash = "#/search";
+			}else{
+				self.model.get_search_results();
+			}
+			
+			return false;
+		});
 		
 		// INITIALISATION DU LIEN DE RESERVATION
 		var resa = $('#lien_reservation_spectacle');
@@ -180,8 +200,8 @@ window.application.addView((function( $, application ){
 
 		this.current_index == this.images.length - 1 ? this.current_index = 0 : ++this.current_index;
 		
-		this.images[saved_index].fadeOut(1000);
-		this.images[this.current_index].fadeIn(1000);
+		this.images[saved_index].fadeOut(1500);
+		this.images[this.current_index].fadeIn(1500);
 		this.currently_displayed_image = this.images[this.current_index].find('img').first(); 
 		
 		this.slider_timeout = setTimeout(function(){
@@ -205,6 +225,7 @@ window.application.addView((function( $, application ){
 		this.prev_show = null;
 		this.next_caption = null;
 		this.prev_caption = null;
+		this.search_form = null;
 	};
 
   // I get called when the view needs to be shown.
