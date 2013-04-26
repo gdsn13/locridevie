@@ -15,6 +15,7 @@ module Locomotive
           spectacles = []
 
           ContentType.where(:slug => "spectacles").first.contents.each do |s|
+                        
             if s.season_id == current_site.season_front
               spectacles << s
             end

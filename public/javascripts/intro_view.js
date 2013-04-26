@@ -93,7 +93,10 @@ window.application.addView((function( $, application ){
 
 	IntroView.prototype.hide_view = function( ){
 		var self = this;
-		this.view.fadeOut('fast', function(){});
+		this.view.fadeOut('fast', function(){
+			self.view.html("");
+		});
+		
 	}
 
   // I get called when the view needs to be shown.

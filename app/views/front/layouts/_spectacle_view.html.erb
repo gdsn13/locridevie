@@ -1,26 +1,3 @@
-
-<div class="left_content" id="left_spectacle">
-	<div id="images_spectacle" class="images_slider"></div>
-	<div class="reservation no_border" id="reservation_block">
-		<h2 id="lien_reservation_spectacle"><a href="#">Réservez en ligne 24h/24</a></h2>
-		<p>ou par téléphone au 04 91 54 70 54<br>
-		du mardi au samedi de 12h à 18h</p>
-		<ul>
-			<li><a href="">⊲ Découvrez tous nos tarifs</a></li>
-			<li><a href="">⊲ Renseignez-vous sur nos abonnements</a></li>
-		</ul>
-	</div>
-	<div class="reservation" id="plus">
-		<h2>En savoir plus</h2>
-		${plus}
-	</div>
-	<div id="left_bottom">
-		<div id="video_youtube">
-			${video}
-		</div>
-		<%= render "front/layouts/left_bottom" %>
-	</div>
-</div>
 <div id="spectacle_content" class="spectacle_infos">
 
 			<div id="inter_spectacle_navigation">
@@ -50,4 +27,31 @@
 			</div>
 			<div class="presentation">${presentation}</div>
 		</div>
+</div>
+
+<div class="left_content" id="left_spectacle">
+	<div id="images_spectacle" class="images_slider"></div>
+	<div class="reservation no_border" id="reservation_block">
+		<h2 id="lien_reservation_spectacle"><a href="#">Réservez en ligne 24h/24</a></h2>
+		<p class="grand">ou par téléphone au 04 91 54 70 54<br>
+		du mardi au samedi de 12h à 18h</p>
+		<ul>
+			<li><a href="">⊲ Découvrez tous nos tarifs</a></li>
+			<li><a href="">⊲ Renseignez-vous sur nos abonnements</a></li>
+		</ul>
+	</div>
+	<div class="reservation" id="autour">
+		<h2>Autour du spectacle</h2>
+		${autour}
+	</div>
+	<div class="reservation" id="plus">
+		<h2>En savoir plus</h2>
+		${plus}
+	</div>
+	<div id="left_bottom">
+		<div id="video_youtube">
+			${video}
+		</div>
+		<%= render "front/layouts/left_bottom" %>
+	</div>
 </div>

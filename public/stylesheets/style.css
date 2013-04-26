@@ -213,6 +213,10 @@ body{
 }
 
 .reservation p{
+	font-size:14px;
+}
+
+.reservation p.grand{
 	font-size:18px;
 }
 
@@ -226,12 +230,26 @@ body{
 	color:#fff;
 }
 
-#lien_reservation_spectacle a{
+#lien_reservation_spectacle a, #reservation_block a{
 	color:#fff;
+	text-decoration:none;
 }
 
 #video_youtube{
 	margin-bottom: 20px;
+}
+
+#left_spectacle{
+	float:left;
+}
+
+#spectacle_content{
+	float:right;
+}
+
+.reservation a{
+	color:#fff;
+	text-decoration:underline;
 }
 
 /* PAGES

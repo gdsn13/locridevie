@@ -91,6 +91,11 @@ window.application.addView((function( $, application ){
 		else
 			resa.css('display', 'none');
 		
+		// AUTOUR
+		if (self.model.pages[self.current_spectacle].autour == ""){
+			$('#autour').css('display', 'none');
+		}
+		
 		// EN SAVOIR PLUS
 		if (self.model.pages[self.current_spectacle].plus == ""){
 			$('#plus').css('display', 'none');
