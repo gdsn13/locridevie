@@ -8,6 +8,7 @@ window.application.addView((function( $, application ){
 		this.localize = null;
 		this.current_month_for_calendar_display = 0;
 		this.month_list_container = null;
+		this.search_form = null;
   };
   
   ProgrammationView.prototype.init = function(){  
@@ -28,6 +29,7 @@ window.application.addView((function( $, application ){
 		var self = this;
 		
 		this.spectacles = this.model.spectacles_ordered_by_numero();
+		
 		var month_list = []
 		
 		//AFFICHAGE DE LA LISTE DES SPECTACLES
@@ -87,6 +89,24 @@ window.application.addView((function( $, application ){
 			return false;
 		});
 		
+		// INITIALISATION DU MOTEUR DE RECHERCHE
+		this.search_form = this.view.find('form[name=search]');
+		this.search_form.submit(function(e){
+			e.stopPropagation();
+    	e.preventDefault();
+			self.model.query_string = $(this).serializeArray();
+			$(this).find("input[name=query_string]").val("");
+			
+			self.model.set_message_to_growl("Recherche...");
+			if (location.hash != "#/search"){
+				location.hash = "#/search";
+			}else{
+				self.model.get_search_results();
+			}
+			
+			return false;
+		});
+		
 		Cufon.replace('.numero');
 		
 		// QUAND TOUT EST CHARGE DANS LA VUE
@@ -103,6 +123,7 @@ window.application.addView((function( $, application ){
 		this.view.fadeOut('fast');
 		this.spectacle_ul.html("");
 		this.month_list_container.html("");
+		this.search_form = null;
 	};
 
   // I get called when the view needs to be shown.

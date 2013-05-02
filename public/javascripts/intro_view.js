@@ -26,6 +26,8 @@ window.application.addView((function( $, application ){
   function IntroView(){
 		this.model = null;
 		this.view = null;
+		this.search_form = null;
+		this.container = null;
   };
   
   IntroView.prototype.init = function(){  
@@ -34,6 +36,7 @@ window.application.addView((function( $, application ){
 		/* INIT DATAS
 		----------------------------------------------------------------------------------------*/
 		this.view = $('#home_container');
+		this.container = $('#home_content');
 		this.model = application.getModel( "Model" );
 		
 		$(this.model).on('intro_ready', function(){
@@ -49,7 +52,7 @@ window.application.addView((function( $, application ){
 			var img = new Image();
 			$(img).load(function(){
 				if (Modernizr.mq('(max-width: 767px)') == false){
-					var nh = (this.height * 490)/this.width;
+					var nh = Math.ceil((this.height * 490)/this.width);
 					$(this).css({'width' : '490px', 'height': nh });
 					$(this).parent().css({'height' : nh + 1, "width" : '490px'});
 					$(this).parent().parent().find('.spectacle_infos').css({'height' : nh + 1});
@@ -59,7 +62,7 @@ window.application.addView((function( $, application ){
 				}
 			}).attr('src', actu.img);			
 			
-			var first = ''
+			var first = '';
 			if (index == 0) first = 'first_home ';
 			
 			var html = '<div class="home_item ' + first + 'home_item_' + index + '"><div class="left_content"></div>';
@@ -68,15 +71,34 @@ window.application.addView((function( $, application ){
 			html += '<div class="top_spectacle">';
 			html += '<div class="genre_age">' + actu.genre + '<span>' + actu.age +'</span></div>';
 			html += '<div class="date_infos">' + actu.dates + '</div>';
-			html += '<div class="tld">' + actu.tld + actu.block + '</div>'
+			html += '<div class="tld">' + actu.tld + '</div>';
+			html += '<div class="actu_block">' + actu.block + '</div>';
 			html += '</div>';
 			html += '<div class="spectacle_links"><a href="' + actu.url + '">+ En savoir plus</a>';
 			
-			if (actu.resa != "" && actu.resa != null) html += '<a href="' + actu.resa + '">> Reservez en ligne	</a></div>'
+			if (actu.resa != "" && actu.resa != null) html += '<a class="grey" href="' + actu.resa + '">> Reservez en ligne	</a></div>'
 			html += '</div></div>';
 			
-			self.view.append(html);
+			self.container.append(html);
 			self.view.find('.home_item_' + index + ' .left_content').append(img);
+		});
+		
+		// INITIALISATION DU MOTEUR DE RECHERCHE
+		this.search_form = this.view.find('form[name=search]');
+		this.search_form.submit(function(e){
+			e.stopPropagation();
+    	e.preventDefault();
+			self.model.query_string = $(this).serializeArray();
+			$(this).find("input[name=query_string]").val("");
+			
+			self.model.set_message_to_growl("Recherche...");
+			if (location.hash != "#/search"){
+				location.hash = "#/search";
+			}else{
+				self.model.get_search_results();
+			}
+			
+			return false;
 		});
 		
 		this.view.imagesLoaded(function($images, $proper, $broken){			
@@ -95,9 +117,9 @@ window.application.addView((function( $, application ){
 		var self = this;
 		this.view.fadeOut('fast', function(){
 			self.view.html("");
+			this.search_form = null;
 		});
-		
-	}
+	};
 
   // I get called when the view needs to be shown.
   IntroView.prototype.show_view = function( p_parameters ){

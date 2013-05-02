@@ -62,7 +62,8 @@ class Front::DatasController < ApplicationController
         :temps_scolaire => d.temps_scolaire,
         :des => d.des,
         :audiodesc => d.audiodescription,
-        :lds => d.langage_des_signes
+        :lds => d.langage_des_signes,
+        :associe => d.spectacle.spectacle_associe != nil ? "true" : "false"
       }
     end
     

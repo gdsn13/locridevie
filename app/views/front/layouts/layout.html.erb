@@ -126,23 +126,23 @@
 			</div>
 		</div>
 		
-		<div id="home_container" class="content_wrapper">			
-			
+		<div id="home_container" class="content_wrapper">	
+			<div id="home_content"></div>
+			<div class="bottom">		
+				<%= render "front/layouts/left_bottom" %>
+			</div>
 		</div>
 		
 		<div id="calendrier_container" class="content_wrapper">
-			<div id="calendrier_content" class="left_content">
-				<div id="legende_calendrier">
-					<div><img width="15px" align="left" src="/images/temps_scolaire.png"><span>Temps Scolaire</span></div>
-					<div><img width="15px" align="left" src="/images/tout_public.png"><span>Tout Public</span></div>
-					<div><span class="des">8+</span><span>Dès 8 ans</span></div>
-					<div><span class="audiodescription">Audio</span><span>Audio description</span></div>
-					<div><span class="lsf">Audio</span><span>Langage des signes</span></div>
-				</div>
-				<ul id="calendrier_spectacles" class="overview calendar_margin"></ul>
+			<div id="legende_calendrier">
+				<div><img width="15px" align="left" src="/images/temps_scolaire.png"><span>Temps Scolaire</span></div>
+				<div><img width="15px" align="left" src="/images/tout_public.png"><span>Tout Public</span></div>
+				<div><span class="des">8+</span><span>Dès 8 ans</span></div>
+				<div><span class="audiodescription">Audio</span><span>Audio description</span></div>
+				<div><span class="lsf">Audio</span><span>Langage des signes</span></div>
 			</div>
-			<div class="left_content">
-				<div id="calendrier_jules_sliders"></div>
+			<ul id="calendrier_spectacles" class="overview calendar_margin"></ul>
+			<div class="bottom">
 				<%= render "front/layouts/left_bottom" %>
 			</div>
 		</div>
@@ -150,6 +150,10 @@
 		<div id="programmation_container" class="content_wrapper">
 			<ul id="month_list"></ul>
 			<ul id="programmation_spectacles"></ul>
+			<div class="bottom">		
+				<%= render "front/layouts/left_bottom" %>
+			</div>
+			
 		</div>
 	
 		<div id="search_container" class="content_wrapper">
@@ -167,11 +171,11 @@
 		<script id="calendar_line" type="application/template">
 			<li>	
 				<div class="calendar_field calendar_date">${humanized_date}</div>
-				<div class="calendar_field calendar_heure ${color_line}">${heure}</div>
-				<div class="calendar_field calendar_numero ${color_line}">${numero}</div>
-				<div class="calendar_field calendar_spectacle ${color_line}"><a href="/#/spectacle/${href}">${spectacle}</a></div>
-				<div class="calendar_field calendar_lieu ${color_line}">${lieu}</div>
-				<div class="calendar_field calendar_tarif ${color_line}">${tarif}</div>
+				<div class="calendar_field calendar_heure">${heure}</div>
+				<div class="calendar_field calendar_numero">${numero}</div>
+				<div class="calendar_field calendar_spectacle ${fat_title}"><a href="/#/spectacle/${href}">${spectacle}</a></div>
+				<div class="calendar_field calendar_lieu">${lieu}</div>
+				<div class="calendar_field calendar_tarif">${tarif}</div>
 				<div class="calendar_field calendar_extras">${extra}</div>
 			</li>
 		</script>

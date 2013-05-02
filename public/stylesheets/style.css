@@ -37,6 +37,11 @@ body{
 
 .tinynav{display:none;}
 
+.bottom{
+	clear:both;
+	margin-top:40px;
+}
+
 /* MESSAGING
 --------------------------------------------------------*/
 
@@ -82,7 +87,7 @@ body{
 /* SPECTACLE
 --------------------------------------------------------*/
 .spectacle_infos h1{
-	padding:20px 0 0 20px;
+	padding:25px 0 0 20px;
 	font-family: 'IntervalSansPro-Light';
 	width:365px;
 	float:left;
@@ -107,6 +112,8 @@ body{
 	font-family: 'IntervalSansPro-Light';
 	float: left;
 	width: 490px;
+	position:relative;
+	z-index:10;
 }
 
 #spectacles_sliders h2{ 
@@ -127,7 +134,7 @@ body{
 
 .genre_age{
 	color:#0099cc;
-	font-family:'IntervalSansPro-Med';
+	font-family:'IntervalSansPro-Light';
 	font-size:16px;
 }
 
@@ -140,6 +147,7 @@ body{
 	padding-left:15px;
 	background:url(../images/disc_star.png) no-repeat 0px -1px;
 	color:#000;
+	font-size:16px;
 }
 
 .tld{
@@ -158,11 +166,13 @@ body{
 	float:right;
 	font-size:60px;
 	font-weight:bold;
-	padding:8px 22px 0 0;
+	position:absolute;
+	right:22px;
+	top:16px;
 }
 
 .presentation{
-	padding: 30px 20px 50px 20px;
+	padding: 30px 20px 0px 20px;
 	font-family: 'IntervalSansPro-Light';
 	font-size:14px;
 	color:#000;
@@ -180,6 +190,10 @@ body{
 	width:980px;
 	overflow:hidden;
 	display:none;
+}
+
+#spectacle_container .numero{
+	top:56px;
 }
 
 .images_slider{
@@ -207,13 +221,20 @@ body{
 }
 
 .reservation h2{
-	border-bottom:1px solid #FFF;
 	font-size:24px;
 	display:inline;
 }
 
+#lien_reservation_spectacle a{
+	color:#a2a2a2;
+}
+
 .reservation p{
 	font-size:14px;
+}
+
+#spectacle_container .reservation a{
+	color:#a2a2a2;
 }
 
 .reservation p.grand{
@@ -227,12 +248,6 @@ body{
 
 .reservation ul li a{
 	font-size:14px;
-	color:#fff;
-}
-
-#lien_reservation_spectacle a, #reservation_block a{
-	color:#fff;
-	text-decoration:none;
 }
 
 #video_youtube{
@@ -452,8 +467,8 @@ li .left_content img{
 }
 
 .spectacle_links a{
-	font-size:20px;
-	padding-right:50px;
+	font-size:18px;
+	padding-right:50px;t
 	font-family:'IntervalSansPro-Med';
 }
 
@@ -511,11 +526,18 @@ li .left_content img{
 	padding-bottom:50px;
 }
 
+#calendrier_container{
+	background:#fff;
+	color:#000;
+}
+
 #calendrier_spectacles{
 	font-size: 11px;
 	min-width: 530px;
 	padding:20px;
 	margin: 0;
+	color: #000;
+	list-style: none;
 }
 
 #legende_calendrier{
@@ -539,40 +561,39 @@ li .left_content img{
 #calendrier_spectacles li{
 	clear:both;
 	overflow:hidden;
-	padding-top:2px;
 	font-family: 'IntervalSansPro-Light';
+	border-bottom:1px solid #fdc400;
 }
 
 #calendrier_spectacles li .calendar_field{
 	float:left;
 	text-align:center;
-	border-bottom:1px solid #fdc400;
 	margin-bottom:2px;
-	padding-bottom:1px;
+	padding-top:6px;
 	vertical-align: bottom;
 }
 
 .calendar_date{width:7%; text-align:left !important;font-family: 'IntervalSansPro-Med';line-height:16px;padding-bottom:2px !important;}
 .calendar_heure{width:8%;line-height:17px;font-size:10px;}
 .calendar_numero{width:7%;font-family: 'IntervalSansPro-Med';line-height:16px;padding-bottom:2px !important;}
-.calendar_spectacle{width:39%;text-align:left !important;font-family: 'IntervalSansPro-Med';line-height:16px;padding-bottom:2px !important;}
+.calendar_spectacle{width:39%;text-align:left !important;font-family: 'IntervalSansPro-Med' !important;line-height:16px;padding-bottom:2px !important;}
 .calendar_lieu{width:16%; line-height:17px;font-size:10px !important;}
 .calendar_tarif{width:12%; line-height:17px;font-size:10px !important;}
-.calendar_extras{width:8%; border:none !important;margin-left:10px;line-height:17px;}
+.calendar_extras{width:8%;margin-left:10px;line-height:17px; text-align:right;}
+.fat_title{font-family: 'IntervalSansPro-Light' !important}
 
 
 .month_name{
 	font-size:16px;
 	font-weight:bold;
 	text-transform:uppercase;
-	padding-top:10px !important;
-	border-bottom:1px solid #fdc400;
-	margin-right:12%;
 	font-family: 'IntervalSansPro-Med';
+	background: #000;
+	color: #fdc400;
+	padding:5px 0 0 5px !important;
+	border:none !important;
+	margin:10px 0 5px 0;
 }
-
-.green_line, .green_line a{color:green !important;}
-.red_line, .red_line a{color:red !important;}
 
 .des {
 	background-color:#08618D;
@@ -605,8 +626,16 @@ li .left_content img{
 	margin-bottom:20px;
 }
 
+#programmation_spectacles .date_infos{
+	font-size:16px !important;
+}
+
+#programmation_spectacles .tld{
+	color:#000 !important;
+}
+
 #programmation_spectacles li .top_spectacle{
-	padding-top:0px;
+	padding-top:5px;
 }
 
 #calendrier_content{
@@ -657,7 +686,7 @@ li .left_content img{
 
 #home_container .spectacle_infos .spectacle_links a{
 	color:#FFF;
-	font-family:'IntervalSansPro-UltLight';
+	font-family:'IntervalSansPro-Light';
 }
 
 #home_container .left_content{
@@ -682,7 +711,7 @@ li .left_content img{
 	padding-left:19px;
 	background:url(../images/white_star.png) no-repeat -2px -2px;
 	color:#FFF;
-	font-size:16px;
+	font-size:16px !important;
 }
 
 .home_item .tld{
@@ -698,12 +727,39 @@ li .left_content img{
 	font-size:30px;
 }
 
+.home_item .numero{
+	font-size:50px;
+	right:15px;
+}
+
+.first_home .numero{
+	font-size:60px;
+	top:14px;
+	right:22px;
+}
+
 .first_home .top_spectacle{
-	font-size:16px;
+	padding-top:16px !important;
 }
 
 .first_home .tld{
 	font-size:14px !important;
+	padding-top:20px !important;
+}
+
+.first_home .actu_block{
+	padding-top:50px !important;
+	color:#FFF;
+	font-size:14px !important;
+}
+
+.first_home .actu_block p{
+	padding-bottom:4px;
+}
+
+.home_item .actu_block{
+	color:#fff;
+	font-size:11px;
 }
 
 .home_item .top_spectacle{
@@ -720,6 +776,10 @@ li .left_content img{
 	padding-top:2px;
 }
 
+.grey{
+	color:#999999 !important;
+}
+
 .spectacle_list_numero{
 	float:left;
 	width:30px;
@@ -728,6 +788,25 @@ li .left_content img{
 .spectacle_list_title{
 	float:left;
 	width:400px;
+}
+
+.home_item .spectacle_links{
+	position:absolute;
+	left:0px;
+	bottom:15px;
+	z-index:11;
+}
+
+.first_home .spectacle_links{
+	bottom:25px !important;
+} 
+
+.first_home .spectacle_links a{
+	font-size:18px !important;
+}
+
+.home_item .spectacle_links a{
+	font-size:16px;
 }
 
 /*MENU
