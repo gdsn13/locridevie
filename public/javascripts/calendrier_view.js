@@ -29,18 +29,26 @@ window.application.addView((function( $, application ){
 	CalendrierView.prototype.refreshed_datas = function(){
 		var self = this;
 		var current_month_for_display = 0;
+		var current_date = 0;
 		this.calendrier_spectacles.html('');
 		
 		//AFFICHAGE DES DATES
 		$.each(this.model.current_page.dates, function(index, d){
+
+			if (current_date != d.date){
+				//AFFICHAGE NOM DU MOIS
+				var date = new Date(d.date);
+				if (current_month_for_display != date.getMonth()){
+					current_month_for_display = date.getMonth();
+					self.calendrier_spectacles.append("<li class='month_name'>" + self.localize.localize_month(date.getMonth()) + "</li>");
+				}
+
+				d.humanized_date = self.localize.localize_day(date.getDay()) + " " + date.getDate();
+			}else{
+				d.humanized_date = "";
+			}
 			
-			//AFFICHAGE NOM DU MOIS
-			var date = new Date(d.date);
-			if (current_month_for_display != date.getMonth()){
-				current_month_for_display = date.getMonth();
-				self.calendrier_spectacles.append("<li class='month_name'>" + self.localize.localize_month(date.getMonth()) + "</li>");
-			} 
-			d.humanized_date = self.localize.localize_day(date.getDay()) + " " + date.getDate();
+			current_date = d.date;
 									
 			//CALCUL DES EXTRAS
 			var extra = "";
@@ -63,7 +71,7 @@ window.application.addView((function( $, application ){
 		// QUAND TOUT EST CHARGE DANS LA VUE
 		// ---------------------------------------------------------------------------------------------------------
 		this.view.imagesLoaded(function($images, $proper, $broken){
-			
+			//Cufon.replace('.des');
 			// ON AFFICHE LA VUE
 			self.view.fadeIn('fast', function(){
 				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE

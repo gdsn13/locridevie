@@ -40,6 +40,7 @@ body{
 .bottom{
 	clear:both;
 	margin-top:40px;
+	overflow:hidden;
 }
 
 /* MESSAGING
@@ -127,7 +128,7 @@ body{
 
 .top_spectacle{
 	overflow:hidden;
-	padding:30px 20px 0 20px;
+	padding:20px 20px 0 20px;
 	clear:both;
 	color:#999;
 }
@@ -151,7 +152,7 @@ body{
 }
 
 .tld{
-	padding-top:20px;
+	padding-top:18px;
 	color:#666;
 }
 
@@ -172,7 +173,7 @@ body{
 }
 
 .presentation{
-	padding: 30px 20px 0px 20px;
+	padding: 48px 20px 0px 20px;
 	font-family: 'IntervalSansPro-Light';
 	font-size:14px;
 	color:#000;
@@ -235,6 +236,7 @@ body{
 
 #spectacle_container .reservation a{
 	color:#a2a2a2;
+	font-family:'IntervalSansPro-Light';
 }
 
 .reservation p.grand{
@@ -531,6 +533,12 @@ li .left_content img{
 	color:#000;
 }
 
+#calendrier_container .bottom{
+	margin-top:0px;
+	padding-top:40px;
+	background:#000;
+}
+
 #calendrier_spectacles{
 	font-size: 11px;
 	min-width: 530px;
@@ -573,7 +581,7 @@ li .left_content img{
 	vertical-align: bottom;
 }
 
-.calendar_date{width:7%; text-align:left !important;font-family: 'IntervalSansPro-Med';line-height:16px;padding-bottom:2px !important;}
+.calendar_date{width:7%; text-align:left !important;font-family: 'IntervalSansPro-Med';line-height:16px;padding-bottom:2px !important;text-transform:uppercase;}
 .calendar_heure{width:8%;line-height:17px;font-size:10px;}
 .calendar_numero{width:7%;font-family: 'IntervalSansPro-Med';line-height:16px;padding-bottom:2px !important;}
 .calendar_spectacle{width:39%;text-align:left !important;font-family: 'IntervalSansPro-Med' !important;line-height:16px;padding-bottom:2px !important;}
@@ -582,6 +590,10 @@ li .left_content img{
 .calendar_extras{width:8%;margin-left:10px;line-height:17px; text-align:right;}
 .fat_title{font-family: 'IntervalSansPro-Light' !important}
 
+.calendar_extras img{
+	float:right;
+	margin-left:5px;
+}
 
 .month_name{
 	font-size:16px;
@@ -596,15 +608,14 @@ li .left_content img{
 }
 
 .des {
-	background-color:#08618D;
+	background-color:#4E7D48;
 	color:#FFFFFF;
-	padding-bottom: 0;
-	line-height: 8px;
-	padding-top: 5px;
+	line-height: 10px;
 	display: block;
-	float: left;
-	margin-top: 0px;
-	margin-right: 5px;
+	float: right;
+	margin: 0 0 0 5px;
+	border-radius:7px;
+	padding:4px 1px 1px 1pxx;
 }
 
 .audiodescription, .lsf{
@@ -614,9 +625,9 @@ li .left_content img{
 	line-height: 8px;
 	padding-top: 5px;
 	display: block;
-	float: left;
+	float: right;
 	margin-top: 0px;
-	margin-right: 5px;
+	margin-left: 5px;
 }
 
 #programmation_spectacles li{
@@ -624,18 +635,32 @@ li .left_content img{
 	overflow:hidden;
 	height:267px;
 	margin-bottom:20px;
+	position:relative;
+	z-index:10;
+}
+
+#programmation_spectacles .infos_prog{
+	padding-top:18px;
 }
 
 #programmation_spectacles .date_infos{
 	font-size:16px !important;
 }
 
+#programmation_spectacles .spectacle_links{
+	position:absolute;
+	left:0;
+	bottom:18px;
+	z-index:11;
+}
+
 #programmation_spectacles .tld{
 	color:#000 !important;
+	padding-top:2px;
 }
 
 #programmation_spectacles li .top_spectacle{
-	padding-top:5px;
+	padding-top:0px;
 }
 
 #calendrier_content{
