@@ -67,6 +67,8 @@ window.application.addView((function( $, application ){
 
 	PageView.prototype.data_ready = function(){
 		var self = this;
+		
+		self.buttons_container.html('')
 				
 		//AFFICHAGE DES JULES
 		$.each(this.model.current_page.jules, function(index, j){						

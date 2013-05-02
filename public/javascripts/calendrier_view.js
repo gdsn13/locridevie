@@ -6,6 +6,7 @@ window.application.addView((function( $, application ){
 		this.calendrier_spectacles = null;
 		this.calendar_line = null;	//template
 		this.localize = null;
+		this.search_form = null;
   };
   
   CalendrierView.prototype.init = function(){  
@@ -67,6 +68,24 @@ window.application.addView((function( $, application ){
 			//AFFICHAGE DE LA LIGNE DEPUIS TEMPLATE
 			self.calendrier_spectacles.append(application.getFromTemplate(self.calendar_line, d));
 		});
+		
+		// INITIALISATION DU MOTEUR DE RECHERCHE
+		this.search_form = this.view.find('form[name=search]');
+		this.search_form.submit(function(e){
+			e.stopPropagation();
+    	e.preventDefault();
+			self.model.query_string = $(this).serializeArray();
+			$(this).find("input[name=query_string]").val("");
+			
+			self.model.set_message_to_growl("Recherche...");
+			if (location.hash != "#/search"){
+				location.hash = "#/search";
+			}else{
+				self.model.get_search_results();
+			}
+			
+			return false;
+		});
 				
 		// QUAND TOUT EST CHARGE DANS LA VUE
 		// ---------------------------------------------------------------------------------------------------------
@@ -86,6 +105,7 @@ window.application.addView((function( $, application ){
 	CalendrierView.prototype.hide_view = function(){
 		var self = this;
 		this.view.fadeOut('fast');
+		this.search_form = null;
 	};
 
   // I get called when the view needs to be shown.

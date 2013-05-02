@@ -318,6 +318,12 @@ body{
 #left_page_buttons h2{
 	font-family: 'IntervalSansPro-Light';
 	font-size:24px;
+	padding-top:20px;
+}
+
+#left_page_buttons a{
+	color:#FFF;
+	text-decoration:underline;
 }
 
 #socials{

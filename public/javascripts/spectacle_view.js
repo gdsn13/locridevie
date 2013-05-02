@@ -89,7 +89,7 @@ window.application.addView((function( $, application ){
 		if (self.model.pages[self.current_spectacle].resa != "")
 			resa.find('a').attr('href', self.model.pages[self.current_spectacle].resa);
 		else
-			resa.css('display', 'none');
+			$('#reservation_block').css('display', 'none');
 		
 		// AUTOUR
 		if (self.model.pages[self.current_spectacle].autour == ""){
