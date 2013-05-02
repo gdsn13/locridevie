@@ -707,6 +707,8 @@ li .left_content img{
 	border-bottom:1px solid #fff;
 	height:100%;
 	min-height:100%;
+	position:relative;
+	z-index:10;
 }
 
 #home_container .spectacle_infos .spectacle_links a{
@@ -769,11 +771,11 @@ li .left_content img{
 
 .first_home .tld{
 	font-size:14px !important;
-	padding-top:20px !important;
+	padding-top:16px !important;
 }
 
 .first_home .actu_block{
-	padding-top:50px !important;
+	padding-top:45px !important;
 	color:#FFF;
 	font-size:14px !important;
 }
@@ -801,7 +803,11 @@ li .left_content img{
 	padding-top:2px;
 }
 
-.grey{
+.home_item .grey{
+	color:#fff;
+}
+
+.first_home .grey{
 	color:#999999 !important;
 }
 
@@ -818,12 +824,12 @@ li .left_content img{
 .home_item .spectacle_links{
 	position:absolute;
 	left:0px;
-	bottom:15px;
+	bottom:10px;
 	z-index:11;
 }
 
 .first_home .spectacle_links{
-	bottom:25px !important;
+	bottom:20px !important;
 } 
 
 .first_home .spectacle_links a{
