@@ -39,32 +39,43 @@ class Front::DatasController < ApplicationController
   end
   
   def get_dates
-    dates = ContentType.where(:slug => "calendrier").first.contents
+    dates_of_season = []
+    cs = Site.first
+    dates = ContentType.where(:slug => "calendrier").first.contents.each do |ad|          
+      if ad.season_id == cs.season_front
+        dates_of_season << ad
+      end
+      
+    end
+    
     page = Page.where(:slug => "calendrier").first
     
-    dates_classified = dates.sort_by {|d| [d.date, d.heure]}
+    dates_classified = dates_of_season.sort_by {|d| [d.date, d.heure]}
     
     calendar = dates_classified.map do |d|
       
-      d.spectacle.spectacle_associe != nil ? url = d.spectacle.spectacle_associe._slug : url = d.spectacle._slug
+      if d.spectacle != nil
       
-      {
-        :numero => d.spectacle.numero,
-        :date => d.date.strftime("%Y/%m/%d"),
-        :heure => d.heure,
-        :lieu => d.lieu,
-        :spectacle => d.spectacle.titre,
-        :href => url,
-        :tarif => d.tarif,
-        :green => d.green,
-        :red => d.red,
-        :tout_public => d.tout_public,
-        :temps_scolaire => d.temps_scolaire,
-        :des => d.des,
-        :audiodesc => d.audiodescription,
-        :lds => d.langage_des_signes,
-        :associe => d.spectacle.spectacle_associe != nil ? "true" : "false"
-      }
+        d.spectacle.spectacle_associe != nil ? url = d.spectacle.spectacle_associe._slug : url = d.spectacle._slug
+      
+        {
+          :numero => d.spectacle.numero,
+          :date => d.date.strftime("%Y/%m/%d"),
+          :heure => d.heure,
+          :lieu => d.lieu,
+          :spectacle => d.spectacle.titre,
+          :href => url,
+          :tarif => d.tarif,
+          :green => d.green,
+          :red => d.red,
+          :tout_public => d.tout_public,
+          :temps_scolaire => d.temps_scolaire,
+          :des => d.des,
+          :audiodesc => d.audiodescription,
+          :lds => d.langage_des_signes,
+          :associe => d.spectacle.spectacle_associe != nil ? "true" : "false"
+        }
+      end
     end
     
     calendar_to_json = {
