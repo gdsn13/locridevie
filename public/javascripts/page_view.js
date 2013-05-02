@@ -82,7 +82,9 @@ window.application.addView((function( $, application ){
 		
 		//AFFICHAGE DES BOUTONS
 		$.each(this.model.current_page.boutons, function(index, b){
-			var html = '<div id="button_' + index +'"><h2>' + b.title + '</h2>';
+			var first = "";
+			if(index == 0) first = "no_border"
+			var html = '<div id="button_' + index +'" class="left_page_btn ' +  first + '"><h2>' + b.title + '</h2>';
 			html += b.block + '</div>';
 			self.buttons_container.append(html);
 		});

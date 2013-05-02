@@ -39,6 +39,7 @@
 			<% else -%>
 			"info_prog": <%= info_prog %>,
 			<% end -%>
+			"resume": "<%= spec.resume %>",
 		  "titre": "<%= spec.titre.html_safe %>",
 		  "date": "<%= spec.date.strftime("%Y/%m/%d") %>",
 		  "en_tournee": "<%= spec.en_tournee %>",
@@ -134,6 +135,7 @@
 		</div>
 		
 		<div id="calendrier_container" class="content_wrapper">
+			<ul id="month_list_for_calendar"></ul>
 			<div id="legende_calendrier">
 				<div><img width="15px" align="left" src="/images/temps_scolaire.png"><span>Temps Scolaire</span></div>
 				<div><img width="15px" align="left" src="/images/tout_public.png"><span>Tout Public</span></div>

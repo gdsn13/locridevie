@@ -156,6 +156,16 @@ body{
 	color:#666;
 }
 
+.infos_prog{
+	padding-top:50px;
+}
+
+.resume{
+	color: #000;
+	font-family: 'IntervalSansPro-Med';
+	padding-top: 4px;
+}
+
 .top_spectacle strong{
 	font-style:normal !important;
 	font-family: 'IntervalSansPro-Light';
@@ -173,7 +183,7 @@ body{
 }
 
 .presentation{
-	padding: 48px 20px 0px 20px;
+	padding: 20px 20px 0px 20px;
 	font-family: 'IntervalSansPro-Light';
 	font-size:14px;
 	color:#000;
@@ -305,25 +315,32 @@ body{
 
 #left_bottom{
 	border-top:1px solid #FFF;
-	padding:20px 0;
 	margin-top:10px;
 	overflow:hidden;
 }
 
-#left_page_buttons{
-	padding:20px 0;
-	margin:0 10px 0 20px;
+#left_page_buttons strong{
+	font-family: 'IntervalSansPro-Light';
 }
 
 #left_page_buttons h2{
 	font-family: 'IntervalSansPro-Light';
 	font-size:24px;
-	padding-top:20px;
 }
 
 #left_page_buttons a{
 	color:#FFF;
 	text-decoration:underline;
+}
+
+.left_page_btn{
+	border-top:1px solid #FFF;
+	margin: 0 10px 0 0px;
+	padding: 20px 0 20px 20px;
+}
+
+.no_border{
+	border:none;
 }
 
 #socials{
@@ -484,18 +501,6 @@ li .left_content img{
 	padding:20px 0 0 20px;
 }
 
-.month_name_for_spectacle_list{
-	height:auto !important;
-	padding-left:25px;
-}
-
-.month_name_for_spectacle_list a{
-	color:#fff;
-	font-size:14px;
-	text-transform:uppercase;
-	font-family:'IntervalSansPro-Med';
-}
-
 .scroll_to_top{
 	float:right;
 	padding-right:20px;
@@ -548,7 +553,7 @@ li .left_content img{
 #calendrier_spectacles{
 	font-size: 11px;
 	min-width: 530px;
-	padding:20px;
+	padding:0 20px 20px;
 	margin: 0;
 	color: #000;
 	list-style: none;
@@ -562,7 +567,7 @@ li .left_content img{
 }
 #legende_calendrier div{
 	float:left;
-	font-size:10px;
+	font-size:14px;
 	margin-left:3px;
 }
 #legende_calendrier span{
@@ -579,6 +584,21 @@ li .left_content img{
 	border-bottom:1px solid #fdc400;
 }
 
+#month_list_for_calendar{
+	list-style:none;
+	overflow:hidden;
+	padding:20px 0 0 0;
+}
+
+#month_list_for_calendar li{
+	float:left;
+	padding-left:20px;
+}
+
+#month_list_for_calendar li a{
+	font-family: 'IntervalSansPro-Med';
+}
+
 #calendrier_spectacles li .calendar_field{
 	float:left;
 	text-align:center;
@@ -593,7 +613,7 @@ li .left_content img{
 .calendar_spectacle{width:39%;text-align:left !important;font-family: 'IntervalSansPro-Med' !important;line-height:16px;padding-bottom:2px !important;}
 .calendar_lieu{width:16%; line-height:17px;font-size:10px !important;}
 .calendar_tarif{width:12%; line-height:17px;font-size:10px !important;}
-.calendar_extras{width:8%;margin-left:10px;line-height:17px; text-align:right;}
+.calendar_extras{width:9%;margin-left:10px;line-height:17px; text-align:right;}
 .fat_title{font-family: 'IntervalSansPro-Light' !important}
 
 .calendar_extras img{
@@ -636,17 +656,35 @@ li .left_content img{
 	margin-left: 5px;
 }
 
-#programmation_spectacles li{
+.spectacle_for_spectacle_list{
 	font-size:12px;
 	overflow:hidden;
 	height:267px;
-	margin-bottom:20px;
+	margin-top:20px;
 	position:relative;
 	z-index:10;
 }
 
+.month_name_for_spectacle_list{
+	height:auto !important;
+	padding-left:25px;
+	margin-top:10px;
+}
+
+.month_name_for_spectacle_list a{
+	color:#fff;
+	font-size:14px;
+	text-transform:uppercase;
+	font-family:'IntervalSansPro-Med';
+}
+
+.small_padding{
+	margin-top:10px !important;
+}
+
 #programmation_spectacles .infos_prog{
 	padding-top:18px;
+	color:#000;
 }
 
 #programmation_spectacles .date_infos{

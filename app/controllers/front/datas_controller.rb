@@ -73,7 +73,8 @@ class Front::DatasController < ApplicationController
           :des => d.des,
           :audiodesc => d.audiodescription,
           :lds => d.langage_des_signes,
-          :associe => d.spectacle.spectacle_associe != nil ? "true" : "false"
+          :associe => d.spectacle.spectacle_associe != nil ? "true" : "false",
+          :plage_age => d.plage_age
         }
       end
     end
@@ -175,7 +176,9 @@ class Front::DatasController < ApplicationController
                   :plus => sp.en_savoir_plus == nil ? "" : sp.en_savoir_plus.html_safe,
                   :video => sp.youtube,
                   :date_affichee => sp.date_infobulle,
-                  :images => images
+                  :images => images,
+                  :resume => sp.resume,
+                  :info_prog => sp.info_prog == nil ? "" : sp.info_prog.html_safe
                 }
                 
     render :json => spectacle

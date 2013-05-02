@@ -30,15 +30,18 @@ window.application.addView((function( $, application ){
 		
 		this.spectacles = this.model.spectacles_ordered_by_numero();
 		
-		var month_list = []
+		var month_list = [];
+		var changing_month = false;
 		
 		//AFFICHAGE DE LA LISTE DES SPECTACLES
 		$.each(this.spectacles, function(index, s){
 			if (s.spectacle_associe_path == ""){
 				
+				var new_month = "";
 				var month = new Date(s.date).getMonth();
 				var year = new Date(s.date).getFullYear();
 				if(self.current_month_for_calendar_display != month){
+					changing_month = true;
 					self.current_month_for_calendar_display = month;
 					month_list.push({"name" : self.localize.localize_month(month), "month" : month, "year" : year});
 					var month_line = '<li class="month_name_for_spectacle_list" id="month_' + month + '_' + year + '">';
@@ -47,7 +50,9 @@ window.application.addView((function( $, application ){
 					self.spectacle_ul.append(month_line);
 				}
 				
-				var html = '<li><div class="left_content"><img src="' + s.logo_large + '"></div>';
+				if (changing_month == true){ new_month = "small_padding"; }
+				
+				var html = '<li class="spectacle_for_spectacle_list ' + new_month + '"><div class="left_content"><img src="' + s.logo_large + '"></div>';
 				html += '<div class="spectacle_infos"><h1><a href="/#/spectacle/' + s.slug + '">' + s.titre + '</a></h1>';
 				html += '<div class="numero">' + s.numero + '</div>';
 				html += '<div class="top_spectacle">';
@@ -55,12 +60,14 @@ window.application.addView((function( $, application ){
 				html += '<div class="date_infos">' + s.date_infobulles + '</div>';
 				html += '<div class="tld">' + s.tld + '</div>';
 				html += '<div class="infos_prog">' + s.info_prog + '</div>';
+				html += '<div class="resume">' + s.resume + '</div>';
 				html += '</div>';
 				html += '<div class="spectacle_links"><a href="/#/spectacle/' + s.slug + '">+ En savoir plus</a>';
 				if (s.resa != "") html += '<a href="' + s.resa + '">> Reservez en ligne	</a></div>';
 				html += '</div></li>';
 				
 				self.spectacle_ul.append(html);
+				changing_month = false;
 			}
 		});
 		

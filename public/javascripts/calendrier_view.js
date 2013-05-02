@@ -7,6 +7,7 @@ window.application.addView((function( $, application ){
 		this.calendar_line = null;	//template
 		this.localize = null;
 		this.search_form = null;
+		this.month_list_container = null;
   };
   
   CalendrierView.prototype.init = function(){  
@@ -19,6 +20,7 @@ window.application.addView((function( $, application ){
 		this.localize = application.getModel( "Localize" );
 		this.calendrier_spectacles = $('#calendrier_spectacles');
 		this.calendar_line = $('#calendar_line');
+		this.month_list_container = $('#month_list_for_calendar');
 		
 		/* DATA REFRESH
 		----------------------------------------------------------------------------------------*/
@@ -33,6 +35,8 @@ window.application.addView((function( $, application ){
 		var current_date = 0;
 		this.calendrier_spectacles.html('');
 		
+		var month_list = [];
+		
 		//AFFICHAGE DES DATES
 		$.each(this.model.current_page.dates, function(index, d){
 
@@ -40,8 +44,13 @@ window.application.addView((function( $, application ){
 				//AFFICHAGE NOM DU MOIS
 				var date = new Date(d.date);
 				if (current_month_for_display != date.getMonth()){
-					current_month_for_display = date.getMonth();
-					self.calendrier_spectacles.append("<li class='month_name'>" + self.localize.localize_month(date.getMonth()) + "</li>");
+					var month = date.getMonth();
+					var year = date.getFullYear();
+					
+					current_month_for_display = month;
+					
+					self.calendrier_spectacles.append("<li class='month_name' id='month_" + month + "_" + year + "'>" + self.localize.localize_month(date.getMonth()) + "</li>");
+					month_list.push({"name" : self.localize.localize_month(month), "month" : month, "year" : year});
 				}
 
 				d.humanized_date = self.localize.localize_day(date.getDay()) + " " + date.getDate();
@@ -58,6 +67,7 @@ window.application.addView((function( $, application ){
 			if (d.temps_scolaire == true) extra += '<img src="/theme/images/temps_scolaire.png" width="15px" align="left"/>';
 			if (d.audiodesc == true) extra += '<span class="audiodescription">Audio</span>';
 			if (d.lds == true) extra += '<span class="lsf">LSF</span>';
+			if (d.plage_age != "") extra += '<span class="tranche">' + d.plage_age + '</span>';
 
 			d.extra = extra
 			
@@ -67,6 +77,32 @@ window.application.addView((function( $, application ){
 			
 			//AFFICHAGE DE LA LIGNE DEPUIS TEMPLATE
 			self.calendrier_spectacles.append(application.getFromTemplate(self.calendar_line, d));
+		});
+		
+		// AFFICHAGE DES MOIS
+		$.each(month_list, function(index, mn){
+			var html = '<li><a href="#" class="month_ancor" rel="month_'+ mn.month + '_' + mn.year + '">' + mn.name + '</a></li>';
+			self.month_list_container.append(html);
+		});
+		
+		$('.month_ancor').click(function(e){
+			e.preventDefault(); 
+			e.stopPropagation();
+			// id de l'élément ou scroller
+			var the_id = $('#' + $(this).attr('rel'));
+			$('html, body').animate({  
+				scrollTop:$(the_id).offset().top - 20  
+			}, 'slow');  
+			return false;
+		});
+		
+		$('.scroll_to_top').click(function(e){
+			e.preventDefault(); 
+			e.stopPropagation();
+			$('html, body').animate({  
+				scrollTop:0  
+			}, 'slow');  
+			return false;
 		});
 		
 		// INITIALISATION DU MOTEUR DE RECHERCHE
