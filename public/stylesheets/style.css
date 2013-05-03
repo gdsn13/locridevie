@@ -551,8 +551,12 @@ li .left_content img{
 	background:#000;
 }
 
+.small_title{
+	font-family:'IntervalSansPro-Light' !important;
+}
+
 #calendrier_spectacles{
-	font-size: 11px;
+	font-size: 12px;
 	min-width: 530px;
 	padding:0 20px 20px;
 	margin: 0;
@@ -615,9 +619,9 @@ li .left_content img{
 .calendar_date{width:7%; text-align:left !important;font-family: 'IntervalSansPro-Med';line-height:16px;padding-bottom:2px !important;text-transform:uppercase;}
 .calendar_heure{width:8%;line-height:17px;font-size:10px;}
 .calendar_numero{width:7%;font-family: 'IntervalSansPro-Med';line-height:16px;padding-bottom:2px !important;}
-.calendar_spectacle{width:39%;text-align:left !important;font-family: 'IntervalSansPro-Med' !important;line-height:16px;padding-bottom:2px !important;}
-.calendar_lieu{width:16%; line-height:17px;font-size:10px !important;}
-.calendar_tarif{width:12%; line-height:17px;font-size:10px !important;}
+.calendar_spectacle{width:39%;text-align:left !important;font-family: 'IntervalSansPro-Med';line-height:16px;padding-bottom:2px !important;}
+.calendar_lieu{width:16%; line-height:17px;font-size:12px !important;}
+.calendar_tarif{width:12%; line-height:17px;font-size:12px !important;}
 .calendar_extras{width:9%;margin-left:10px;line-height:17px; text-align:right;}
 .fat_title{font-family: 'IntervalSansPro-Light' !important}
 
@@ -760,6 +764,10 @@ li .left_content img{
 	font-family:'IntervalSansPro-Light';
 }
 
+#home_container .spectacle_infos .spectacle_links a:hover{
+	color:#999;
+}
+
 #home_container .left_content{
 	border-bottom:1px solid #000;
 }
@@ -845,14 +853,6 @@ li .left_content img{
 
 .home_item .tld p{
 	padding-top:2px;
-}
-
-.home_item .grey{
-	color:#fff;
-}
-
-.first_home .grey{
-	color:#999999 !important;
 }
 
 .spectacle_list_numero{
@@ -1003,6 +1003,17 @@ footer a{
 	color:#eee;
 	z-index:9999;
 }
+
+#next_show_infos, #prev_show_infos{
+	overflow:hidden;
+}
+
+#next_show_infos .date_infos, #prev_show_infos .date_infos{
+	color:#fff;
+	background: url(../images/white_star.png) no-repeat -3px -2px;
+	float:right;
+}
+
 #prev_show_number, #next_show_number{
 	font-size:40px;
 }

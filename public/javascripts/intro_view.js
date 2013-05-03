@@ -76,7 +76,7 @@ window.application.addView((function( $, application ){
 			html += '</div>';
 			html += '<div class="spectacle_links"><a href="' + actu.url + '">+ En savoir plus</a>';
 			
-			if (actu.resa != "" && actu.resa != null) html += '<a class="grey" href="' + actu.resa + '">> Reservez en ligne	</a></div>'
+			if (actu.resa != "" && actu.resa != null) html += '<a href="' + actu.resa + '">> Réservez en ligne	</a></div>'
 			html += '</div></div>';
 			
 			self.container.append(html);

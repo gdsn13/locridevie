@@ -57,14 +57,15 @@ window.application.addView((function( $, application ){
 				html += '<div class="numero">' + s.numero + '</div>';
 				html += '<div class="top_spectacle">';
 				html += '<div class="genre_age">' + s.genre;
-				if (s.age != "") html += '<span>' + s.age +'</span></div>';
+				if (s.age != "") html += '<span>' + s.age +'</span>';
+				html += '</div>'
 				html += '<div class="date_infos">' + s.date_infobulles + '</div>';
 				html += '<div class="tld">' + s.tld + '</div>';
 				html += '<div class="infos_prog">' + s.info_prog + '</div>';
 				html += '<div class="resume">' + s.resume + '</div>';
 				html += '</div>';
 				html += '<div class="spectacle_links"><a href="/#/spectacle/' + s.slug + '">+ En savoir plus</a>';
-				if (s.resa != "") html += '<a href="' + s.resa + '">> Reservez en ligne	</a></div>';
+				if (s.resa != "") html += '<a href="' + s.resa + '">> Réservez en ligne	</a></div>';
 				html += '</div></li>';
 				
 				self.spectacle_ul.append(html);

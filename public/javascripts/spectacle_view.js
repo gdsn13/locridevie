@@ -99,10 +99,6 @@ window.application.addView((function( $, application ){
 		}else{
 			$('#age_spectacle').css('display', 'block');
 		}
-			
-			
-		
-		
 		
 		// AUTOUR
 		if (self.model.pages[self.current_spectacle].autour == ""){
@@ -169,7 +165,7 @@ window.application.addView((function( $, application ){
 				$('#prev_show_genre').html(only_sp[ci - 1].genre);
 				$('#prev_show_title').html(only_sp[ci - 1].titre);
 				$('#prev_show_number').html(only_sp[ci - 1].numero);
-				$('#prev_show_infos').html(only_sp[ci - 1].date_infobulles + "<br/>" + only_sp[ci - 1].infobulle);
+				$('#prev_show_infos').html('<div class="date_infos">' + only_sp[ci - 1].date_infobulles + "</div>" + only_sp[ci - 1].infobulle);
 				Cufon.replace('div#prev_show_number');
 			}else{
 				self.prev_show.css('display', 'none');
@@ -181,7 +177,7 @@ window.application.addView((function( $, application ){
 				$('#next_show_genre').html(only_sp[ci + 1].genre);
 				$('#next_show_title').html(only_sp[ci + 1].titre);
 				$('#next_show_number').html(only_sp[ci + 1].numero);
-				$('#next_show_infos').html(only_sp[ci + 1].date_infobulles + "<br/>" + only_sp[ci + 1].infobulle);
+				$('#next_show_infos').html('<div class="date_infos">' + only_sp[ci + 1].date_infobulles + "</div>" + only_sp[ci + 1].infobulle);
 				Cufon.replace('div#next_show_number');
 			}else{
 				self.next_show.css('display', 'none');

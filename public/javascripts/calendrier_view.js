@@ -34,6 +34,7 @@ window.application.addView((function( $, application ){
 		var current_month_for_display = 0;
 		var current_date = 0;
 		this.calendrier_spectacles.html('');
+		this.month_list_container.html('');
 		
 		var month_list = [];
 		
@@ -81,7 +82,8 @@ window.application.addView((function( $, application ){
 		
 		// AFFICHAGE DES MOIS
 		$.each(month_list, function(index, mn){
-			var html = '<li><a href="#" class="month_ancor" rel="month_'+ mn.month + '_' + mn.year + '">' + mn.name + '</a></li>';
+			var html = '<li><a href="#" class="month_ancor" rel="month_'+ mn.month + '_' + mn.year + '">' + mn.name + '</a>';
+			html += '<a href="#" class="scroll_to_top"><img src="/images/scroll_top.png"></a></li>';
 			self.month_list_container.append(html);
 		});
 		
