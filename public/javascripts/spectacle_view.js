@@ -86,10 +86,23 @@ window.application.addView((function( $, application ){
 		
 		// INITIALISATION DU LIEN DE RESERVATION
 		var resa = $('#lien_reservation_spectacle');
-		if (self.model.pages[self.current_spectacle].resa != "")
+		if (self.model.pages[self.current_spectacle].resa != ""){
 			resa.find('a').attr('href', self.model.pages[self.current_spectacle].resa);
+			$('#reservation_block').css('display', 'block');
+		}
 		else
 			$('#reservation_block').css('display', 'none');
+		
+		// INIT AGE
+		if (self.model.pages[self.current_spectacle].age != ""){
+			$('#age_spectacle').css('display', 'none');
+		}else{
+			$('#age_spectacle').css('display', 'block');
+		}
+			
+			
+		
+		
 		
 		// AUTOUR
 		if (self.model.pages[self.current_spectacle].autour == ""){

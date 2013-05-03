@@ -56,7 +56,8 @@ window.application.addView((function( $, application ){
 				html += '<div class="spectacle_infos"><h1><a href="/#/spectacle/' + s.slug + '">' + s.titre + '</a></h1>';
 				html += '<div class="numero">' + s.numero + '</div>';
 				html += '<div class="top_spectacle">';
-				html += '<div class="genre_age">' + s.genre + '<span>' + s.age +'</span></div>';
+				html += '<div class="genre_age">' + s.genre;
+				if (s.age != "") html += '<span>' + s.age +'</span></div>';
 				html += '<div class="date_infos">' + s.date_infobulles + '</div>';
 				html += '<div class="tld">' + s.tld + '</div>';
 				html += '<div class="infos_prog">' + s.info_prog + '</div>';

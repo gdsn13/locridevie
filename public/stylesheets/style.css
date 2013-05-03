@@ -337,6 +337,7 @@ body{
 	border-top:1px solid #FFF;
 	margin: 0 10px 0 0px;
 	padding: 20px 0 20px 20px;
+	font-size: 14px;
 }
 
 .no_border{
@@ -683,7 +684,7 @@ li .left_content img{
 }
 
 #programmation_spectacles .infos_prog{
-	padding-top:18px;
+	padding-top:10px;
 	color:#000;
 }
 
@@ -694,7 +695,7 @@ li .left_content img{
 #programmation_spectacles .spectacle_links{
 	position:absolute;
 	left:0;
-	bottom:18px;
+	bottom:10px;
 	z-index:11;
 }
 
@@ -819,7 +820,7 @@ li .left_content img{
 }
 
 .first_home .actu_block{
-	padding-top:45px !important;
+	padding-top:20px !important;
 	color:#FFF;
 	font-size:14px !important;
 }
@@ -1025,7 +1026,7 @@ footer a{
 	}
 	
 	#wrapper, header, .content_wrapper, .left_content, .spectacle_infos, footer,
-	li .left_content img, .spectacle_infos h1, #spectacle_container, .image img,
+	li .left_content img, #spectacle_container, .image img,
 	#search_content, #newsletter_content, #spacepro_content, #contents{
 		width:300px;
 	}
@@ -1050,6 +1051,7 @@ footer a{
 	
 	.spectacle_infos h1{
 		padding-left:0;
+		width:250px;
 	}
 	
 	.numero{
@@ -1154,9 +1156,18 @@ footer a{
 	}
 	
 	#presentation, .numero{
-		position:static !important;
-		overflow:hidden;
+		right: 15px;
+		top: 18px;
 	}
+	
+	#programmation_spectacles .spectacle_links{
+		bottom:5px;
+	}
+	
+	#programmation_spectacles li .top_spectacle{
+		padding-bottom:70px;
+	}
+	
 	.overview h1{
 		display:block !important;
 		word-wrap: break-word;
