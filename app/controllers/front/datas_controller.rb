@@ -48,8 +48,6 @@ class Front::DatasController < ApplicationController
       
     end
     
-    page = Page.where(:slug => "calendrier").first
-    
     dates_classified = dates_of_season.sort_by {|d| [d.date, d.heure]}
     
     calendar = dates_classified.map do |d|
@@ -81,7 +79,6 @@ class Front::DatasController < ApplicationController
     
     calendar_to_json = {
       :dates => calendar,
-      :jules => page.embeded_items.get_jules_for_json(page)
     } 
     
     render :json => calendar_to_json

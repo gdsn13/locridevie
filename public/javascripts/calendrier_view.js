@@ -62,11 +62,11 @@ window.application.addView((function( $, application ){
 									
 			//CALCUL DES EXTRAS
 			var extra = "";
-			if (d.tout_public == true) extra += '<img src="/theme/images/tout_public.png" width="15px" align="left"/>';
+			if (d.tout_public == true) extra += '<img src="/images/tout_public.png" width="15px" align="left"/>';
 			if (d.des != "")	extra += '<span class="des">' + d.des + '</span>';
-			if (d.temps_scolaire == true) extra += '<img src="/theme/images/temps_scolaire.png" width="15px" align="left"/>';
-			if (d.audiodesc == true) extra += '<span class="audiodescription">Audio</span>';
-			if (d.lds == true) extra += '<span class="lsf">LSF</span>';
+			if (d.temps_scolaire == true) extra += '<img src="/images/temps_scolaire.png" width="15px" align="left"/>';
+			if (d.audiodesc == true) extra += '<img src="/images/audiodesc.png" align="left"/>';
+			if (d.lds == true) extra += '<img src="/images/signes.png" align="left"/>';
 			if (d.plage_age != "") extra += '<span class="tranche">' + d.plage_age + '</span>';
 
 			d.extra = extra
