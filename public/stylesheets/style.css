@@ -1008,6 +1008,10 @@ footer a{
 	overflow:hidden;
 }
 
+#next_show_infos p, #prev_show_infos p{
+	clear:both;
+}
+
 #next_show_infos .date_infos, #prev_show_infos .date_infos{
 	color:#fff;
 	background: url(../images/white_star.png) no-repeat -3px -2px;

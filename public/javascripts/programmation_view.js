@@ -28,7 +28,7 @@ window.application.addView((function( $, application ){
 	ProgrammationView.prototype.refreshed_datas = function(){
 		var self = this;
 		
-		this.spectacles = this.model.spectacles_ordered_by_numero();
+		this.spectacles = this.model.spectacles_ordered_by_date();
 		
 		var month_list = [];
 		var changing_month = false;
