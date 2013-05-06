@@ -4,25 +4,6 @@ class Front::DatasController < ApplicationController
   #caches_action :spectacle_list, :get_page, :get_dates, :get_intro, :get_spectacle
   caches_page :spectacle_list, :get_page, :get_dates, :get_intro, :get_spectacle, :newsletters
   
-  #render a specatcle list and the associated page to be rendered
-  def spectacle_list   
-    page = Page.where(:slug => params[:id]).first
-    
-    list_to_json = {
-      #:spectacles => spectacles,
-      :page => {
-        :fullpath => page.fullpath, 
-        :body => page.body,
-        :jules => page.embeded_items.get_jules_for_json(page), 
-        :boutons => page.embeded_items.get_boutons_for_json, 
-        :actus => page.embeded_items.get_actus_for_json
-      }
-    }
-    
-    render :json => list_to_json.to_json
-    
-  end
-  
   # render a page to be displayed in the front office
   def get_page
     page = Page.where(:fullpath => params[:fullpath]).first
@@ -41,7 +22,17 @@ class Front::DatasController < ApplicationController
   def get_dates
     dates_of_season = []
     cs = Site.first
-    dates = ContentType.where(:slug => "calendrier").first.contents.each do |ad|          
+    current_front_season = Season.find(cs.season_front)
+    before_numero = current_front_season.numero.to_i - 1
+    
+    before_season = Season.where(:numero => before_numero.to_s).first
+    
+    dates = ContentType.where(:slug => "calendrier").first.contents.each do |ad|
+      
+      if ad.season_id == before_season._id.to_s && ad.date.future?
+        dates_of_season << ad
+      end
+      
       if ad.season_id == cs.season_front
         dates_of_season << ad
       end

@@ -2,6 +2,7 @@ class Season
   include Locomotive::Mongoid::Document
   
   field :name
+  field :numero
   
   validates_presence_of :site, :name
   

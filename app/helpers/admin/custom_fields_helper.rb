@@ -111,8 +111,18 @@ module Admin::CustomFieldsHelper
         end.compact
       end
     else
-      contents = content_type.ordered_contents
-
+      # CONTENT DEPEND ON SEASON 
+      if content_type.seasonable
+        contents = []              
+        content_type.ordered_contents.each do |c|
+          if c.season_id == current_site.season_back
+            contents << c
+          end
+        end
+      else
+        contents = content_type.ordered_contents
+      end
+      
       if field.reverse_has_many?
         contents = filter_options_for_reverse_has_many(contents, field.reverse_lookup, content)
       end
