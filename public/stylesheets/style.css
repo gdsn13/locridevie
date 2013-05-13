@@ -897,7 +897,7 @@ header #navigation{
 	max-width:730px;
 	list-style:none;
 	position: relative;
-	margin-left:25px;
+	margin-left:5px;
 	z-index:10;
 }
 
@@ -1065,7 +1065,7 @@ footer a{
 	
 	.spectacle_infos h1{
 		padding-left:0;
-		width:250px;
+		width:230px;
 	}
 	
 	.numero{

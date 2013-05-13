@@ -13,19 +13,26 @@ window.application.addView((function( $, application ){
 		self.menu = $('#navigation');
 		self.model = application.getModel( "Model" );
 		//self.current_sub_menu_displayed = self.menu.find('li:first ul');
+
+
+		$('#navigation > li').click(function(){
+			// on cache tous les sous menus
+			$('#navigation > li ul').stop().fadeOut('fast');
+			$(this).find("ul").stop().fadeIn('fast');
+		});
 		
-		$('#navigation > li').hover(function(){
+		/*$('#navigation > li').hover(function(){
 			//hover			
 			
 			//if (self.current_sub_menu_displayed != null) => cas de la home page, il n'y a pas de self.
 			
 			if (self.current_sub_menu_displayed != null){
 				if ($(this).find("ul:first").attr('id') != self.current_sub_menu_displayed.attr('id')){
-					$(this).stop().find("ul").fadeIn('fast');
+					$(this).find("ul").stop().fadeIn('fast');
 					self.current_sub_menu_displayed.stop(true, true).fadeOut('fast');
 				}
 			}else{
-				$(this).stop().find("ul").fadeIn('fast');
+				$(this).find("ul").stop().fadeIn('fast');
 				//self.current_sub_menu_displayed.stop(true, true).fadeOut('fast');
 			}
 			
@@ -35,7 +42,7 @@ window.application.addView((function( $, application ){
 			if (self.current_sub_menu_displayed != null){
 				self.current_sub_menu_displayed.fadeIn('fast');
 			}
-		});
+		});*/
 		
 		self.menu.find('li ul li a').click(function(){
 			$('.on').removeClass('on');
