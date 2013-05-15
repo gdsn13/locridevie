@@ -95,9 +95,9 @@ window.application.addView((function( $, application ){
 		
 		// INIT AGE
 		if (self.model.pages[self.current_spectacle].age != ""){
-			$('#age_spectacle').css('display', 'none');
-		}else{
 			$('#age_spectacle').css('display', 'block');
+		}else{
+			$('#age_spectacle').css('display', 'none');
 		}
 		
 		// AUTOUR

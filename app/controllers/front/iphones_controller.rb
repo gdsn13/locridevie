@@ -35,7 +35,28 @@ class Front::IphonesController < ApplicationController
   end
   
   def agenda
-    dates = ContentType.where(:slug => "calendrier").first.ordered_contents.map do |d|
+    dates_of_season = []
+    cs = Site.first
+    current_front_season = Season.find(cs.season_front)
+    before_numero = current_front_season.numero.to_i - 1
+    
+    before_season = Season.where(:numero => before_numero.to_s).first
+    
+    ContentType.where(:slug => "calendrier").first.contents.each do |ad|
+      
+      if ad.season_id == before_season._id.to_s && ad.date.future?
+        dates_of_season << ad
+      end
+      
+      if ad.season_id == cs.season_front
+        dates_of_season << ad
+      end
+      
+    end
+    
+    dates_classified = dates_of_season.sort_by {|d| [d.date, d.heure]}
+    
+    dates_classified.map do |d|
       {
         :id => d.spectacle._slug,
         :timing => "#{d.date}T00:00:00+02:00",
@@ -53,10 +74,18 @@ class Front::IphonesController < ApplicationController
   #Liste des spectacles
   def spectacles
     current_site = Site.first
+    current_front_season = Season.find(current_site.season_front)
+    before_numero = current_front_season.numero.to_i - 1
+    
+    before_season = Season.where(:numero => before_numero.to_s).first
     
     s_list = []
     
     ContentType.where(:slug => "spectacles").first.contents.each do |s|      
+      if s.season_id == before_season._id.to_s && s.date.future?
+        s_list << s
+      end
+      
       if s.season_id == current_site.season_front && (s.spectacle_associe == nil)
         s_list << s
       end

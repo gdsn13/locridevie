@@ -759,6 +759,10 @@ li .left_content img{
 	z-index:10;
 }
 
+#home_item .top_spectacle strong{
+	color:#fff;
+}
+
 #home_container .spectacle_infos .spectacle_links a{
 	color:#FFF;
 	font-family:'IntervalSansPro-Light';
@@ -1069,13 +1073,17 @@ footer a{
 	}
 	
 	.numero{
-		font-size:30px;
+		font-size:30px !important;
 		padding-right:0;
 		width:40px;
 	}
 	
-	.top_spectacle, .home_item .top_spectacle{
+	.top_spectacle{
 		padding:0;
+	}
+	
+	.home_item .top_spectacle{
+		padding:16px 0 65px 0;
 	}
 	
 	#programmation_spectacles .left_content{
