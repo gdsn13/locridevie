@@ -110,6 +110,22 @@ window.application.addModel((function( $, application ){
 		});
 	};
 	
+	/* SPECTACLES
+	----------------------------------------------------------------------------------------*/
+	LocoService.prototype.get_spectacles = function(p_slug, p_request_number){
+		var self = this;
+
+		application.ajax({
+			url: '/spectacles/' + p_slug,
+			success: function(json){
+				self.model.set_spectacles(json, p_request_number);
+			},
+			error: function(json){
+				self.model.set_message_to_growl(json.statusText);
+			}
+		});
+	};
+	
 	/* INTRO
 	----------------------------------------------------------------------------------------*/
 	LocoService.prototype.get_intro = function(){

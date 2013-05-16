@@ -15,6 +15,7 @@ window.application.addController((function( $, application ){
 		this.route( "/espace_pro", this.spacepro);
 		this.route( "/search/", this.search_engine);
 		this.route( "/404", this.not_found );
+		this.route( "/archives/:id", this.archives);
     
 		this.view = null;
 		this.current_view = null;
@@ -22,6 +23,7 @@ window.application.addController((function( $, application ){
 		this.menu_view = null;
 		this.home_view = null;
 		this.programmation_view = null;
+		this.archives_view = null;
 		this.spectacle_view = null;
 		this.page_view = null;
 		this.current_parameter = null;
@@ -42,6 +44,7 @@ window.application.addController((function( $, application ){
 		this.home_view = application.getView( "IntroView" );
 		this.page_view = application.getView( "PageView" );
 		this.programmation_view = application.getView( "ProgrammationView" );
+		this.archives_view = application.getView( "ArchivesView" );
 		this.calendrier_view = application.getView( "CalendrierView" );
 		this.newsletter_view = application.getView( "NewsletterView" );
 		this.spectacle_view = application.getView( "SpectacleView" );
@@ -68,6 +71,10 @@ window.application.addController((function( $, application ){
 	Controller.prototype.programmation = function( event ){
 		this.changeView(this.programmation_view, event);
 	};
+	
+	Controller.prototype.archives = function ( event ){
+		this.changeView(this.archives_view, event)
+	}
 	
 	Controller.prototype.calendrier = function( event ){
 		this.changeView(this.calendrier_view, event)

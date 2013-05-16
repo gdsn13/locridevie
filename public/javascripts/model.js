@@ -153,6 +153,30 @@ window.application.addModel((function( $, application ){
 		}
 	};
 	
+	/* ARCHIVES
+	----------------------------------------------------------------------------------------*/
+	Model.prototype.get_spectacles = function(p_id){
+		if (this.pages[p_id] == null){
+			this.set_message_to_growl("Chargement...");
+			this.current_request_number += 1;
+			application.getModel("LocoService").get_spectacles(p_id, this.current_request_number);
+		}
+		else{
+			this.current_page = this.pages[p_id];
+			$(this).trigger('spectacles_ready');
+		}
+	};
+	
+	Model.prototype.set_spectacles = function(p_spectacles_list, p_request_number){
+		// on stocke le resultat de la requette
+		this.pages[p_spectacles_list.slug] = p_spectacles_list;
+		// si une autre requette n'a pas été lancée entre temps, on lance l'affichage
+		if (this.current_request_number == p_request_number){
+			this.current_page = this.pages[p_spectacles_list.slug];
+			$(this).trigger('spectacles_ready');
+		}
+	};
+	
 	/* NEWSLETTERS
 	----------------------------------------------------------------------------------------*/
 	Model.prototype.get_newsletters = function(){
@@ -237,6 +261,12 @@ window.application.addModel((function( $, application ){
 		spec.sort(this.sort_by('date', true, function(a){return new Date(a)}));
 		return spec;
 	};
+	
+	Model.prototype.sort_array_by_date = function (p_array){
+		var ar = p_array;
+		ar.sort(this.sort_by('date', true, function(a){return new Date(a)}));
+		return ar
+	}
 	
 	Model.prototype.init = function(){
 		

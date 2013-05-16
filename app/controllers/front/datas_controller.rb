@@ -4,6 +4,47 @@ class Front::DatasController < ApplicationController
   #caches_action :spectacle_list, :get_page, :get_dates, :get_intro, :get_spectacle
   caches_page :spectacle_list, :get_page, :get_dates, :get_intro, :get_spectacle, :newsletters
   
+  def spectacle_list
+    spectacles = []
+    
+    season = Season.where(:name => params[:id]).first
+    
+    ContentType.where(:slug => "spectacles").first.contents.each do |s|
+      if s.season_id == season._id.to_s && s.spectacle_associe == nil
+        spectacles << s
+      end
+    end
+
+    spectacles.sort_by! { |a| a.numero }
+    
+    spectacles_to_json = spectacles.map do |s|
+      {
+       id: s._id,
+       slug: s._slug,
+       info_prog: s.info_prog == nil ? "" : s.info_prog.html_safe,
+       resume: s.resume,
+       titre: s.titre.html_safe,
+ 		   date: s.date.strftime("%Y/%m/%d"),
+ 		   saison: s.season_id,
+ 			 numero: s.numero,
+ 			 infobulle: s.infobulle == nil ? "" : s.infobulle.html_safe,
+ 			 logo_large: s.images.first != nil ? s.images.first.file.url : "",
+ 			 date_infobulles: s.date_infobulle,
+ 			 lieu: s.lieu,
+ 			 genre: s.genre,
+ 			 age: s.age,
+ 			 tld: s.tld == nil ? "" : s.tld.html_safe
+      }
+    end
+    
+    list_to_json = {
+      :slug => params[:id],
+      :spectacles => spectacles_to_json
+    }
+    
+    render :json => list_to_json.to_json
+  end
+  
   # render a page to be displayed in the front office
   def get_page
     page = Page.where(:fullpath => params[:fullpath]).first
