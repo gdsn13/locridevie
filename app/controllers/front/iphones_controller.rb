@@ -68,7 +68,7 @@ class Front::IphonesController < ApplicationController
       }
     end
     
-    render :json => dates
+    render :json => dates_classified
   end
   
   #Liste des spectacles
