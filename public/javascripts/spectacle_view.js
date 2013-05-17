@@ -94,10 +94,17 @@ window.application.addView((function( $, application ){
 			$('#reservation_block').css('display', 'none');
 		
 		// INIT AGE
-		if (self.model.pages[self.current_spectacle].age != ""){
+		if (self.model.pages[self.current_spectacle].age != "" && String(self.model.pages[self.current_spectacle].age) != "null"){
 			$('#age_spectacle').css('display', 'block');
 		}else{
 			$('#age_spectacle').css('display', 'none');
+		}
+		
+		// INIT GENRE
+		if (self.model.pages[self.current_spectacle].genre != "" && String(self.model.pages[self.current_spectacle].genre) != "null"){
+			$('#genre_spectacle').css('display', 'block');
+		}else{
+			$('#genre_spectacle').css('display', 'none');
 		}
 		
 		// AUTOUR
