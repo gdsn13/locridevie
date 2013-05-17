@@ -62,13 +62,13 @@ window.application.addView((function( $, application ){
 			html += '<div class="spectacle_infos"><h1><a href="/#/spectacle/' + s.slug + '">' + s.titre + '</a></h1>';
 			html += '<div class="numero">' + s.numero + '</div>';
 			html += '<div class="top_spectacle">';
-			if (s.genre != "") html += '<div class="genre_age">' + s.genre;
-			if (s.age != "") html += '<span>' + s.age +'</span>';
-			if (s.genre != "") html += '</div>'
+			if (s.genre != "" || s.genre != "null") html += '<div class="genre_age">' + s.genre;
+			if (s.age != "" || s.age != "null") html += '<span>' + s.age +'</span>';
+			if (s.genre != "" || s.genre != "null") html += '</div>';
 			html += '<div class="date_infos">' + s.date_infobulles + '</div>';
 			html += '<div class="tld">' + s.tld + '</div>';
 			html += '<div class="infos_prog">' + s.info_prog + '</div>';
-			html += '<div class="resume">' + s.resume + '</div>';
+			if (s.resume != "" || s.resume != "null") html += '<div class="resume">' + s.resume + '</div>';
 			html += '</div>';
 			html += '<div class="spectacle_links"><a href="/#/spectacle/' + s.slug + '">+ En savoir plus</a>';
 			html += '</div></li>';
@@ -79,7 +79,7 @@ window.application.addView((function( $, application ){
 		
 		// AFFICHAGE DES MOIS
 		$.each(month_list, function(index, mn){
-			var html = '<li><a href="#" class="month_ancor" rel="month_'+ mn.month + '_' + mn.year + '">' + mn.name + '</a></li>';
+			var html = '<li><a href="#" class="month_ancor" rel="month_'+ mn.month + '_' + mn.year + '">' + mn.name + '_' + mn.year + '</a></li>';
 			self.month_list_container.append(html);
 		});
 		
