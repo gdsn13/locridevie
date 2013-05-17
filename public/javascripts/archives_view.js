@@ -62,13 +62,13 @@ window.application.addView((function( $, application ){
 			html += '<div class="spectacle_infos"><h1><a href="/#/spectacle/' + s.slug + '">' + s.titre + '</a></h1>';
 			html += '<div class="numero">' + s.numero + '</div>';
 			html += '<div class="top_spectacle">';
-			if (s.genre != "" || s.genre != null) html += '<div class="genre_age">' + s.genre;
-			if (s.age != "" || s.age != null) html += '<span>' + s.age +'</span>';
-			if (s.genre != "" || s.genre != null) html += '</div>';
+			if (s.genre != "" || String(s.genre) != "null") html += '<div class="genre_age">' + s.genre;
+			if (s.age != "" || String(s.age) != "null") html += '<span>' + s.age +'</span>';
+			if (s.genre != "" || String(s.genre) != "null") html += '</div>';
 			html += '<div class="date_infos">' + s.date_infobulles + '</div>';
 			html += '<div class="tld">' + s.tld + '</div>';
 			html += '<div class="infos_prog">' + s.info_prog + '</div>';
-			if (s.resume != "" || s.resume != null) html += '<div class="resume">' + s.resume + '</div>';
+			if (s.resume != "" || String(s.resume) != "null") html += '<div class="resume">' + s.resume + '</div>';
 			html += '</div>';
 			html += '<div class="spectacle_links"><a href="/#/spectacle/' + s.slug + '">+ En savoir plus</a>';
 			html += '</div></li>';
