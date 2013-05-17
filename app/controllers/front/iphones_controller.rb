@@ -56,7 +56,7 @@ class Front::IphonesController < ApplicationController
     
     dates_classified = dates_of_season.sort_by {|d| [d.date, d.heure]}
     
-    dates_classified.map do |d|
+    date_for_json = dates_classified.map do |d|
       {
         :id => d.spectacle._slug,
         :timing => "#{d.date}T00:00:00+02:00",
@@ -68,7 +68,7 @@ class Front::IphonesController < ApplicationController
       }
     end
     
-    render :json => dates_classified
+    render :json => date_for_json
   end
   
   #Liste des spectacles
