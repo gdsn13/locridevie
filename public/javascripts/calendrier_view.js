@@ -69,7 +69,7 @@ window.application.addView((function( $, application ){
 			if (d.temps_scolaire == true) extra += '<img src="/images/temps_scolaire.png" width="15px" align="left"/>';
 			if (d.audiodesc == true) extra += '<img src="/images/audiodesc.png" align="left"/>';
 			if (d.lds == true) extra += '<img src="/images/signes.png" align="left"/>';
-			if (d.plage_age != "" && String(d.page_age) != "null") extra += '<span class="tranche">' + d.plage_age + '</span>';
+			if (d.plage_age != "" && String(d.plage_age) != "null") extra += '<span class="tranche">' + d.plage_age + '</span>';
 
 			d.extra = extra
 			

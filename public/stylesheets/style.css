@@ -1206,11 +1206,11 @@ footer a{
 		border:none !important;
 	}
 	.calendar_spectacle {width:63%}
-	.calendar_lieu {clear:both; padding-right: 5px; width:40% !important;}
+	.calendar_lieu {clear:both; padding-right: 5px; width:37% !important;}
 	.calendar_tarif {padding-right: 5px; width:auto !important;}
 	.calendar_date {width:73% !important;}
 	.calendar_heure {width:19% !important;}
-	.calendar_extras {width:37% !important;}
+	.calendar_extras {width:33% !important;}
 	.month_name{padding-top:30px !important;}
 	
 	.search_form input{
