@@ -45,7 +45,7 @@ window.application.addView((function( $, application ){
 					self.current_month_for_calendar_display = month;
 					month_list.push({"name" : self.localize.localize_month(month), "month" : month, "year" : year});
 					var month_line = '<li class="month_name_for_spectacle_list" id="month_' + month + '_' + year + '">';
-					month_line += '<a href="javascript:void();">' + self.localize.localize_month(month) + '</a>';
+					month_line += '<a href="javascript:void();">' + self.localize.localize_month(month) + ' ' + year + '</a>';
 					month_line += '<a href="#" class="scroll_to_top"><img src="/images/scroll_top.png"></a></li>';
 					self.spectacle_ul.append(month_line);
 				}
