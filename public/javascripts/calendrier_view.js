@@ -49,7 +49,7 @@ window.application.addView((function( $, application ){
 					var year = date.getFullYear();
 					
 					current_month_for_display = month;
-					var html = "<li class='month_name' id='month_" + month + "_" + year + "'>" + self.localize.localize_month(date.getMonth());
+					var html = "<li class='month_name' id='month_" + month + "_" + year + "'>" + self.localize.localize_month(date.getMonth()) + ' ' + year ;
 					html += '<a href="#" class="scroll_to_top"><img src="/images/scroll_top.png"></a></li>';
 					self.calendrier_spectacles.append(html);
 					month_list.push({"name" : self.localize.localize_month(month), "month" : month, "year" : year});
@@ -83,7 +83,7 @@ window.application.addView((function( $, application ){
 		
 		// AFFICHAGE DES MOIS
 		$.each(month_list, function(index, mn){
-			var html = '<li><a href="#" class="month_ancor" rel="month_'+ mn.month + '_' + mn.year + '">' + mn.name + ' ' + mn.year + '</a></li>';
+			var html = '<li><a href="#" class="month_ancor" rel="month_'+ mn.month + '_' + mn.year + '">' + mn.name + '</a></li>';
 			self.month_list_container.append(html);
 		});
 		
