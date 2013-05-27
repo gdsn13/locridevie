@@ -83,7 +83,7 @@ window.application.addView((function( $, application ){
 		
 		// AFFICHAGE DES MOIS
 		$.each(month_list, function(index, mn){
-			var html = '<li><a href="#" class="month_ancor" rel="month_'+ mn.month + '_' + mn.year + '">' + mn.name + '</a></li>';
+			var html = '<li><a href="#" class="month_ancor" rel="month_'+ mn.month + '_' + mn.year + '">' + mn.name + ' ' + mn.year + '</a></li>';
 			self.month_list_container.append(html);
 		});
 		
