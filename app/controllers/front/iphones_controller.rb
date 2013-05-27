@@ -95,7 +95,7 @@ class Front::IphonesController < ApplicationController
       {
         :id => s._slug,
         :title => s.numero + " " + s.titre_back_office,
-        :logo => s.images.first != nil ? s.images.first.file.url : "",
+        :logo => s.images.first != nil ? "http://lacriee.odevie.org#{s.images.first.file.url}" : "",
         :dates => " ",
         :auteur => strip_tags(s.info_prog),
         :director => " "
