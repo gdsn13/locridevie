@@ -27,6 +27,7 @@ window.application.addView((function( $, application ){
 
 	ProgrammationView.prototype.refreshed_datas = function(){
 		var self = this;
+		self.model.set_message_to_growl("Chargement...");
 		
 		this.spectacles = this.model.spectacles_ordered_by_date();
 		

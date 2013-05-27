@@ -85,6 +85,7 @@ window.application.addModel((function( $, application ){
 		
 		application.ajax({
 			url: "/calendrier",
+			timeout: 20000,
 			success: function(json){
 				self.model.set_calendrier(json, p_request_number);
 			},

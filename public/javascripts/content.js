@@ -101,7 +101,7 @@ window.application.addController((function( $, application ){
 	}
 	
 	Controller.prototype.not_found = function( event ){
-		this.model.set_message_to_growl("Page Not Found!")
+		this.model.set_message_to_growl("Page introuvable!")
 	};
 	
   // I show the given view; but first, I hide any existing view.
