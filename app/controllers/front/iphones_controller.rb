@@ -86,7 +86,7 @@ class Front::IphonesController < ApplicationController
         s_list << s
       end
       
-      if s.season_id == current_site.season_front && (s.spectacle_associe == nil)
+      if s.season_id == current_site.season_front.to_s && s.spectacle_associe == nil
         s_list << s
       end
     end
