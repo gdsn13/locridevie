@@ -82,7 +82,7 @@ class Front::IphonesController < ApplicationController
     s_list = []
     
     ContentType.where(:slug => "spectacles").first.contents.each do |s|      
-      if s.season_id == before_season._id.to_s && s.date.future?
+      if s.season_id == before_season._id.to_s && s.date.future? && s.spectacle_associe == nil
         s_list << s
       end
       
