@@ -91,7 +91,7 @@ class Front::IphonesController < ApplicationController
       end
     end
     
-    spectacles = list.map do |s|
+    spectacles = s_list.map do |s|
       {
         :id => s._slug,
         :title => s.numero + " " + s.titre_back_office,
