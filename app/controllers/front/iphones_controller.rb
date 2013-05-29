@@ -91,8 +91,6 @@ class Front::IphonesController < ApplicationController
       end
     end
     
-    list = s_list.sort_by { |a| a.numero }
-    
     spectacles = list.map do |s|
       {
         :id => s._slug,
