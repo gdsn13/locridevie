@@ -17,7 +17,7 @@ class Front::IphonesController < ApplicationController
                         :auteur => " ", 
                         :director => " ", 
                         :dates => affiche_pt.numero + "<br/>" + affiche_pt.tld,
-                        :logo => affiche_pt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_pt.images.first.file.url}" : "", 
+                        :logo => affiche_pt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_pt.images.first.file.iphone.url}" : "", 
                         :sum => affiche_pt.presentation
                       }
                 }
@@ -26,7 +26,7 @@ class Front::IphonesController < ApplicationController
                         :auteur => affiche_gt.numero, 
                         :director => " ", 
                         :dates => affiche_gt.tld,
-                        :logo => affiche_gt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_gt.images.first.file.url}" : "",
+                        :logo => affiche_gt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_gt.images.first.file.iphone.url}" : "",
                         :sum => affiche_gt.presentation
                       }
                 }
@@ -61,7 +61,7 @@ class Front::IphonesController < ApplicationController
         :id => d.spectacle._slug,
         :timing => "#{d.date}T00:00:00+02:00",
         :title => d.spectacle.numero + " " + d.spectacle.titre_back_office,
-        :logo => d.spectacle.images.first != nil ? d.spectacle.images.first.file.url : "",
+        :logo => d.spectacle.images.first != nil ? d.spectacle.images.first.file.iphone.url : "",
         :dates => " ",
         :auteur => strip_tags(d.spectacle.info_prog),
         :director => " "
