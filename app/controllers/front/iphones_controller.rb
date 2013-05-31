@@ -117,7 +117,7 @@ class Front::IphonesController < ApplicationController
       {:information => spectacle.presentation}, 
       {:contenu => " "}, 
       {:description => spectacle.tld}, 
-      {:images => [spectacle.images.first != nil ? "http://www.theatre-lacriee.com#{spectacle.images.first.file.url}" : " "]},
+      {:images => [spectacle.images.first != nil ? "http://www.lacriee.odevie.org#{spectacle.images.first.file.url}" : " "]},
       {:files => []}
     ]
     
