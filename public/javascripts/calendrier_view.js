@@ -86,7 +86,7 @@ window.application.addView((function( $, application ){
 			var html = '<li><a href="#" class="month_ancor" rel="month_'+ mn.month + '_' + mn.year + '">' + mn.name + '</a></li>';
 			self.month_list_container.append(html);
 		});
-		
+					
 		$('.month_ancor').click(function(e){
 			e.preventDefault(); 
 			e.stopPropagation();
@@ -133,6 +133,15 @@ window.application.addView((function( $, application ){
 			self.view.fadeIn('fast', function(){
 				// LANCEMENT DU FULL-SLIDER A LA FIN DE L'AFFICHAGE
 			});
+			
+			////POSITIONNEMENT SUR LA DATE COURANTE
+			var current_month = new Date().getMonth();
+			var current_year = new Date().getFullYear();
+			var current_month_li = self.calendrier_spectacles.find('#month_' + current_month + '_' + current_year);
+
+			if (current_month_li.size() > 0){
+				$('html, body').scrollTop(current_month_li.offset().top - 20);
+			}
 			
 			self.model.set_message_to_growl("");
 		});
