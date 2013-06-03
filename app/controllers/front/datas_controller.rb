@@ -247,15 +247,16 @@ class Front::DatasController < ApplicationController
   def get_pros
     cs = Site.first
     current_front_season = Season.find(cs.season_front)
-    
+    ddp = []
     
     user = params[:login_field]
     psswd = params[:psswd_field]
     
     if user == "presse" && psswd == "saisonlacriee"
-      ddp = ContentType.where(:slug => "spectacles").first.contents.map do |s|
+      ContentType.where(:slug => "spectacles").first.contents.map do |s|
+        
         if(s.season_id == current_front_season._id.to_s)
-          {
+         ddp << {
             :titre => s.titre,
             :slug => s._slug,
             :numero => s.numero,
