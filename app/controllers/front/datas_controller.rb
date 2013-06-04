@@ -129,6 +129,7 @@ class Front::DatasController < ApplicationController
   end
   
   def search
+    
     page = Page.where(:slug => "rechercher").first
     query = params[:query_string]
     
