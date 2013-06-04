@@ -34,6 +34,15 @@ module Admin
           sllug += 1
         end
       end
+      
+      case @content_type.slug
+        when "calendrier"
+          expire_action :controller => '/front/datas', :action => 'get_dates'
+        when "spectacles"
+          expire_action :controller => '/front/datas', :action => 'spectacle_list'
+          expire_action :controller => '/front/datas', :action => 'get_spectacle', :id => @content._slug
+      end
+      
       create! { after_create_or_update_url }      
     end
 
@@ -42,19 +51,15 @@ module Admin
     end
 
     def update
-      update! { after_create_or_update_url }
-      #expire_action :controller => "front/datas", :action => 'get_spectacle', :id => @content._slug, :format => 'json'
-      #case @content_type.slug
-      #  when "spectacle"
-      #    page_path = "http://127.0.0.1:3000/spectacle/"
-      #    page_path << @content._slug
-      #  when "spectacles"
-      #    page_path = "http://127.0.0.1:3000/spectacles/"
-      #end
+      case @content_type.slug
+        when "calendrier"
+          expire_action :controller => '/front/datas', :action => 'get_dates'
+        when "spectacles"
+          expire_action :controller => '/front/datas', :action => 'spectacle_list'
+          expire_action :controller => '/front/datas', :action => 'get_spectacle', :id => @content._slug
+      end
       
-      #p '5555555555555'
-      #p page_path
-      #expire_page(page_path)
+      update! { after_create_or_update_url }
     end
 
     def sort
