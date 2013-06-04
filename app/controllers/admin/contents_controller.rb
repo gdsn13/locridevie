@@ -56,7 +56,7 @@ module Admin
           expire_action :controller => '/front/datas', :action => 'get_dates'
         when "spectacles"
           expire_action :controller => '/front/datas', :action => 'spectacle_list'
-          expire_action :controller => '/front/datas', :action => 'get_spectacle', :id => @content._slug
+          expire_action :controller => '/front/datas', :action => 'get_spectacle', :id => @content.slug
       end
       
       update! { after_create_or_update_url }
