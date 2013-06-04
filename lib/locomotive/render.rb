@@ -19,7 +19,7 @@ module Locomotive
           
           #before_season = Season.where(:numero => before_numero.to_s).first
           
-          ContentType.where(:slug => "spectacles").first.contents.each do |s|
+          ContentType.where(:slug => "spectacles").cache.first.contents.each do |s|
             
             # If show if show is still not passed and before season 
             #if s.season_id == before_season._id.to_s && s.date.future?

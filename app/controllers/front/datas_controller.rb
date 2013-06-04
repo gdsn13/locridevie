@@ -9,7 +9,7 @@ class Front::DatasController < ApplicationController
     
     season = Season.where(:name => params[:id]).first
     
-    ContentType.where(:slug => "spectacles").first.contents.each do |s|
+    ContentType.where(:slug => "spectacles").cache.first.contents.each do |s|
       if s.season_id == season._id.to_s && s.spectacle_associe == nil
         spectacles << s
       end
@@ -68,7 +68,7 @@ class Front::DatasController < ApplicationController
     
     before_season = Season.where(:numero => before_numero.to_s).first
     
-    dates = ContentType.where(:slug => "calendrier").first.contents.each do |ad|
+    ContentType.where(:slug => "calendrier").cache.first.contents.each do |ad|
       
       if ad.season_id == before_season._id.to_s && ad.date.future?
         dates_of_season << ad
