@@ -40,7 +40,6 @@ module Admin
           expire_action :controller => '/front/datas', :action => 'get_dates'
         when "spectacles"
           expire_action :controller => '/front/datas', :action => 'spectacle_list'
-          expire_action :controller => '/front/datas', :action => 'get_spectacle', :id => @content._slug
       end
       
       create! { after_create_or_update_url }      
@@ -51,15 +50,21 @@ module Admin
     end
 
     def update
+      update! { after_create_or_update_url }
+
+      p '44444444'
+      p '44444444'
+      p '44444444'
+      p '44444444'
+      p @content
+      
       case @content_type.slug
         when "calendrier"
           expire_action :controller => '/front/datas', :action => 'get_dates'
         when "spectacles"
           expire_action :controller => '/front/datas', :action => 'spectacle_list'
-          expire_action :controller => '/front/datas', :action => 'get_spectacle', :id => @content.slug
+          expire_action :controller => '/front/datas', :action => 'get_spectacle', :id => @content._slug
       end
-      
-      update! { after_create_or_update_url }
     end
 
     def sort
