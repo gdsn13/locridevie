@@ -15,9 +15,6 @@ module Admin
 
     def update
       
-      expire_action :controller => '/front/datas', :action => 'get_page', :id => @page._slug
-      expire_action :controller => '/front/datas', :action => 'get_intro'
-      
       params[:page][:embeded_items] = nil if params[:page][:embeded_items] == ""
       
       update! do |success, failure|
@@ -30,6 +27,10 @@ module Admin
           }
         end
       end
+      
+      expire_action :controller => '/front/datas', :action => 'get_intro'
+      #expire_action(:action => "get_page", :controller => "/front/datas", :id => "pages/#{@page.fullpath}")
+      
     end
 
     def sort
