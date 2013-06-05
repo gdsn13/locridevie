@@ -45,7 +45,6 @@ window.application.addView((function( $, application ){
 		});*/
 		
 		self.menu.find('li ul li a').click(function(){
-			$('.on').removeClass('on');
 			$(this).addClass('on');
 			$(this).parent().parent().parent().find('.menu_title').addClass('on');
 		});
@@ -55,6 +54,8 @@ window.application.addView((function( $, application ){
 
 	MenuView.prototype.change_url = function(p_location){
 		this.current_location = p_location;
+		$('.on').removeClass('on');
+		$('#navigation > li ul').stop().fadeOut('fast');
 		
 		if (p_location != ""){
 			if (p_location.indexOf("spectacle/", 0) >= 0){

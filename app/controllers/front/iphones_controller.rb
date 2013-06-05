@@ -1,7 +1,7 @@
 class Front::IphonesController < ApplicationController
   #Agenda de la saison
   
-  caches_page :affiche, :agenda, :spectacles
+  caches_action :affiche, :agenda, :spectacles
   
   include ActionView::Helpers::SanitizeHelper
   
@@ -95,7 +95,7 @@ class Front::IphonesController < ApplicationController
       {
         :id => s._slug,
         :title => s.numero + " " + s.titre_back_office,
-        :logo => s.images.first != nil ? "http://lacriee.odevie.org#{s.images.first.file.iphone.url}" : "",
+        :logo => s.images.first != nil ? "http://www.theatre-lacriee.com#{s.images.first.file.iphone.url}" : "",
         :dates => " ",
         :auteur => strip_tags(s.info_prog),
         :director => " "
@@ -117,7 +117,7 @@ class Front::IphonesController < ApplicationController
       {:information => spectacle.presentation}, 
       {:contenu => " "}, 
       {:description => spectacle.tld}, 
-      {:images => [spectacle.images.first != nil ? "http://www.lacriee.odevie.org#{spectacle.images.first.file.iphone.url}" : " "]},
+      {:images => [spectacle.images.first != nil ? "http://www.theatre-lacriee.com#{spectacle.images.first.file.iphone.url}" : " "]},
       {:files => []}
     ]
     
