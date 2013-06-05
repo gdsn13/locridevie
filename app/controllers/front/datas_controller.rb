@@ -256,7 +256,7 @@ class Front::DatasController < ApplicationController
     if user == "presse" && psswd == "saisonlacriee"
       ContentType.where(:slug => "spectacles").first.contents.map do |s|
         
-        if(s.season_id == current_front_season._id.to_s)
+        if(s.season_id == current_front_season._id.to_s && s.spectacle_associe == nil)
          ddp << {
             :titre => s.titre,
             :slug => s._slug,
