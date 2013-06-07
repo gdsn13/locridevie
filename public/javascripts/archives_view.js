@@ -71,6 +71,7 @@ window.application.addView((function( $, application ){
 			if (s.resume != "" && String(s.resume) != "null") html += '<div class="resume">' + s.resume + '</div>';
 			html += '</div>';
 			html += '<div class="spectacle_links"><a href="/#/spectacle/' + s.slug + '">+ En savoir plus</a>';
+			if (s.resa != "") html += '<a href="' + s.resa + '">> Réservez en ligne	</a></div>';
 			html += '</div></li>';
 			
 			self.spectacle_ul.append(html);
