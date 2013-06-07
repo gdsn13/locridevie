@@ -1,7 +1,7 @@
 class Front::DatasController < ApplicationController
 
   respond_to :json
-  caches_action :spectacle_list, :get_dates, :get_spectacle
+  caches_action :spectacle_list, :get_dates, :get_intro, :get_spectacle
   
   def spectacle_list
     spectacles = []
@@ -32,6 +32,7 @@ class Front::DatasController < ApplicationController
  			 lieu: s.lieu,
  			 genre: s.genre,
  			 age: s.age,
+ 			 resa: s.adresse_reservation,
  			 tld: s.tld == nil ? "" : s.tld.html_safe
       }
     end
