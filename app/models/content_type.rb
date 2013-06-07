@@ -48,7 +48,7 @@ class ContentType
   custom_fields_for :contents
 
   ## methods ##
-
+  
   def groupable?
     self.group_by_field && group_by_field.category?
   end
