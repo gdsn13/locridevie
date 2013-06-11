@@ -56,6 +56,10 @@ module CustomFields
           process :resize_to_fit => [50, 50]
         end
         
+        version :vignette do
+          process :resize_to_fit => [100, 100]
+        end
+        
         version :iphone do 
           process :resize_to_fit => [900, 900]
         end
