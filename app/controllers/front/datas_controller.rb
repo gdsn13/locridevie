@@ -1,7 +1,7 @@
 class Front::DatasController < ApplicationController
 
   respond_to :json
-  caches_action :spectacle_list, :get_dates, :get_intro, :get_spectacle
+  caches_action :get_dates
   
   def spectacle_list
     spectacles = []
