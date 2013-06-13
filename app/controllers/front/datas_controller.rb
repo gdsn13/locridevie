@@ -83,17 +83,19 @@ class Front::DatasController < ApplicationController
     dates_classified = dates_of_season.sort_by {|d| [d.date, d.heure]}
     
     calendar = dates_classified.map do |d|
+      #eager?
+      show = d.spectacle
       
-      if d.spectacle != nil
+      if show != nil
       
-        d.spectacle.spectacle_associe != nil ? url = d.spectacle.spectacle_associe._slug : url = d.spectacle._slug
+        show.spectacle_associe != nil ? url = show.spectacle_associe._slug : url = show._slug
       
         {
-          :numero => d.spectacle.numero,
+          :numero => show.numero,
           :date => d.date.strftime("%Y/%m/%d"),
           :heure => d.heure,
           :lieu => d.lieu,
-          :spectacle => d.spectacle.titre,
+          :spectacle => show.titre,
           :href => url,
           :tarif => d.tarif,
           :green => d.green,
@@ -103,7 +105,7 @@ class Front::DatasController < ApplicationController
           :des => d.des,
           :audiodesc => d.audiodescription,
           :lds => d.langage_des_signes,
-          :associe => d.spectacle.spectacle_associe != nil ? "true" : "false",
+          :associe => show.spectacle_associe != nil ? "true" : "false",
           :plage_age => d.plage_age
         }
       end
