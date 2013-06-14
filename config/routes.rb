@@ -71,8 +71,8 @@ Rails.application.routes.draw do
   
   match '/newsletters'              => "front/datas#newsletters"
   match '/newsletter/:id'           => "front/newsletters#show_newsletter"
-  match '/spectacles/:id'           => "front/datas#spectacle_list"
-  match '/spectacle/:slug'          => "front/datas#get_spectacle"
+  match '/spectacles/:id'           => "front/datas#spectacles"
+  match '/spectacle/:slug'          => "front/datas#spectacle"
   match '/pages/*fullpath'          => "front/datas#get_page"
   match '/intro'                    => "front/datas#get_intro"
   match '/calendrier'               => "front/datas#get_dates"

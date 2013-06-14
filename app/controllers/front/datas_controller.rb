@@ -1,9 +1,10 @@
-class Front::DatasController < ApplicationController
+class Front::DatasController < InheritedResources::Base
 
   respond_to :json
+  #caches_action :spectacle, :spectacles
   caches_action :get_dates
   
-  def spectacle_list
+  def spectacles
     spectacles = []
     
     season = Season.where(:name => params[:id]).first
@@ -48,12 +49,13 @@ class Front::DatasController < ApplicationController
   # render a page to be displayed in the front office
   def get_page
     page = Page.where(:fullpath => params[:fullpath]).first
+    embeded = page.embeded_items
     
     page_to_json = {  :fullpath => page.fullpath,
                       :body => page.body, 
-                      :jules => page.embeded_items.get_jules_for_json(page), 
-                      :boutons => page.embeded_items.get_boutons_for_json, 
-                      :actus => page.embeded_items.get_actus_for_json,
+                      :jules => embeded.get_jules_for_json(page), 
+                      :boutons => embeded.get_boutons_for_json, 
+                      :actus => embeded.get_actus_for_json,
                       :picto => page.bck_img.url
                    }
     
@@ -80,9 +82,7 @@ class Front::DatasController < ApplicationController
       
     end
     
-    dates_classified = dates_of_season.sort_by {|d| [d.date, d.heure]}
-    
-    calendar = dates_classified.map do |d|
+    calendar = dates_of_season.sort_by {|d| [d.date, d.heure]}.map do |d|
       #eager?
       show = d.spectacle
       
@@ -184,7 +184,7 @@ class Front::DatasController < ApplicationController
     render :json => search_result.to_json
   end
   
-  def get_spectacle
+  def spectacle
     sp = ContentType.where(:slug => "spectacles").first.contents.where(:_slug => params[:slug]).first
     
     images = sp.images.map do |img|

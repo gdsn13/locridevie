@@ -39,8 +39,8 @@ module Admin
         when "calendrier"
           expire_action :controller => '/front/datas', :action => 'get_dates'
         when "spectacles"
-          expire_action :controller => '/front/datas', :action => 'spectacle_list'
-          expire_action :controller => '/front/datas', :action => 'spectacle_list', :id => season.name
+          expire_action :controller => '/front/datas', :action => 'spectacles'
+          expire_action :controller => '/front/datas', :action => 'spectacles', :id => season.name
       end
       
       create! { after_create_or_update_url }      
@@ -59,9 +59,9 @@ module Admin
         when "calendrier"
           expire_action :controller => '/front/datas', :action => 'get_dates'
         when "spectacles"
-          expire_action :controller => '/front/datas', :action => 'spectacle_list'
-          expire_action :controller => '/front/datas', :action => 'spectacle_list', :id => season.name
-          expire_action :controller => '/front/datas', :action => 'get_spectacle', :id => @content._slug
+          expire_action :controller => '/front/datas', :action => 'spectacles'
+          expire_action :controller => '/front/datas', :action => 'spectacles', :id => season.name
+          expire_action :controller => '/front/datas', :action => 'spectacle', :id => @content._slug
       end
     end
 
