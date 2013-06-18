@@ -11,7 +11,7 @@ class ContentInstance
   field :_slug
   field :_position_in_list, :type => Integer, :default => 0
   field :_visible, :type => Boolean, :default => true
-  field :season_id
+  field :season_id, :type => String
   
   scope :by_numeros, order_by(:numeros => :desc)
 

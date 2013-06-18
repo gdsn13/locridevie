@@ -7,19 +7,39 @@ window.application.addView((function( $, application ){
 	/		
 	/		Affiche un spéctacle.
 	/
-	/		{
-	/			"slug":"spectacle-1",
-	/			"tld":"<p>tarif C</p>\r\n<p>dure\u0301e 3h30 avec entracte</p>\r\n<p>Grand The\u0301a\u0302tre</p>\r\n<p>Mar-Sam 19h Dim 15h du 5 au 11 janvier</p>",
-	/			"title":"Spectacle 1",
-	/			"logo":"/contents/content_instance/4fb25eb5fc70f501f20000fa/3.jpg",
-	/			"date":"2012-01-01",
-	/			"images":[
-	/				{"thumb":"/contents/content_instance/4fb25f0afc70f501f20000ff/thumb_MM_photo003.jpg","image":"/contents/content_instance/4fb25f0afc70f501f20000ff/MM_photo003.jpg"},
-	/				{"thumb":"/contents/content_instance/4fb25f0dfc70f501f2000102/thumb_MM_photo004.jpg","image":"/contents/content_instance/4fb25f0dfc70f501f2000102/MM_photo004.jpg"}
-	/			],
-	/			"presentation":"<p>Mise en sce\u0300ne de DenisPodalyde\u0300s Guerrier, Yvan Garcia et Olivier Fortin clavecin (en alternance)</p>",
-	/			"numero":"24"
-	/		}
+
+	/			{
+					"title":"Blanche Neige ",
+					"numero":"07",
+					"tld":"",
+					"genre":null,
+					"age":null,
+					"slug":"blanche-neige",
+					"date":"2012/03/15",
+					"presentation":"",
+					"logo":"/contents/content_instance/4fb25ff9fc70f501f2000112/MMsai025.jpg",
+					"resa":null,
+					"autour":"",
+					"plus":"",
+					"video":null,
+					"date_affichee":"du 13 au 14 juillet",
+					"images":[{"image":"/contents/content_instance/4fb25f06fc70f501f20000fc/22._Titanic.jpg","thumb":"/contents/content_instance/4fb25f06fc70f501f20000fc/thumb_22._Titanic.jpg"},{"image":"/contents/content_instance/4fb25f0afc70f501f20000ff/MM_photo003.jpg","thumb":"/contents/content_instance/4fb25f0afc70f501f20000ff/thumb_MM_photo003.jpg"}],
+					"resume":null,
+					"info_prog":"",
+					"next_slug":
+					"courteline-amour-noir-creation",
+					"next_titre":"Courteline, amour noir [cr\u00e9ation",
+					"next_numero":"08",
+					"next_genre":null,
+					"next_date_infobulle":"du 12 au 24 ",
+					"next_infobulle":"<p>Salut je suis l'infobulle de courteline&nbsp;</p>",
+					"prev_slug":"",
+					"prev_titre":"",
+					"prev_numero":"",
+					"prev_genre":"",
+					"prev_date_infobulle":"",
+					"prev_infobulle":""
+					}
 	/
 	/
 	----------------------------------------------*/
@@ -143,48 +163,13 @@ window.application.addView((function( $, application ){
 		//TOUT EST CHARGÉ
 		this.view.imagesLoaded(function(){
 			Cufon.replace('div.numero');
+			Cufon.replace('div#prev_show_number');
+			Cufon.replace('div#next_show_number');
+			if(self.model.pages[self.current_spectacle].prev_slug == "") self.prev_show.css('display', 'none');
+			if(self.model.pages[self.current_spectacle].next_slug == "") self.next_show.css('display', 'none');
 			
 			// NAVIGATION INTER - SPECTACLES (NEXT + PREV)
 			// CREATION DES CAPTIONS
-			
-			var only_sp = []; //ne contient que les spectacle, et pas les spectacle avec sp associés
-			var ci = 0; //index dans les vrais sepctacles
-			
-			$.each(self.model.spectacles_ordered_by_numero(), function(index, s){
-				if (s.spectacle_associe_path == ""){
-					only_sp.push(s);
-				}
-			});
-			
-			$.each(only_sp, function(index, sp){
-				if (sp.slug == self.current_spectacle){
-					ci = index;
-				}
-			});
-			
-			//PREV LINK
-			if (ci > 0){	
-				self.prev_show.attr('href', '/#/spectacle/' + only_sp[ci - 1].slug);
-				$('#prev_show_genre').html(only_sp[ci - 1].genre);
-				$('#prev_show_title').html(only_sp[ci - 1].titre);
-				$('#prev_show_number').html(only_sp[ci - 1].numero);
-				$('#prev_show_infos').html('<div class="date_infos">' + only_sp[ci - 1].date_infobulles + "</div>" + only_sp[ci - 1].infobulle);
-				Cufon.replace('div#prev_show_number');
-			}else{
-				self.prev_show.css('display', 'none');
-			}
-			
-			//NEXT LINK
-			if (ci < only_sp.length - 2){ //commence à 0 et le dernier
-				self.next_show.attr('href', '/#/spectacle/' + only_sp[ci + 1].slug);
-				$('#next_show_genre').html(only_sp[ci + 1].genre);
-				$('#next_show_title').html(only_sp[ci + 1].titre);
-				$('#next_show_number').html(only_sp[ci + 1].numero);
-				$('#next_show_infos').html('<div class="date_infos">' + only_sp[ci + 1].date_infobulles + "</div>" + only_sp[ci + 1].infobulle);
-				Cufon.replace('div#next_show_number');
-			}else{
-				self.next_show.css('display', 'none');
-			}
 			
 			self.prev_show.hover(function(){
 				self.prev_caption.stop().fadeIn('fast');

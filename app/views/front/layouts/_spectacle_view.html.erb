@@ -1,20 +1,20 @@
 <div id="spectacle_content" class="spectacle_infos">
 
 			<div id="inter_spectacle_navigation">
-				<a href="" id="prev_show" alt="spectacle précédent"><img src="/images/fleche_gauche.png"></a>
-				<a href="" id="next_show" alt="spectacle suivant"><img src="/images/fleche_droite.png"></a>
+				<a href="${next_slug}" id="prev_show" alt="spectacle précédent"><img src="/images/fleche_gauche.png"></a>
+				<a href="${prev_slug}" id="next_show" alt="spectacle suivant"><img src="/images/fleche_droite.png"></a>
 				
 				<div id="next_show_caption">
-					<span id="next_show_genre"></span>
-					<div id="next_show_number"></div>
-					<div id="next_show_title"></div>
-					<div id="next_show_infos"></div>
+					<span id="next_show_genre">${next_genre}</span>
+					<div id="next_show_number">${next_numero}</div>
+					<div id="next_show_title">${next_titre}</div>
+					<div id="next_show_infos"><div class="date_infos">${next_date_infobulle}</div>${next_infobulle}</div>
 				</div>
 				<div id="prev_show_caption">
-					<span id="prev_show_genre"></span>
-					<div id="prev_show_number"></div>
-					<div id="prev_show_title"></div>
-					<div id="prev_show_infos"></div>
+					<span id="prev_show_genre">${prev_genre}</span>
+					<div id="prev_show_number">${prev_numero}</div>
+					<div id="prev_show_title">${prev_titre}</div>
+					<div id="prev_show_infos"><div class="date_infos">${prev_date_infobulle}</div>${prev_infobulle}</div>
 				</div>
 			</div>
 			

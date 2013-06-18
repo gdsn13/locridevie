@@ -9,6 +9,7 @@ class Front::DatasController < InheritedResources::Base
     
     season = Season.where(:name => params[:id]).first
     
+    #ContentType.where(:slug => "spectacles").cache.first.contents.where(:season_id => season._id.to_s).order_by([[:custom_field_2, :asc]]).each do |s|
     ContentType.where(:slug => "spectacles").cache.first.contents.each do |s|
       if s.season_id == season._id.to_s && s.spectacle_associe == nil
         spectacles << s
@@ -186,7 +187,22 @@ class Front::DatasController < InheritedResources::Base
   
   def spectacle
     sp = ContentType.where(:slug => "spectacles").first.contents.where(:_slug => params[:slug]).first
+        
+    # GET NEXTAN PREV SPECTACLE
     
+    (sp.numero.to_i + 1) < 10 ? next_numero = "0#{sp.numero.to_i + 1}" : next_numero = (sp.numero.to_i + 1).to_s
+    (sp.numero.to_i - 1) < 10 ? prev_numero = "0#{sp.numero.to_i - 1}" : prev_numero = (sp.numero.to_i - 1).to_s
+    
+    next_spectacle = ContentType.where(
+                    :slug => "spectacles").first.contents.where(:custom_field_2 => next_numero,
+                                                                :custom_field_21 => nil,
+                                                                :season_id => sp.season_id).first()
+                                      
+    prev_spectacle = ContentType.where(
+                     :slug => "spectacles").first.contents.where( :custom_field_2 => prev_numero, 
+                                                                  :custom_field_21 => nil, 
+                                                                  :season_id => sp.season_id).first()
+        
     images = sp.images.map do |img|
       { 
         :image => img.file.url, 
@@ -210,7 +226,20 @@ class Front::DatasController < InheritedResources::Base
                   :date_affichee => sp.date_infobulle,
                   :images => images,
                   :resume => sp.resume,
-                  :info_prog => sp.info_prog == nil ? "" : sp.info_prog.html_safe
+                  :info_prog => sp.info_prog == nil ? "" : sp.info_prog.html_safe,
+                  :next_slug => next_spectacle != nil ? next_spectacle._slug : "",
+                  :next_titre => next_spectacle != nil ? next_spectacle.titre : "",
+                  :next_numero => next_spectacle != nil ? next_spectacle.numero : "",
+                  :next_genre => next_spectacle != nil ? next_spectacle.genre : "",
+                  :next_date_infobulle => next_spectacle != nil ? next_spectacle.date_infobulle : "",
+                  :next_infobulle => next_spectacle != nil ? next_spectacle.infobulle : "",
+                  :prev_slug => prev_spectacle != nil ? prev_spectacle._slug : "",
+                  :prev_titre => prev_spectacle != nil ? prev_spectacle.titre : "",
+                  :prev_numero => prev_spectacle != nil ? prev_spectacle.numero : "",
+                  :prev_genre => prev_spectacle != nil ? prev_spectacle.genre : "",
+                  :prev_date_infobulle => prev_spectacle != nil ? prev_spectacle.date_infobulle : "",
+                  :prev_infobulle => prev_spectacle != nil ? prev_spectacle.infobulle : ""
+                  
                 }
                 
     render :json => spectacle
