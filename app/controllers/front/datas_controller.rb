@@ -194,14 +194,15 @@ class Front::DatasController < InheritedResources::Base
     (sp.numero.to_i - 1) < 10 ? prev_numero = "0#{sp.numero.to_i - 1}" : prev_numero = (sp.numero.to_i - 1).to_s
     
     next_spectacle = ContentType.where(
-                    :slug => "spectacles").first.contents.where(:custom_field_5 => next_numero,
-                                                                :custom_field_15 => nil,
+                    :slug => "spectacles").first.contents.where(:custom_field_6 => next_numero,
+                                                                :custom_field_19 => nil,
                                                                 :season_id => sp.season_id).first()
                                       
     prev_spectacle = ContentType.where(
-                     :slug => "spectacles").first.contents.where( :custom_field_5 => prev_numero, 
-                                                                  :custom_field_15 => nil, 
+                     :slug => "spectacles").first.contents.where( :custom_field_6 => prev_numero, 
+                                                                  :custom_field_19 => nil, 
                                                                   :season_id => sp.season_id).first()
+    
         
     images = sp.images.map do |img|
       { 
