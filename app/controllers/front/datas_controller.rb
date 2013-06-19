@@ -1,24 +1,20 @@
 class Front::DatasController < InheritedResources::Base
 
+  #include Locomotive::Mongoid::Document
+
   respond_to :json
   #caches_action :spectacle, :spectacles
-  caches_action :get_dates
+  #caches_action :get_dates
   
   def spectacles
     spectacles = []
     
     season = Season.where(:name => params[:id]).first
     
-    #ContentType.where(:slug => "spectacles").cache.first.contents.where(:season_id => season._id.to_s).order_by([[:custom_field_2, :asc]]).each do |s|
-    ContentType.where(:slug => "spectacles").cache.first.contents.each do |s|
-      if s.season_id == season._id.to_s && s.spectacle_associe == nil
-        spectacles << s
-      end
-    end
-
-    spectacles.sort_by! { |a| a.numero }
-    
-    spectacles_to_json = spectacles.map do |s|
+    spectacles_to_json = ContentType.where(:slug => "spectacles").cache.first
+                      .contents.where(:season_id => season._id.to_s, 
+                                      :custom_field_19 => nil)
+                                      .order_by([[:custom_field_6, :asc]]).map do |s|                                
       {
        id: s._id,
        slug: s._slug,
@@ -67,56 +63,73 @@ class Front::DatasController < InheritedResources::Base
     dates_of_season = []
     cs = Site.first
     current_front_season = Season.find(cs.season_front)
-    before_numero = current_front_season.numero.to_i - 1
+    before_season = Season.where(:numero => (current_front_season.numero.to_i - 1).to_s).first
     
-    before_season = Season.where(:numero => before_numero.to_s).first
-    
-    ContentType.where(:slug => "calendrier").cache.first.contents.each do |ad|
+    # p '444444'
+    # p '444444'
+    # p '444444'
+    # p '444444'
+    # p ContentType.where(:slug => "calendrier").cache.first.contents.any_in(:season_id => [before_season._id.to_s, cs.season_front]).size
+    # p ContentType.where(:slug => "calendrier").cache.first.contents
+    # .any_in(:season_id => [before_season._id.to_s, cs.season_front])
+    # .where(:spectacle => ).size
+    # 
+    # 
+    # p ContentType.where(:slug => "calendrier").cache.first
+    #             .contents.where(:season_id => before_season._id.to_s).and(:season_id => cs.season_front).size
+    #             
+    # p ContentType.where(:slug => "calendrier").cache.first.contents
+    #   .where(:season_id => before_season._id.to_s)
+    #   .where(:season_id => cs.season_front)
+    #   
+    # p ContentType.where(:slug => "calendrier").cache.first.contents.where(:custom_field_16.gt => Time.parse(Date.today))
       
+    ContentType.where(:slug => "calendrier").cache.first.contents.each do |ad|
+          
       if ad.season_id == before_season._id.to_s && ad.date.future?
         dates_of_season << ad
       end
-      
+    
       if ad.season_id == cs.season_front
         dates_of_season << ad
       end
-      
+    
     end
-    
-    calendar = dates_of_season.sort_by {|d| [d.date, d.heure]}.map do |d|
-      #eager?
-      show = d.spectacle
-      
-      if show != nil
-      
-        show.spectacle_associe != nil ? url = show.spectacle_associe._slug : url = show._slug
-      
-        {
-          :numero => show.numero,
-          :date => d.date.strftime("%Y/%m/%d"),
-          :heure => d.heure,
-          :lieu => d.lieu,
-          :spectacle => show.titre,
-          :href => url,
-          :tarif => d.tarif,
-          :green => d.green,
-          :red => d.red,
-          :tout_public => d.tout_public,
-          :temps_scolaire => d.temps_scolaire,
-          :des => d.des,
-          :audiodesc => d.audiodescription,
-          :lds => d.langage_des_signes,
-          :associe => show.spectacle_associe != nil ? "true" : "false",
-          :plage_age => d.plage_age
-        }
-      end
-    end
-    
-    calendar_to_json = {
-      :dates => calendar,
-    } 
-    
-    render :json => calendar_to_json
+        
+        
+            calendar = dates_of_season.sort_by {|d| [d.date, d.heure]}.map do |d|
+              show = d.spectacle
+              
+              if show != nil
+              
+                show.spectacle_associe != nil ? url = show.spectacle_associe._slug : url = show._slug
+              
+                {
+                  :numero => show.numero,
+                  :date => d.date.strftime("%Y/%m/%d"),
+                  :heure => d.heure,
+                  :lieu => d.lieu,
+                  :spectacle => show.titre,
+                  :href => url,
+                  :tarif => d.tarif,
+                  :green => d.green,
+                  :red => d.red,
+                  :tout_public => d.tout_public,
+                  :temps_scolaire => d.temps_scolaire,
+                  :des => d.des,
+                  :audiodesc => d.audiodescription,
+                  :lds => d.langage_des_signes,
+                  :associe => show.spectacle_associe != nil ? "true" : "false",
+                  :plage_age => d.plage_age
+                }
+              end
+            end
+            
+            calendar_to_json = {
+              :dates => calendar,
+            } 
+            
+            render :json => calendar_to_json
   end
   
   def get_intro

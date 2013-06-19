@@ -1,7 +1,7 @@
 class Front::IphonesController < ApplicationController
   #Agenda de la saison
   
-  caches_action :affiche, :agenda, :spectacles
+  #caches_action :affiche, :agenda
   
   include ActionView::Helpers::SanitizeHelper
   
@@ -57,15 +57,20 @@ class Front::IphonesController < ApplicationController
     dates_classified = dates_of_season.sort_by {|d| [d.date, d.heure]}
     
     date_for_json = dates_classified.map do |d|
-      {
-        :id => d.spectacle._slug,
-        :timing => "#{d.date}T00:00:00+02:00",
-        :title => d.spectacle.numero + " " + d.spectacle.titre_back_office,
-        :logo => d.spectacle.images.first != nil ? d.spectacle.images.first.file.iphone.url : "",
-        :dates => " ",
-        :auteur => strip_tags(d.spectacle.info_prog),
-        :director => " "
-      }
+      show = d.spectacle
+      
+      if show != nil
+        show.spectacle_associe != nil ? url = show.spectacle_associe._slug : url = show._slug
+        {
+          :id => url,
+          :timing => "#{d.date}T00:00:00+02:00",
+          :title => show.numero + " " + show.titre_back_office,
+          :logo => show.images.first != nil ? show.images.first.file.iphone.url : "",
+          :dates => " ",
+          :auteur => strip_tags(show.info_prog),
+          :director => " "
+        }
+      end
     end
     
     render :json => date_for_json
@@ -81,7 +86,8 @@ class Front::IphonesController < ApplicationController
     
     s_list = []
     
-    ContentType.where(:slug => "spectacles").first.contents.each do |s|      
+    ContentType.where(:slug => "spectacles").first.contents.asc(:custom_field_7).each do |s|
+      
       if s.season_id == before_season._id.to_s && s.date.future? && s.spectacle_associe == nil
         s_list << s
       end
@@ -96,7 +102,7 @@ class Front::IphonesController < ApplicationController
         :id => s._slug,
         :title => s.numero + " " + s.titre_back_office,
         :logo => s.images.first != nil ? "http://www.theatre-lacriee.com#{s.images.first.file.vignette.url}" : "",
-        :dates => " ",
+        :dates => s.date,
         :auteur => strip_tags(s.info_prog),
         :director => " "
       }
@@ -108,16 +114,18 @@ class Front::IphonesController < ApplicationController
   def spectacle
     spectacle = ContentType.where(:slug => "spectacles").first.contents.where(:_slug => params[:id]).first
     
-    #images = []
-    #spectacle.images.each do |i|  
-    #  images << "http://www.theatre-lacriee.com#{i.file.url}"
-    #end
+    images = []
+    spectacle.images.each do |i|  
+      images << "http://www.theatre-lacriee.com#{spectacle.images.first.file.iphone.url}"
+    end
+    
+    
     
     info = [
       {:information => spectacle.presentation}, 
       {:contenu => " "}, 
       {:description => spectacle.tld}, 
-      {:images => [spectacle.images.first != nil ? "http://www.theatre-lacriee.com#{spectacle.images.first.file.iphone.url}" : " "]},
+      {:images => images},
       {:files => []}
     ]
     
