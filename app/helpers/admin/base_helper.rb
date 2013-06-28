@@ -63,6 +63,7 @@ module Admin::BaseHelper
   end
 
   def get_spectacles
+    spectacles = []
     current_front_season = Season.find(current_site.season_front)
     before_season = Season.where(:numero => (current_front_season.numero.to_i - 1).to_s).first
 
