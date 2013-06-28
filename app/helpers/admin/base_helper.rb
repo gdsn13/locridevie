@@ -63,9 +63,15 @@ module Admin::BaseHelper
   end
 
   def get_spectacles
-    spectacles = []
+    current_front_season = Season.find(current_site.season_front)
+    before_season = Season.where(:numero => (current_front_season.numero.to_i - 1).to_s).first
 
     ContentType.where(:slug => "spectacles").first.contents.each do |s|
+      
+      if s.season_id == before_season._id.to_s && s.date.future?
+        spectacles << [s.titre_back_office, s._slug]
+      end
+        
       if s.season_id == current_site.season_front
         spectacles << [s.titre_back_office, s._slug]
       end
