@@ -17,7 +17,7 @@ class Front::IphonesController < ApplicationController
                         :auteur => " ", 
                         :director => " ", 
                         :dates => affiche_pt.numero + "<br/>" + affiche_pt.tld,
-                        :logo => affiche_pt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_pt.images.first.file.vignette.url}" : "", 
+                        :logo => affiche_pt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_pt.images.first.file.iphone.url}" : "", 
                         :sum => affiche_pt.presentation
                       }
                 }
@@ -26,7 +26,7 @@ class Front::IphonesController < ApplicationController
                         :auteur => affiche_gt.numero, 
                         :director => " ", 
                         :dates => affiche_gt.tld,
-                        :logo => affiche_gt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_gt.images.first.file.vignette.url}" : "",
+                        :logo => affiche_gt.images.first != nil ? "http://www.theatre-lacriee.com#{affiche_gt.images.first.file.iphone.url}" : "",
                         :sum => affiche_gt.presentation
                       }
                 }
