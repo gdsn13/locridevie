@@ -293,6 +293,8 @@ class Front::DatasController < InheritedResources::Base
   def get_pros
     cs = Site.first
     current_front_season = Season.find(cs.season_front)
+    before_season = Season.where(:numero => (current_front_season.numero.to_i - 1).to_s).first
+    
     ddp = []
     
     user = params[:login_field]
@@ -301,7 +303,17 @@ class Front::DatasController < InheritedResources::Base
     if user == "presse" && psswd == "saisonlacriee"
       ContentType.where(:slug => "spectacles").first.contents.map do |s|
         
-        if(s.season_id == current_front_season._id.to_s && s.spectacle_associe == nil)
+        if s.season_id == before_season._id.to_s && s.date.future? && s.spectacle_associe == nil
+          ddp << {
+             :titre => s.titre,
+             :slug => s._slug,
+             :numero => s.numero,
+             :ddp => s.dossier_de_presse.url,
+             :images_presse => s.images_presse.url
+           }
+        end
+        
+        if(s.season_id == current_front_season._id.to_s && s.spectacle_associe == nil )
          ddp << {
             :titre => s.titre,
             :slug => s._slug,
