@@ -44,7 +44,7 @@ class Front::IphonesController < ApplicationController
     
     ContentType.where(:slug => "calendrier").first.contents.each do |ad|
       
-      if ad.season_id == before_season._id.to_s && ad.date.future?
+      if ad.season_id == before_season._id.to_s && (ad.date.future? || ad.date == Date.today)
         dates_of_season << ad
       end
       
@@ -86,9 +86,9 @@ class Front::IphonesController < ApplicationController
     
     s_list = []
     
-    ContentType.where(:slug => "spectacles").first.contents.asc(:custom_field_7).each do |s|
+    ContentType.where(:slug => "spectacles").first.contents.asc(:custom_field_7, :custom_field_6).each do |s|
       
-      if s.season_id == before_season._id.to_s && s.date.future? && s.spectacle_associe == nil
+      if s.season_id == before_season._id.to_s && (s.date.future? || s.date == Date.today) && s.spectacle_associe == nil
         s_list << s
       end
       

@@ -86,7 +86,7 @@ class Front::DatasController < InheritedResources::Base
       
     ContentType.where(:slug => "calendrier").cache.first.contents.each do |ad|
           
-      if ad.season_id == before_season._id.to_s && ad.date.future?
+      if ad.season_id == before_season._id.to_s && (ad.date.future? || ad.date == Date.today)
         dates_of_season << ad
       end
     
@@ -303,7 +303,7 @@ class Front::DatasController < InheritedResources::Base
     if user == "presse" && psswd == "saisonlacriee"
       ContentType.where(:slug => "spectacles").first.contents.map do |s|
         
-        if s.season_id == before_season._id.to_s && s.date.future? && s.spectacle_associe == nil
+        if s.season_id == before_season._id.to_s && (s.date.future? || s.date == Date.today) && s.spectacle_associe == nil
           ddp << {
              :titre => s.titre,
              :slug => s._slug,

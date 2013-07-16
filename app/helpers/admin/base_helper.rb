@@ -69,7 +69,7 @@ module Admin::BaseHelper
 
     ContentType.where(:slug => "spectacles").first.contents.each do |s|
       
-      if s.season_id == before_season._id.to_s && s.date.future?
+      if s.season_id == before_season._id.to_s && (s.date.future? || s.date == Date.today)
         spectacles << [s.titre_back_office, s._slug]
       end
         
