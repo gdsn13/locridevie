@@ -119,14 +119,13 @@ class Front::IphonesController < ApplicationController
       images << "http://www.theatre-lacriee.com#{spectacle.images.first.file.iphone.url}"
     end
     
-    
-    
     info = [
       {:information => spectacle.presentation}, 
       {:contenu => " "}, 
       {:description => spectacle.tld}, 
       {:images => images},
-      {:files => []}
+      {:files => []},
+      {:billetterie => spectacle.adresse_reservation}
     ]
     
     render :json => info
