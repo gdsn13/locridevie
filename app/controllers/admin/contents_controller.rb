@@ -39,7 +39,7 @@ module Admin
         when "calendrier"
           expire_action :controller => '/front/datas', :action => 'get_dates'
         when "spectacles"
-          expire_action :controller => '/front/datas', :action => 'spectacles'
+          #expire_action :controller => '/front/datas', :action => 'spectacles'
           expire_action :controller => '/front/datas', :action => 'spectacles', :id => season.name
       end
       
