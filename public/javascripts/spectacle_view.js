@@ -82,6 +82,10 @@ window.application.addView((function( $, application ){
 	SpectacleView.prototype.display_view = function(){
 		//INITIALISATION
 		var self = this;
+		
+		//INIT DES DONNEES FACEBOOK
+		$("meta[property='og\\:title']").attr("content", self.model.pages[self.current_spectacle].title);
+		$("meta[property='og\\:image']").attr("content", this.model.pages[this.current_spectacle].images.first.image);
 
 		// RECUPERATION DU TEMPLATE ET REMPLISSAGE
 		this.view.html(application.getFromTemplate(this.template, this.model.pages[this.current_spectacle]));
