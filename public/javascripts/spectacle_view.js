@@ -85,7 +85,7 @@ window.application.addView((function( $, application ){
 		
 		//INIT DES DONNEES FACEBOOK
 		$("meta[property='og\\:title']").attr("content", self.model.pages[self.current_spectacle].title);
-		$("meta[property='og\\:image']").attr("content", this.model.pages[this.current_spectacle].images[0].image);
+		$("meta[property='og\\:image']").attr("content", "www.theatre-lacriee.com" + this.model.pages[this.current_spectacle].images[0].image);
 
 		// RECUPERATION DU TEMPLATE ET REMPLISSAGE
 		this.view.html(application.getFromTemplate(this.template, this.model.pages[this.current_spectacle]));
