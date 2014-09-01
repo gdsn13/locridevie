@@ -5,7 +5,7 @@ module Admin
     
     def index
       #@boutons = Bouton.for_season(@current_site.season_back)
-      @boutons = Bouton.all
+      @boutons = Bouton.for_season(@current_site.season_back)
     end
     
   end
