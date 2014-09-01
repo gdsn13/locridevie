@@ -6,7 +6,8 @@ module Admin
     before_filter :remove_cache
     
     def index
-      @actus = Actu.for_season(@current_site.season_back)
+      #@actus = Actu.for_season(@current_site.season_back)
+      @actus = Actu.all
     end
     
     def remove_cache
