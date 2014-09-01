@@ -37,7 +37,8 @@ module Admin::PagesHelper
     
     case type
       when 'jules'
-        collection = Jule.for_season(season_id).map{ |jul| [jul.name, jul._id]}
+        #collection = Jule.for_season(season_id).map{ |jul| [jul.name, jul._id]}
+        collection = Jule.all.map{ |jul| [jul.name, jul._id]}
         options = {
           # NE PAS CHANGER L'ORDRE DES TAKEN_IDS VALUES. JULE ID DOIT ETRE EN 2 ET ID EN 1
           :taken_ids => @page.embeded_items.jules.empty? ? [] : @page.embeded_items.jules.map{ |item| [item.id, item.item_id, item.position] }
