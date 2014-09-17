@@ -29,49 +29,7 @@
 	One Men Web agency		
 	-->
 	
-	<script type="text/javascript">
-		var spectacles_list = [
-		<% @spectacles.map do |spec| %>
-			<% infobulle = get_infobulle spec.infobulle.to_json.html_safe %>
-			<% info_prog = get_infobulle spec.info_prog.to_json.html_safe %>
-			<% tld = get_infobulle spec.tld.to_json.html_safe %>
-  		{ "id": "<%= spec.id %>",
-		  "slug": "<%= spec._slug %>",
-			<% if info_prog == "null" -%>
-			"info_prog": "",
-			<% else -%>
-			"info_prog": <%= info_prog %>,
-			<% end -%>
-			"resume": "<%= spec.resume %>",
-		  "titre": "<%= spec.titre.html_safe %>",
-		  "date": "<%= spec.date.strftime("%Y/%m/%d") %>",
-		  "en_tournee": "<%= spec.en_tournee %>",
-		  "saison": "<%= spec.season_id %>",
-		  "resa" : "<%= spec.adresse_reservation %>",
-		  "logo": "<%= spec.logo.url %>",
-			"numero": "<%= spec.numero%>",
-			<% if infobulle == "null" -%>
-			"infobulle": "",
-			<% else -%>
-			"infobulle": <%= infobulle %>,
-			<% end -%> 
-			"logo_large": "<%= spec.images.first != nil ? spec.images.first.file.url : "" %>",
-			"date_infobulles": "<%= spec.date_infobulle %>",
-			"lieu": "<%= spec.lieu %>",
-			"genre": "<%= spec.genre %>",
-			"age": "<%= spec.age %>",
-			<% if tld == "null" -%>
-			"tld": "",
-			<% else -%>
-			"tld": <%= tld %>,
-			<% end -%>
-			"spectacle_associe_path": "<%= spec.spectacle_associe != nil ? spec.spectacle_associe._slug : "" %>"
-	  	} <%= "," unless spec == @spectacles.last -%>
-		<% end -%>
-		];
-		
-	</script>
-	
+
 	<script src="/javascripts/jquery-1.7.2.min.js" type="text/javascript"></script>
 	<script src="/javascripts/corMVC.js" type="text/javascript"></script>
 	<script src="/javascripts/model.js" type="text/javascript"></script>

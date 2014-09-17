@@ -109,7 +109,7 @@ window.application.addController((function( $, application ){
 		
 		if (this.model == null) this.model = application.getModel( "Model" );
 		
-		this.model.check_for_spectacles();
+		//this.model.check_for_spectacles();
 		
 		if (this.current_view != null){
 			this.current_view.hide_view();
