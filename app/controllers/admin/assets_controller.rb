@@ -7,9 +7,23 @@ module Admin
     respond_to :json, :only => [:index, :create, :destroy]
 
     def index
+      
+      assets = []
+      time = Time.new
+      date_of_the_day = "#{time.day}_#{time.month}_#{time.year}" 
+      
+      Asset.all.each do |a|
+        p a
+        p a.source.url
+        
+        if a.source.url.include? date_of_the_day
+          assets << a
+        end
+      end
+        
       index! do |response|
         response.json do
-          render :json => { :assets => @assets.collect { |asset| asset_to_json(asset) } }
+          render :json => { :assets => assets.collect { |asset| asset_to_json(asset) } }
         end
       end
     end
@@ -47,7 +61,8 @@ module Admin
         :extname      => truncate(asset.extname, :length => 3),
         :content_type => asset.content_type,
         :url          => asset.source.url,
-        :vignette_url => asset.vignette_url,
+        :vignette_url          => asset.source.url,
+        #:vignette_url => asset.vignette_url,
         :destroy_url  => admin_asset_url(asset, :json)
       }
     end
