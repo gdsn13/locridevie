@@ -38,6 +38,7 @@ module Admin
       case @content_type.slug
         when "calendrier"
           expire_action :controller => '/front/datas', :action => 'get_dates'
+          expire_action :controller => '/front/iphones', :action => 'agenda'
         when "spectacles"
           #expire_action :controller => '/front/datas', :action => 'spectacles'
           #expire_action :controller => '/front/datas', :action => 'spectacles', :id => season.name
@@ -58,6 +59,7 @@ module Admin
       case @content_type.slug
         when "calendrier"
           expire_action :controller => '/front/datas', :action => 'get_dates'
+          expire_action :controller => '/front/iphones', :action => 'agenda'
         when "spectacles"
           expire_action :controller => '/front/datas', :action => 'spectacles'
           expire_action :controller => '/front/datas', :action => 'spectacles', :id => season.name

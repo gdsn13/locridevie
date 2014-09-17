@@ -12,41 +12,7 @@ module Locomotive
           render :template => '/admin/errors/404', :layout => '/admin/layouts/box', :status => :not_found
         else
           @page = locomotive_page
-          #spectacles = []
-
-          #current_front_season = Season.find(current_site.season_front)
-          #before_numero = current_front_season.numero.to_i - 1
-          
-          #before_season = Season.where(:numero => before_numero.to_s).first
-          
-          p "############################"
-          p "############################"
-          p "############################"
-          p "############################"
-          
-          
-          #ContentType.where(:slug => "spectacles").cache.first.contents.each do |s|
-          #ContentType.where(:season_id => current_site.season_front).in(:slug => "spectacles") do |s|
-            
-            # If show if show is still not passed and before season 
-            #if s.season_id == before_season._id.to_s && s.date.future?
-            #  spectacles << s
-            #end
-            
-            #p s
                         
-            #if s.season_id == current_site.season_front
-             # spectacles << s
-            #end
-          #end
-          
-          p "############################"
-          #p spectacles.size
-          p "############################"
-
-          
-          #@spectacles = spectacles.sort_by { |a| a.numero }
-              
           render :template => '/front/layouts/layout.html', :layout => false
         end
       end

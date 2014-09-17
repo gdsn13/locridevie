@@ -4,7 +4,7 @@ class Front::DatasController < InheritedResources::Base
 
   respond_to :json
   #caches_action :spectacle, :spectacles
-  #caches_action :get_dates
+  caches_action :get_dates
   
   def spectacles
     spectacles = []
@@ -97,14 +97,12 @@ class Front::DatasController < InheritedResources::Base
     end
         
         
-            calendar = dates_of_season.sort_by {|d| [d.date, d.heure]}.map do |d|
-              show = d.spectacle
+    calendar = dates_of_season.sort_by {|d| [d.date, d.heure]}.map do |d|
+      show = d.spectacle
               
-              if show != nil
-              
-                show.spectacle_associe != nil ? url = show.spectacle_associe._slug : url = show._slug
-              
-                {
+      if show != nil
+        show.spectacle_associe != nil ? url = show.spectacle_associe._slug : url = show._slug    
+        {
                   :numero => show.numero,
                   :date => d.date.strftime("%Y/%m/%d"),
                   :heure => d.heure,
@@ -121,15 +119,15 @@ class Front::DatasController < InheritedResources::Base
                   :lds => d.langage_des_signes,
                   :associe => show.spectacle_associe != nil ? "true" : "false",
                   :plage_age => d.plage_age
-                }
-              end
-            end
+          }
+        end
+      end
             
-            calendar_to_json = {
+      calendar_to_json = {
               :dates => calendar,
-            } 
+      } 
             
-            render :json => calendar_to_json
+      render :json => calendar_to_json
   end
   
   def get_intro

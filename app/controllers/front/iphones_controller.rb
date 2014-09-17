@@ -1,7 +1,7 @@
 class Front::IphonesController < ApplicationController
   #Agenda de la saison
   
-  #caches_action :affiche, :agenda
+  caches_action :agenda
   
   include ActionView::Helpers::SanitizeHelper
   
