@@ -61,8 +61,7 @@ module Admin
         :extname      => truncate(asset.extname, :length => 3),
         :content_type => asset.content_type,
         :url          => asset.source.url,
-        :vignette_url          => asset.source.url,
-        #:vignette_url => asset.vignette_url,
+        :vignette_url => asset.vignette_url,
         :destroy_url  => admin_asset_url(asset, :json)
       }
     end
