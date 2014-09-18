@@ -10,13 +10,10 @@ module Admin
       
       assets = []
       time = Time.new
-      date_of_the_day = "#{time.day}_#{time.month}_#{time.year}" 
+      date_of_the_day = "#{time.year}-#{time.strftime("%m")}-#{time.day}" 
       
-      Asset.all.each do |a|
-        p a
-        p a.source.url
-        
-        if a.source.url.include? date_of_the_day
+      Asset.all.cache.each do |a|
+        if a.created_at.to_s[0, 10] == date_of_the_day
           assets << a
         end
       end
@@ -46,11 +43,14 @@ module Admin
     protected
 
     def collection
-      if params[:image]
-        @assets ||= begin_of_association_chain.assets.only_image
-      else
-        @assets ||= begin_of_association_chain.assets
-      end
+      
+      #p "3333333333333333333@"
+      
+      #if params[:image]
+      #  @assets ||= begin_of_association_chain.assets.only_image
+      #else
+      #  @assets ||= begin_of_association_chain.assets
+      #end
     end
 
     def asset_to_json(asset)
