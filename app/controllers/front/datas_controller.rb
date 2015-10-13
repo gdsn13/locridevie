@@ -4,7 +4,8 @@ class Front::DatasController < InheritedResources::Base
 
   respond_to :json
   #caches_action :spectacle, :spectacles
-  caches_action :get_dates
+
+  caches_action :get_dates, :spectacles
   
   def spectacles
     spectacles = []
@@ -45,6 +46,7 @@ class Front::DatasController < InheritedResources::Base
   
   # render a page to be displayed in the front office
   def get_page
+    
     page = Page.where(:fullpath => params[:fullpath]).first
     embeded = page.embeded_items
     
