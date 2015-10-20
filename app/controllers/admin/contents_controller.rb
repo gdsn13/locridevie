@@ -23,6 +23,7 @@ module Admin
 
     def create
       # Hack to provide the default field in case of an File collection upload through Flash uploader ...
+      param_id = ""
       if params[:auth_token]
         @content = build_resource
         (@content_type.content_custom_fields.delete_if{ |e| !e.required }.map{ |e| e.label }+['_slug']).each do |field|
@@ -32,16 +33,20 @@ module Admin
         while !@content.valid? && sllug < 100 do
           @content._slug = params[:Filename].downcase+'_'+sllug.to_s
           sllug += 1
+          param_id = @content._slug 
         end
       end
       
+      cs = Site.first
+      current_front_season = Season.find(cs.season_front)
+
       case @content_type.slug
         when "calendrier"
           expire_action :controller => '/front/datas', :action => 'get_dates'
           expire_action :controller => '/front/iphones', :action => 'agenda'
         when "spectacles"
-          expire_action :controller => '/front/datas', :action => 'spectacles'
-          expire_action :controller => '/front/datas', :action => 'spectacles', :id => season.name
+          #expire_action :controller => '/front/datas', :action => 'spectacles'
+          expire_action :controller => '/front/datas', :action => 'spectacles', :id => current_front_season.name
       end
       
       create! { after_create_or_update_url }      
@@ -61,7 +66,7 @@ module Admin
           expire_action :controller => '/front/datas', :action => 'get_dates'
           expire_action :controller => '/front/iphones', :action => 'agenda'
         when "spectacles"
-          expire_action :controller => '/front/datas', :action => 'spectacles'
+          #expire_action :controller => '/front/datas', :action => 'spectacles'
           expire_action :controller => '/front/datas', :action => 'spectacles', :id => season.name
           expire_action :controller => '/front/datas', :action => 'spectacle', :id => @content._slug
       end
